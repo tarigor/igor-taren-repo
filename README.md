@@ -3,6 +3,22 @@ Igor Taren's repository
 
 ## Task #1
 
+Write the first “Hello world” program.
+
+The program should output to the console the phrase “Hello world”.
+
+#Requirements
+
+- the program must be written in notepad, without using IDE;
+
+- compiling and running the program using the console;
+
+- all names must comply with JNC;
+
+- the program must be accompanied by a screenshot of the console with compilation, launch and the result of code execution;
+
+.java, .class, .jpg files must be committed to git.
+
 ### Description:
 
 Simple app to output a message to console. 
