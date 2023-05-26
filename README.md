@@ -15,7 +15,7 @@ The text of output message is an argument of java app exececution.
 output -> Hello World!!!
 
 ### Code:
-![code](images/code.png)
+![code](images/code.jpg)
 
 ### Console:
-![console](images/console.png)
+![console](images/console.jpg)
