@@ -5,10 +5,14 @@ import com.senla.hotel.entity.Room;
 
 public interface IRoomService {
     boolean doCheckIn(int roomId);
+
     boolean doCheckOut(int roomId);
-    boolean changeRoomServiceStatus(int roomId);
+
+    boolean changeRoomServiceStatus(int roomId, ServiceStatus serviceStatus);
+
     boolean changeRoomPrice(int roomId, double price);
-    Room changeRoomService(int roomId, ServiceStatus serviceStatus);
-    Room getRoomInfo(int roomId);
+
+    Room getRoom(int roomId);
+
     int addRoom(Room room);
 }
