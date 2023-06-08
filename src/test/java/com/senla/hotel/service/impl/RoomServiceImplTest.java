@@ -42,21 +42,51 @@ public class RoomServiceImplTest {
 
     @Test
     public void testDoCheckOut() {
+        rooms.values().forEach(System.out::println);
+
+        roomService.doCheckOut(1);
+
+        Assert.assertTrue(roomService.getRoom(1).isRoomAvailability());
+
+        System.out.println("after check-out");
+        rooms.values().forEach(System.out::println);
+
     }
 
     @Test
     public void testChangeRoomServiceStatus() {
+        rooms.values().forEach(System.out::println);
+
+        roomService.changeRoomServiceStatus(1, ServiceStatus.REPAIR);
+
+        Assert.assertEquals(ServiceStatus.REPAIR, roomService.getRoom(1).getServiceStatus());
+
+        System.out.println("after room service change");
+        rooms.values().forEach(System.out::println);
     }
 
     @Test
     public void testChangeRoomPrice() {
+        rooms.values().forEach(System.out::println);
+
+        double newPrice = 11.1;
+
+        roomService.changeRoomPrice(1, newPrice);
+
+        Assert.assertTrue(newPrice == roomService.getRoom(1).getPrice());
+
+        System.out.println("after price change");
+        rooms.values().forEach(System.out::println);
     }
 
     @Test
-    public void testGetRoomInfo() {
+    public void testGetRoom() {
+        roomService.getRoom(1);
     }
 
     @Test
     public void testAddRoom() {
+        roomService.addRoom(new Room(6,ServiceStatus.NONE,25.5,true));
+        Assert.assertEquals(6,roomService.getRoom(6).getRoomId());
     }
 }

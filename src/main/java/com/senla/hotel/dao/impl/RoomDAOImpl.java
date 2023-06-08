@@ -34,9 +34,8 @@ public class RoomDAOImpl implements IRoomDAO {
     }
 
     @Override
-    public int addRoom(Room room) {
-        getRoom(room.getRoomId());
+    public Room addRoom(Room room) {
         rooms.put(room.getRoomId(), room);
-        return room.getRoomId();
+        return rooms.get(room.getRoomId());
     }
 }

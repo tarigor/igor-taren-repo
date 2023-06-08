@@ -21,3 +21,10 @@ The program should provide the ability to:
 - The program must comply with OOP principles and "Strong Binding" and "Weak Binding" patterns;
 - Use System.out.println(message) to output the results;
 - The .java source files must be injected into GIT in the appropriate branch.
+
+#### Stack
+
+- Java 11;
+- Maven;
+- Lombok;
+- JUnit

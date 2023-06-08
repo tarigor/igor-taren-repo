@@ -43,7 +43,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public int addRoom(Room room) {
+    public Room addRoom(Room room) {
         return roomDAO.addRoom(room);
     }
 }

@@ -5,5 +5,5 @@ import com.senla.hotel.entity.Room;
 public interface IRoomDAO {
     Room updateRoom(Room room);
     Room getRoom(int roomId);
-    int addRoom(Room room);
+    Room addRoom(Room room);
 }
