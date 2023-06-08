@@ -28,3 +28,7 @@ The program should provide the ability to:
 - Maven;
 - Lombok;
 - JUnit
+
+#### UML
+
+![task3_UML.png](task3_UML.png)
