@@ -16,11 +16,10 @@ public class RoomDAOImpl implements IRoomDAO {
 
     @Override
     public Room updateRoom(Room room) {
-        Room updatingRoom = getRoom(room.getRoomId());
-        updatingRoom.setServiceStatus(room.getServiceStatus());
-        updatingRoom.setPrice(room.getPrice());
-        updatingRoom.setRoomAvailability(room.isRoomAvailability());
-        return updatingRoom;
+        getRoom(room.getRoomId()).setServiceStatus(room.getServiceStatus());
+        getRoom(room.getRoomId()).setPrice(room.getPrice());
+        getRoom(room.getRoomId()).setRoomAvailability(room.isRoomAvailability());
+        return getRoom(room.getRoomId());
     }
 
     @Override

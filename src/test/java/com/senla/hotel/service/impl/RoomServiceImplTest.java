@@ -42,6 +42,8 @@ public class RoomServiceImplTest {
 
     @Test
     public void testDoCheckOut() {
+        roomService.doCheckIn(1);
+        System.out.println("after check-in");
         rooms.values().forEach(System.out::println);
 
         roomService.doCheckOut(1);
@@ -81,7 +83,8 @@ public class RoomServiceImplTest {
 
     @Test
     public void testGetRoom() {
-        roomService.getRoom(1);
+        int roomId = 1;
+        Assert.assertTrue(roomId == roomService.getRoom(roomId).getRoomId());
     }
 
     @Test

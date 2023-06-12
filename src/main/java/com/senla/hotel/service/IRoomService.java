@@ -4,13 +4,13 @@ import com.senla.hotel.constant.ServiceStatus;
 import com.senla.hotel.entity.Room;
 
 public interface IRoomService {
-    boolean doCheckIn(int roomId);
+    void doCheckIn(int roomId);
 
-    boolean doCheckOut(int roomId);
+    void doCheckOut(int roomId);
 
-    boolean changeRoomServiceStatus(int roomId, ServiceStatus serviceStatus);
+    Room changeRoomServiceStatus(int roomId, ServiceStatus serviceStatus);
 
-    boolean changeRoomPrice(int roomId, double price);
+    Room changeRoomPrice(int roomId, double price);
 
     Room getRoom(int roomId);
 

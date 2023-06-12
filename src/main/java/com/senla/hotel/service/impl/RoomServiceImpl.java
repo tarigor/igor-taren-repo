@@ -14,27 +14,25 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public boolean doCheckIn(int roomId) {
+    public void doCheckIn(int roomId) {
         roomDAO.getRoom(roomId).setRoomAvailability(false);
-        return true;
     }
 
     @Override
-    public boolean doCheckOut(int roomId) {
+    public void doCheckOut(int roomId) {
         roomDAO.getRoom(roomId).setRoomAvailability(true);
-        return true;
     }
 
     @Override
-    public boolean changeRoomServiceStatus(int roomId, ServiceStatus serviceStatus) {
+    public Room changeRoomServiceStatus(int roomId, ServiceStatus serviceStatus) {
         roomDAO.getRoom(roomId).setServiceStatus(serviceStatus);
-        return true;
+        return roomDAO.getRoom(roomId);
     }
 
     @Override
-    public boolean changeRoomPrice(int roomId, double price) {
+    public Room changeRoomPrice(int roomId, double price) {
         roomDAO.getRoom(roomId).setPrice(price);
-        return true;
+        return roomDAO.getRoom(roomId);
     }
 
     @Override
