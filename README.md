@@ -6,3 +6,9 @@ Igor Taren's repository
 The program should provide the ability to:
 
 -Displays a randomly generated three-digit natural number and the sum of its digits.
+
+### Stack
+
+- Java 11;
+- Maven;
+- JUnit
