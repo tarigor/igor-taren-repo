@@ -1,6 +1,6 @@
 # igor-taren-repo
 Igor Taren's repository
-## Task #2
+## Task #3.4
 
 ### _Electronic hotel administrator_
 
