@@ -5,6 +5,7 @@ import com.senla.firm.departments.*;
 import com.senla.firm.entity.Employer;
 import com.senla.firm.service.IEmployerService;
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 import java.util.HashSet;
 
@@ -29,9 +30,14 @@ public class EmployerServiceImplTest extends TestCase {
         financeEmployer.addEmployer(new Employer("firstName5", "lastName5", Position.SALES, 324.3));
         marketingEmployer.addEmployer(new Employer("firstName6", "lastName6", Position.COPYWRITER, 865.9));
         researchEmployer.addEmployer(new Employer("firstName7", "lastName7", Position.RESEARCH_ENGINEER, 895.2));
+
     }
 
     public void testGetTotalEmployerSalary() {
-        System.out.println("total sum of salaries -> " + employerService.getTotalEmployerSalary(employers));
+        double sumExpected = 999.9 + 433.7 + 653.2 + 865.8 + 324.3 + 865.9 + 895.2;
+        System.out.println("sum expected -> " + sumExpected);
+        double sumResult = employerService.getTotalEmployerSalary(employers);
+        System.out.println("sum result -> " + sumResult);
+        Assert.assertEquals(sumResult, sumExpected, 0.0);
     }
 }
