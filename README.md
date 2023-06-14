@@ -11,4 +11,5 @@ Write a program:
 
 - Java 11;
 - Maven;
-- JUnit
+- JUnit 4.13.2;
+- lombok 1.18.28
