@@ -13,3 +13,7 @@ Write a program:
 - Maven;
 - JUnit 4.13.2;
 - lombok 1.18.28
+
+### UML
+
+![task3_2_UML.png](task3_2_UML.png)
