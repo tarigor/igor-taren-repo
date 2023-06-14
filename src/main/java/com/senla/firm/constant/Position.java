@@ -1,0 +1,5 @@
+package com.senla.firm.constant;
+
+public enum Position {
+    CEO, RESEARCH_ENGINEER, SALES, SOFTWARE_DEVELOPER, DEPARTMENT_MANAGER, ACCOUNTANT, COPYWRITER
+}
