@@ -1,5 +1,5 @@
 package com.senla.service;
 
 public interface ILineStep {
-    IProductPart buildProductPart();
+    IProductPart buildProductPart(String... partName);
 }
