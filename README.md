@@ -28,7 +28,6 @@ For message output use - System.out.println("MESSAGE_TEXT");
 ### Stack
 
 - Java 11;
-- Maven;
 
 ### UML
 
