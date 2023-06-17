@@ -29,3 +29,7 @@ For message output use - System.out.println("MESSAGE_TEXT");
 
 - Java 11;
 - Maven;
+
+### UML
+
+![TASK_3_3.png](TASK_3_3.png)
