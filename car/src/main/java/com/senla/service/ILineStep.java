@@ -1,5 +1,7 @@
 package com.senla.service;
 
+import com.senla.entity.ProductPart;
+
 public interface ILineStep {
-    IProductPart buildProductPart(String... partName);
+    ProductPart buildProductPart();
 }
