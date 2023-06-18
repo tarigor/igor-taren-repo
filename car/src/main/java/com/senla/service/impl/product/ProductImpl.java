@@ -1,8 +1,9 @@
 package com.senla.service.impl.product;
 
 import com.senla.entity.ProductPart;
+import com.senla.service.IProduct;
 
-public class Car extends Product {
+public class ProductImpl implements IProduct {
 
     private ProductPart bodyPart;
     private ProductPart chassisPart;

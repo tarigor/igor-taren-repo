@@ -2,7 +2,7 @@ package com.senla.service.impl.assembly;
 
 import com.senla.entity.ProductPart;
 import com.senla.service.IAssembleProduct;
-import com.senla.service.impl.product.Product;
+import com.senla.service.IProduct;
 
 public class AssemblyLineImpl implements IAssembleProduct {
     private ProductPart bodyPart;
@@ -22,7 +22,7 @@ public class AssemblyLineImpl implements IAssembleProduct {
     }
 
     @Override
-    public Product assembleProduct(Product product) {
+    public IProduct assembleProduct(IProduct product) {
         product.installBodyPart(bodyPart);
         product.installChassisPart(chassisPart);
         product.installEnginePart(enginePart);

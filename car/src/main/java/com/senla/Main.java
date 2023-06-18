@@ -5,8 +5,8 @@ import com.senla.service.impl.assembly.AssemblyLineImpl;
 import com.senla.service.impl.linestep.LineStepBodyImpl;
 import com.senla.service.impl.linestep.LineStepChassisImpl;
 import com.senla.service.impl.linestep.LineStepEngineImpl;
-import com.senla.service.impl.product.Car;
-import com.senla.service.impl.product.Product;
+import com.senla.service.impl.product.ProductImpl;
+import com.senla.service.IProduct;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class Main {
         assemblyLineImpl.prepareChassisPart(chassisPart);
         assemblyLineImpl.prepareEnginePart(enginePart);
 
-        Product car = new Car();
+        IProduct car = new ProductImpl();
 
         System.out.println(assemblyLineImpl.assembleProduct(car));
 
