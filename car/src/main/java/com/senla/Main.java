@@ -1,11 +1,12 @@
 package com.senla;
 
-import com.senla.entity.Car;
 import com.senla.entity.ProductPart;
 import com.senla.service.impl.assembly.AssemblyLineImpl;
 import com.senla.service.impl.linestep.LineStepBodyImpl;
 import com.senla.service.impl.linestep.LineStepChassisImpl;
 import com.senla.service.impl.linestep.LineStepEngineImpl;
+import com.senla.service.impl.product.Car;
+import com.senla.service.impl.product.Product;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,12 +17,13 @@ public class Main {
 
         AssemblyLineImpl assemblyLineImpl = new AssemblyLineImpl();
 
-        assemblyLineImpl.installBodyPart(bodyPart);
-        assemblyLineImpl.installChassisPart(chassisPart);
-        assemblyLineImpl.installEnginePart(enginePart);
+        assemblyLineImpl.prepareBodyPart(bodyPart);
+        assemblyLineImpl.prepareChassisPart(chassisPart);
+        assemblyLineImpl.prepareEnginePart(enginePart);
 
-        Car car = new Car();
+        Product car = new Car();
 
-        assemblyLineImpl.assembleProduct(car);
+        System.out.println(assemblyLineImpl.assembleProduct(car));
+
     }
 }

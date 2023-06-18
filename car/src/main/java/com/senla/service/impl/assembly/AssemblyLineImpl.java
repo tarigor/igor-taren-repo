@@ -1,39 +1,33 @@
 package com.senla.service.impl.assembly;
 
-import com.senla.entity.Car;
 import com.senla.entity.ProductPart;
 import com.senla.service.IAssembleProduct;
-import com.senla.service.IProduct;
+import com.senla.service.impl.product.Product;
 
-public class AssemblyLineImpl implements IProduct, IAssembleProduct {
+public class AssemblyLineImpl implements IAssembleProduct {
     private ProductPart bodyPart;
     private ProductPart chassisPart;
     private ProductPart enginePart;
 
-    @Override
-    public Car assembleProduct(Car car) {
-        car.setBodyPart(bodyPart);
-        car.setChassisPart(chassisPart);
-        car.setEnginePart(enginePart);
-        System.out.println("new Car has been built -> " + car);
-        return car;
-    }
-
-    @Override
-    public void installBodyPart(ProductPart bodyPart) {
+    public void prepareBodyPart(ProductPart bodyPart) {
         this.bodyPart = bodyPart;
-        System.out.println("body part installed");
     }
 
-    @Override
-    public void installChassisPart(ProductPart chassisPart) {
+    public void prepareChassisPart(ProductPart chassisPart) {
         this.chassisPart = chassisPart;
-        System.out.println("chassis part installed");
+    }
+
+    public void prepareEnginePart(ProductPart enginePart) {
+        this.enginePart = enginePart;
     }
 
     @Override
-    public void installEnginePart(ProductPart enginePart) {
-        this.enginePart = enginePart;
-        System.out.println("engine part installed");
+    public Product assembleProduct(Product product) {
+        product.installBodyPart(bodyPart);
+        product.installChassisPart(chassisPart);
+        product.installEnginePart(enginePart);
+        return product;
     }
+
+
 }

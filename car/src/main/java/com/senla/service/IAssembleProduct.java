@@ -1,7 +1,7 @@
 package com.senla.service;
 
-import com.senla.entity.Car;
+import com.senla.service.impl.product.Product;
 
 public interface IAssembleProduct {
-    Car assembleProduct(Car car);
+    Product assembleProduct(Product product);
 }
