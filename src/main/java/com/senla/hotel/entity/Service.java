@@ -6,11 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Room {
-    private long roomId;
+public class Service {
     private ServiceStatus serviceStatus;
-    private int capacity;
     private double price;
-    private boolean roomAvailability;
-    private int starsRating;
 }

@@ -11,15 +11,15 @@ import java.util.HashMap;
 
 public class RoomServiceImplTest {
 
-    private HashMap<Integer, Room> rooms;
+    private HashMap<Long, Room> rooms;
     private RoomServiceImpl roomService;
 
     @Before
     public void init() {
         rooms = new HashMap<>();
-        rooms.put(1, new Room(1, ServiceStatus.NONE, 23.3, true));
-        rooms.put(2, new Room(2, ServiceStatus.NONE, 42.1, true));
-        rooms.put(3, new Room(3, ServiceStatus.NONE, 25.7, true));
+        rooms.put(1L, new Room(1L, ServiceStatus.NONE, 2,23.3, true, 3));
+        rooms.put(2L, new Room(2L, ServiceStatus.NONE, 3,42.1, false, 3));
+        rooms.put(3L, new Room(3L, ServiceStatus.NONE,2, 25.7, true, 3));
 
         RoomDAOImpl roomDAO = new RoomDAOImpl();
         roomDAO.setRooms(rooms);
@@ -89,7 +89,17 @@ public class RoomServiceImplTest {
 
     @Test
     public void testAddRoom() {
-        roomService.addRoom(new Room(6,ServiceStatus.NONE,25.5,true));
-        Assert.assertEquals(6,roomService.getRoom(6).getRoomId());
+        roomService.addRoom(new Room(6L, ServiceStatus.NONE,2, 25.5, true, 3));
+        Assert.assertEquals(6, roomService.getRoom(6).getRoomId());
+    }
+
+    @Test
+    public void testFindAllByPrice() {
+        roomService.findAllByPrice().forEach(System.out::println);
+    }
+
+    @Test
+    public void testFindAmountOfAvailableRooms() {
+        System.out.println(roomService.findNumberOfAvailableRooms());
     }
 }
