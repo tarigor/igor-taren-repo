@@ -25,9 +25,7 @@ The program should provide the ability to:
 #### Stack
 
 - Java 11;
-- Maven;
 - Lombok;
-- JUnit
 
 #### UML
 

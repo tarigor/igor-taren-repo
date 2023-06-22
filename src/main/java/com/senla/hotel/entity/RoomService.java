@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Service {
+public class RoomService {
     private ServiceStatus serviceStatus;
     private double price;
 }
