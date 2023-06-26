@@ -10,8 +10,4 @@ public class GuestServiceImpl implements IGuestService {
         this.guestDAO = guestDAO;
     }
 
-    @Override
-    public int findCountOfAllGuests() {
-        return 0;
-    }
 }

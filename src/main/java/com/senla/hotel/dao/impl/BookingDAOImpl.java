@@ -13,9 +13,15 @@ public class BookingDAOImpl implements IBookingDAO {
     public void setBookings(Map<Long, Booking> bookings) {
         this.bookings = bookings;
     }
-
     @Override
     public List<Booking> getBookings() {
         return new ArrayList<>(bookings.values());
     }
+
+    @Override
+    public Booking getBookingById(long bookingId) {
+        return bookings.get(bookingId);
+    }
+
+
 }

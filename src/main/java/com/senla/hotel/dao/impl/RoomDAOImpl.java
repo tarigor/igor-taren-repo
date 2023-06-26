@@ -11,18 +11,13 @@ import java.util.NoSuchElementException;
 public class RoomDAOImpl implements IRoomDAO {
     private Map<Long, Room> rooms;
 
-    public void setRooms(Map<Long, Room> rooms) {
-        this.rooms = rooms;
-    }
-
     @Override
     public Room updateRoom(Room room) {
-        getRoom(room.getRoomId()).setRoomService(room.getRoomService());
         getRoom(room.getRoomId()).setPrice(room.getPrice());
-        getRoom(room.getRoomId()).setRoomAvailability(room.isRoomAvailability());
+        getRoom(room.getRoomId()).setCapacity(room.getCapacity());
+        getRoom(room.getRoomId()).setStarsRating(room.getStarsRating());
         return getRoom(room.getRoomId());
     }
-
 
     @Override
     public Room getRoom(long roomId) {
@@ -43,5 +38,9 @@ public class RoomDAOImpl implements IRoomDAO {
     @Override
     public List<Room> getRooms() {
         return new ArrayList<>(rooms.values());
+    }
+
+    public void setRooms(Map<Long, Room> rooms) {
+        this.rooms = rooms;
     }
 }

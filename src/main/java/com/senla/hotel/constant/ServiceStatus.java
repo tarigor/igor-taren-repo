@@ -1,5 +1,5 @@
 package com.senla.hotel.constant;
 
 public enum ServiceStatus {
-    NONE, REPAIR, MAINTENANCE
+    NONE, REPAIR, MAINTENANCE, CLEANING
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RoomService {
+    private long roomServiceId;
     private ServiceStatus serviceStatus;
     private double price;
 }

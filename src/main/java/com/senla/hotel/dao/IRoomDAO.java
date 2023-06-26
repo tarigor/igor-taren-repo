@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface IRoomDAO {
     Room updateRoom(Room room);
+
     Room getRoom(long roomId);
+
     Room addRoom(Room room);
+
     List<Room> getRooms();
 }

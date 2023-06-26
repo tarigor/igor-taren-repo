@@ -9,23 +9,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class Booking {
     private long bookingId;
-    private Guest guest;
+    private long guestId;
+    private long guestServicesId;
     private long bookedRoomId;
-    private Date checkInTime;
+    private Date checkInDate;
     private Date checkOutDate;
-
-    public Booking(long bookingId, Guest guest, long bookedRoomId) {
-        this.bookingId = bookingId;
-        this.guest = guest;
-        this.bookedRoomId = bookedRoomId;
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "bookingId=" + bookingId +
-                ", guest=" + guest +
-                ", bookedRoomId=" + bookedRoomId +
-                '}';
-    }
 }
