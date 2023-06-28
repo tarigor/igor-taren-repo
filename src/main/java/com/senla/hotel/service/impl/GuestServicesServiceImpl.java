@@ -3,8 +3,6 @@ package com.senla.hotel.service.impl;
 import com.senla.hotel.dao.IGuestServicesDAO;
 import com.senla.hotel.dao.IRoomServiceDAO;
 import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
 
 import java.util.Comparator;
@@ -44,27 +42,5 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getRoomServiceById(e.getValue())))
                 .sorted(Comparator.comparing(GuestServicesDTO::getDate))
                 .collect(Collectors.toList());
-    }
-
-    //    Prices of services and rooms (sort by section(category), by price);
-
-    @Override
-    public List<Room> getRoomsBySection() {
-        return null;
-    }
-
-    @Override
-    public List<Room> getRoomsByPrice() {
-        return null;
-    }
-
-    @Override
-    public List<RoomService> getRoomServicesByCategory() {
-        return null;
-    }
-
-    @Override
-    public List<RoomService> getRoomServicesByPrice() {
-        return null;
     }
 }

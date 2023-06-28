@@ -5,6 +5,7 @@ import com.senla.hotel.dao.IRoomDAO;
 import com.senla.hotel.dao.IRoomServiceDAO;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomService;
 
 import java.util.Comparator;
@@ -121,5 +122,34 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public double getRoomPrice(long roomId) {
         return roomDAO.getRoom(roomId).getPrice();
+    }
+
+    //    Prices of services and rooms (sort by section(category), by price);
+    @Override
+    public List<Room> getRoomsBySection() {
+        return roomDAO.getRooms().stream()
+                .sorted(Comparator.comparing(Room::getRoomId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Room> getRoomsByPrice() {
+        return roomDAO.getRooms().stream()
+                .sorted(Comparator.comparing(Room::getPrice))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoomService> getRoomServicesByCategory() {
+        return roomServiceDAO.getRoomServices().stream()
+                .sorted(Comparator.comparing(RoomService::getServiceStatus))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoomService> getRoomServicesByPrice() {
+        return roomServiceDAO.getRoomServices().stream()
+                .sorted(Comparator.comparing(RoomService::getPrice))
+                .collect(Collectors.toList());
     }
 }
