@@ -14,10 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BookingServiceImpl implements IBookingService {
+    private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
     private IBookingDAO bookingDAO;
     private IRoomDAO roomDAO;
-
     private IGuestDAO guestDAO;
+
+    public static BookingServiceImpl getInstance() {
+        return INSTANCE;
+    }
 
     public void setRoomDAO(IRoomDAO roomDAO) {
         this.roomDAO = roomDAO;
@@ -30,7 +34,6 @@ public class BookingServiceImpl implements IBookingService {
     public void setBookingDAO(IBookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
-
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<Booking> findAllSortByAlphabetically() {

@@ -9,7 +9,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class RoomDAOImpl implements IRoomDAO {
+    private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
     private Map<Long, Room> rooms;
+
+    public static RoomDAOImpl getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Room updateRoom(Room room) {

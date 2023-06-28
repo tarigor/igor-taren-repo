@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomServiceDAOImpl implements IRoomServiceDAO {
+    private static final RoomServiceDAOImpl INSTANCE = new RoomServiceDAOImpl();
     private Map<Long, RoomService> roomServices;
+
+    public static RoomServiceDAOImpl getInstance() {
+        return INSTANCE;
+    }
 
     public void setRoomServices(Map<Long, RoomService> roomServices) {
         this.roomServices = roomServices;
     }
+
 
     @Override
     public List<RoomService> getRoomServices() {

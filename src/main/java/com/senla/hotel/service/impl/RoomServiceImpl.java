@@ -5,7 +5,6 @@ import com.senla.hotel.dao.IRoomDAO;
 import com.senla.hotel.dao.IRoomServiceDAO;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomService;
 
 import java.util.Comparator;
@@ -13,10 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RoomServiceImpl implements IRoomService {
+    private static final RoomServiceImpl INSTANCE = new RoomServiceImpl();
     private IRoomServiceDAO roomServiceDAO;
 
     private IRoomDAO roomDAO;
     private IGuestServicesDAO guestServicesDAO;
+
+    public static RoomServiceImpl getInstance() {
+        return INSTANCE;
+    }
 
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;

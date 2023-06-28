@@ -8,8 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class GuestServicesDAOImpl implements IGuestServicesDAO {
+    private static final GuestServicesDAOImpl INSTANCE = new GuestServicesDAOImpl();
     private Map<Long, GuestServices> guestServices;
 
+    public static GuestServicesDAOImpl getInstance() {
+        return INSTANCE;
+    }
     public void setGuestServices(Map<Long, GuestServices> guestServices) {
         this.guestServices = guestServices;
     }

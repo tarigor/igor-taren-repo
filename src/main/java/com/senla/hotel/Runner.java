@@ -20,11 +20,11 @@ public class Runner {
     private Map<Long, Booking> bookings;
     private Map<Long, RoomService> roomServices;
     private Map<Long, GuestServices> guestServices;
-    private RoomServiceImpl roomService;
-    private BookingServiceImpl bookingService;
-    private GuestServiceImpl guestService;
 
-    private GuestServicesServiceImpl guestServicesServiceImpl;
+    private RoomServiceImpl roomService = RoomServiceImpl.getInstance();
+    private BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
+    private GuestServiceImpl guestService = GuestServiceImpl.getInstance();
+    private GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
 
     {
         rooms = new HashMap<>();
@@ -69,72 +69,94 @@ public class Runner {
         )));
 
         bookings.put(1L, new Booking(
-                1L,
-                2l,
+                1,
+                2,
+                1,
                 101,
-                1l,
                 new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(),
                 new GregorianCalendar(2023, Calendar.JUNE, 5).getTime()));
         bookings.put(2L, new Booking(
-                2L,
-                1l,
+                2,
+                1,
+                1,
                 102,
-                2l,
                 new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(),
                 new GregorianCalendar(2023, Calendar.JUNE, 19).getTime()));
         bookings.put(3L, new Booking(
                 3L,
-                3l,
+                3,
+                1,
                 103,
-                3l,
                 new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(),
                 new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
 
-        RoomDAOImpl roomDAO = new RoomDAOImpl();
+        RoomDAOImpl roomDAO = RoomDAOImpl.getInstance();
         roomDAO.setRooms(rooms);
 
-        GuestDAOImpl guestDAO = new GuestDAOImpl();
+        GuestDAOImpl guestDAO = GuestDAOImpl.getInstance();
         guestDAO.setGuests(guests);
 
-        BookingDAOImpl bookingDAO = new BookingDAOImpl();
+        BookingDAOImpl bookingDAO = BookingDAOImpl.getInstance();
         bookingDAO.setBookings(bookings);
 
-        RoomServiceDAOImpl roomServiceDAO = new RoomServiceDAOImpl();
+        RoomServiceDAOImpl roomServiceDAO = RoomServiceDAOImpl.getInstance();
         roomServiceDAO.setRoomServices(roomServices);
 
         GuestServicesDAOImpl guestServicesDAO = new GuestServicesDAOImpl();
         guestServicesDAO.setGuestServices(guestServices);
 
-        roomService = new RoomServiceImpl();
         roomService.setRoomDAO(roomDAO);
         roomService.setRoomServiceDAO(roomServiceDAO);
 
-        bookingService = new BookingServiceImpl();
         bookingService.setBookingDAO(bookingDAO);
-
-        guestService = new GuestServiceImpl();
-        guestService.setGuestDAO(guestDAO);
-
+        bookingService.setGuestDAO(guestDAO);
         bookingService.setRoomDAO(roomDAO);
 
-        guestServicesServiceImpl = new GuestServicesServiceImpl();
-        guestServicesServiceImpl.setGuestServicesDAO(guestServicesDAO);
+        guestService.setGuestDAO(guestDAO);
+
+        guestServicesService.setGuestServicesDAO(guestServicesDAO);
+        guestServicesService.setRoomServiceDAO(roomServiceDAO);
     }
 
     public static void main(String[] args) {
+
         Runner runner = new Runner();
 
-//        runner.bookingService.findAllSortByAlphabetically().forEach(System.out::println);
-//
-//        runner.bookingService.findAllSortByCheckOutDate().forEach(Booking::printAllFields);
+//        List of rooms (sort by price,  by capacity, by number of stars);
+        runner.roomService.findAllByPrice().forEach(System.out::println);
+        runner.roomService.findAllByCapacity().forEach(System.out::println);
+        runner.roomService.findAllByStars().forEach(System.out::println);
 
-        //runner.bookingService.findLastGuestOfRoomAndDates(2,1).forEach(Booking::printAllFields);
-        //System.out.println(runner.bookingService.getTotalPaymentByGuest(1));
+//        List of guests and their rooms (sort alphabetically and by check-out date);
+        runner.bookingService.findAllSortByAlphabetically().forEach(System.out::println);
+        runner.bookingService.findAllSortByCheckOutDate().forEach(System.out::println);
 
-        //runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, 9, 15).getTime()).forEach(System.out::println);
+//        Total number of available rooms;
+        System.out.println(runner.roomService.findNumberOfAvailableRooms());
 
-        //System.out.println(runner.bookingService.findCountOfAllGuests());
+//        Total number of guests;
+        System.out.println(runner.bookingService.findCountOfAllGuests());
 
-        System.out.println(runner.guestServicesServiceImpl.getGuestServicesByPrice(1l).getServicesOrdered());
+//        List of rooms that will be available on a certain date in the future;
+        runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, 9, 15).getTime());
+
+//        The amount of payment for the room to be paid by the guest;
+        System.out.println(runner.bookingService.getTotalPaymentByGuest(1L));
+
+//        View the last 3 guests of the room and the dates of their stay;
+        runner.bookingService.findLastGuestOfRoomAndDates(3, 101L).forEach(System.out::println);
+
+//        View the list of guest services and their price (sort by price, by date);
+        runner.guestServicesService.getGuestServicesByPrice(1L).forEach(System.out::println);
+        runner.guestServicesService.getGuestServicesByDate(1L).forEach(System.out::println);
+
+//        Prices of services and rooms (sort by section(category), by price);
+//        public List<Room> getRoomsBySection();
+//        public List<Room> getRoomsByPrice();
+//        public List<RoomService> getRoomServicesByCategory();
+//        public List<RoomService> getRoomServicesByPrice();
+
+//        Show the details of a separate room.
+
     }
 }
