@@ -44,6 +44,10 @@ Task Requirement:
 
 The archive of the folder with the assembled program and the startup file should be embedded in GIT in the appropriate branch.
 
+Implementation:
+
+root folder -> run.zip
+
 #### Requirements
 
 - DO NOT implement console user interface to the program. Verify that the program works from a test class with the main method;
