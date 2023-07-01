@@ -10,5 +10,5 @@ import java.util.Map;
 @AllArgsConstructor
 public class GuestServices {
     private long guestId;
-    Map<Date,Long> servicesOrdered;
+    private Map<Date, Long> servicesOrdered;
 }

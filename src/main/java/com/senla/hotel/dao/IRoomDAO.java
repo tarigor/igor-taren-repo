@@ -9,7 +9,7 @@ public interface IRoomDAO {
 
     Room getRoom(long roomId);
 
-    Room addRoom(Room room);
+    Room save(Room room);
 
     List<Room> getRooms();
 }

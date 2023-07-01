@@ -38,11 +38,11 @@ public interface IRoomService {
     double getRoomPrice(long roomId);
 
     //    Prices of services and rooms (sort by section(category), by price);
-    public List<Room> getRoomsBySection();
+    List<Room> getRoomsBySection();
 
-    public List<Room> getRoomsByPrice();
+    List<Room> getRoomsByPrice();
 
-    public List<RoomService> getRoomServicesByCategory();
+    List<RoomService> getRoomServicesByCategory();
 
-    public List<RoomService> getRoomServicesByPrice();
+    List<RoomService> getRoomServicesByPrice();
 }

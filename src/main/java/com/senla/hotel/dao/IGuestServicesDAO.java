@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IGuestServicesDAO {
     List<GuestServices> getGuestServices();
+
     GuestServices getGuestServicesByGuestId(long guestId);
+
+    void save(GuestServices guestServices);
 }

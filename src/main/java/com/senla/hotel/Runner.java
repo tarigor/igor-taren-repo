@@ -10,85 +10,84 @@ import com.senla.hotel.service.impl.RoomServiceImpl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Runner {
 
-    private Map<Long, Room> rooms;
-    private Map<Long, Guest> guests;
-    private Map<Long, Booking> bookings;
-    private Map<Long, RoomService> roomServices;
-    private Map<Long, GuestServices> guestServices;
+    private final List<Room> rooms;
+    private final List<Guest> guests;
+    private final List<Booking> bookings;
+    private final List<RoomService> roomServices;
+    private final List<GuestServices> guestServices;
 
-    private RoomServiceImpl roomService = RoomServiceImpl.getInstance();
-    private BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
-    private GuestServiceImpl guestService = GuestServiceImpl.getInstance();
-    private GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
+    private final RoomServiceImpl roomService = RoomServiceImpl.getInstance();
+    private final BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
+    private final GuestServiceImpl guestService = GuestServiceImpl.getInstance();
+    private final GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
 
     {
-        rooms = new HashMap<>();
-        guests = new HashMap<>();
-        bookings = new HashMap<>();
-        roomServices = new HashMap<>();
-        guestServices = new HashMap<>();
+        rooms = List.of(
+                new Room(101L, 1, 23.2, false, 1, 3),
+                new Room(102L, 2, 34.5, false, 1, 3),
+                new Room(103L, 3, 47.2, false, 1, 3));
 
-        guests.put(1L, new Guest(1L, "Vasya", "Pupkin"));
-        guests.put(2L, new Guest(2L, "Lelik", "Bolik"));
-        guests.put(3L, new Guest(3L, "Olya", "Palkina"));
+        guests = List.of(
+                new Guest(1L, "Vasya", "Pupkin"),
+                new Guest(2L, "Lelik", "Bolik"),
+                new Guest(3L, "Olya", "Palkina"));
 
-        roomServices.put(1L, new RoomService(1l, ServiceStatus.NONE, 12.3));
-        roomServices.put(2L, new RoomService(2l, ServiceStatus.MAINTENANCE, 22.7));
-        roomServices.put(3L, new RoomService(3l, ServiceStatus.REPAIR, 34.4));
-        roomServices.put(4L, new RoomService(4l, ServiceStatus.CLEANING, 10.4));
+        bookings = List.of(
+                new Booking(
+                        1,
+                        2,
+                        1,
+                        101,
+                        new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(),
+                        new GregorianCalendar(2023, Calendar.JUNE, 5).getTime()),
+                new Booking(
+                        2,
+                        1,
+                        1,
+                        102,
+                        new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(),
+                        new GregorianCalendar(2023, Calendar.JUNE, 19).getTime()),
+                new Booking(
+                        3L,
+                        3,
+                        1,
+                        103,
+                        new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(),
+                        new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
 
-        rooms.put(101L, new Room(101L, 1, 23.2, false, 1, 3));
-        rooms.put(102L, new Room(102L, 2, 34.5, false, 1, 3));
-        rooms.put(103L, new Room(103L, 3, 47.2, false, 1, 3));
+        roomServices = List.of(
+                new RoomService(1l, ServiceStatus.NONE, 12.3),
+                new RoomService(2l, ServiceStatus.MAINTENANCE, 22.7),
+                new RoomService(3l, ServiceStatus.REPAIR, 34.4),
+                new RoomService(4l, ServiceStatus.CLEANING, 10.4));
 
-        guestServices.put(1l, new GuestServices(1l, Map.of(
-                new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
-                new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
-        )));
-        guestServices.put(1l, new GuestServices(2l, Map.of(
-                new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
-                new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
-        )));
-        guestServices.put(1l, new GuestServices(3l, Map.of(
-                new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
-                new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 28).getTime(), 4L,
-                new GregorianCalendar(2023, Calendar.JUNE, 29).getTime(), 4L
-        )));
-
-        bookings.put(1L, new Booking(
-                1,
-                2,
-                1,
-                101,
-                new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(),
-                new GregorianCalendar(2023, Calendar.JUNE, 5).getTime()));
-        bookings.put(2L, new Booking(
-                2,
-                1,
-                1,
-                102,
-                new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(),
-                new GregorianCalendar(2023, Calendar.JUNE, 19).getTime()));
-        bookings.put(3L, new Booking(
-                3L,
-                3,
-                1,
-                103,
-                new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(),
-                new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
+        guestServices = List.of(
+                new GuestServices(1l, Map.of(
+                        new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
+                )),
+                new GuestServices(2l, Map.of(
+                        new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
+                )),
+                new GuestServices(3l, Map.of(
+                        new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 28).getTime(), 4L,
+                        new GregorianCalendar(2023, Calendar.JUNE, 29).getTime(), 4L
+                )));
 
         RoomDAOImpl roomDAO = RoomDAOImpl.getInstance();
         roomDAO.setRooms(rooms);

@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface IGuestDAO {
     List<Guest> getGuests();
+
     Guest getGuestById(long guestId);
+    void save(Guest guest);
 }

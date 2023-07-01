@@ -3,17 +3,18 @@ package com.senla.hotel.dao.impl;
 import com.senla.hotel.dao.IRoomDAO;
 import com.senla.hotel.entity.Room;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class RoomDAOImpl implements IRoomDAO {
     private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
-    private Map<Long, Room> rooms;
+    private Map<Long, Room> rooms = new HashMap<>();
 
     public static RoomDAOImpl getInstance() {
         return INSTANCE;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        rooms.forEach(this::save);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class RoomDAOImpl implements IRoomDAO {
     }
 
     @Override
-    public Room addRoom(Room room) {
+    public Room save(Room room) {
         rooms.put(room.getRoomId(), room);
         return rooms.get(room.getRoomId());
     }
@@ -45,7 +46,5 @@ public class RoomDAOImpl implements IRoomDAO {
         return new ArrayList<>(rooms.values());
     }
 
-    public void setRooms(Map<Long, Room> rooms) {
-        this.rooms = rooms;
-    }
+
 }

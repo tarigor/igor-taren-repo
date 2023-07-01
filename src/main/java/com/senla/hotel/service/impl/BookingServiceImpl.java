@@ -34,6 +34,7 @@ public class BookingServiceImpl implements IBookingService {
     public void setBookingDAO(IBookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
+
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<Booking> findAllSortByAlphabetically() {

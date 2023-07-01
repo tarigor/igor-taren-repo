@@ -64,7 +64,7 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public Room addRoom(Room room) {
-        return roomDAO.addRoom(room);
+        return roomDAO.save(room);
     }
 
     @Override

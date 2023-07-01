@@ -1,6 +1,5 @@
 package com.senla.hotel.dto;
 
-import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.RoomService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

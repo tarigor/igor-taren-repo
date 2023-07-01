@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IBookingDAO {
     List<Booking> getBookings();
+
     Booking getBookingById(long bookingId);
+
+    void save(Booking booking);
 }
