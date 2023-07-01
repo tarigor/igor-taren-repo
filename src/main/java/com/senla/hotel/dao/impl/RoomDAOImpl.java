@@ -19,26 +19,23 @@ public class RoomDAOImpl implements IRoomDAO {
 
     @Override
     public Room updateRoom(Room room) {
-        getRoom(room.getRoomId()).setPrice(room.getPrice());
-        getRoom(room.getRoomId()).setCapacity(room.getCapacity());
-        getRoom(room.getRoomId()).setStarsRating(room.getStarsRating());
-        return getRoom(room.getRoomId());
+        Room updatedRoom = getRoom(room.getId());
+        updatedRoom.setPrice(room.getPrice());
+        updatedRoom.setCapacity(room.getCapacity());
+        updatedRoom.setStarsRating(room.getStarsRating());
+        return updatedRoom;
     }
 
     @Override
     public Room getRoom(long roomId) {
-        for (Map.Entry<Long, Room> entry : rooms.entrySet()) {
-            if (entry.getKey().equals(roomId)) {
-                return entry.getValue();
-            }
-        }
-        throw new NoSuchElementException("There is no sucha room with id -> " + roomId);
+        return Optional.ofNullable(rooms.get(roomId))
+                .orElseThrow(() -> new NoSuchElementException("There is no such a room with id -> " + roomId));
     }
 
     @Override
     public Room save(Room room) {
-        rooms.put(room.getRoomId(), room);
-        return rooms.get(room.getRoomId());
+        rooms.put(room.getId(), room);
+        return room;
     }
 
     @Override

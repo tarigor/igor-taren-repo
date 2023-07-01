@@ -3,15 +3,13 @@ package com.senla.hotel.dao.impl;
 import com.senla.hotel.dao.IBookingDAO;
 import com.senla.hotel.entity.Booking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BookingDAOImpl implements IBookingDAO {
 
     private static final BookingDAOImpl INSTANCE = new BookingDAOImpl();
-    private Map<Long, Booking> bookings = new HashMap<>();;
+    private Map<Long, Booking> bookings = new HashMap<>();
+    ;
 
     public static BookingDAOImpl getInstance() {
         return INSTANCE;
@@ -33,7 +31,13 @@ public class BookingDAOImpl implements IBookingDAO {
 
     @Override
     public void save(Booking booking) {
-        this.bookings.put(booking.getBookingId(), booking);
+        this.bookings.put(booking.getId(), booking);
+    }
+
+    @Override
+    public Booking getBookingByGuestId(long guestId) {
+        return Optional.of(bookings.values().stream().filter(b -> b.getGuestId() == guestId).findFirst()).get()
+                .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
     }
 
 

@@ -68,28 +68,28 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> findAllByPrice() {
+    public List<Room> findAllOrderedByPrice() {
         return roomDAO.getRooms().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAllByCapacity() {
+    public List<Room> findAllOrderedByCapacity() {
         return roomDAO.getRooms().stream()
                 .sorted(Comparator.comparing(Room::getCapacity))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAllByStars() {
+    public List<Room> findAllOrderedByStars() {
         return roomDAO.getRooms().stream()
                 .sorted(Comparator.comparing(Room::getStarsRating))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAvailableByPrice() {
+    public List<Room> findAvailableOrderedByPrice() {
         return roomDAO.getRooms().stream()
                 .filter(Room::isRoomAvailability)
                 .sorted(Comparator.comparing(Room::getPrice))
@@ -97,7 +97,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> findAvailableByCapacity() {
+    public List<Room> findAvailableOrderedByCapacity() {
         return roomDAO.getRooms().stream()
                 .filter(Room::isRoomAvailability)
                 .sorted(Comparator.comparing(Room::getCapacity))
@@ -105,7 +105,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> findAvailableByStars() {
+    public List<Room> findAvailableOrderedByStars() {
         return roomDAO.getRooms().stream()
                 .filter(Room::isRoomAvailability)
                 .sorted(Comparator.comparing(Room::getStarsRating))
@@ -128,26 +128,26 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> getRoomsBySection() {
         return roomDAO.getRooms().stream()
-                .sorted(Comparator.comparing(Room::getRoomId))
+                .sorted(Comparator.comparing(Room::getId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> getRoomsByPrice() {
+    public List<Room> getRoomsOrderedByPrice() {
         return roomDAO.getRooms().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RoomService> getRoomServicesByCategory() {
+    public List<RoomService> getRoomServicesOrderedByCategory() {
         return roomServiceDAO.getRoomServices().stream()
                 .sorted(Comparator.comparing(RoomService::getServiceStatus))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RoomService> getRoomServicesByPrice() {
+    public List<RoomService> getRoomServicesOrderedByPrice() {
         return roomServiceDAO.getRoomServices().stream()
                 .sorted(Comparator.comparing(RoomService::getPrice))
                 .collect(Collectors.toList());

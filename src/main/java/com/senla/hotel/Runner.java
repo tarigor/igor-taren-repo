@@ -4,7 +4,6 @@ import com.senla.hotel.constant.ServiceStatus;
 import com.senla.hotel.dao.impl.*;
 import com.senla.hotel.entity.*;
 import com.senla.hotel.service.impl.BookingServiceImpl;
-import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 
@@ -23,7 +22,6 @@ public class Runner {
 
     private final RoomServiceImpl roomService = RoomServiceImpl.getInstance();
     private final BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
-    private final GuestServiceImpl guestService = GuestServiceImpl.getInstance();
     private final GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
 
     {
@@ -61,27 +59,27 @@ public class Runner {
                         new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
 
         roomServices = List.of(
-                new RoomService(1l, ServiceStatus.NONE, 12.3),
-                new RoomService(2l, ServiceStatus.MAINTENANCE, 22.7),
-                new RoomService(3l, ServiceStatus.REPAIR, 34.4),
-                new RoomService(4l, ServiceStatus.CLEANING, 10.4));
+                new RoomService(1, ServiceStatus.NONE, 12.3),
+                new RoomService(2, ServiceStatus.MAINTENANCE, 22.7),
+                new RoomService(3, ServiceStatus.REPAIR, 34.4),
+                new RoomService(4, ServiceStatus.CLEANING, 10.4));
 
         guestServices = List.of(
-                new GuestServices(1l, Map.of(
+                new GuestServices(1,1, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
                 )),
-                new GuestServices(2l, Map.of(
+                new GuestServices(2,2, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
                 )),
-                new GuestServices(3l, Map.of(
+                new GuestServices(3,3, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,
@@ -111,8 +109,6 @@ public class Runner {
         bookingService.setGuestDAO(guestDAO);
         bookingService.setRoomDAO(roomDAO);
 
-        guestService.setGuestDAO(guestDAO);
-
         guestServicesService.setGuestServicesDAO(guestServicesDAO);
         guestServicesService.setRoomServiceDAO(roomServiceDAO);
     }
@@ -122,13 +118,16 @@ public class Runner {
         Runner runner = new Runner();
 
         System.out.println("List of rooms (sort by price,  by capacity, by number of stars)");
-        runner.roomService.findAllByPrice().forEach(System.out::println);
-        runner.roomService.findAllByCapacity().forEach(System.out::println);
-        runner.roomService.findAllByStars().forEach(System.out::println);
+        System.out.println("by price");
+        runner.roomService.findAllOrderedByPrice().forEach(System.out::println);
+        System.out.println("by number");
+        runner.roomService.findAllOrderedByCapacity().forEach(System.out::println);
+        System.out.println("by stars");
+        runner.roomService.findAllOrderedByStars().forEach(System.out::println);
 
         System.out.println("\nList of guests and their rooms (sort alphabetically and by check-out date)");
-        runner.bookingService.findAllSortByAlphabetically().forEach(System.out::println);
-        runner.bookingService.findAllSortByCheckOutDate().forEach(System.out::println);
+        runner.bookingService.findAllOrderedAlphabetically().forEach(System.out::println);
+        runner.bookingService.findAllOrderedByCheckOutDate().forEach(System.out::println);
 
         System.out.println("\nTotal number of available rooms");
         System.out.println(runner.roomService.findNumberOfAvailableRooms());
@@ -146,14 +145,14 @@ public class Runner {
         runner.bookingService.findLastGuestOfRoomAndDates(3, 101L).forEach(System.out::println);
 
         System.out.println("\nView the list of guest services and their price (sort by price, by date)");
-        runner.guestServicesService.getGuestServicesByPrice(1L).forEach(System.out::println);
-        runner.guestServicesService.getGuestServicesByDate(1L).forEach(System.out::println);
+        runner.guestServicesService.getGuestServicesSortedByPrice(1L).forEach(System.out::println);
+        runner.guestServicesService.getGuestServicesSortedByDate(1L).forEach(System.out::println);
 
         System.out.println("\nPrices of services and rooms (sort by section(category), by price)");
         runner.roomService.getRoomsBySection().forEach(System.out::println);
-        runner.roomService.getRoomsByPrice().forEach(System.out::println);
-        runner.roomService.getRoomServicesByCategory().forEach(System.out::println);
-        runner.roomService.getRoomServicesByPrice().forEach(System.out::println);
+        runner.roomService.getRoomsOrderedByPrice().forEach(System.out::println);
+        runner.roomService.getRoomServicesOrderedByCategory().forEach(System.out::println);
+        runner.roomService.getRoomServicesOrderedByPrice().forEach(System.out::println);
 
         System.out.println("\nShow the details of a separate room");
         System.out.println(runner.roomService.getRoom(102));

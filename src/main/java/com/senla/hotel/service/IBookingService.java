@@ -1,16 +1,18 @@
 package com.senla.hotel.service;
 
+import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Room;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface IBookingService {
     //    List of guests and their rooms (sort alphabetically and by check-out date);
-    List<Booking> findAllSortByAlphabetically();
+    List<GuestBookingDTO> findAllOrderedAlphabetically();
 
-    List<Booking> findAllSortByCheckOutDate();
+    List<Booking> findAllOrderedByCheckOutDate();
 
     //    View the last 3 guests of the room and the dates of their stay;
     List<Booking> findLastGuestOfRoomAndDates(int countOfGuests, long roomId);

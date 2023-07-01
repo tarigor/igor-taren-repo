@@ -10,4 +10,6 @@ public interface IBookingDAO {
     Booking getBookingById(long bookingId);
 
     void save(Booking booking);
+
+    Booking getBookingByGuestId(long guestId);
 }

@@ -19,30 +19,30 @@ public interface IRoomService {
     Room addRoom(Room room);
 
     //    List of rooms (sort by price,  by capacity, by number of stars);
-    List<Room> findAllByPrice();
+    List<Room> findAllOrderedByPrice();
 
-    List<Room> findAllByCapacity();
+    List<Room> findAllOrderedByCapacity();
 
-    List<Room> findAllByStars();
+    List<Room> findAllOrderedByStars();
 
     //    List of available rooms (sort by price, by capacity, by number of stars);
-    List<Room> findAvailableByPrice();
+    List<Room> findAvailableOrderedByPrice();
 
-    List<Room> findAvailableByCapacity();
+    List<Room> findAvailableOrderedByCapacity();
 
-    List<Room> findAvailableByStars();
+    List<Room> findAvailableOrderedByStars();
 
     //    Total number of available rooms;
     int findNumberOfAvailableRooms();
 
     double getRoomPrice(long roomId);
 
-    //    Prices of services and rooms (sort by section(category), by price);
+    //
     List<Room> getRoomsBySection();
 
-    List<Room> getRoomsByPrice();
+    List<Room> getRoomsOrderedByPrice();
 
-    List<RoomService> getRoomServicesByCategory();
+    List<RoomService> getRoomServicesOrderedByCategory();
 
-    List<RoomService> getRoomServicesByPrice();
+    List<RoomService> getRoomServicesOrderedByPrice();
 }

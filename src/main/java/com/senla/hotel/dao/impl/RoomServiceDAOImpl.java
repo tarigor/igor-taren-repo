@@ -32,6 +32,6 @@ public class RoomServiceDAOImpl implements IRoomServiceDAO {
 
     @Override
     public void save(RoomService roomService) {
-        this.roomServices.put(roomService.getRoomServiceId(), roomService);
+        this.roomServices.put(roomService.getId(), roomService);
     }
 }

@@ -3,9 +3,12 @@ package com.senla.hotel.service.impl;
 import com.senla.hotel.dao.IBookingDAO;
 import com.senla.hotel.dao.IGuestDAO;
 import com.senla.hotel.dao.IRoomDAO;
+import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
+import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -37,14 +40,16 @@ public class BookingServiceImpl implements IBookingService {
 
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
-    public List<Booking> findAllSortByAlphabetically() {
+    public List<GuestBookingDTO> findAllOrderedAlphabetically() {
+        List<Guest> guests = guestDAO.getGuests();
         return bookingDAO.getBookings().stream()
-                .sorted(Comparator.comparing(b -> guestDAO.getGuestById(b.getGuestId()).getFirstName()))
+                .map(b -> new GuestBookingDTO(guests.stream().filter(g -> g.getId() == b.getGuestId()).findFirst().get(), b))
+                .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Booking> findAllSortByCheckOutDate() {
+    public List<Booking> findAllOrderedByCheckOutDate() {
         return bookingDAO.getBookings().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate))
                 .collect(Collectors.toList());
@@ -61,19 +66,18 @@ public class BookingServiceImpl implements IBookingService {
 
     //    The amount of payment for the room to be paid by the guest;
     @Override
-    public double getTotalPaymentByGuest(long bookingId) {
+    public double getTotalPaymentByGuest(long guestId) {
+        Booking booking = bookingDAO.getBookingByGuestId(guestId);
         long bookedDays = Duration.between(
-                bookingDAO.getBookingById(bookingId).getCheckInDate().toInstant(),
-                bookingDAO.getBookingById(bookingId).getCheckOutDate().toInstant()).toDays();
-        return roomDAO.getRoom(bookingDAO.getBookingById(bookingId).getBookedRoomId()).getPrice() * bookedDays;
+                booking.getCheckInDate().toInstant(),
+                booking.getCheckOutDate().toInstant()).toDays();
+        return roomDAO.getRoom(booking.getBookedRoomId()).getPrice() * bookedDays;
     }
 
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
 
-        Date date1 = new Date();
-        System.out.println("date -> " + date1);
         return bookingDAO.getBookings().stream()
                 .filter(b -> b.getCheckInDate().after(date) || b.getCheckOutDate().before(date))
                 .map(Booking::getBookedRoomId)
@@ -89,4 +93,5 @@ public class BookingServiceImpl implements IBookingService {
                 .filter(b -> b.getCheckInDate().before(currentDate) && b.getCheckOutDate().after(currentDate))
                 .count();
     }
+
 }

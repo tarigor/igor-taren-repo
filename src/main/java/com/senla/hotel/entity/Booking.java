@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class Booking {
-    private long bookingId;
+    private long id;
     private long guestId;
     private long guestServicesId;
     private long bookedRoomId;

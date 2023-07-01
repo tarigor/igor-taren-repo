@@ -9,6 +9,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class GuestServices {
+    private long id;
     private long guestId;
     private Map<Date, Long> servicesOrdered;
 }

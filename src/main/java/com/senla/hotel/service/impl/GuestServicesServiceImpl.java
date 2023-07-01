@@ -29,7 +29,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
-    public List<GuestServicesDTO> getGuestServicesByPrice(long guestId) {
+    public List<GuestServicesDTO> getGuestServicesSortedByPrice(long guestId) {
         return guestServicesDAO.getGuestServicesByGuestId(guestId).getServicesOrdered().entrySet().stream()
                 .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getRoomServiceById(e.getValue())))
                 .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()))
@@ -37,7 +37,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     }
 
     @Override
-    public List<GuestServicesDTO> getGuestServicesByDate(long guestId) {
+    public List<GuestServicesDTO> getGuestServicesSortedByDate(long guestId) {
         return guestServicesDAO.getGuestServicesByGuestId(guestId).getServicesOrdered().entrySet().stream()
                 .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getRoomServiceById(e.getValue())))
                 .sorted(Comparator.comparing(GuestServicesDTO::getDate))

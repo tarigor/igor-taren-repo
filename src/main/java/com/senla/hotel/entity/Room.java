@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Room {
-    private long roomId;
+    private long id;
     private int capacity;
     private double price;
     private boolean roomAvailability;
