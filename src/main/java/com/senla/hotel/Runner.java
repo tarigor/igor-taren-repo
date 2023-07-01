@@ -65,21 +65,21 @@ public class Runner {
                 new RoomService(4, ServiceStatus.CLEANING, 10.4));
 
         guestServices = List.of(
-                new GuestServices(1,1, Map.of(
+                new GuestServices(1, 1, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
                 )),
-                new GuestServices(2,2, Map.of(
+                new GuestServices(2, 2, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
                 )),
-                new GuestServices(3,3, Map.of(
+                new GuestServices(3, 3, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,

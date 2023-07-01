@@ -8,8 +8,7 @@ import java.util.*;
 public class BookingDAOImpl implements IBookingDAO {
 
     private static final BookingDAOImpl INSTANCE = new BookingDAOImpl();
-    private Map<Long, Booking> bookings = new HashMap<>();
-    ;
+    private final Map<Long, Booking> bookings = new HashMap<>();
 
     public static BookingDAOImpl getInstance() {
         return INSTANCE;

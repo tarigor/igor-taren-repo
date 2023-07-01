@@ -10,19 +10,19 @@ import java.util.Map;
 
 public class RoomServiceDAOImpl implements IRoomServiceDAO {
     private static final RoomServiceDAOImpl INSTANCE = new RoomServiceDAOImpl();
-    private Map<Long, RoomService> roomServices = new HashMap<>();
+    private final Map<Long, RoomService> roomServices = new HashMap<>();
 
     public static RoomServiceDAOImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setRoomServices(List<RoomService> roomServices) {
-        roomServices.forEach(this::save);
-    }
-
     @Override
     public List<RoomService> getRoomServices() {
         return new ArrayList<>(roomServices.values());
+    }
+
+    public void setRoomServices(List<RoomService> roomServices) {
+        roomServices.forEach(this::save);
     }
 
     @Override

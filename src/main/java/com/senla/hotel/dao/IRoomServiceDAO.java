@@ -9,5 +9,6 @@ public interface IRoomServiceDAO {
     List<RoomService> getRoomServices();
 
     RoomService getRoomServiceById(long serviceId);
+
     void save(RoomService roomService);
 }

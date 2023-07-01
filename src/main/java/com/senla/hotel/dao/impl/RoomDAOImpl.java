@@ -7,14 +7,10 @@ import java.util.*;
 
 public class RoomDAOImpl implements IRoomDAO {
     private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
-    private Map<Long, Room> rooms = new HashMap<>();
+    private final Map<Long, Room> rooms = new HashMap<>();
 
     public static RoomDAOImpl getInstance() {
         return INSTANCE;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        rooms.forEach(this::save);
     }
 
     @Override
@@ -41,6 +37,10 @@ public class RoomDAOImpl implements IRoomDAO {
     @Override
     public List<Room> getRooms() {
         return new ArrayList<>(rooms.values());
+    }
+
+    public void setRooms(List<Room> rooms) {
+        rooms.forEach(this::save);
     }
 
 

@@ -10,19 +10,21 @@ import java.util.Map;
 
 public class GuestDAOImpl implements IGuestDAO {
     private static final GuestDAOImpl INSTANCE = new GuestDAOImpl();
-    private Map<Long, Guest> guests = new HashMap<>();;
+    private final Map<Long, Guest> guests = new HashMap<>();
 
     public static GuestDAOImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setGuests(List< Guest> guests) {
-        guests.forEach(this::save);
-    }
     @Override
     public List<Guest> getGuests() {
         return new ArrayList<>(guests.values());
     }
+
+    public void setGuests(List<Guest> guests) {
+        guests.forEach(this::save);
+    }
+
     @Override
     public Guest getGuestById(long guestId) {
         return guests.get(guestId);
@@ -30,7 +32,7 @@ public class GuestDAOImpl implements IGuestDAO {
 
     @Override
     public void save(Guest guest) {
-        this.guests.put(guest.getId(),guest);
+        this.guests.put(guest.getId(), guest);
     }
 
 

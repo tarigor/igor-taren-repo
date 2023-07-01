@@ -8,7 +8,6 @@ import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
-import org.apache.commons.lang3.time.DateUtils;
 
 import java.time.Duration;
 import java.util.Comparator;

@@ -12,11 +12,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class GuestServicesDTO {
+    private static Set<Long> idHolder = new HashSet<>();
     private long id;
     private Date date;
     private RoomService roomService;
-
-    private static Set<Long> idHolder = new HashSet<>();
 
     public GuestServicesDTO(Date date, RoomService roomService) {
         generateId();

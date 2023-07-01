@@ -11,11 +11,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class GuestBookingDTO {
+    private static Set<Long> idHolder = new HashSet<>();
     private long id;
     private Guest guest;
     private Booking booking;
-
-    private static Set<Long> idHolder = new HashSet<>();
 
     public GuestBookingDTO(Guest guest, Booking booking) {
         generateId();

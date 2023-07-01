@@ -6,7 +6,6 @@ import com.senla.hotel.entity.Room;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface IBookingService {
     //    List of guests and their rooms (sort alphabetically and by check-out date);

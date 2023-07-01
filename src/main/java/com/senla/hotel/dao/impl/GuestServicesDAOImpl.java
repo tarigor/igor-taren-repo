@@ -10,19 +10,19 @@ import java.util.Map;
 
 public class GuestServicesDAOImpl implements IGuestServicesDAO {
     private static final GuestServicesDAOImpl INSTANCE = new GuestServicesDAOImpl();
-    private Map<Long, GuestServices> guestServices = new HashMap<>();;
+    private final Map<Long, GuestServices> guestServices = new HashMap<>();
 
     public static GuestServicesDAOImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setGuestServices(List<GuestServices> guestServices) {
-        guestServices.forEach(this::save);
-    }
-
     @Override
     public List<GuestServices> getGuestServices() {
         return new ArrayList<>(guestServices.values());
+    }
+
+    public void setGuestServices(List<GuestServices> guestServices) {
+        guestServices.forEach(this::save);
     }
 
     @Override
