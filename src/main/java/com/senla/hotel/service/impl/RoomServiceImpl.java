@@ -126,10 +126,35 @@ public class RoomServiceImpl implements IRoomService {
 
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getRoomsOrderedBySection() {
-        return roomDAO.getRooms().stream()
-                .sorted(Comparator.comparing(Room::getId))
-                .collect(Collectors.toList());
+    public List<Room> getRoomsOrderedBySection(int sectionNumber) {
+        switch (sectionNumber) {
+            case 1:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::getId))
+                        .collect(Collectors.toList());
+            case 2:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::getCapacity))
+                        .collect(Collectors.toList());
+            case 3:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::getPrice))
+                        .collect(Collectors.toList());
+            case 4:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::isRoomAvailability))
+                        .collect(Collectors.toList());
+            case 5:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::getRoomServiceId))
+                        .collect(Collectors.toList());
+            case 6:
+                return roomDAO.getRooms().stream()
+                        .sorted(Comparator.comparing(Room::getStarsRating))
+                        .collect(Collectors.toList());
+            default:
+                throw new IndexOutOfBoundsException("There is no such a section with id->" + sectionNumber);
+        }
     }
 
     @Override

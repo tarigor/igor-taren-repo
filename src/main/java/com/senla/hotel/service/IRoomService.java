@@ -38,7 +38,7 @@ public interface IRoomService {
     double getRoomPrice(long roomId);
 
     //
-    List<Room> getRoomsOrderedBySection();
+    List<Room> getRoomsOrderedBySection(int sectionNumber);
 
     List<Room> getRoomsOrderedByPrice();
 
