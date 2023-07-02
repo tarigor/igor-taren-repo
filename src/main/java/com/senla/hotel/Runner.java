@@ -149,9 +149,13 @@ public class Runner {
         runner.guestServicesService.getGuestServicesSortedByDate(1L).forEach(System.out::println);
 
         System.out.println("\nPrices of services and rooms (sort by section(category), by price)");
-        runner.roomService.getRoomsOrderedBySection().forEach(System.out::println);
+        System.out.println("rooms by section");
+        runner.roomService.getRoomsOrderedBySection(1).forEach(System.out::println);
+        System.out.println("rooms ordered by price");
         runner.roomService.getRoomsOrderedByPrice().forEach(System.out::println);
+        System.out.println("room services ordered category");
         runner.roomService.getRoomServicesOrderedByCategory().forEach(System.out::println);
+        System.out.println("room services ordered by price");
         runner.roomService.getRoomServicesOrderedByPrice().forEach(System.out::println);
 
         System.out.println("\nShow the details of a separate room");
