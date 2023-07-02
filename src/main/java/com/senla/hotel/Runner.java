@@ -1,6 +1,6 @@
 package com.senla.hotel;
 
-import com.senla.hotel.constant.ServiceStatus;
+import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dao.impl.*;
 import com.senla.hotel.entity.*;
 import com.senla.hotel.service.impl.BookingServiceImpl;
@@ -28,7 +28,7 @@ public class Runner {
         rooms = List.of(
                 new Room(101L, 1, 23.2, false, 1, 3),
                 new Room(102L, 2, 34.5, false, 1, 3),
-                new Room(103L, 3, 47.2, false, 1, 3));
+                new Room(103L, 3, 47.2, true, 1, 3));
 
         guests = List.of(
                 new Guest(1L, "Vasya", "Pupkin"),
@@ -59,10 +59,10 @@ public class Runner {
                         new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
 
         roomServices = List.of(
-                new RoomService(1, ServiceStatus.NONE, 12.3),
-                new RoomService(2, ServiceStatus.MAINTENANCE, 22.7),
-                new RoomService(3, ServiceStatus.REPAIR, 34.4),
-                new RoomService(4, ServiceStatus.CLEANING, 10.4));
+                new RoomService(1, ServiceType.NONE, 12.3),
+                new RoomService(2, ServiceType.MAINTENANCE, 22.7),
+                new RoomService(3, ServiceType.REPAIR, 34.4),
+                new RoomService(4, ServiceType.CLEANING, 10.4));
 
         guestServices = List.of(
                 new GuestServices(1, 1, Map.of(
@@ -136,7 +136,7 @@ public class Runner {
         System.out.println(runner.bookingService.findCountOfAllGuests());
 
         System.out.println("\nList of rooms that will be available on a certain date in the future");
-        runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, 9, 15).getTime());
+        runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, Calendar.JUNE, 15).getTime()).forEach(System.out::println);
 
         System.out.println("\nThe amount of payment for the room to be paid by the guest");
         System.out.println(runner.bookingService.getTotalPaymentByGuest(1L));
@@ -149,7 +149,7 @@ public class Runner {
         runner.guestServicesService.getGuestServicesSortedByDate(1L).forEach(System.out::println);
 
         System.out.println("\nPrices of services and rooms (sort by section(category), by price)");
-        runner.roomService.getRoomsBySection().forEach(System.out::println);
+        runner.roomService.getRoomsOrderedBySection().forEach(System.out::println);
         runner.roomService.getRoomsOrderedByPrice().forEach(System.out::println);
         runner.roomService.getRoomServicesOrderedByCategory().forEach(System.out::println);
         runner.roomService.getRoomServicesOrderedByPrice().forEach(System.out::println);

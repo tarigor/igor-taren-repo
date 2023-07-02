@@ -76,11 +76,10 @@ public class BookingServiceImpl implements IBookingService {
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
-
         return bookingDAO.getBookings().stream()
-                .filter(b -> b.getCheckInDate().after(date) || b.getCheckOutDate().before(date))
-                .map(Booking::getBookedRoomId)
-                .map(i -> roomDAO.getRoom(i))
+                .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
+                        (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
+                .map(b -> roomDAO.getRoom(b.getBookedRoomId()))
                 .collect(Collectors.toList());
     }
 

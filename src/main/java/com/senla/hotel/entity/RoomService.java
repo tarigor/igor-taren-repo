@@ -1,6 +1,6 @@
 package com.senla.hotel.entity;
 
-import com.senla.hotel.constant.ServiceStatus;
+import com.senla.hotel.constant.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class RoomService {
     private long id;
-    private ServiceStatus serviceStatus;
+    private ServiceType serviceType;
     private double price;
 }

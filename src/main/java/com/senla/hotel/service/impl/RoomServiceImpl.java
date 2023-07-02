@@ -46,8 +46,8 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room changeRoomServiceStatus(long roomId, long serviceStatusId) {
-        roomDAO.getRoom(roomId).setRoomServiceId(serviceStatusId);
+    public Room changeRoomService(long roomId, long serviceTypeId) {
+        roomDAO.getRoom(roomId).setRoomServiceId(serviceTypeId);
         return roomDAO.getRoom(roomId);
     }
 
@@ -126,7 +126,7 @@ public class RoomServiceImpl implements IRoomService {
 
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getRoomsBySection() {
+    public List<Room> getRoomsOrderedBySection() {
         return roomDAO.getRooms().stream()
                 .sorted(Comparator.comparing(Room::getId))
                 .collect(Collectors.toList());
@@ -142,7 +142,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<RoomService> getRoomServicesOrderedByCategory() {
         return roomServiceDAO.getRoomServices().stream()
-                .sorted(Comparator.comparing(RoomService::getServiceStatus))
+                .sorted(Comparator.comparing(RoomService::getServiceType))
                 .collect(Collectors.toList());
     }
 

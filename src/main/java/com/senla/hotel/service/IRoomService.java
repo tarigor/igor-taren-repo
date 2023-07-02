@@ -10,7 +10,7 @@ public interface IRoomService {
 
     void doCheckOut(long roomId);
 
-    Room changeRoomServiceStatus(long roomId, long serviceStatusId);
+    Room changeRoomService(long roomId, long serviceStatusId);
 
     Room changeRoomPrice(long roomId, double price);
 
@@ -38,7 +38,7 @@ public interface IRoomService {
     double getRoomPrice(long roomId);
 
     //
-    List<Room> getRoomsBySection();
+    List<Room> getRoomsOrderedBySection();
 
     List<Room> getRoomsOrderedByPrice();
 
