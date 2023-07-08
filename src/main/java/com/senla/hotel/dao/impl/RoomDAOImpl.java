@@ -1,21 +1,23 @@
 package com.senla.hotel.dao.impl;
 
+import com.senla.hotel.dao.EntityDAO;
 import com.senla.hotel.dao.IRoomDAO;
 import com.senla.hotel.entity.Room;
 
 import java.util.*;
 
-public class RoomDAOImpl implements IRoomDAO {
+public class RoomDAOImpl extends EntityDAO implements IRoomDAO {
     private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
     private final Map<Long, Room> rooms = new HashMap<>();
+    private static Set<Long> idHolder = new HashSet<>();
 
     public static RoomDAOImpl getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public Room updateRoom(Room room) {
-        Room updatedRoom = getRoom(room.getId());
+    public Room update(Room room) {
+        Room updatedRoom = getById(room.getId());
         updatedRoom.setPrice(room.getPrice());
         updatedRoom.setCapacity(room.getCapacity());
         updatedRoom.setStarsRating(room.getStarsRating());
@@ -23,19 +25,19 @@ public class RoomDAOImpl implements IRoomDAO {
     }
 
     @Override
-    public Room getRoom(long roomId) {
+    public Room getById(long roomId) {
         return Optional.ofNullable(rooms.get(roomId))
                 .orElseThrow(() -> new NoSuchElementException("There is no such a room with id -> " + roomId));
     }
 
     @Override
     public Room save(Room room) {
-        rooms.put(room.getId(), room);
+        rooms.put(generateId(idHolder), room);
         return room;
     }
 
     @Override
-    public List<Room> getRooms() {
+    public List<Room> getAll() {
         return new ArrayList<>(rooms.values());
     }
 

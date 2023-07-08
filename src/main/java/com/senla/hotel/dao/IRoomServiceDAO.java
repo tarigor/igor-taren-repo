@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IRoomServiceDAO {
 
-    List<RoomService> getRoomServices();
+    List<RoomService> getAll();
 
-    RoomService getRoomServiceById(long serviceId);
+    RoomService getById(long serviceId);
 
     void save(RoomService roomService);
 }

@@ -37,29 +37,29 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public void doCheckIn(long roomId) {
-        roomDAO.getRoom(roomId).setRoomAvailability(false);
+        roomDAO.getById(roomId).setAvailable(false);
     }
 
     @Override
     public void doCheckOut(long roomId) {
-        roomDAO.getRoom(roomId).setRoomAvailability(true);
+        roomDAO.getById(roomId).setAvailable(true);
     }
 
     @Override
     public Room changeRoomService(long roomId, long serviceTypeId) {
-        roomDAO.getRoom(roomId).setRoomServiceId(serviceTypeId);
-        return roomDAO.getRoom(roomId);
+        roomDAO.getById(roomId).setRoomServiceId(serviceTypeId);
+        return roomDAO.getById(roomId);
     }
 
     @Override
     public Room changeRoomPrice(long roomId, double price) {
-        roomDAO.getRoom(roomId).setPrice(price);
-        return roomDAO.getRoom(roomId);
+        roomDAO.getById(roomId).setPrice(price);
+        return roomDAO.getById(roomId);
     }
 
     @Override
     public Room getRoom(long roomId) {
-        return roomDAO.getRoom(roomId);
+        return roomDAO.getById(roomId);
     }
 
     @Override
@@ -69,59 +69,59 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> findAllOrderedByPrice() {
-        return roomDAO.getRooms().stream()
+        return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Room> findAllOrderedByCapacity() {
-        return roomDAO.getRooms().stream()
+        return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getCapacity))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Room> findAllOrderedByStars() {
-        return roomDAO.getRooms().stream()
+        return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getStarsRating))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Room> findAvailableOrderedByPrice() {
-        return roomDAO.getRooms().stream()
-                .filter(Room::isRoomAvailability)
+        return roomDAO.getAll().stream()
+                .filter(Room::isAvailable)
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Room> findAvailableOrderedByCapacity() {
-        return roomDAO.getRooms().stream()
-                .filter(Room::isRoomAvailability)
+        return roomDAO.getAll().stream()
+                .filter(Room::isAvailable)
                 .sorted(Comparator.comparing(Room::getCapacity))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Room> findAvailableOrderedByStars() {
-        return roomDAO.getRooms().stream()
-                .filter(Room::isRoomAvailability)
+        return roomDAO.getAll().stream()
+                .filter(Room::isAvailable)
                 .sorted(Comparator.comparing(Room::getStarsRating))
                 .collect(Collectors.toList());
     }
 
     @Override
     public int findNumberOfAvailableRooms() {
-        return (int) roomDAO.getRooms().stream()
-                .filter(Room::isRoomAvailability)
+        return (int) roomDAO.getAll().stream()
+                .filter(Room::isAvailable)
                 .count();
     }
 
     @Override
     public double getRoomPrice(long roomId) {
-        return roomDAO.getRoom(roomId).getPrice();
+        return roomDAO.getById(roomId).getPrice();
     }
 
     //    Prices of services and rooms (sort by section(category), by price);
@@ -129,27 +129,27 @@ public class RoomServiceImpl implements IRoomService {
     public List<Room> getRoomsOrderedBySection(int sectionNumber) {
         switch (sectionNumber) {
             case 1:
-                return roomDAO.getRooms().stream()
+                return roomDAO.getAll().stream()
                         .sorted(Comparator.comparing(Room::getId))
                         .collect(Collectors.toList());
             case 2:
-                return roomDAO.getRooms().stream()
+                return roomDAO.getAll().stream()
                         .sorted(Comparator.comparing(Room::getCapacity))
                         .collect(Collectors.toList());
             case 3:
-                return roomDAO.getRooms().stream()
+                return roomDAO.getAll().stream()
                         .sorted(Comparator.comparing(Room::getPrice))
                         .collect(Collectors.toList());
             case 4:
-                return roomDAO.getRooms().stream()
-                        .sorted(Comparator.comparing(Room::isRoomAvailability))
+                return roomDAO.getAll().stream()
+                        .sorted(Comparator.comparing(Room::isAvailable))
                         .collect(Collectors.toList());
             case 5:
-                return roomDAO.getRooms().stream()
+                return roomDAO.getAll().stream()
                         .sorted(Comparator.comparing(Room::getRoomServiceId))
                         .collect(Collectors.toList());
             case 6:
-                return roomDAO.getRooms().stream()
+                return roomDAO.getAll().stream()
                         .sorted(Comparator.comparing(Room::getStarsRating))
                         .collect(Collectors.toList());
             default:
@@ -159,21 +159,21 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> getRoomsOrderedByPrice() {
-        return roomDAO.getRooms().stream()
+        return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RoomService> getRoomServicesOrderedByCategory() {
-        return roomServiceDAO.getRoomServices().stream()
+        return roomServiceDAO.getAll().stream()
                 .sorted(Comparator.comparing(RoomService::getServiceType))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RoomService> getRoomServicesOrderedByPrice() {
-        return roomServiceDAO.getRoomServices().stream()
+        return roomServiceDAO.getAll().stream()
                 .sorted(Comparator.comparing(RoomService::getPrice))
                 .collect(Collectors.toList());
     }

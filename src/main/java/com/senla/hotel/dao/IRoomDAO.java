@@ -5,11 +5,11 @@ import com.senla.hotel.entity.Room;
 import java.util.List;
 
 public interface IRoomDAO {
-    Room updateRoom(Room room);
+    Room update(Room room);
 
-    Room getRoom(long roomId);
+    Room getById(long roomId);
 
     Room save(Room room);
 
-    List<Room> getRooms();
+    List<Room> getAll();
 }

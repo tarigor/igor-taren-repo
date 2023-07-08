@@ -97,7 +97,7 @@ public class Runner {
         bookingDAO.setBookings(bookings);
 
         RoomServiceDAOImpl roomServiceDAO = RoomServiceDAOImpl.getInstance();
-        roomServiceDAO.setRoomServices(roomServices);
+        roomServiceDAO.saveAll(roomServices);
 
         GuestServicesDAOImpl guestServicesDAO = new GuestServicesDAOImpl();
         guestServicesDAO.setGuestServices(guestServices);

@@ -9,7 +9,7 @@ public class Room {
     private long id;
     private int capacity;
     private double price;
-    private boolean roomAvailability;
+    private boolean isAvailable;
     private long roomServiceId;
     private int starsRating;
 }

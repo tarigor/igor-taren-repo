@@ -5,9 +5,9 @@ import com.senla.hotel.entity.Guest;
 import java.util.List;
 
 public interface IGuestDAO {
-    List<Guest> getGuests();
+    List<Guest> getAll();
 
-    Guest getGuestById(long guestId);
+    Guest getById(long guestId);
 
     void save(Guest guest);
 }

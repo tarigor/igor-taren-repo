@@ -5,11 +5,11 @@ import com.senla.hotel.entity.Booking;
 import java.util.List;
 
 public interface IBookingDAO {
-    List<Booking> getBookings();
+    List<Booking> getAll();
 
-    Booking getBookingById(long bookingId);
+    Booking getById(long bookingId);
 
     void save(Booking booking);
 
-    Booking getBookingByGuestId(long guestId);
+    Booking getByGuestId(long guestId);
 }
