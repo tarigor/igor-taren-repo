@@ -1,12 +1,11 @@
 package com.senla.hotel.dao.impl;
 
-import com.senla.hotel.dao.EntityDAO;
-import com.senla.hotel.dao.IRoomDAO;
+import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Room;
 
 import java.util.*;
 
-public class RoomDAOImpl extends EntityDAO implements IRoomDAO {
+public class RoomDAOImpl implements IEntityDAO<Room> {
     private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
     private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, Room> rooms = new HashMap<>();
@@ -31,11 +30,10 @@ public class RoomDAOImpl extends EntityDAO implements IRoomDAO {
     }
 
     @Override
-    public Room save(Room room) {
+    public void save(Room room) {
         long id = generateId(idHolder);
         room.setId(id);
         rooms.put(id, room);
-        return room;
     }
 
     @Override
@@ -43,6 +41,7 @@ public class RoomDAOImpl extends EntityDAO implements IRoomDAO {
         return new ArrayList<>(rooms.values());
     }
 
+    @Override
     public void saveAll(List<Room> rooms) {
         rooms.forEach(this::save);
     }

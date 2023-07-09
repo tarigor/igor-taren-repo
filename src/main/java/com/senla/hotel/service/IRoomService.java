@@ -17,7 +17,7 @@ public interface IRoomService {
 
     Room getRoom(long roomId);
 
-    Room addRoom(Room room);
+    void addRoom(Room room);
 
     //    List of rooms (sort by price,  by capacity, by number of stars);
     List<Room> findAllOrderedByPrice();

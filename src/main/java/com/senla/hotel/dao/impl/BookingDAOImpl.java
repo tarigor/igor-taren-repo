@@ -1,12 +1,11 @@
 package com.senla.hotel.dao.impl;
 
-import com.senla.hotel.dao.EntityDAO;
-import com.senla.hotel.dao.IBookingDAO;
+import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Booking;
 
 import java.util.*;
 
-public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
+public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     private static final BookingDAOImpl INSTANCE = new BookingDAOImpl();
     private static final Set<Long> idHolder = new HashSet<>();
@@ -21,6 +20,7 @@ public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
         return new ArrayList<>(bookings.values());
     }
 
+    @Override
     public void saveAll(List<Booking> bookings) {
         bookings.forEach(this::save);
     }
@@ -35,5 +35,16 @@ public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
         long id = generateId(idHolder);
         booking.setId(id);
         this.bookings.put(id, booking);
+    }
+
+    @Override
+    public Booking update(Booking booking) {
+        Booking updatedBooking = getById(booking.getId());
+        updatedBooking.setGuestId(booking.getGuestId());
+        updatedBooking.setGuestServicesId(booking.getGuestServicesId());
+        updatedBooking.setBookedRoomId(booking.getBookedRoomId());
+        updatedBooking.setCheckInDate(booking.getCheckInDate());
+        updatedBooking.setCheckOutDate(booking.getCheckOutDate());
+        return updatedBooking;
     }
 }

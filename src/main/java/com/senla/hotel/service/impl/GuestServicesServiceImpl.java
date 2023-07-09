@@ -2,9 +2,10 @@ package com.senla.hotel.service.impl;
 
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.dao.IGuestServicesDAO;
-import com.senla.hotel.dao.IRoomServiceDAO;
+import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dto.GuestServicesDTO;
+import com.senla.hotel.entity.GuestServices;
+import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
 
 import java.util.Comparator;
@@ -13,18 +14,18 @@ import java.util.stream.Collectors;
 
 public class GuestServicesServiceImpl implements IGuestServicesService {
     private static final GuestServicesServiceImpl INSTANCE = new GuestServicesServiceImpl();
-    private IGuestServicesDAO guestServicesDAO;
-    private IRoomServiceDAO roomServiceDAO;
+    private IEntityDAO<GuestServices> guestServicesDAO;
+    private IEntityDAO<RoomService> roomServiceDAO;
 
     public static GuestServicesServiceImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setGuestServicesDAO(IGuestServicesDAO guestServicesDAO) {
+    public void setGuestServicesDAO(IEntityDAO<GuestServices> guestServicesDAO) {
         this.guestServicesDAO = guestServicesDAO;
     }
 
-    public void setRoomServiceDAO(IRoomServiceDAO roomServiceDAO) {
+    public void setRoomServiceDAO(IEntityDAO<RoomService> roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 

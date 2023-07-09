@@ -1,12 +1,11 @@
 package com.senla.hotel.dao.impl;
 
-import com.senla.hotel.dao.EntityDAO;
-import com.senla.hotel.dao.IGuestServicesDAO;
+import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.GuestServices;
 
 import java.util.*;
 
-public class GuestServicesDAOImpl extends EntityDAO implements IGuestServicesDAO {
+public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
     private static final GuestServicesDAOImpl INSTANCE = new GuestServicesDAOImpl();
     private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, GuestServices> guestServices = new HashMap<>();
@@ -20,8 +19,17 @@ public class GuestServicesDAOImpl extends EntityDAO implements IGuestServicesDAO
         return new ArrayList<>(guestServices.values());
     }
 
+    @Override
     public void saveAll(List<GuestServices> guestServices) {
         guestServices.forEach(this::save);
+    }
+
+    @Override
+    public GuestServices update(GuestServices guestServices) {
+        GuestServices updatedGuestServices = getById(guestServices.getGuestId());
+        updatedGuestServices.setGuestId(guestServices.getGuestId());
+        updatedGuestServices.setServicesOrdered(guestServices.getServicesOrdered());
+        return updatedGuestServices;
     }
 
     @Override
