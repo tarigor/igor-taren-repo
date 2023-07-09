@@ -1,11 +1,12 @@
 package com.senla.hotel;
 
-import com.senla.hotel.constant.ServiceType;
+import com.senla.hotel.constant.*;
 import com.senla.hotel.dao.impl.*;
 import com.senla.hotel.entity.*;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -23,63 +24,61 @@ public class Runner {
     private final RoomServiceImpl roomService = RoomServiceImpl.getInstance();
     private final BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
     private final GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
+    private final RoomServicesServiceImpl roomServicesService = RoomServicesServiceImpl.getInstance();
 
     {
         rooms = List.of(
-                new Room(101L, 1, 23.2, false, 1, 3),
-                new Room(102L, 2, 34.5, false, 1, 3),
-                new Room(103L, 3, 47.2, true, 1, 3));
+                new Room(1, 23.2, false, 1, 3),
+                new Room(2, 34.5, false, 1, 3),
+                new Room(3, 47.2, true, 1, 3));
 
         guests = List.of(
-                new Guest(1L, "Vasya", "Pupkin"),
-                new Guest(2L, "Lelik", "Bolik"),
-                new Guest(3L, "Olya", "Palkina"));
+                new Guest("Vasya", "Pupkin"),
+                new Guest("Lelik", "Bolik"),
+                new Guest("Olya", "Palkina"));
 
         bookings = List.of(
                 new Booking(
-                        1,
                         2,
                         1,
-                        101,
+                        1,
                         new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(),
                         new GregorianCalendar(2023, Calendar.JUNE, 5).getTime()),
                 new Booking(
+                        1,
+                        1,
                         2,
-                        1,
-                        1,
-                        102,
                         new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(),
                         new GregorianCalendar(2023, Calendar.JUNE, 19).getTime()),
                 new Booking(
-                        3L,
                         3,
                         1,
-                        103,
+                        3,
                         new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(),
                         new GregorianCalendar(2023, Calendar.JUNE, 29).getTime()));
 
         roomServices = List.of(
-                new RoomService(1, ServiceType.NONE, 12.3),
-                new RoomService(2, ServiceType.MAINTENANCE, 22.7),
-                new RoomService(3, ServiceType.REPAIR, 34.4),
-                new RoomService(4, ServiceType.CLEANING, 10.4));
+                new RoomService(ServiceType.NONE, 12.3),
+                new RoomService(ServiceType.MAINTENANCE, 22.7),
+                new RoomService(ServiceType.REPAIR, 34.4),
+                new RoomService(ServiceType.CLEANING, 10.4));
 
         guestServices = List.of(
-                new GuestServices(1, 1, Map.of(
+                new GuestServices(1, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
                 )),
-                new GuestServices(2, 2, Map.of(
+                new GuestServices(2, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
                 )),
-                new GuestServices(3, 3, Map.of(
+                new GuestServices(3, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,
@@ -88,22 +87,21 @@ public class Runner {
                 )));
 
         RoomDAOImpl roomDAO = RoomDAOImpl.getInstance();
-        roomDAO.setRooms(rooms);
+        roomDAO.saveAll(rooms);
 
         GuestDAOImpl guestDAO = GuestDAOImpl.getInstance();
-        guestDAO.setGuests(guests);
+        guestDAO.saveAll(guests);
 
         BookingDAOImpl bookingDAO = BookingDAOImpl.getInstance();
-        bookingDAO.setBookings(bookings);
+        bookingDAO.saveAll(bookings);
 
         RoomServiceDAOImpl roomServiceDAO = RoomServiceDAOImpl.getInstance();
         roomServiceDAO.saveAll(roomServices);
 
         GuestServicesDAOImpl guestServicesDAO = new GuestServicesDAOImpl();
-        guestServicesDAO.setGuestServices(guestServices);
+        guestServicesDAO.saveAll(guestServices);
 
         roomService.setRoomDAO(roomDAO);
-        roomService.setRoomServiceDAO(roomServiceDAO);
 
         bookingService.setBookingDAO(bookingDAO);
         bookingService.setGuestDAO(guestDAO);
@@ -111,6 +109,8 @@ public class Runner {
 
         guestServicesService.setGuestServicesDAO(guestServicesDAO);
         guestServicesService.setRoomServiceDAO(roomServiceDAO);
+
+        roomServicesService.setRoomServiceDAO(roomServiceDAO);
     }
 
     public static void main(String[] args) {
@@ -139,26 +139,28 @@ public class Runner {
         runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, Calendar.JUNE, 15).getTime()).forEach(System.out::println);
 
         System.out.println("\nThe amount of payment for the room to be paid by the guest");
-        System.out.println(runner.bookingService.getTotalPaymentByGuest(1L));
+        System.out.println(runner.bookingService.getTotalPaymentByGuest(1));
 
         System.out.println("\nView the last 3 guests of the room and the dates of their stay");
-        runner.bookingService.findLastGuestOfRoomAndDates(3, 101L).forEach(System.out::println);
+        runner.bookingService.findLastGuestOfRoomAndDates(3, 1).forEach(System.out::println);
 
         System.out.println("\nView the list of guest services and their price (sort by price, by date)");
-        runner.guestServicesService.getGuestServicesSortedByPrice(1L).forEach(System.out::println);
-        runner.guestServicesService.getGuestServicesSortedByDate(1L).forEach(System.out::println);
+        System.out.println("sorted by price asc");
+        runner.guestServicesService.getByGuestIdSorted(1, GuestServicesSection.PRICE, Ordering.ASC).forEach(System.out::println);
+        System.out.println("sorted by date desc");
+        runner.guestServicesService.getByGuestIdSorted(1, GuestServicesSection.DATE, Ordering.DESC).forEach(System.out::println);
 
-        System.out.println("\nPrices of services and rooms (sort by section(category), by price)");
-        System.out.println("rooms by section");
-        runner.roomService.getRoomsOrderedBySection(1).forEach(System.out::println);
-        System.out.println("rooms ordered by price");
-        runner.roomService.getRoomsOrderedByPrice().forEach(System.out::println);
-        System.out.println("room services ordered category");
-        runner.roomService.getRoomServicesOrderedByCategory().forEach(System.out::println);
-        System.out.println("room services ordered by price");
-        runner.roomService.getRoomServicesOrderedByPrice().forEach(System.out::println);
+        System.out.println("\nPrices of services and rooms (sort by section)");
+        System.out.println("rooms by section ID");
+        runner.roomService.getAllOrdered(RoomSection.ID, Ordering.ASC).forEach(System.out::println);
+        System.out.println("rooms ordered by price desc");
+        runner.roomService.getAllOrdered(RoomSection.PRICE, Ordering.DESC).forEach(System.out::println);
+        System.out.println("room services ordered by room service asc");
+        runner.roomServicesService.getAllOrdered(RoomServiceSection.ROOM_SERVICE, Ordering.ASC).forEach(System.out::println);
+        System.out.println("room services ordered by price desc");
+        runner.roomServicesService.getAllOrdered(RoomServiceSection.PRICE, Ordering.DESC).forEach(System.out::println);
 
         System.out.println("\nShow the details of a separate room");
-        System.out.println(runner.roomService.getRoom(102));
+        System.out.println(runner.roomService.getRoom(2));
     }
 }

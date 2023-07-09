@@ -70,7 +70,7 @@ public class BookingServiceImpl implements IBookingService {
     //    The amount of payment for the room to be paid by the guest;
     @Override
     public double getTotalPaymentByGuest(long guestId) {
-        Booking booking = bookingDAO.getByGuestId(guestId);
+        Booking booking = getByGuestId(guestId);
         long bookedDays = Duration.between(booking.getCheckInDate().toInstant(), booking.getCheckOutDate().toInstant())
                 .toDays();
         return roomDAO.getById(booking.getBookedRoomId()).getPrice() * bookedDays;
@@ -93,6 +93,14 @@ public class BookingServiceImpl implements IBookingService {
         return bookingDAO.getAll().stream()
                 .filter(b -> b.getCheckInDate().before(currentDate) && b.getCheckOutDate().after(currentDate))
                 .count();
+    }
+
+    @Override
+    public Booking getByGuestId(long guestId) {
+        return bookingDAO.getAll().stream()
+                .filter(b -> b.getGuestId() == guestId)
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
     }
 
 }

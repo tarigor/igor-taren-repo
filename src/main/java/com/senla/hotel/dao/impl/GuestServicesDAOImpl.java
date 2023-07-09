@@ -8,8 +8,8 @@ import java.util.*;
 
 public class GuestServicesDAOImpl extends EntityDAO implements IGuestServicesDAO {
     private static final GuestServicesDAOImpl INSTANCE = new GuestServicesDAOImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, GuestServices> guestServices = new HashMap<>();
-    private static Set<Long> idHolder = new HashSet<>();
 
     public static GuestServicesDAOImpl getInstance() {
         return INSTANCE;
@@ -20,17 +20,19 @@ public class GuestServicesDAOImpl extends EntityDAO implements IGuestServicesDAO
         return new ArrayList<>(guestServices.values());
     }
 
-    public void setGuestServices(List<GuestServices> guestServices) {
+    public void saveAll(List<GuestServices> guestServices) {
         guestServices.forEach(this::save);
     }
 
     @Override
-    public GuestServices getByGuestId(long guestId) {
+    public GuestServices getById(long guestId) {
         return guestServices.get(guestId);
     }
 
     @Override
     public void save(GuestServices guestServices) {
-        this.guestServices.put(generateId(idHolder), guestServices);
+        long id = generateId(idHolder);
+        guestServices.setId(id);
+        this.guestServices.put(id, guestServices);
     }
 }

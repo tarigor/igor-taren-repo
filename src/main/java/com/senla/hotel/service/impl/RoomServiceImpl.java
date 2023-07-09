@@ -1,11 +1,10 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.dao.IGuestServicesDAO;
+import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.dao.IRoomDAO;
-import com.senla.hotel.dao.IRoomServiceDAO;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomService;
 
 import java.util.Comparator;
@@ -14,10 +13,8 @@ import java.util.stream.Collectors;
 
 public class RoomServiceImpl implements IRoomService {
     private static final RoomServiceImpl INSTANCE = new RoomServiceImpl();
-    private IRoomServiceDAO roomServiceDAO;
 
     private IRoomDAO roomDAO;
-    private IGuestServicesDAO guestServicesDAO;
 
     public static RoomServiceImpl getInstance() {
         return INSTANCE;
@@ -25,14 +22,6 @@ public class RoomServiceImpl implements IRoomService {
 
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
-    }
-
-    public void setRoomServiceDAO(IRoomServiceDAO roomServiceDAO) {
-        this.roomServiceDAO = roomServiceDAO;
-    }
-
-    public void setGuestServicesDAO(IGuestServicesDAO guestServicesDAO) {
-        this.guestServicesDAO = guestServicesDAO;
     }
 
     @Override
@@ -126,55 +115,60 @@ public class RoomServiceImpl implements IRoomService {
 
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getRoomsOrderedBySection(int sectionNumber) {
-        switch (sectionNumber) {
-            case 1:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::getId))
-                        .collect(Collectors.toList());
-            case 2:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::getCapacity))
-                        .collect(Collectors.toList());
-            case 3:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::getPrice))
-                        .collect(Collectors.toList());
-            case 4:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::isAvailable))
-                        .collect(Collectors.toList());
-            case 5:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::getRoomServiceId))
-                        .collect(Collectors.toList());
-            case 6:
-                return roomDAO.getAll().stream()
-                        .sorted(Comparator.comparing(Room::getStarsRating))
-                        .collect(Collectors.toList());
+    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+        switch (roomSection) {
+            case ID:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getId))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getId).reversed())
+                                .collect(Collectors.toList());
+
+            case CAPACITY:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getCapacity))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getCapacity).reversed())
+                                .collect(Collectors.toList());
+            case PRICE:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getPrice))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getPrice).reversed())
+                                .collect(Collectors.toList());
+            case AVAILABILITY:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::isAvailable))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::isAvailable).reversed())
+                                .collect(Collectors.toList());
+            case SERVICE:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getRoomServiceId))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getRoomServiceId).reversed())
+                                .collect(Collectors.toList());
+            case RATING:
+                return ordering == Ordering.ASC ?
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getStarsRating))
+                                .collect(Collectors.toList()) :
+                        roomDAO.getAll().stream()
+                                .sorted(Comparator.comparing(Room::getStarsRating).reversed())
+                                .collect(Collectors.toList());
             default:
-                throw new IndexOutOfBoundsException("There is no such a section with id->" + sectionNumber);
+                throw new IndexOutOfBoundsException("An ordering by section ->" + roomSection + "is not possible");
         }
     }
 
-    @Override
-    public List<Room> getRoomsOrderedByPrice() {
-        return roomDAO.getAll().stream()
-                .sorted(Comparator.comparing(Room::getPrice))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RoomService> getRoomServicesOrderedByCategory() {
-        return roomServiceDAO.getAll().stream()
-                .sorted(Comparator.comparing(RoomService::getServiceType))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RoomService> getRoomServicesOrderedByPrice() {
-        return roomServiceDAO.getAll().stream()
-                .sorted(Comparator.comparing(RoomService::getPrice))
-                .collect(Collectors.toList());
-    }
 }

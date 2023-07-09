@@ -24,4 +24,6 @@ public interface IBookingService {
 
     //    Total number of guests;
     long findCountOfAllGuests();
+
+    Booking getByGuestId(long guestId);
 }

@@ -1,5 +1,7 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.hotel.constant.GuestServicesSection;
+import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.IGuestServicesDAO;
 import com.senla.hotel.dao.IRoomServiceDAO;
 import com.senla.hotel.dto.GuestServicesDTO;
@@ -29,19 +31,32 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
-    public List<GuestServicesDTO> getGuestServicesSortedByPrice(long guestId) {
-        return guestServicesDAO.getByGuestId(guestId)
-                .getServicesOrdered().entrySet().stream()
-                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<GuestServicesDTO> getGuestServicesSortedByDate(long guestId) {
-        return guestServicesDAO.getByGuestId(guestId).getServicesOrdered().entrySet().stream()
-                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                .sorted(Comparator.comparing(GuestServicesDTO::getDate))
-                .collect(Collectors.toList());
+    public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+        switch (guestServicesSection) {
+            case PRICE:
+                return ordering == Ordering.ASC ?
+                        guestServicesDAO.getById(guestId)
+                                .getServicesOrdered().entrySet().stream()
+                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
+                                .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()))
+                                .collect(Collectors.toList()) :
+                        guestServicesDAO.getById(guestId)
+                                .getServicesOrdered().entrySet().stream()
+                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
+                                .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()).reversed())
+                                .collect(Collectors.toList());
+            case DATE:
+                return ordering == Ordering.ASC ?
+                        guestServicesDAO.getById(guestId).getServicesOrdered().entrySet().stream()
+                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
+                                .sorted(Comparator.comparing(GuestServicesDTO::getDate))
+                                .collect(Collectors.toList()) :
+                        guestServicesDAO.getById(guestId).getServicesOrdered().entrySet().stream()
+                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
+                                .sorted(Comparator.comparing(GuestServicesDTO::getDate).reversed())
+                                .collect(Collectors.toList());
+            default:
+                throw new IndexOutOfBoundsException("An ordering by section ->" + guestServicesSection + "is not possible");
+        }
     }
 }

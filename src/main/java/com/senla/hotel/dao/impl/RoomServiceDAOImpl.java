@@ -8,8 +8,9 @@ import java.util.*;
 
 public class RoomServiceDAOImpl extends EntityDAO implements IRoomServiceDAO {
     private static final RoomServiceDAOImpl INSTANCE = new RoomServiceDAOImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, RoomService> roomServices = new HashMap<>();
-    private static Set<Long> idHolder = new HashSet<>();
+
     public static RoomServiceDAOImpl getInstance() {
         return INSTANCE;
     }
@@ -30,6 +31,8 @@ public class RoomServiceDAOImpl extends EntityDAO implements IRoomServiceDAO {
 
     @Override
     public void save(RoomService roomService) {
-        this.roomServices.put(generateId(idHolder), roomService);
+        long id = generateId(idHolder);
+        roomService.setId(id);
+        roomServices.put(id, roomService);
     }
 }

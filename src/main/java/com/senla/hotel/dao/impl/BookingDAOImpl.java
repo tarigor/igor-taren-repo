@@ -9,8 +9,8 @@ import java.util.*;
 public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
 
     private static final BookingDAOImpl INSTANCE = new BookingDAOImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, Booking> bookings = new HashMap<>();
-    private static Set<Long> idHolder = new HashSet<>();
 
     public static BookingDAOImpl getInstance() {
         return INSTANCE;
@@ -21,7 +21,7 @@ public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
         return new ArrayList<>(bookings.values());
     }
 
-    public void setBookings(List<Booking> bookings) {
+    public void saveAll(List<Booking> bookings) {
         bookings.forEach(this::save);
     }
 
@@ -32,16 +32,8 @@ public class BookingDAOImpl extends EntityDAO implements IBookingDAO {
 
     @Override
     public void save(Booking booking) {
-        this.bookings.put(generateId(idHolder), booking);
+        long id = generateId(idHolder);
+        booking.setId(id);
+        this.bookings.put(id, booking);
     }
-
-    @Override
-    public Booking getByGuestId(long guestId) {
-        return bookings.values().stream()
-                .filter(b -> b.getGuestId() == guestId)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
-    }
-
-
 }

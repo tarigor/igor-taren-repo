@@ -1,7 +1,8 @@
 package com.senla.hotel.service;
 
+import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 
 import java.util.List;
 
@@ -38,11 +39,6 @@ public interface IRoomService {
     double getRoomPrice(long roomId);
 
     //
-    List<Room> getRoomsOrderedBySection(int sectionNumber);
+    List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering);
 
-    List<Room> getRoomsOrderedByPrice();
-
-    List<RoomService> getRoomServicesOrderedByCategory();
-
-    List<RoomService> getRoomServicesOrderedByPrice();
 }
