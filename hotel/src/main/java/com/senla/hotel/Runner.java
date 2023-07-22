@@ -1,5 +1,6 @@
 package com.senla.hotel;
 
+
 import com.senla.hotel.constant.*;
 import com.senla.hotel.dao.impl.*;
 import com.senla.hotel.entity.*;

@@ -1,16 +1,18 @@
 # igor-taren-repo
+
 Igor Taren's repository
+
 ## Task #4
 
 ### _Electronic hotel administrator_
 
 #### Description:
 
-1.	Electronic hotel administrator.
+1. Electronic hotel administrator.
 
 The program should allow you to show:
 
-- List of rooms (sort by price,  by capacity, by number of stars);
+- List of rooms (sort by price, by capacity, by number of stars);
 - List of available rooms (sort by price, by capacity, by number of stars);
 - List of guests and their rooms (sort alphabetically and by check-out date);
 - Total number of available rooms;
@@ -30,8 +32,8 @@ The program should provide the opportunity to: (already done)
 - Change the price of a room or service;
 - Add a room or service.
 
-2. Assemble the program written during the previous task into an executable Jar file. 
-   Assemble the catalog of the finished program and create .bat/.sh the file to run the program. 
+2. Assemble the program written during the previous task into an executable Jar file.
+   Assemble the catalog of the finished program and create .bat/.sh the file to run the program.
    The program directory should have the following structure:
 
 program_folder
@@ -42,7 +44,8 @@ program_folder
 
 Task Requirement:
 
-The archive of the folder with the assembled program and the startup file should be embedded in GIT in the appropriate branch.
+The archive of the folder with the assembled program and the startup file should be embedded in GIT in the appropriate
+branch.
 
 Implementation:
 
@@ -50,7 +53,8 @@ root folder -> run.zip
 
 #### Requirements
 
-- DO NOT implement console user interface to the program. Verify that the program works from a test class with the main method;
+- DO NOT implement console user interface to the program. Verify that the program works from a test class with the main
+  method;
 - A class diagram must be created for the program;
 - The program must comply with OOP principles and "Strong Binding" and "Weak Binding" patterns;
 - Use System.out.println(message) to output the results;

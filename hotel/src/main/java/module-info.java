@@ -1,0 +1,4 @@
+module hotel {
+    requires lombok;
+
+}
