@@ -1,7 +1,6 @@
 package com.senla.hotel;
 
-
-import com.senla.hotel.constant.*;
+import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dao.impl.*;
 import com.senla.hotel.entity.*;
 import com.senla.hotel.service.impl.BookingServiceImpl;
@@ -14,8 +13,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
-public class Runner {
-
+public class Hotel {
+    private static final Hotel INSTANCE = new Hotel();
     private final List<Room> rooms;
     private final List<Guest> guests;
     private final List<Booking> bookings;
@@ -114,54 +113,7 @@ public class Runner {
         roomServicesService.setRoomServiceDAO(roomServiceDAO);
     }
 
-    public static void main(String[] args) {
+    public static void init(){
 
-        Runner runner = new Runner();
-
-        System.out.println("List of rooms (sort by price,  by capacity, by number of stars)");
-        System.out.println("by price");
-        runner.roomService.findAllOrderedByPrice().forEach(System.out::println);
-        System.out.println("by number");
-        runner.roomService.findAllOrderedByCapacity().forEach(System.out::println);
-        System.out.println("by stars");
-        runner.roomService.findAllOrderedByStars().forEach(System.out::println);
-
-        System.out.println("\nList of guests and their rooms (sort alphabetically and by check-out date)");
-        runner.bookingService.findAllOrderedAlphabetically().forEach(System.out::println);
-        runner.bookingService.findAllOrderedByCheckOutDate().forEach(System.out::println);
-
-        System.out.println("\nTotal number of available rooms");
-        System.out.println(runner.roomService.findNumberOfAvailableRooms());
-
-        System.out.println("\nTotal number of guests");
-        System.out.println(runner.bookingService.findCountOfAllGuests());
-
-        System.out.println("\nList of rooms that will be available on a certain date in the future");
-        runner.bookingService.findAvailableRoomsByDate(new GregorianCalendar(2023, Calendar.JUNE, 15).getTime()).forEach(System.out::println);
-
-        System.out.println("\nThe amount of payment for the room to be paid by the guest");
-        System.out.println(runner.bookingService.getTotalPaymentByGuest(1));
-
-        System.out.println("\nView the last 3 guests of the room and the dates of their stay");
-        runner.bookingService.findLastGuestOfRoomAndDates(3, 1).forEach(System.out::println);
-
-        System.out.println("\nView the list of guest services and their price (sort by price, by date)");
-        System.out.println("sorted by price asc");
-        runner.guestServicesService.getByGuestIdSorted(1, GuestServicesSection.PRICE, Ordering.ASC).forEach(System.out::println);
-        System.out.println("sorted by date desc");
-        runner.guestServicesService.getByGuestIdSorted(1, GuestServicesSection.DATE, Ordering.DESC).forEach(System.out::println);
-
-        System.out.println("\nPrices of services and rooms (sort by section)");
-        System.out.println("rooms by section ID");
-        runner.roomService.getAllOrdered(RoomSection.ID, Ordering.ASC).forEach(System.out::println);
-        System.out.println("rooms ordered by price desc");
-        runner.roomService.getAllOrdered(RoomSection.PRICE, Ordering.DESC).forEach(System.out::println);
-        System.out.println("room services ordered by room service asc");
-        runner.roomServicesService.getAllOrdered(RoomServiceSection.ROOM_SERVICE, Ordering.ASC).forEach(System.out::println);
-        System.out.println("room services ordered by price desc");
-        runner.roomServicesService.getAllOrdered(RoomServiceSection.PRICE, Ordering.DESC).forEach(System.out::println);
-
-        System.out.println("\nShow the details of a separate room");
-        System.out.println(runner.roomService.getRoom(2));
     }
 }
