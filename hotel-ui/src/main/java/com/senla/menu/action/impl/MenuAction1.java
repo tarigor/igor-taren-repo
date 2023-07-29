@@ -1,18 +1,12 @@
 package com.senla.menu.action.impl;
 
-import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.menu.action.IAction;
 
 public class MenuAction1 implements IAction {
-    private final BookingServiceImpl service;
-
-    public MenuAction1(BookingServiceImpl service) {
-        this.service = service;
-    }
-
+    //1=List of rooms sorted by price
     @Override
     public void execute() {
-        System.out.println(service.findCountOfAllGuests());
-        System.out.println("do action 1");
+        roomService.findAllOrderedByPrice().forEach(System.out::println);
     }
 }
