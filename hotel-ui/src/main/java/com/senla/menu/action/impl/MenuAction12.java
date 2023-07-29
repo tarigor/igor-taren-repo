@@ -1,5 +1,6 @@
 package com.senla.menu.action.impl;
 
+import com.senla.hotel.constant.RoomSection;
 import com.senla.menu.action.IAction;
 
 public class MenuAction12 implements IAction {
@@ -7,14 +8,40 @@ public class MenuAction12 implements IAction {
     //12=Prices of services and rooms (sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) in ASC(DESC) manner
     @Override
     public void execute() {
-        int selection = 0;
+        int selection;
+        String selectionText = "";
+
         boolean correct = false;
         while (!correct) {
-            System.out.println("Please select the ordering \n1->CAPACITY\n2->PRICE\n3->AVAILABILITY\n4->SERVICE\n5->RATING");
+            System.out.println("Please select the ordering \n0->ID\n1->CAPACITY\n2->PRICE\n3->AVAILABILITY\n4->SERVICE\n5->RATING");
             selection = scanner.nextInt();
-            if (selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5) {
-
+            switch (selection) {
+                case 0:
+                    selectionText = "ID";
+                    break;
+                case 1:
+                    selectionText = "CAPACITY";
+                    break;
+                case 2:
+                    selectionText = "PRICE";
+                    break;
+                case 3:
+                    selectionText = "AVAILABILITY";
+                    break;
+                case 4:
+                    selectionText = "SERVICE";
+                    break;
+                case 5:
+                    selectionText = "RATING";
+                    break;
+                default: {
+                    System.out.println("Wrong input! The selection must be in between 0-5. Try again");
+                    continue;
+                }
             }
+            correct = true;
         }
+
+        roomService.getAllOrdered(RoomSection.valueOf(selectionText), getOrdering()).forEach(System.out::println);
     }
 }

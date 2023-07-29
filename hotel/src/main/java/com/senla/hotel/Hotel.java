@@ -113,7 +113,7 @@ public class Hotel {
         roomServicesService.setRoomServiceDAO(roomServiceDAO);
     }
 
-    public static void init(){
+    public static void init() {
 
     }
 }

@@ -8,11 +8,15 @@ import java.util.Scanner;
 
 public class MenuController {
     private static final MenuController INSTANCE = new MenuController();
+    private final Scanner scanner = new Scanner(System.in);
     private Menu menu;
     private Navigator navigator;
     private String menuDescriptionFileName;
     private Builder builder;
-    private final Scanner scanner = new Scanner(System.in);
+
+    public static MenuController getInstance() {
+        return INSTANCE;
+    }
 
     public void setBuilder(Builder builder) {
         this.builder = builder;
@@ -28,10 +32,6 @@ public class MenuController {
 
     public void setMenuDescriptionFileName(String menuDescriptionFileName) {
         this.menuDescriptionFileName = menuDescriptionFileName;
-    }
-
-    public static MenuController getInstance() {
-        return INSTANCE;
     }
 
     public MenuController showMenu() {

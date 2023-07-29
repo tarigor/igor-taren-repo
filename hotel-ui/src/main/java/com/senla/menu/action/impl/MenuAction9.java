@@ -1,9 +1,6 @@
 package com.senla.menu.action.impl;
 
-import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.menu.action.IAction;
-
-import java.util.Scanner;
 
 public class MenuAction9 implements IAction {
     //9=The amount of payment for the room to be paid by the guest

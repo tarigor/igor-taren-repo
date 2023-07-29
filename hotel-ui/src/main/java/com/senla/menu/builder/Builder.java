@@ -12,16 +12,16 @@ public class Builder {
     private final Map<Integer, IAction> items;
     private String title;
 
-    public Map<Integer, IAction> getItems() {
-        return items;
-    }
-
     public Builder() {
         items = new TreeMap<>();
     }
 
     public static Builder getInstance() {
         return INSTANCE;
+    }
+
+    public Map<Integer, IAction> getItems() {
+        return items;
     }
 
     public Builder setTitle(String title) {

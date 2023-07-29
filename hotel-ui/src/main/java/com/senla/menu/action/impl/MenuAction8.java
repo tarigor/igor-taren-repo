@@ -1,11 +1,8 @@
 package com.senla.menu.action.impl;
 
-import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.menu.action.IAction;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
 
 public class MenuAction8 implements IAction {
     //8=List of rooms that will be available on a certain date in the future

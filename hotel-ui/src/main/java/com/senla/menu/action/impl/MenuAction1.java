@@ -1,6 +1,5 @@
 package com.senla.menu.action.impl;
 
-import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.menu.action.IAction;
 
 public class MenuAction1 implements IAction {
