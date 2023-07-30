@@ -3,6 +3,7 @@ package com.senla.hotel.service.impl;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IRoomService;
 
@@ -13,14 +14,15 @@ import java.util.stream.Collectors;
 public class RoomServiceImpl implements IRoomService {
     private static final RoomServiceImpl INSTANCE = new RoomServiceImpl();
 
-    private IEntityDAO<Room> roomDAO;
+    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
 
     public static RoomServiceImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setRoomDAO(IEntityDAO<Room> roomDAO) {
-        this.roomDAO = roomDAO;
+    @Override
+    public void saveAll(List<Room> rooms) {
+        roomDAO.saveAll(rooms);
     }
 
     @Override

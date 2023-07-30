@@ -7,6 +7,8 @@ import com.senla.hotel.entity.Room;
 import java.util.List;
 
 public interface IRoomService {
+    void saveAll(List<Room> rooms);
+
     void doCheckIn(long roomId);
 
     void doCheckOut(long roomId);

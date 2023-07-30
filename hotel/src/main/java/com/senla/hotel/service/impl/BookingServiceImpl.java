@@ -1,6 +1,9 @@
 package com.senla.hotel.service.impl;
 
 import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.dao.impl.BookingDAOImpl;
+import com.senla.hotel.dao.impl.GuestDAOImpl;
+import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
@@ -16,24 +19,17 @@ import java.util.stream.Collectors;
 
 public class BookingServiceImpl implements IBookingService {
     private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
-    private IEntityDAO<Booking> bookingDAO;
-    private IEntityDAO<Room> roomDAO;
-    private IEntityDAO<Guest> guestDAO;
+    private final IEntityDAO<Booking> bookingDAO = BookingDAOImpl.getInstance();
+    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
+    private final IEntityDAO<Guest> guestDAO = GuestDAOImpl.getInstance();
 
     public static BookingServiceImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setRoomDAO(IEntityDAO<Room> roomDAO) {
-        this.roomDAO = roomDAO;
-    }
-
-    public void setGuestDAO(IEntityDAO<Guest> guestDAO) {
-        this.guestDAO = guestDAO;
-    }
-
-    public void setBookingDAO(IEntityDAO<Booking> bookingDAO) {
-        this.bookingDAO = bookingDAO;
+    @Override
+    public void saveAll(List<Booking> bookings) {
+        bookingDAO.saveAll(bookings);
     }
 
     //    List of guests and their rooms (sort alphabetically and by check-out date);

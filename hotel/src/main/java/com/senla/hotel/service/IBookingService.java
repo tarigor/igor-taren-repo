@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface IBookingService {
+
+    void saveAll(List<Booking> bookings);
+
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     List<GuestBookingDTO> findAllOrderedAlphabetically();
 

@@ -23,7 +23,7 @@ public interface IAction {
 
         boolean correct = false;
         while (!correct) {
-            System.out.println("Select the type ordering: 0->ASC 1->DESC");
+            System.out.println("Select the type ordering: 0->ASC \n->DESC");
             ordering = scanner.nextInt();
             if (ordering != 1 && ordering != 0) {
                 System.out.println("It is only input 0 or 1 are allowed. Try again.");

@@ -58,8 +58,7 @@ public class MenuMain {
         MENU_CONTROLLER.setNavigator(NAVIGATOR);
         MENU_CONTROLLER.setMenuDescriptionFileName(MENU_DESCRIPTION_FILENAME);
         MENU_CONTROLLER.setBuilder(BUILDER);
-        MENU_CONTROLLER
-                .showMenu()
+        MENU_CONTROLLER.showMenu()
                 .menuRolling();
     }
 }

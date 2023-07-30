@@ -3,7 +3,10 @@ package com.senla.hotel.service.impl;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
+import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
+import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
@@ -14,21 +17,16 @@ import java.util.stream.Collectors;
 
 public class GuestServicesServiceImpl implements IGuestServicesService {
     private static final GuestServicesServiceImpl INSTANCE = new GuestServicesServiceImpl();
-    private IEntityDAO<GuestServices> guestServicesDAO;
-    private IEntityDAO<RoomService> roomServiceDAO;
-
+    private final IEntityDAO<GuestServices> guestServicesDAO = GuestServicesDAOImpl.getInstance();
+    private final IEntityDAO<RoomService> roomServiceDAO = RoomServiceDAOImpl.getInstance();
     public static GuestServicesServiceImpl getInstance() {
         return INSTANCE;
     }
 
-    public void setGuestServicesDAO(IEntityDAO<GuestServices> guestServicesDAO) {
-        this.guestServicesDAO = guestServicesDAO;
+    @Override
+    public void saveAll(List<GuestServices> guestServices) {
+        guestServicesDAO.saveAll(guestServices);
     }
-
-    public void setRoomServiceDAO(IEntityDAO<RoomService> roomServiceDAO) {
-        this.roomServiceDAO = roomServiceDAO;
-    }
-
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
