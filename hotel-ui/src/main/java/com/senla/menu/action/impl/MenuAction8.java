@@ -1,10 +1,11 @@
 package com.senla.menu.action.impl;
 
+import com.senla.menu.action.MenuAction;
 import com.senla.menu.action.IAction;
 
 import java.util.GregorianCalendar;
 
-public class MenuAction8 implements IAction {
+public class MenuAction8 extends MenuAction implements IAction {
     //8=List of rooms that will be available on a certain date in the future
     @Override
     public void execute() {
