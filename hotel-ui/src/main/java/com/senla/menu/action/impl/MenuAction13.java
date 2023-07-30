@@ -1,9 +1,10 @@
 package com.senla.menu.action.impl;
 
 import com.senla.hotel.constant.RoomServiceSection;
+import com.senla.menu.action.MenuAction;
 import com.senla.menu.action.IAction;
 
-public class MenuAction13 implements IAction {
+public class MenuAction13 extends MenuAction implements IAction {
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
     @Override
     public void execute() {
