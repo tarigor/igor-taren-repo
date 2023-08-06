@@ -1,5 +1,7 @@
 package com.senla.hotelio.service;
 
-public interface IImportService {
+import java.util.ArrayList;
 
+public interface IImportService {
+    <T> ArrayList<T> getEntitiesFromCsv(String fileName);
 }
