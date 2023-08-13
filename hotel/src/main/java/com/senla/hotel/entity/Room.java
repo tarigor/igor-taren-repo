@@ -20,4 +20,16 @@ public class Room {
         this.roomServiceId = roomServiceId;
         this.starsRating = starsRating;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", price=" + price +
+                ", isAvailable=" + isAvailable +
+                ", roomServiceId=" + roomServiceId +
+                ", starsRating=" + starsRating +
+                '}';
+    }
 }

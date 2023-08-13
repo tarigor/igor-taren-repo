@@ -15,10 +15,6 @@ public class Guest {
         this.lastName = lastName;
     }
 
-    public String toCsvFormat() {
-        return id + "," + firstName + "," + lastName;
-    }
-
     @Override
     public String toString() {
         return "Guest{" +

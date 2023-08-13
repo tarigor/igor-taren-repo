@@ -1,4 +1,4 @@
-package com.senla.hotel.entity;
+package com.senla.hotel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,15 +8,13 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class GuestServices {
+public class GuestServicesEntityDTO {
     private long id;
     private long guestId;
-    private String servicesOrdered;
+    private Map<Date, Long> servicesOrdered;
 
-    public GuestServices(long guestId, String servicesOrdered) {
+    public GuestServicesEntityDTO(long guestId, Map<Date, Long> servicesOrdered) {
         this.guestId = guestId;
         this.servicesOrdered = servicesOrdered;
     }
-
-
 }

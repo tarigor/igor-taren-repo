@@ -39,8 +39,13 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public void save(RoomService roomService) {
-        long id = generateId(idHolder);
-        roomService.setId(id);
-        roomServices.put(id, roomService);
+        long id;
+        if (roomService.getId() != 0) {
+            id = roomService.getId();
+        } else {
+            id = generateId(idHolder);
+            roomService.setId(id);
+        }
+        this.roomServices.put(id, roomService);
     }
 }

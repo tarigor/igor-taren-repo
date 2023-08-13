@@ -12,9 +12,5 @@ public class Runner {
         ImportService importService = new ImportService();
         ArrayList<Guest> guests = importService.getEntitiesFromCsv("Guest");
         guests.forEach(System.out::println);
-
-        ExportService exportService = new ExportService();
-        exportService.storeEntityToCsv(new Guest(2,"dd","ss"));
-        exportService.storeEntityToCsv(new Room(1, 23.2, false, 1, 3));
     }
 }

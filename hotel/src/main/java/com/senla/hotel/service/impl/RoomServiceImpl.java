@@ -4,9 +4,10 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
-import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.*;
 import com.senla.hotel.service.IRoomService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -171,5 +172,17 @@ public class RoomServiceImpl implements IRoomService {
                 throw new IndexOutOfBoundsException("An ordering by section ->" + roomSection + "is not possible");
         }
     }
+    public void updateAllAndSaveIfNotExist(ArrayList<Room> rooms) {
+        for (Room room: rooms) {
+            if (roomDAO.getById(room.getId()) != null) {
+                roomDAO.update(room);
+            } else {
+                roomDAO.save(room);
+            }
+        }
+    }
 
+    public List<Room> getAll(){
+        return  roomDAO.getAll();
+    }
 }
