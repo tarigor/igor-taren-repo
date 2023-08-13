@@ -18,10 +18,22 @@ The UI should be supplemented with new menu items that allow importing and expor
 
 Add high-quality exception handling for possible errors in the application. The program must adequately inform the user about the problems that have arisen.
 
+### Remarks to task
+
+the IO operations created in separate module hotel-io
+
+import and export folders location:
+- import -> *hotel-io/csv/import*
+- export -> *hotel-io/csv/export*
+
+Runner method -> com.senla.menu.MenuMain.main
+
 #### Stack
 
 - Java 11;
-- Lombok;
+- Lombok 1.18.26;
+- gson 2.10.1
 
 #### UML
 
+[TASK_6_UML.puml](TASK_6_UML.puml)
