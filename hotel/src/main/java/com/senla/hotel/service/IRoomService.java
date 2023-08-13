@@ -4,6 +4,7 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.entity.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IRoomService {
@@ -42,5 +43,9 @@ public interface IRoomService {
 
     //
     List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering);
+
+    void updateAllAndSaveIfNotExist(ArrayList<Room> rooms);
+
+    List<Room> getAll();
 
 }

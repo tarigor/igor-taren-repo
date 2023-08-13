@@ -1,27 +1,22 @@
 package com.senla.hotelio.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.senla.hotel.constant.ServiceType;
-import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.*;
 import com.senla.hotelio.service.IImportService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
 
 public class ImportService implements IImportService {
-    private static final ImportService INSTANCE = new ImportService();
     public static final String PATH = "hotel-io/csv/import/";
     public static final String FILE_EXTENSION = ".csv";
     public static final String PACKAGE_PATH = "com.senla.hotel.entity.";
     public static final String DELIMITER = ",";
+    private static final ImportService INSTANCE = new ImportService();
 
     public static ImportService getInstance() {
         return INSTANCE;

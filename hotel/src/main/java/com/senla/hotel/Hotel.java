@@ -2,7 +2,10 @@ package com.senla.hotel;
 
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
-import com.senla.hotel.entity.*;
+import com.senla.hotel.entity.Booking;
+import com.senla.hotel.entity.Guest;
+import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.impl.*;
 
 import java.util.Calendar;

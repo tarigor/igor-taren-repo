@@ -1,7 +1,6 @@
 package com.senla.hotel.service.impl;
 
 import com.senla.hotel.dao.impl.GuestDAOImpl;
-import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.service.IGuestService;
 
@@ -21,6 +20,7 @@ public class GuestServiceImpl implements IGuestService {
         guestDAO.saveAll(guests);
     }
 
+    @Override
     public void updateAllAndSaveIfNotExist(ArrayList<Guest> guests) {
         for (Guest guest : guests) {
             if (guestDAO.getById(guest.getId()) != null) {
@@ -31,6 +31,7 @@ public class GuestServiceImpl implements IGuestService {
         }
     }
 
+    @Override
     public List<Guest> getAll() {
         return guestDAO.getAll();
     }

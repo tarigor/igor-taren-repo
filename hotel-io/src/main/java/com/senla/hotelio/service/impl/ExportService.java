@@ -1,9 +1,11 @@
 package com.senla.hotelio.service.impl;
 
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
-import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.*;
-import com.senla.hotel.service.impl.*;
+import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hotel.service.impl.GuestServiceImpl;
+import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hotelio.service.IExportService;
 
 import java.io.IOException;
@@ -15,10 +17,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExportService implements IExportService {
-    private static final ExportService INSTANCE = new ExportService();
     public static final String PATH = "hotel-io/csv/export/";
     public static final String EXTENSION = ".csv";
     public static final String REGEX = "(?<=\\=)(.*?)(?=\\,)";
+    private static final ExportService INSTANCE = new ExportService();
 
     public static ExportService getInstance() {
         return INSTANCE;

@@ -1,10 +1,7 @@
 package com.senla.menu.action.impl;
 
-import com.senla.hotel.entity.Guest;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
-import java.util.ArrayList;
 
 public class MenuAction16 extends MenuAction implements IAction {
     //Export the certain entity

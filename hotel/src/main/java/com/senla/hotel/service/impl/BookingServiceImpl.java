@@ -94,6 +94,7 @@ public class BookingServiceImpl implements IBookingService {
                 .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
     }
 
+    @Override
     public void updateAllAndSaveIfNotExist(ArrayList<Booking> bookings) {
         for (Booking booking : bookings) {
             if (bookingDAO.getById(booking.getId()) != null) {
@@ -104,8 +105,9 @@ public class BookingServiceImpl implements IBookingService {
         }
     }
 
-    public List<Booking> getAll(){
-        return  bookingDAO.getAll();
+    @Override
+    public List<Booking> getAll() {
+        return bookingDAO.getAll();
     }
 
 }

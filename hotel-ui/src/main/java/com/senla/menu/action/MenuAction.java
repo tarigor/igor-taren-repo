@@ -2,11 +2,11 @@ package com.senla.menu.action;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.service.impl.*;
+import com.senla.hotelio.service.impl.ExportService;
+import com.senla.hotelio.service.impl.ImportService;
 
 import java.util.Scanner;
 
-import com.senla.hotelio.service.impl.ExportService;
-import com.senla.hotelio.service.impl.ImportService;
 public abstract class MenuAction {
     protected Scanner scanner = new Scanner(System.in);
     protected BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
@@ -16,6 +16,7 @@ public abstract class MenuAction {
     protected GuestServiceImpl guestService = GuestServiceImpl.getInstance();
     protected ImportService importService = ImportService.getInstance();
     protected ExportService exportService = ExportService.getInstance();
+
     protected Ordering getOrdering() {
         int ordering;
         String orderingText = "";

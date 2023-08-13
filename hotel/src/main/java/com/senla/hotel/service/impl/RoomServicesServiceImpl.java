@@ -4,8 +4,6 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.Room;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomServicesService;
 
@@ -51,6 +49,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
         }
     }
 
+    @Override
     public void updateAllAndSaveIfNotExist(ArrayList<RoomService> roomServices) {
         for (RoomService roomService : roomServices) {
             if (roomServiceDAO.getById(roomService.getId()) != null) {
@@ -61,6 +60,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
         }
     }
 
+    @Override
     public List<RoomService> getAll() {
         return roomServiceDAO.getAll();
     }

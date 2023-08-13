@@ -9,17 +9,11 @@ import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
 
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -73,6 +67,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         }
     }
 
+    @Override
     public void updateAllAndSaveIfNotExist(ArrayList<GuestServices> guestServicesList) {
         for (GuestServices guestServices : guestServicesList) {
             if (guestServicesDAO.getById(guestServices.getId()) != null) {
@@ -83,6 +78,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         }
     }
 
+    @Override
     public List<GuestServicesEntityDTO> getAll() {
         List<GuestServices> guestServices = guestServicesDAO.getAll();
         ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
@@ -92,11 +88,12 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         return guestServicesEntityDTOList;
     }
 
+    @Override
     public GuestServicesEntityDTO getById(long id) {
         return guestServiceConvertFromEntityToDTO(guestServicesDAO.getById(id));
     }
 
-    public GuestServices guestServiceConvertFromDTOtoEntity(GuestServicesEntityDTO guestServicesEntityDTO) {
+    private GuestServices guestServiceConvertFromDTOtoEntity(GuestServicesEntityDTO guestServicesEntityDTO) {
         return new GuestServices(guestServicesEntityDTO.getGuestId(), mapToJsonStringConvert(guestServicesEntityDTO.getServicesOrdered()));
     }
 
