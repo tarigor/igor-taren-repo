@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.Getter;
 
 @Data
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class MenuItem {
     private Integer position;
-    private final IAction action;
+    private IAction action;
 }
