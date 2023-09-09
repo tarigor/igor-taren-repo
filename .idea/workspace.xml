@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="gitignore updated. modules configuration fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/hotel.iml" afterDir="false" />
-    </list>
+    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="hotel module updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +13,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="TASK_5" />
+        <entry key="$PROJECT_DIR$" value="Hotel_Service" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,6 +39,9 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2V9QgHGp9sgqh5KTw3UCwRjVNsU" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -59,7 +56,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/lib",
+    "last_opened_file_path": "C:/Users/itaren/IdeaProjects/igor-taren-repo",
     "onboarding.tips.debug.path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/src/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -131,7 +128,23 @@
       <option name="project" value="LOCAL" />
       <updated>1694249511508</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="modules configuration fixed">
+      <option name="closed" value="true" />
+      <created>1694257411573</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1694257411573</updated>
+    </task>
+    <task id="LOCAL-00003" summary="hotel module updated">
+      <option name="closed" value="true" />
+      <created>1694257676589</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694257676589</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,7 +203,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore updated. modules configuration fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore updated. modules configuration fixed" />
+    <MESSAGE value="modules configuration fixed" />
+    <MESSAGE value="hotel module updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="hotel module updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
