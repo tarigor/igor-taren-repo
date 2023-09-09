@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="gitignore updated. modules configuration fixed" />
+    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="gitignore updated. modules configuration fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/hotel.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +61,7 @@
     "jdk.selected.JAVA_MODULE": "11",
     "last_opened_file_path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/lib",
     "onboarding.tips.debug.path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/src/Main.java",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }

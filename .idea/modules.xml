@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hotel/hotel.iml" filepath="$PROJECT_DIR$/hotel/hotel.iml" />
       <module fileurl="file://$PROJECT_DIR$/hotel-ui/hotel-ui.iml" filepath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" />
-      <module fileurl="file://$PROJECT_DIR$/igor-taren-repo.iml" filepath="$PROJECT_DIR$/igor-taren-repo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/igor-taren-repo.iml" filepath="$PROJECT_DIR$/.idea/igor-taren-repo.iml" />
     </modules>
   </component>
 </project>
