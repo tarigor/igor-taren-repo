@@ -1,60 +1,37 @@
 # igor-taren-repo
-Igor Taren's repository
-## Task #4
 
-### _Electronic hotel administrator_
+Igor Taren's repository
+
+## Task #5
+
+### _Add interface module (UI) to Electronic hotel administrator_
 
 #### Description:
 
-1.	Electronic hotel administrator.
+### Task 5.1 (difficulty 10)
 
-The program should allow you to show:
+Add a user interface module (UI) to the program from the previous task. The module should contain a user console
+interface and allow you to fully perform all the functions included in the program. To refactor the entire program code
+to bring it into compliance with the principles of MVC. Example of console interface implementation:
 
-- List of rooms (sort by price,  by capacity, by number of stars);
-- List of available rooms (sort by price, by capacity, by number of stars);
-- List of guests and their rooms (sort alphabetically and by check-out date);
-- Total number of available rooms;
-- Total number of guests;
-- List of rooms that will be available on a certain date in the future;
-- The amount of payment for the room to be paid by the guest;
-- View the last 3 guests of the room and the dates of their stay;
-- View the list of guest services and their price (sort by price, by date);
-- Prices of services and rooms (sort by section(category), by price);
-- Show the details of a separate room.
+![TASK_5_UI_UML.png](TASK_5_UI_UML.png)
 
-The program should provide the opportunity to: (already done)
+#### Task Requirements:
 
-- Check in to the room;
-- Check out from the room;
-- Change the status of the room to repaired/serviced;
-- Change the price of a room or service;
-- Add a room or service.
+The resulting output program must comply with the principles of OOP and the MVC template;
+It is desirable to use the following design patterns in the UI module:
+Singleton;
+Abstract factory.
+Use Enum for sets of constants;
 
-2. Assemble the program written during the previous task into an executable Jar file. 
-   Assemble the catalog of the finished program and create .bat/.sh the file to run the program. 
-   The program directory should have the following structure:
+### Task 5.2 (difficulty 3)
 
-program_folder
+Replace the use of arrays in the program from the previous homework with the Collection API.
+You can use the Stream API and lambda expressions.
 
-|--- program.jar
+### HOWTO run
 
-|--- run.bat
-
-Task Requirement:
-
-The archive of the folder with the assembled program and the startup file should be embedded in GIT in the appropriate branch.
-
-Implementation:
-
-root folder -> run.zip
-
-#### Requirements
-
-- DO NOT implement console user interface to the program. Verify that the program works from a test class with the main method;
-- A class diagram must be created for the program;
-- The program must comply with OOP principles and "Strong Binding" and "Weak Binding" patterns;
-- Use System.out.println(message) to output the results;
-- The .java source files must be injected into GIT in the appropriate branch.
+run from module *hotel-ui->MenuMain.class*
 
 #### Stack
 
@@ -63,4 +40,4 @@ root folder -> run.zip
 
 #### UML
 
-![TASK_4.png](TASK_4.png)
+[TASK_5.puml](TASK_5.puml)
