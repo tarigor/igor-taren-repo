@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="hotel module updated" />
+    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="json lib added,README updated,menu.properties updated">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/hotel-io.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/hotel-io.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/hotel.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,13 +63,19 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "C:/Users/itaren/IdeaProjects/igor-taren-repo",
+    "last_opened_file_path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/lib",
     "onboarding.tips.debug.path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/src/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\itaren\IdeaProjects\igor-taren-repo" />
+      <recent name="C:\Users\itaren\IdeaProjects\igor-taren-repo\lib" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.MenuMain (1)">
     <configuration name="MenuMain (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.senla.menu.MenuMain" />
@@ -144,7 +157,31 @@
       <option name="project" value="LOCAL" />
       <updated>1694257676589</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="hotel-io module added">
+      <option name="closed" value="true" />
+      <created>1694257722567</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1694257722567</updated>
+    </task>
+    <task id="LOCAL-00005" summary="hotel-ui module updated">
+      <option name="closed" value="true" />
+      <created>1694257758129</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1694257758129</updated>
+    </task>
+    <task id="LOCAL-00006" summary="json lib added,README updated,menu.properties updated">
+      <option name="closed" value="true" />
+      <created>1694257860864</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1694257860864</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,7 +242,10 @@
     <MESSAGE value="gitignore updated. modules configuration fixed" />
     <MESSAGE value="modules configuration fixed" />
     <MESSAGE value="hotel module updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="hotel module updated" />
+    <MESSAGE value="hotel-io module added" />
+    <MESSAGE value="hotel-ui module updated" />
+    <MESSAGE value="json lib added,README updated,menu.properties updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="json lib added,README updated,menu.properties updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
