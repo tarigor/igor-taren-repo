@@ -1,8 +1,10 @@
 package com.senla.hotel.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Room {
     private long id;
     private int capacity;
@@ -17,5 +19,17 @@ public class Room {
         this.isAvailable = isAvailable;
         this.roomServiceId = roomServiceId;
         this.starsRating = starsRating;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", price=" + price +
+                ", isAvailable=" + isAvailable +
+                ", roomServiceId=" + roomServiceId +
+                ", starsRating=" + starsRating +
+                '}';
     }
 }

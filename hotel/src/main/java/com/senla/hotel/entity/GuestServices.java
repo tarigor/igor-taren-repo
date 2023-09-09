@@ -1,18 +1,19 @@
 package com.senla.hotel.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.Map;
-
 @Data
+@AllArgsConstructor
 public class GuestServices {
     private long id;
     private long guestId;
-    private Map<Date, Long> servicesOrdered;
+    private String servicesOrdered;
 
-    public GuestServices(long guestId, Map<Date, Long> servicesOrdered) {
+    public GuestServices(long guestId, String servicesOrdered) {
         this.guestId = guestId;
         this.servicesOrdered = servicesOrdered;
     }
+
+
 }

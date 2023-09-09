@@ -4,6 +4,7 @@ import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Room;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,4 +30,8 @@ public interface IBookingService {
     long findCountOfAllGuests();
 
     Booking getByGuestId(long guestId);
+
+    void updateAllAndSaveIfNotExist(ArrayList<Booking> bookings);
+
+    List<Booking> getAll();
 }

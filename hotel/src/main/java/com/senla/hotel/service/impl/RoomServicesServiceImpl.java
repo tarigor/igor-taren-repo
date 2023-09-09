@@ -7,6 +7,7 @@ import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomServicesService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,5 +47,21 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
             default:
                 throw new IndexOutOfBoundsException("An ordering by section ->" + roomServiceSection + "is not possible");
         }
+    }
+
+    @Override
+    public void updateAllAndSaveIfNotExist(ArrayList<RoomService> roomServices) {
+        for (RoomService roomService : roomServices) {
+            if (roomServiceDAO.getById(roomService.getId()) != null) {
+                roomServiceDAO.update(roomService);
+            } else {
+                roomServiceDAO.save(roomService);
+            }
+        }
+    }
+
+    @Override
+    public List<RoomService> getAll() {
+        return roomServiceDAO.getAll();
     }
 }

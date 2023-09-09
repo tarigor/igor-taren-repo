@@ -11,10 +11,7 @@ import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
 
 import java.time.Duration;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookingServiceImpl implements IBookingService {
@@ -95,6 +92,22 @@ public class BookingServiceImpl implements IBookingService {
                 .filter(b -> b.getGuestId() == guestId)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
+    }
+
+    @Override
+    public void updateAllAndSaveIfNotExist(ArrayList<Booking> bookings) {
+        for (Booking booking : bookings) {
+            if (bookingDAO.getById(booking.getId()) != null) {
+                bookingDAO.update(booking);
+            } else {
+                bookingDAO.save(booking);
+            }
+        }
+    }
+
+    @Override
+    public List<Booking> getAll() {
+        return bookingDAO.getAll();
     }
 
 }

@@ -1,8 +1,10 @@
 package com.senla.hotel.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Guest {
     private long id;
     private String firstName;
@@ -11,5 +13,14 @@ public class Guest {
     public Guest(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
