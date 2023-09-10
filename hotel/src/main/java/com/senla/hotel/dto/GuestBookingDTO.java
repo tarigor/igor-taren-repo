@@ -4,12 +4,14 @@ import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class GuestBookingDTO {
     private static Set<Long> idHolder = new HashSet<>();
     private long id;
@@ -30,6 +32,4 @@ public class GuestBookingDTO {
         }
         idHolder.add(id);
     }
-
-
 }

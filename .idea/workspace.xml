@@ -4,31 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="modules configuration fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TASK_6_UML.puml" beforeDir="false" afterPath="$PROJECT_DIR$/TASK_6_UML.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Booking.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Guest.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/GuestServices.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Room.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/RoomService.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Booking.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Booking.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Guest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Guest.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/GuestServices.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/GuestServices.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Room.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Room.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/RoomService.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/RoomService.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/hotel-io.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/hotel-io.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/Runner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/IExportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/IImportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/impl/ExportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/impl/ImportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/MenuMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/MenuMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/MenuAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/MenuAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction15.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction15.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction16.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction16.java" afterDir="false" />
+    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="import and export services of IO module refactored, gitignore updated">
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/BookingDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/BookingDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/GuestDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/GuestDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/GuestServicesDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/GuestServicesDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/RoomDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/RoomDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/RoomServiceDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dao/impl/RoomServiceDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestBookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestBookingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestServicesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestServicesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestServicesEntityDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/dto/GuestServicesEntityDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Guest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/GuestServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/GuestServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/entity/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/BookingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/GuestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/GuestServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/GuestServicesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/GuestServicesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/RoomServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/RoomServicesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/src/main/java/com/senla/hotel/service/impl/RoomServicesServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -232,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694258118412</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="import and export services of IO module refactored, gitignore updated">
+      <option name="closed" value="true" />
+      <created>1694355382678</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1694355382678</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,7 +298,8 @@
     <MESSAGE value="hotel-ui module updated" />
     <MESSAGE value="json lib added,README updated,menu.properties updated" />
     <MESSAGE value="modules configuration fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="modules configuration fixed" />
+    <MESSAGE value="import and export services of IO module refactored, gitignore updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="import and export services of IO module refactored, gitignore updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

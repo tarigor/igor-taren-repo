@@ -5,15 +5,15 @@ import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.entity.RoomService;
+import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IRoomServicesService;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class RoomServicesServiceImpl implements IRoomServicesService {
+public class RoomServicesServiceImpl extends CommonService implements IRoomServicesService {
     private static final RoomServicesServiceImpl INSTANCE = new RoomServicesServiceImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final IEntityDAO<RoomService> roomServiceDAO = RoomServiceDAOImpl.getInstance();
 
     public static RoomServicesServiceImpl getInstance() {
@@ -22,6 +22,9 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
+        for (RoomService roomService : roomServices) {
+            setId(roomService);
+        }
         roomServiceDAO.saveAll(roomServices);
     }
 
@@ -55,6 +58,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
             if (roomServiceDAO.getById(roomService.getId()) != null) {
                 roomServiceDAO.update(roomService);
             } else {
+                setId(roomService);
                 roomServiceDAO.save(roomService);
             }
         }
@@ -63,5 +67,11 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
     @Override
     public List<RoomService> getAll() {
         return roomServiceDAO.getAll();
+    }
+
+    private void setId(RoomService roomService) {
+        if (roomService.getId() == 0) {
+            roomService.setId(generateId(idHolder));
+        }
     }
 }

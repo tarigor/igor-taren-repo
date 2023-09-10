@@ -2,11 +2,13 @@ package com.senla.hotel.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
     private long id;
     private long guestId;

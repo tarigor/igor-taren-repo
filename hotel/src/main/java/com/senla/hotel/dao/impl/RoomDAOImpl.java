@@ -30,14 +30,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public void save(Room room) {
-        long id;
-        if (room.getId() != 0) {
-            id = room.getId();
-        } else {
-            id = generateId(idHolder);
-            room.setId(id);
-        }
-        this.rooms.put(id, room);
+        this.rooms.put(room.getId(), room);
     }
 
     @Override

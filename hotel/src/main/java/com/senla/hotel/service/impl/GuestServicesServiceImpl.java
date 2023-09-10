@@ -11,14 +11,16 @@ import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
+import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IGuestServicesService;
 
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GuestServicesServiceImpl implements IGuestServicesService {
+public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
     private static final GuestServicesServiceImpl INSTANCE = new GuestServicesServiceImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final IEntityDAO<GuestServices> guestServicesDAO = GuestServicesDAOImpl.getInstance();
     private final IEntityDAO<RoomService> roomServiceDAO = RoomServiceDAOImpl.getInstance();
 
@@ -32,6 +34,9 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         for (int i = 0; i < guestServicesEntityDTOList.size(); i++) {
             guestServices.add(i, guestServiceConvertFromDTOtoEntity(guestServicesEntityDTOList.get(i)));
             guestServices.get(i).setServicesOrdered(guestServices.get(i).getServicesOrdered().replace(",", ";"));
+        }
+        for (GuestServices guestService : guestServices) {
+            setId(guestService);
         }
         guestServicesDAO.saveAll(guestServices);
     }
@@ -73,6 +78,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
             if (guestServicesDAO.getById(guestServices.getId()) != null) {
                 guestServicesDAO.update(guestServices);
             } else {
+                setId(guestServices);
                 guestServicesDAO.save(guestServices);
             }
         }
@@ -113,4 +119,9 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         return gson.toJson(servicesOrdered);
     }
 
+    private void setId(GuestServices guestServices) {
+        if (guestServices.getId() == 0) {
+            guestServices.setId(generateId(idHolder));
+        }
+    }
 }

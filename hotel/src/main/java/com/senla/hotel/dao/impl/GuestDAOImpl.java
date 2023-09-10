@@ -39,14 +39,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public void save(Guest guest) {
-        long id;
-        if (guest.getId() != 0) {
-            id = guest.getId();
-        } else {
-            id = generateId(idHolder);
-            guest.setId(id);
-        }
-        this.guests.put(id, guest);
+        this.guests.put(guest.getId(), guest);
     }
 
 

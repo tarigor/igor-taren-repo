@@ -3,6 +3,7 @@ package com.senla.hotel.dto;
 import com.senla.hotel.entity.RoomService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class GuestServicesDTO {
     private static Set<Long> idHolder = new HashSet<>();
     private long id;
