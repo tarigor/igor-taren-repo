@@ -4,18 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="json lib added,README updated,menu.properties updated">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="f4e10a37-9d83-4712-bc52-fc5567c1823e" name="Changes" comment="modules configuration fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TASK_6_UML.puml" beforeDir="false" afterPath="$PROJECT_DIR$/TASK_6_UML.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Booking.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Guest.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/GuestServices.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/Room.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/export/RoomService.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Booking.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Booking.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Guest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Guest.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/GuestServices.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/GuestServices.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/Room.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/Room.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/csv/import/RoomService.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/resources/csv/import/RoomService.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel-io/hotel-io.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/hotel-io.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/hotel-ui.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/hotel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/Runner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/IExportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/IImportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/impl/ExportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/com/senla/hotelio/service/impl/ImportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-io/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-io/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/MenuMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/MenuMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/MenuAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/MenuAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction15.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction15.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction16.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-ui/src/main/java/com/senla/menu/action/impl/MenuAction16.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -67,13 +93,17 @@
     "onboarding.tips.debug.path": "C:/Users/itaren/IdeaProjects/igor-taren-repo/src/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\itaren\IdeaProjects\igor-taren-repo" />
       <recent name="C:\Users\itaren\IdeaProjects\igor-taren-repo\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\itaren\IdeaProjects\igor-taren-repo\hotel-io\Resources" />
     </key>
   </component>
   <component name="RunManager" selected="Application.MenuMain (1)">
@@ -103,6 +133,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Runner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.senla.hotelio.Runner" />
+      <module name="hotel-io" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.senla.hotelio.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -117,10 +160,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MenuMain (1)" />
+        <item itemvalue="Application.Runner" />
         <item itemvalue="Application.MenuMain" />
         <item itemvalue="Application.MenuMain (1)" />
         <item itemvalue="Application.MenuMain" />
-        <item itemvalue="Application.MenuMain (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -181,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694257860864</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="modules configuration fixed">
+      <option name="closed" value="true" />
+      <created>1694258118412</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1694258118412</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,12 +291,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore updated. modules configuration fixed" />
-    <MESSAGE value="modules configuration fixed" />
     <MESSAGE value="hotel module updated" />
     <MESSAGE value="hotel-io module added" />
     <MESSAGE value="hotel-ui module updated" />
     <MESSAGE value="json lib added,README updated,menu.properties updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="json lib added,README updated,menu.properties updated" />
+    <MESSAGE value="modules configuration fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="modules configuration fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

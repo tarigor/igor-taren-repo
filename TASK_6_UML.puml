@@ -123,7 +123,7 @@ class com.senla.menu.navigator.Navigator {
 interface com.senla.hotelio.service.IImportService {
 ~ ArrayList<T> getEntitiesFromCsv(String)
 }
-class com.senla.hotelio.service.impl.ImportService {
+class com.senla.hotelio.service.entityimport.ImportServiceOld {
 - {static} ImportService INSTANCE
 + {static} String PATH
 + {static} String FILE_EXTENSION
@@ -179,7 +179,7 @@ abstract class com.senla.menu.action.MenuAction {
 # ExportService exportService
 # Ordering getOrdering()
 }
-class com.senla.hotelio.service.impl.ExportService {
+class com.senla.hotelio.service.entityimport.ExportService {
 - {static} ExportService INSTANCE
 + {static} String PATH
 + {static} String EXTENSION
@@ -415,10 +415,10 @@ com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction7
 com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction7
 com.senla.hotel.service.IRoomServicesService <|.. com.senla.hotel.service.impl.RoomServicesServiceImpl
 com.senla.hotel.service.IGuestServicesService <|.. com.senla.hotel.service.impl.GuestServicesServiceImpl
-com.senla.hotelio.service.IImportService <|.. com.senla.hotelio.service.impl.ImportService
+com.senla.hotelio.service.IImportService <|.. com.senla.hotelio.service.entityimport.ImportServiceOld
 com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.RoomServiceDAOImpl
 com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.GuestServicesDAOImpl
-com.senla.hotelio.service.IExportService <|.. com.senla.hotelio.service.impl.ExportService
+com.senla.hotelio.service.IExportService <|.. com.senla.hotelio.service.entityimport.ExportService
 com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.GuestDAOImpl
 com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction13
 com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction13

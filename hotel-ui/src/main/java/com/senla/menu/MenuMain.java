@@ -55,7 +55,6 @@ public class MenuMain {
                 //        16=Export the certain entity
                 .addItem(new MenuItem(16, new MenuAction16()))
                 .build();
-
         NAVIGATOR.setPropertiesService(PROPERTIES_SERVICE);
 
         MENU_CONTROLLER.setMenu(menu);
