@@ -1,10 +1,14 @@
 package com.senla.hotel.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
     private long id;
     private long guestId;
@@ -19,5 +23,17 @@ public class Booking {
         this.bookedRoomId = bookedRoomId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", guestId=" + guestId +
+                ", guestServicesId=" + guestServicesId +
+                ", bookedRoomId=" + bookedRoomId +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                '}';
     }
 }

@@ -1,10 +1,7 @@
 package com.senla.menu.action;
 
 import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.service.impl.BookingServiceImpl;
-import com.senla.hotel.service.impl.GuestServicesServiceImpl;
-import com.senla.hotel.service.impl.RoomServiceImpl;
-import com.senla.hotel.service.impl.RoomServicesServiceImpl;
+import com.senla.hotel.service.impl.*;
 
 import java.util.Scanner;
 
@@ -14,6 +11,7 @@ public abstract class MenuAction {
     protected GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
     protected RoomServiceImpl roomService = RoomServiceImpl.getInstance();
     protected RoomServicesServiceImpl roomServicesService = RoomServicesServiceImpl.getInstance();
+    protected GuestServiceImpl guestService = GuestServiceImpl.getInstance();
 
     protected Ordering getOrdering() {
         int ordering;

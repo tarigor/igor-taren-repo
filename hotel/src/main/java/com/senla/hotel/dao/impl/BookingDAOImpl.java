@@ -32,9 +32,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public void save(Booking booking) {
-        long id = generateId(idHolder);
-        booking.setId(id);
-        this.bookings.put(id, booking);
+        this.bookings.put(booking.getId(), booking);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.senla.menu.action.impl;
 
-import com.senla.menu.action.MenuAction;
 import com.senla.menu.action.IAction;
+import com.senla.menu.action.MenuAction;
 
 import java.util.GregorianCalendar;
 

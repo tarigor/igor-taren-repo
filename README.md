@@ -2,42 +2,42 @@
 
 Igor Taren's repository
 
-## Task #5
+## Task #6
 
-### _Add interface module (UI) to Electronic hotel administrator_
+### _Exceptions and Java IO_
 
 #### Description:
 
-### Task 5.1 (difficulty 10)
+### Task 6.1 (difficulty 5)
 
-Add a user interface module (UI) to the program from the previous task. The module should contain a user console
-interface and allow you to fully perform all the functions included in the program. To refactor the entire program code
-to bring it into compliance with the principles of MVC. Example of console interface implementation:
+Add to the program being developed the ability to import and export data of the selected entity (you will need to add an
+ID for each entity). The import must support updating records with the same ID and adding new ones. In addition, the
+program should automatically establish links between objects. The file format for import/export must be CSV.
 
-![TASK_5_UI_UML.png](TASK_5_UI_UML.png)
+The UI should be supplemented with new menu items that allow importing and exporting for each entity.
 
-#### Task Requirements:
+### Task 6.2 (difficulty 2)
 
-The resulting output program must comply with the principles of OOP and the MVC template;
-It is desirable to use the following design patterns in the UI module:
-Singleton;
-Abstract factory.
-Use Enum for sets of constants;
+Add high-quality exception handling for possible errors in the application. The program must adequately inform the user
+about the problems that have arisen.
 
-### Task 5.2 (difficulty 3)
+### Remarks to task
 
-Replace the use of arrays in the program from the previous homework with the Collection API.
-You can use the Stream API and lambda expressions.
+the IO operations created in separate module hotel-io
 
-### HOWTO run
+import and export folders location:
 
-run from module *hotel-ui->MenuMain.class*
+- import -> *hotel-io/csv/import*
+- export -> *hotel-io/csv/export*
+
+Runner method -> com.senla.menu.MenuMain.main
 
 #### Stack
 
 - Java 11;
-- Lombok;
+- Lombok 1.18.26;
+- gson 2.10.1
 
 #### UML
 
-[TASK_5.puml](TASK_5.puml)
+[TASK_6_UML.puml](TASK_6_UML.puml)

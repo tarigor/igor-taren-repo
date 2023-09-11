@@ -25,15 +25,12 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public Room getById(long roomId) {
-        return Optional.ofNullable(rooms.get(roomId))
-                .orElseThrow(() -> new NoSuchElementException("There is no such a room with id -> " + roomId));
+        return rooms.get(roomId);
     }
 
     @Override
     public void save(Room room) {
-        long id = generateId(idHolder);
-        room.setId(id);
-        rooms.put(id, room);
+        this.rooms.put(room.getId(), room);
     }
 
     @Override

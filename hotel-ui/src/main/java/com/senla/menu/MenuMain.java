@@ -50,8 +50,11 @@ public class MenuMain {
                 .addItem(new MenuItem(13, new MenuAction13()))
                 //        14=Show the details of a separate room
                 .addItem(new MenuItem(14, new MenuAction14()))
+                //        15=Import the certain entity from the CSV file
+                .addItem(new MenuItem(15, new MenuAction15()))
+                //        16=Export the certain entity
+                .addItem(new MenuItem(16, new MenuAction16()))
                 .build();
-
         NAVIGATOR.setPropertiesService(PROPERTIES_SERVICE);
 
         MENU_CONTROLLER.setMenu(menu);

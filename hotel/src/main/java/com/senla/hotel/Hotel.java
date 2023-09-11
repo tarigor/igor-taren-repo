@@ -1,7 +1,11 @@
 package com.senla.hotel;
 
 import com.senla.hotel.constant.ServiceType;
-import com.senla.hotel.entity.*;
+import com.senla.hotel.dto.GuestServicesEntityDTO;
+import com.senla.hotel.entity.Booking;
+import com.senla.hotel.entity.Guest;
+import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.impl.*;
 
 import java.util.Calendar;
@@ -27,7 +31,7 @@ public class Hotel {
         List<Guest> guests = List.of(
                 new Guest("Vasya", "Pupkin"),
                 new Guest("Lelik", "Bolik"),
-                new Guest("Olya", "Palkina"));
+                new Guest("Olya", "Kolya"));
 
         List<Booking> bookings = List.of(
                 new Booking(
@@ -55,22 +59,22 @@ public class Hotel {
                 new RoomService(ServiceType.REPAIR, 34.4),
                 new RoomService(ServiceType.CLEANING, 10.4));
 
-        List<GuestServices> guestServices = List.of(
-                new GuestServices(1, Map.of(
+        List<GuestServicesEntityDTO> guestServicesEntityDTOList = List.of(
+                new GuestServicesEntityDTO(1, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 1).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 2).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 3).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 4).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 5).getTime(), 4L
                 )),
-                new GuestServices(2, Map.of(
+                new GuestServicesEntityDTO(2, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 12).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 13).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 14).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 15).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 16).getTime(), 4L
                 )),
-                new GuestServices(3, Map.of(
+                new GuestServicesEntityDTO(3, Map.of(
                         new GregorianCalendar(2023, Calendar.JUNE, 25).getTime(), 1L,
                         new GregorianCalendar(2023, Calendar.JUNE, 26).getTime(), 4L,
                         new GregorianCalendar(2023, Calendar.JUNE, 27).getTime(), 4L,
@@ -79,9 +83,10 @@ public class Hotel {
                 )));
         bookingService.saveAll(bookings);
         guestService.saveAll(guests);
-        guestServicesService.saveAll(guestServices);
+        guestServicesService.saveAll(guestServicesEntityDTOList);
         roomService.saveAll(rooms);
         roomServicesService.saveAll(roomServices);
+
     }
 
     public static void init() {

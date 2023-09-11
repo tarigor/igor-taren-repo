@@ -8,17 +8,16 @@ import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
+import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IBookingService;
 
 import java.time.Duration;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class BookingServiceImpl implements IBookingService {
+public class BookingServiceImpl extends CommonService implements IBookingService {
     private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
+    private static final Set<Long> idHolder = new HashSet<>();
     private final IEntityDAO<Booking> bookingDAO = BookingDAOImpl.getInstance();
     private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
     private final IEntityDAO<Guest> guestDAO = GuestDAOImpl.getInstance();
@@ -29,6 +28,9 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public void saveAll(List<Booking> bookings) {
+        for (Booking booking : bookings) {
+            setId(booking);
+        }
         bookingDAO.saveAll(bookings);
     }
 
@@ -97,4 +99,26 @@ public class BookingServiceImpl implements IBookingService {
                 .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
     }
 
+    @Override
+    public void updateAllAndSaveIfNotExist(ArrayList<Booking> bookings) {
+        for (Booking booking : bookings) {
+            if (bookingDAO.getById(booking.getId()) != null) {
+                bookingDAO.update(booking);
+            } else {
+                setId(booking);
+                bookingDAO.save(booking);
+            }
+        }
+    }
+
+    @Override
+    public List<Booking> getAll() {
+        return bookingDAO.getAll();
+    }
+
+    private void setId(Booking booking) {
+        if (booking.getId() == 0) {
+            booking.setId(generateId(idHolder));
+        }
+    }
 }

@@ -1,8 +1,8 @@
 package com.senla.menu.action.impl;
 
 import com.senla.hotel.constant.RoomSection;
-import com.senla.menu.action.MenuAction;
 import com.senla.menu.action.IAction;
+import com.senla.menu.action.MenuAction;
 
 public class MenuAction12 extends MenuAction implements IAction {
 
