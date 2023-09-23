@@ -2,15 +2,15 @@ package com.senla.hotel.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IGuestServicesService;
 
@@ -18,14 +18,21 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
-    private static final GuestServicesServiceImpl INSTANCE = new GuestServicesServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<GuestServices> guestServicesDAO = GuestServicesDAOImpl.getInstance();
-    private final IEntityDAO<RoomService> roomServiceDAO = RoomServiceDAOImpl.getInstance();
+    private GuestServicesDAOImpl guestServicesDAO;
 
-    public static GuestServicesServiceImpl getInstance() {
-        return INSTANCE;
+    @InjectValue(key = "GuestServicesDAOImpl")
+    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+        this.guestServicesDAO = guestServicesDAO;
+    }
+
+    private RoomServiceDAOImpl roomServiceDAO;
+
+    @InjectValue(key = "RoomServiceDAOImpl")
+    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+        this.roomServiceDAO = roomServiceDAO;
     }
 
     @Override

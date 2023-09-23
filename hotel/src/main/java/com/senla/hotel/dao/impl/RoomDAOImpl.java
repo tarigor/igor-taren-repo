@@ -1,18 +1,17 @@
 package com.senla.hotel.dao.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Room;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@CreateInstanceAndPutInContainer
 public class RoomDAOImpl implements IEntityDAO<Room> {
-    private static final RoomDAOImpl INSTANCE = new RoomDAOImpl();
-    private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, Room> rooms = new HashMap<>();
-
-    public static RoomDAOImpl getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     public Room update(Room room) {

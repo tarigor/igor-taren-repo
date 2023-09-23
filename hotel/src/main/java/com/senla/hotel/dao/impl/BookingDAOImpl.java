@@ -1,19 +1,17 @@
 package com.senla.hotel.dao.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Booking;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@CreateInstanceAndPutInContainer
 public class BookingDAOImpl implements IEntityDAO<Booking> {
-
-    private static final BookingDAOImpl INSTANCE = new BookingDAOImpl();
-    private static final Set<Long> idHolder = new HashSet<>();
     private final Map<Long, Booking> bookings = new HashMap<>();
-
-    public static BookingDAOImpl getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     public List<Booking> getAll() {

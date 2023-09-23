@@ -14,26 +14,29 @@ import com.senla.menu.service.PropertiesService;
 
 @CreateInstanceAndPutInContainer
 public class MenuMain {
-    private static Navigator NAVIGATOR;
-    private static PropertiesService PROPERTIES_SERVICE;
-    private static Builder BUILDER;
-    private static MenuController MENU_CONTROLLER;
     private static String MENU_DESCRIPTION_FILENAME = "menu.properties";
+    private static MenuController MENU_CONTROLLER;
 
     @InjectValue(key = "MenuController")
     public static void setMenuController(MenuController menuController) {
         MENU_CONTROLLER = menuController;
     }
 
+    private static Builder BUILDER;
+
     @InjectValue(key = "Builder")
     public static void setBUILDER(Builder BUILDER) {
         MenuMain.BUILDER = BUILDER;
     }
 
+    private static PropertiesService PROPERTIES_SERVICE;
+
     @InjectValue(key = "PropertiesService")
     public static void setPropertiesService(PropertiesService propertiesService) {
         PROPERTIES_SERVICE = propertiesService;
     }
+
+    private static Navigator NAVIGATOR;
 
     @InjectValue(key = "Navigator")
     public static void setNAVIGATOR(Navigator NAVIGATOR) {
@@ -60,78 +63,91 @@ public class MenuMain {
     public static void setMenuAction3(MenuAction3 menuAction3) {
         MenuMain.menuAction3 = menuAction3;
     }
+
     private static MenuAction4 menuAction4;
 
     @InjectValue(key = "MenuAction4")
     public static void setMenuAction4(MenuAction4 menuAction4) {
         MenuMain.menuAction4 = menuAction4;
     }
+
     private static MenuAction5 menuAction5;
 
     @InjectValue(key = "MenuAction5")
     public static void setMenuAction5(MenuAction5 menuAction5) {
         MenuMain.menuAction5 = menuAction5;
     }
+
     private static MenuAction6 menuAction6;
 
     @InjectValue(key = "MenuAction6")
     public static void setMenuAction6(MenuAction6 menuAction6) {
         MenuMain.menuAction6 = menuAction6;
     }
+
     private static MenuAction7 menuAction7;
 
     @InjectValue(key = "MenuAction7")
     public static void setMenuAction7(MenuAction7 menuAction7) {
         MenuMain.menuAction7 = menuAction7;
     }
+
     private static MenuAction8 menuAction8;
 
     @InjectValue(key = "MenuAction8")
     public static void setMenuAction8(MenuAction8 menuAction8) {
         MenuMain.menuAction8 = menuAction8;
     }
+
     private static MenuAction9 menuAction9;
 
     @InjectValue(key = "MenuAction9")
     public static void setMenuAction9(MenuAction9 menuAction9) {
         MenuMain.menuAction9 = menuAction9;
     }
+
     private static MenuAction10 menuAction10;
 
     @InjectValue(key = "MenuAction10")
     public static void setMenuAction10(MenuAction10 menuAction10) {
         MenuMain.menuAction10 = menuAction10;
     }
+
     private static MenuAction11 menuAction11;
 
     @InjectValue(key = "MenuAction11")
     public static void setMenuAction11(MenuAction11 menuAction11) {
         MenuMain.menuAction11 = menuAction11;
     }
+
     private static MenuAction12 menuAction12;
 
     @InjectValue(key = "MenuAction12")
     public static void setMenuAction12(MenuAction12 menuAction12) {
         MenuMain.menuAction12 = menuAction12;
     }
+
     private static MenuAction13 menuAction13;
 
     @InjectValue(key = "MenuAction13")
     public static void setMenuAction13(MenuAction13 menuAction13) {
         MenuMain.menuAction13 = menuAction13;
     }
+
     private static MenuAction14 menuAction14;
 
     @InjectValue(key = "MenuAction14")
     public static void setMenuAction14(MenuAction14 menuAction14) {
         MenuMain.menuAction14 = menuAction14;
     }
+
     private static MenuAction15 menuAction15;
 
     @InjectValue(key = "MenuAction15")
     public static void setMenuAction15(MenuAction15 menuAction15) {
         MenuMain.menuAction15 = menuAction15;
     }
+
     private static MenuAction16 menuAction16;
 
     @InjectValue(key = "MenuAction16")

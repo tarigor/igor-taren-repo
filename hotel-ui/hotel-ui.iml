@@ -12,6 +12,5 @@
     <orderEntry type="module" module-name="hotel" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="container" />
-    <orderEntry type="module" module-name="init" />
   </component>
 </module>

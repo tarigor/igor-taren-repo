@@ -1,8 +1,9 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
-import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.CommonService;
@@ -11,13 +12,14 @@ import com.senla.hotel.service.IRoomService;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class RoomServiceImpl extends CommonService implements IRoomService {
-    private static final RoomServiceImpl INSTANCE = new RoomServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
+    private RoomDAOImpl roomDAO;
 
-    public static RoomServiceImpl getInstance() {
-        return INSTANCE;
+    @InjectValue(key = "RoomDAOImpl")
+    public void setRoomDAO(RoomDAOImpl roomDAO) {
+        this.roomDAO = roomDAO;
     }
 
     @Override

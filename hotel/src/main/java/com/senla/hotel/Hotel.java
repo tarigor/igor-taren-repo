@@ -25,14 +25,35 @@ public class Hotel {
         Hotel.bookingService = bookingService;
     }
 
+    private static GuestServiceImpl guestService;
+
+    @InjectValue(key = "GuestServiceImpl")
+    public static void setGuestService(GuestServiceImpl guestService) {
+        Hotel.guestService = guestService;
+    }
+
+    private static GuestServicesServiceImpl guestServicesService;
+
+    @InjectValue(key = "GuestServicesServiceImpl")
+    public static void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
+        Hotel.guestServicesService = guestServicesService;
+    }
+
+    private static RoomServicesServiceImpl roomServicesService;
+
+    @InjectValue(key = "RoomServicesServiceImpl")
+    public static void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+        Hotel.roomServicesService = roomServicesService;
+    }
+
+    private static RoomServiceImpl roomService;
+
+    @InjectValue(key = "RoomServiceImpl")
+    public static void setRoomService(RoomServiceImpl roomService) {
+        Hotel.roomService = roomService;
+    }
 
     public static void init() {
-
-        GuestServiceImpl guestService = GuestServiceImpl.getInstance();
-        GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
-        RoomServiceImpl roomService = RoomServiceImpl.getInstance();
-        RoomServicesServiceImpl roomServicesService = RoomServicesServiceImpl.getInstance();
-
         List<Room> rooms = List.of(
                 new Room(1, 23.2, false, 1, 3),
                 new Room(2, 34.5, false, 1, 3),

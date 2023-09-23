@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 @CreateInstanceAndPutInContainer
 public class MenuController {
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private Menu menu;
     private Navigator navigator;
     private String menuDescriptionFileName;

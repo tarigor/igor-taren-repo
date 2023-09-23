@@ -1,11 +1,21 @@
 package com.senla.menu.action.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
+import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+
 @CreateInstanceAndPutInContainer
 public class MenuAction11 extends MenuAction implements IAction {
+    private GuestServicesServiceImpl guestServicesService;
+
+    @InjectValue(key = "GuestServicesServiceImpl")
+    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
+        this.guestServicesService = guestServicesService;
+    }
+
     //11=View the list of guest services and their price (sorted by PRICE,DATE) in ASC(DESC) manner
     @Override
     public void execute() {

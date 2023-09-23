@@ -1,7 +1,7 @@
 package com.senla.hotel.service.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.hotel.dao.IEntityDAO;
+import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
@@ -18,14 +18,26 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
-    private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<Booking> bookingDAO = BookingDAOImpl.getInstance();
-    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
-    private final IEntityDAO<Guest> guestDAO = GuestDAOImpl.getInstance();
+    private BookingDAOImpl bookingDAO;
 
-    public static BookingServiceImpl getInstance() {
-        return INSTANCE;
+    @InjectValue(key = "BookingDAOImpl")
+    public void setBookingDAO(BookingDAOImpl bookingDAO) {
+        this.bookingDAO = bookingDAO;
+    }
+
+    private RoomDAOImpl roomDAO;
+
+    @InjectValue(key = " RoomDAOImpl")
+    public void setRoomDAO(RoomDAOImpl roomDAO) {
+        this.roomDAO = roomDAO;
+    }
+
+    private GuestDAOImpl guestDAO;
+
+    @InjectValue(key = "GuestDAOImpl")
+    public void setGuestDAO(GuestDAOImpl guestDAO) {
+        this.guestDAO = guestDAO;
     }
 
     @Override

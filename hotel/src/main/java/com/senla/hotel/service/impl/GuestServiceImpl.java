@@ -1,5 +1,7 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.service.CommonService;
@@ -10,13 +12,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@CreateInstanceAndPutInContainer
 public class GuestServiceImpl extends CommonService implements IGuestService {
-    private static final GuestServiceImpl INSTANCE = new GuestServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final GuestDAOImpl guestDAO = GuestDAOImpl.getInstance();
+    private GuestDAOImpl guestDAO;
 
-    public static GuestServiceImpl getInstance() {
-        return INSTANCE;
+    @InjectValue(key = "GuestDAOImpl")
+    public void setGuestDAO(GuestDAOImpl guestDAO) {
+        this.guestDAO = guestDAO;
     }
 
     @Override

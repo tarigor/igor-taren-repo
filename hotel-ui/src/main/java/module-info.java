@@ -2,7 +2,6 @@ module hotel.ui {
     exports com.senla.menu;
     requires container;
     requires hotel;
-    requires init;
     requires hotel.io;
     requires lombok;
     requires betterthenspring;
