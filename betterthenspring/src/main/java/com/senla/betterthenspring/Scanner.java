@@ -1,10 +1,7 @@
 package com.senla.betterthenspring;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Scanner {
 
@@ -23,10 +20,10 @@ public class Scanner {
         List<Class<?>> classes = new ArrayList<>();
         String packagePath = packageName.replace(".", "/");
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File packageDirectory = new File(classLoader.getResource(packagePath).getFile());
+        File packageDirectory = new File(Objects.requireNonNull(classLoader.getResource(packagePath)).getFile());
 
         if (packageDirectory.exists() && packageDirectory.isDirectory()) {
-            for (File file : packageDirectory.listFiles()) {
+            for (File file : Objects.requireNonNull(packageDirectory.listFiles())) {
                 if (file.isFile() && file.getName().endsWith(".class")) {
                     String className = packageName + "." + file.getName().replaceAll("\\.class$", "");
 

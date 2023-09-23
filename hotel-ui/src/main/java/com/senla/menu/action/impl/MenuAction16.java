@@ -11,34 +11,30 @@ import java.util.Scanner;
 @CreateInstanceAndPutInContainer
 public class MenuAction16 extends MenuAction implements IAction {
     protected BookingEntityExportServiceImpl bookingEntityExportService;
+    private GuestEntityExportServiceImpl guestEntityExportService;
+    private GuestServicesEntityExportServiceImpl guestServicesEntityExportService;
+    private RoomEntityExportServiceImpl roomEntityExportService;
+    private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
     @InjectValue(key = "BookingEntityExportServiceImpl")
     public void setBookingEntityExportService(BookingEntityExportServiceImpl bookingEntityExportService) {
         this.bookingEntityExportService = bookingEntityExportService;
     }
 
-    private GuestEntityExportServiceImpl guestEntityExportService;
-
     @InjectValue(key = "GuestEntityExportServiceImpl")
     public void setGuestEntityExportService(GuestEntityExportServiceImpl guestEntityExportService) {
         this.guestEntityExportService = guestEntityExportService;
     }
-
-    private GuestServicesEntityExportServiceImpl guestServicesEntityExportService;
 
     @InjectValue(key = "GuestServicesEntityExportServiceImpl")
     public void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl guestServicesEntityExportService) {
         this.guestServicesEntityExportService = guestServicesEntityExportService;
     }
 
-    private RoomEntityExportServiceImpl roomEntityExportService;
-
     @InjectValue(key = "RoomEntityExportServiceImpl")
     public void setRoomEntityExportService(RoomEntityExportServiceImpl roomEntityExportService) {
         this.roomEntityExportService = roomEntityExportService;
     }
-
-    private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
     @InjectValue(key = "RoomServiceEntityExportServiceImpl")
     public void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {

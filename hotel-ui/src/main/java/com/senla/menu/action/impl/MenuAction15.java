@@ -10,34 +10,30 @@ import com.senla.menu.action.MenuAction;
 @CreateInstanceAndPutInContainer
 public class MenuAction15 extends MenuAction implements IAction {
     private BookingServiceImpl bookingService;
+    private GuestServiceImpl guestService;
+    private GuestServicesServiceImpl guestServicesService;
+    private RoomServiceImpl roomService;
+    private RoomServicesServiceImpl roomServicesService;
 
     @InjectValue(key = "BookingServiceImpl")
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    private GuestServiceImpl guestService;
-
     @InjectValue(key = "GuestServiceImpl")
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
-
-    private GuestServicesServiceImpl guestServicesService;
 
     @InjectValue(key = "GuestServicesServiceImpl")
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    private RoomServiceImpl roomService;
-
     @InjectValue(key = "RoomServiceImpl")
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
-
-    private RoomServicesServiceImpl roomServicesService;
 
     @InjectValue(key = "RoomServicesServiceImpl")
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {

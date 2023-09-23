@@ -9,6 +9,7 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class Navigator {
     private PropertiesService propertiesService;
+
     public void setPropertiesService(PropertiesService propertiesService) {
         this.propertiesService = propertiesService;
     }

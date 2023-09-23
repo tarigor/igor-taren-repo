@@ -11,13 +11,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Container {
-    public static Boolean completed;
-
-    private static HashMap<String, Object> instances = new HashMap<>();
-
-    public static HashMap<String, Object> getInstances() {
-        return instances;
-    }
+    private static final HashMap<String, Object> instances = new HashMap<>();
 
     private static void storeAnnotatedInstanceInContainer(Set<Class<?>> classesToInspect) {
         for (Class<?> clazz : classesToInspect) {
@@ -28,7 +22,6 @@ public class Container {
                     Constructor<?> constructor = clazz.getDeclaredConstructor();
                     constructor.setAccessible(true);
                     Object instance = constructor.newInstance();
-//                    InstanceManager.createAndPutInstance(instance, key);
                     instances.put(key, instance);
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
@@ -39,27 +32,6 @@ public class Container {
         instances.forEach((k, v) -> System.out.println("class name->" + k + " object->" + v));
     }
 
-    private static void injectValue(Class clazz){
-        Method[] methods = clazz.getDeclaredMethods();
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(InjectValue.class)) {
-                Annotation annotation = method.getAnnotation(InjectValue.class);
-                String key = ((InjectValue) annotation).key();
-                Object objectToInject = instances.get(key);
-                if (objectToInject != null) {
-                    Object o = instances.get(clazz.getSimpleName());
-                    try {
-                        method.setAccessible(true);
-                        method.invoke(o, objectToInject);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-    }
     public static void injectValue() {
         for (Module m : ModuleLayer.boot().modules()) {
             if (m.getName().contains("hotel"))
@@ -90,7 +62,6 @@ public class Container {
                     }
                 }
         }
-        completed = true;
     }
 
     public static void injectAnnotatedFields() {

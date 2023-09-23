@@ -19,34 +19,30 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class Hotel {
     private static BookingServiceImpl bookingService;
+    private static GuestServiceImpl guestService;
+    private static GuestServicesServiceImpl guestServicesService;
+    private static RoomServicesServiceImpl roomServicesService;
+    private static RoomServiceImpl roomService;
 
     @InjectValue(key = "BookingServiceImpl")
     public static void setBookingService(BookingServiceImpl bookingService) {
         Hotel.bookingService = bookingService;
     }
 
-    private static GuestServiceImpl guestService;
-
     @InjectValue(key = "GuestServiceImpl")
     public static void setGuestService(GuestServiceImpl guestService) {
         Hotel.guestService = guestService;
     }
-
-    private static GuestServicesServiceImpl guestServicesService;
 
     @InjectValue(key = "GuestServicesServiceImpl")
     public static void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         Hotel.guestServicesService = guestServicesService;
     }
 
-    private static RoomServicesServiceImpl roomServicesService;
-
     @InjectValue(key = "RoomServicesServiceImpl")
     public static void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         Hotel.roomServicesService = roomServicesService;
     }
-
-    private static RoomServiceImpl roomService;
 
     @InjectValue(key = "RoomServiceImpl")
     public static void setRoomService(RoomServiceImpl roomService) {

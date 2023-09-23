@@ -1,8 +1,8 @@
 package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.hotel.entity.Booking;
-import com.senla.hotelio.service.entityimport.ImportService;
 import com.senla.hotelio.service.entityimport.IImportService;
+import com.senla.hotelio.service.entityimport.ImportService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -22,13 +22,12 @@ import java.util.stream.Collectors;
 public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
     private static final Set<Long> idHolder = new HashSet<>();
     private GuestServicesDAOImpl guestServicesDAO;
+    private RoomServiceDAOImpl roomServiceDAO;
 
     @InjectValue(key = "GuestServicesDAOImpl")
     public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
         this.guestServicesDAO = guestServicesDAO;
     }
-
-    private RoomServiceDAOImpl roomServiceDAO;
 
     @InjectValue(key = "RoomServiceDAOImpl")
     public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {

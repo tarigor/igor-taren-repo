@@ -20,20 +20,18 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl extends CommonService implements IBookingService {
     private static final Set<Long> idHolder = new HashSet<>();
     private BookingDAOImpl bookingDAO;
+    private RoomDAOImpl roomDAO;
+    private GuestDAOImpl guestDAO;
 
     @InjectValue(key = "BookingDAOImpl")
     public void setBookingDAO(BookingDAOImpl bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
-    private RoomDAOImpl roomDAO;
-
     @InjectValue(key = " RoomDAOImpl")
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }
-
-    private GuestDAOImpl guestDAO;
 
     @InjectValue(key = "GuestDAOImpl")
     public void setGuestDAO(GuestDAOImpl guestDAO) {
