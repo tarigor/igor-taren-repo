@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="jdk" jdkName="corretto-11" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="container" />
+    <orderEntry type="module" module-name="annotations" />
     <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

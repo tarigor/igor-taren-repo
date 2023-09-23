@@ -1,6 +1,6 @@
 module hotel.ui {
     exports com.senla.menu;
-    requires container;
+    requires annotations;
     requires hotel;
     requires hotel.io;
     requires lombok;

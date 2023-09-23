@@ -1,3 +1,3 @@
-module container {
+module annotations {
     exports com.senla.container;
 }

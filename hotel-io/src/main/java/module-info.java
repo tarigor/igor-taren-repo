@@ -4,6 +4,6 @@ module hotel.io {
     exports com.senla.hotelio.service.entityimport.impl;
     requires com.google.gson;
     requires hotel;
-    requires container;
+    requires annotations;
     opens com.senla.hotelio.service.entityexport.impl to betterthenspring;
 }
