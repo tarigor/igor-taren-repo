@@ -1,5 +1,6 @@
 package com.senla.menu.builder;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
@@ -7,17 +8,13 @@ import com.senla.menu.entity.MenuItem;
 import java.util.Map;
 import java.util.TreeMap;
 
+@CreateInstanceAndPutInContainer
 public class Builder {
-    private final static Builder INSTANCE = new Builder();
     private final Map<Integer, IAction> items;
     private String title;
 
     public Builder() {
         items = new TreeMap<>();
-    }
-
-    public static Builder getInstance() {
-        return INSTANCE;
     }
 
     public Map<Integer, IAction> getItems() {

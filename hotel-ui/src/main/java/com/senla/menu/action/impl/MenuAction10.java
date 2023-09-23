@@ -1,8 +1,9 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
+@CreateInstanceAndPutInContainer
 public class MenuAction10 extends MenuAction implements IAction {
     //10=View the last 3 guests of the room and the dates of their stay
     @Override

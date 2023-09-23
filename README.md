@@ -2,36 +2,39 @@
 
 Igor Taren's repository
 
-## Task #6
+## Task #7
 
-### _Exceptions and Java IO_
+### _Annotations_
 
 #### Description:
 
-### Task 6.1 (difficulty 5)
+### Task 7.1 (difficulty 5)
 
-Add to the program being developed the ability to import and export data of the selected entity (you will need to add an
-ID for each entity). The import must support updating records with the same ID and adding new ones. In addition, the
-program should automatically establish links between objects. The file format for import/export must be CSV.
+Change the program configuration mechanism to configuration using annotations:
 
-The UI should be supplemented with new menu items that allow importing and exporting for each entity.
+It is necessary to allocate a separate module that will perform automatic configuration of the program. An object 
+containing annotated configuration parameters must be submitted to the input. The module must fill in these parameters 
+with values from the configuration file in accordance with the annotations. The annotation that needs to be implemented 
+for this should have the following form:
 
-### Task 6.2 (difficulty 2)
+@ConfigProperty(configFileName, propertyName, type) – it can be placed over any field (elementary value, reference, 
+array or collection) and must ensure the correct configuration of the corresponding element.
 
-Add high-quality exception handling for possible errors in the application. The program must adequately inform the user
-about the problems that have arisen.
+All annotation attributes are optional (when using an annotation, you can either specify them or not). By default 
+сonfigFileName attribute should be the name of the default configuration file, 
+propertyName - have the form CLASS_NAME.FIELD_NAME, type - convert the value of the configurable parameter to 
+the current field type, or to String if the type is common;
 
-### Remarks to task
+### Task 6.2 (difficulty 10)
 
-the IO operations created in separate module hotel-io
+Develop a set of annotations and a separate module for their processing:
 
-import and export folders location:
+The module should allow dependency injections (DI) in the program modules. An object containing annotated fields 
+should be submitted to the input, and the module should implement dependencies in them.
 
-- import -> *hotel-io/csv/import*
-- export -> *hotel-io/csv/export*
-
-Runner method -> com.senla.menu.MenuMain.main
-
+To organize low coupling between modules of the application developed in previous tasks. For implementation, 
+it is necessary to use the Dependency injection pattern and the Reflection mechanism. All application modules 
+must be changed to this solution.
 #### Stack
 
 - Java 11;
@@ -39,5 +42,3 @@ Runner method -> com.senla.menu.MenuMain.main
 - gson 2.10.1
 
 #### UML
-
-[TASK_6_UML.puml](TASK_6_UML.puml)

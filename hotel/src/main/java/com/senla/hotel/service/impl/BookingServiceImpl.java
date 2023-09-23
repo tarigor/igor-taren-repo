@@ -1,5 +1,6 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
@@ -15,6 +16,7 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
     private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();

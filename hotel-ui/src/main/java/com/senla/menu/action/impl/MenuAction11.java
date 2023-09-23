@@ -1,9 +1,10 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
+@CreateInstanceAndPutInContainer
 public class MenuAction11 extends MenuAction implements IAction {
     //11=View the list of guest services and their price (sorted by PRICE,DATE) in ASC(DESC) manner
     @Override

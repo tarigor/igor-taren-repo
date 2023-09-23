@@ -1,18 +1,16 @@
 package com.senla.menu.service;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
+@CreateInstanceAndPutInContainer
 public class PropertiesService {
-    private static final PropertiesService INSTANCE = new PropertiesService();
     private final Map<Integer, String> menuMap = new TreeMap<>();
-
-    public static PropertiesService getInstance() {
-        return INSTANCE;
-    }
 
     public Map<Integer, String> readPropertiesFileAsMap(String filename, String delimiter) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {

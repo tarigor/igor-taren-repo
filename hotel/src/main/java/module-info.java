@@ -7,4 +7,6 @@ module hotel {
     exports com.senla.hotel.constant;
     requires lombok;
     requires com.google.gson;
+    requires container;
+    opens com.senla.hotel to betterthenspring;
 }

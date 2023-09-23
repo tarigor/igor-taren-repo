@@ -1,9 +1,10 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotelio.service.entityimport.impl.*;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
+@CreateInstanceAndPutInContainer
 public class MenuAction15 extends MenuAction implements IAction {
     //Import the certain entity from the CSV file
     @Override

@@ -1,5 +1,7 @@
 package com.senla.hotel;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.Booking;
@@ -13,11 +15,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
-public class Hotel {
-    private static final Hotel INSTANCE = new Hotel();
 
-    {
-        BookingServiceImpl bookingService = BookingServiceImpl.getInstance();
+@CreateInstanceAndPutInContainer
+public class Hotel {
+    private static BookingServiceImpl bookingService;
+
+    @InjectValue(key = "BookingServiceImpl")
+    public static void setBookingService(BookingServiceImpl bookingService) {
+        Hotel.bookingService = bookingService;
+    }
+
+
+    public static void init() {
+
         GuestServiceImpl guestService = GuestServiceImpl.getInstance();
         GuestServicesServiceImpl guestServicesService = GuestServicesServiceImpl.getInstance();
         RoomServiceImpl roomService = RoomServiceImpl.getInstance();
@@ -86,10 +96,6 @@ public class Hotel {
         guestServicesService.saveAll(guestServicesEntityDTOList);
         roomService.saveAll(rooms);
         roomServicesService.saveAll(roomServices);
-
-    }
-
-    public static void init() {
 
     }
 }

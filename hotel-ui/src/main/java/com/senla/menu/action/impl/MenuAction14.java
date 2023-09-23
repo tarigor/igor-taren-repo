@@ -1,8 +1,9 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
+@CreateInstanceAndPutInContainer
 public class MenuAction14 extends MenuAction implements IAction {
     //14=Show the details of a separate room
     @Override

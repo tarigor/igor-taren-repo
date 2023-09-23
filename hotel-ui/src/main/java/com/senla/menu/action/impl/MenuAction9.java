@@ -1,8 +1,9 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-
+@CreateInstanceAndPutInContainer
 public class MenuAction9 extends MenuAction implements IAction {
     //9=The amount of payment for the room to be paid by the guest
     @Override
