@@ -1,6 +1,7 @@
 package com.senla.menu;
 
 import com.senla.betterthenspring.Container;
+import com.senla.betterthenspring.DataPuller;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.Hotel;
@@ -140,8 +141,9 @@ public class MenuMain {
 
         Container.storeAllAnnotatedClassesToContainer();
         Container.injectAnnotatedFields();
+        DataPuller.fillDataToMapFromPropertiesFile();
 
-        Hotel.init();
+ //       Hotel.init();
 
         Menu menu = BUILDER
                 .setTitle("HOTEL OPERATION")

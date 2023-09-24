@@ -1,6 +1,7 @@
 package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.RoomService;
 
@@ -11,7 +12,12 @@ import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
-    private final Map<Long, RoomService> roomServices = new HashMap<>();
+    private Map<Long, RoomService> roomServices;
+    @TakeDataFromPropertiesFile(entityName="RoomService")
+    public void setRoomServices(Map<Long, RoomService> roomServices) {
+        this.roomServices = roomServices;
+        System.out.println("8");
+    }
 
     @Override
     public List<RoomService> getAll() {

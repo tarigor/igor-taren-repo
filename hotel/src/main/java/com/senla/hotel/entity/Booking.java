@@ -1,5 +1,7 @@
 package com.senla.hotel.entity;
 
+import com.senla.container.ConfigProperty;
+import com.senla.container.FieldProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +11,18 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ConfigProperty(configFileName = "Booking")
 public class Booking {
     private long id;
+    @FieldProperty
     private long guestId;
+    @FieldProperty
     private long guestServicesId;
+    @FieldProperty
     private long bookedRoomId;
+    @FieldProperty
     private Date checkInDate;
+    @FieldProperty
     private Date checkOutDate;
 
     public Booking(long guestId, long guestServicesId, long bookedRoomId, Date checkInDate, Date checkOutDate) {

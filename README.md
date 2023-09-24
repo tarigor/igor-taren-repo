@@ -25,7 +25,7 @@ All annotation attributes are optional (when using an annotation, you can either
 propertyName - have the form CLASS_NAME.FIELD_NAME, type - convert the value of the configurable parameter to
 the current field type, or to String if the type is common;
 
-### Task 6.2 (difficulty 10)
+### Task 7.2 (difficulty 10)
 
 Develop a set of annotations and a separate module for their processing:
 

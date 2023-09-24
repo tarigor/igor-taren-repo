@@ -11,7 +11,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Container {
-    private static final HashMap<String, Object> instances = new HashMap<>();
+    private static  HashMap<String, Object> instances = new HashMap<>();
+
+    public static HashMap<String, Object> getInstances() {
+        return instances;
+    }
 
     private static void storeAnnotatedInstanceInContainer(Set<Class<?>> classesToInspect) {
         for (Class<?> clazz : classesToInspect) {
