@@ -1,9 +1,11 @@
 package com.senla.betterthenspring;
 
-import com.senla.container.*;
+import com.senla.container.ConfigProperty;
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.FieldProperty;
+import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.entity.*;
-import com.senla.hotel.service.impl.RoomServiceImpl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,13 +20,6 @@ import java.util.*;
 
 @CreateInstanceAndPutInContainer
 public class DataPuller {
-
-    private RoomServiceImpl roomService;
-
-    @InjectValue(key = "RoomServiceImpl")
-    public void setRoomService(RoomServiceImpl roomService) {
-        this.roomService = roomService;
-    }
 
     private static void findMapToBeFilled(Set<Class<?>> classesToInspect, HashMap<String, Object> instances) {
         for (Class<?> clazz : classesToInspect) {
@@ -127,7 +122,6 @@ public class DataPuller {
     }
 
     private static List<Object[]> takeListOfObjectsFieldsList(Set<Class<?>> classesToInspect, String entityName) {
-        HashMap<Long, Object> mapOfObjects = new HashMap<>();
         List<Object[]> listOfObjectsFieldsList = new ArrayList<>();
         for (Class<?> clazz : classesToInspect) {
             if (clazz.isAnnotationPresent(ConfigProperty.class)) {
@@ -135,21 +129,14 @@ public class DataPuller {
                 String configFileName = ((ConfigProperty) annotation).configFileName();
                 if (configFileName.equals(entityName)) {
                     Field[] fields = clazz.getDeclaredFields();
-
                     List<List<Object>> listOArraysOfTheSameParameters = new ArrayList<>();
-                    int index = 1;
                     for (Field field : fields) {
                         if (field.isAnnotationPresent(FieldProperty.class)) {
-                            System.out.println("field name->" + field.getName() + " filed type->" + field.getType());
                             List<Object> listOfCatsedParameters = getListOArraysOfTheSameParameters(entityName, field.getName(), field.getType());
                             listOArraysOfTheSameParameters.add(listOfCatsedParameters);
-                            System.out.println("end");
                         }
                     }
                     listOfObjectsFieldsList = transformToListOfObjectsFieldsList(listOArraysOfTheSameParameters);
-                    System.out.println("end3");
-                    //         mapOfObjects = transformToMapOfObjects(listOfObjectsFieldsList);
-
                 }
             }
         }
@@ -180,10 +167,7 @@ public class DataPuller {
         }
         String propertyValue = properties.getProperty(fieldName);
         if (propertyValue != null) {
-            System.out.println("Value for " + fieldName + ": " + propertyValue);
             listOfCastedObjects = convertToLIstOfCastedObjects(propertyValue, (Class<Object>) type);
-            listOfCastedObjects.forEach(System.out::println);
-            System.out.println("end2");
         } else {
             System.out.println("Property not found: " + fieldName);
         }
@@ -193,7 +177,6 @@ public class DataPuller {
     private static List<Object> convertToLIstOfCastedObjects(String propertyValue, Class<Object> type) {
         List<Object> listOfObject = new ArrayList<>();
         for (String o : propertyValue.split(",")) {
-            System.out.println("value->" + o);
             listOfObject.add(o);
         }
         return listOfObject;

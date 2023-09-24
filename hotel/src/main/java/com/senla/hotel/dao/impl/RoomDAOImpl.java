@@ -17,7 +17,6 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
     @TakeDataFromPropertiesFile(entityName="Room")
     public void setRooms(Map<Long, Room> rooms) {
         this.rooms = rooms;
-        System.out.println("6");
     }
 
     @Override
