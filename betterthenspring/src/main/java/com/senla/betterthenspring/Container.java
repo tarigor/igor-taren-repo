@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Container {
-    private static  HashMap<String, Object> instances = new HashMap<>();
+    private static HashMap<String, Object> instances = new HashMap<>();
 
     public static HashMap<String, Object> getInstances() {
         return instances;

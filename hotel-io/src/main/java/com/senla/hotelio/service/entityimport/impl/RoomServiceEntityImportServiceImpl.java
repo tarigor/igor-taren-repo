@@ -8,6 +8,7 @@ import com.senla.hotelio.service.entityimport.ImportService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @CreateInstanceAndPutInContainer
 public class RoomServiceEntityImportServiceImpl extends ImportService implements IImportService<RoomService> {
     private final String ENTITY_NAME = "RoomService";

@@ -6,7 +6,6 @@ import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Room;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,8 @@ import java.util.Map;
 public class RoomDAOImpl implements IEntityDAO<Room> {
 
     private Map<Long, Room> rooms;
-    @TakeDataFromPropertiesFile(entityName="Room")
+
+    @TakeDataFromPropertiesFile(entityName = "Room")
     public void setRooms(Map<Long, Room> rooms) {
         this.rooms = rooms;
     }

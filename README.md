@@ -36,6 +36,14 @@ To organize low coupling between modules of the application developed in previou
 it is necessary to use the Dependency injection pattern and the Reflection mechanism. All application modules
 must be changed to this solution.
 
+### Remarks
+
+Entities properties file path:
+*betterthenspring/resources*
+
+Entry point:
+*com.senla.menu.MenuMain.main*
+
 #### Stack
 
 - Java 11;

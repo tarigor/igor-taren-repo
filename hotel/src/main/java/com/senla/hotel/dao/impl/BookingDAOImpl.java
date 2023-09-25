@@ -6,14 +6,14 @@ import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Booking;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class BookingDAOImpl implements IEntityDAO<Booking> {
     private Map<Long, Booking> bookings;
-    @TakeDataFromPropertiesFile(entityName="Booking")
+
+    @TakeDataFromPropertiesFile(entityName = "Booking")
     public void setBookings(Map<Long, Booking> bookings) {
         this.bookings = bookings;
     }

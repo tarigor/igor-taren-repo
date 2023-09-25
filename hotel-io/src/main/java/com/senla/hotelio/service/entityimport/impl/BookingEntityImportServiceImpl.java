@@ -9,9 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 @CreateInstanceAndPutInContainer
 public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
     private final String ENTITY_NAME = "Booking";
+
     @Override
     public ArrayList<Booking> importEntities() {
         ArrayList<Booking> bookings = new ArrayList<>();

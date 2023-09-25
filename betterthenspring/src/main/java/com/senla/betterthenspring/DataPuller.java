@@ -126,7 +126,7 @@ public class DataPuller {
             }
             case ("java.util.HashMap<java.lang.Long, java.util.ArrayList<com.senla.hotel.dto.GuestServicesEntityDTO>>"): {
                 ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
-                HashMap<Long,ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOHashMap = new HashMap<>();
+                HashMap<Long, ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOHashMap = new HashMap<>();
                 long id = 1;
                 for (Object[] guestServicesEntityDTO : listOfObjectsFieldsList) {
                     guestServicesEntityDTOList.add(new GuestServicesEntityDTO(
@@ -135,7 +135,7 @@ public class DataPuller {
                     ));
                     id = id + 1;
                 }
-                guestServicesEntityDTOHashMap.put(1L,guestServicesEntityDTOList);
+                guestServicesEntityDTOHashMap.put(1L, guestServicesEntityDTOList);
                 return (HashMap<Long, T>) guestServicesEntityDTOHashMap;
             }
             default:

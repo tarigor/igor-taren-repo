@@ -24,7 +24,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void saveAll(List<Room> rooms) {
-        HashMap<Long,Room> roomHashMap = new HashMap<>();
+        HashMap<Long, Room> roomHashMap = new HashMap<>();
         for (Room room : rooms) {
             setId(room);
         }
