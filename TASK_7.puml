@@ -1,0 +1,629 @@
+@startuml
+class com.senla.menu.action.impl.MenuAction2 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.menu.action.impl.MenuAction8 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+class com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl {
+- String ENTITY_FILENAME
+- GuestServicesServiceImpl guestServicesService
++ void setGuestServicesService(GuestServicesServiceImpl)
++ void exportEntity()
+}
+class com.senla.menu.builder.Builder {
+- Map<Integer,IAction> items
+- String title
++ Map<Integer,IAction> getItems()
++ Builder setTitle(String)
++ Builder addItem(MenuItem)
++ Menu build()
+}
+class com.senla.hotel.entity.Room {
+- long id
+- Integer capacity
+- double price
+- boolean isAvailable
+- long roomServiceId
+- int starsRating
++ String toString()
+}
+interface com.senla.hotel.service.IRoomServicesService {
+~ void saveAll(List<RoomService>)
+~ List<RoomService> getAllOrdered(RoomServiceSection,Ordering)
+~ void updateAllAndSaveIfNotExist(ArrayList<RoomService>)
+~ List<RoomService> getAll()
+}
+class com.senla.betterthenspring.Scanner {
++ {static} Set<Class<?>> classesScan()
+- {static} List<Class<?>> getClassesInPackage(String)
+}
+class com.senla.menu.MenuMain {
+- {static} String MENU_DESCRIPTION_FILENAME
+- {static} MenuController MENU_CONTROLLER
+- {static} Builder BUILDER
+- {static} PropertiesService PROPERTIES_SERVICE
+- {static} Navigator NAVIGATOR
+- {static} MenuAction1 menuAction1
+- {static} MenuAction2 menuAction2
+- {static} MenuAction3 menuAction3
+- {static} MenuAction4 menuAction4
+- {static} MenuAction5 menuAction5
+- {static} MenuAction6 menuAction6
+- {static} MenuAction7 menuAction7
+- {static} MenuAction8 menuAction8
+- {static} MenuAction9 menuAction9
+- {static} MenuAction10 menuAction10
+- {static} MenuAction11 menuAction11
+- {static} MenuAction12 menuAction12
+- {static} MenuAction13 menuAction13
+- {static} MenuAction14 menuAction14
+- {static} MenuAction15 menuAction15
+- {static} MenuAction16 menuAction16
++ {static} void setMenuController(MenuController)
++ {static} void setBUILDER(Builder)
++ {static} void setPropertiesService(PropertiesService)
++ {static} void setNAVIGATOR(Navigator)
++ {static} void setMenuAction1(MenuAction1)
++ {static} void setMenuAction2(MenuAction2)
++ {static} void setMenuAction3(MenuAction3)
++ {static} void setMenuAction4(MenuAction4)
++ {static} void setMenuAction5(MenuAction5)
++ {static} void setMenuAction6(MenuAction6)
++ {static} void setMenuAction7(MenuAction7)
++ {static} void setMenuAction8(MenuAction8)
++ {static} void setMenuAction9(MenuAction9)
++ {static} void setMenuAction10(MenuAction10)
++ {static} void setMenuAction11(MenuAction11)
++ {static} void setMenuAction12(MenuAction12)
++ {static} void setMenuAction13(MenuAction13)
++ {static} void setMenuAction14(MenuAction14)
++ {static} void setMenuAction15(MenuAction15)
++ {static} void setMenuAction16(MenuAction16)
++ {static} void main(String[])
+}
+class com.senla.menu.action.impl.MenuAction11 {
+- GuestServicesServiceImpl guestServicesService
++ void setGuestServicesService(GuestServicesServiceImpl)
++ void execute()
+}
+class com.senla.hotel.dao.impl.GuestDAOImpl {
+- Map<Long,Guest> guests
++ void setGuests(Map<Long,Guest>)
++ List<Guest> getAll()
++ void saveAll(List<Guest>)
++ Guest update(Guest)
++ Guest getById(long)
++ void save(Guest)
+}
+class com.senla.menu.action.impl.MenuAction16 {
+# BookingEntityExportServiceImpl bookingEntityExportService
+- GuestEntityExportServiceImpl guestEntityExportService
+- GuestServicesEntityExportServiceImpl guestServicesEntityExportService
+- RoomEntityExportServiceImpl roomEntityExportService
+- RoomServiceEntityExportServiceImpl roomServiceEntityExportService
++ void setBookingEntityExportService(BookingEntityExportServiceImpl)
++ void setGuestEntityExportService(GuestEntityExportServiceImpl)
++ void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl)
++ void setRoomEntityExportService(RoomEntityExportServiceImpl)
++ void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl)
++ void execute()
+}
+class com.senla.menu.action.impl.MenuAction10 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+class com.senla.hotel.entity.RoomService {
+- long id
+- ServiceType serviceType
+- double price
++ String toString()
+}
+interface com.senla.menu.action.IAction {
+~ void execute()
+}
+abstract class com.senla.hotel.service.CommonService {
+# long generateId(Set<Long>)
+}
+class com.senla.menu.action.impl.MenuAction7 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+interface com.senla.hotel.dao.IEntityDAO {
+~ List<T> getAll()
+~ T getById(long)
+~ void save(T)
+~ void saveAll(List<T>)
+~ T update(T)
+}
+enum com.senla.hotel.constant.ServiceType {
++  NONE
++  REPAIR
++  MAINTENANCE
++  CLEANING
+}
+class com.senla.hotel.dao.impl.BookingDAOImpl {
+- Map<Long,Booking> bookings
++ void setBookings(Map<Long,Booking>)
++ List<Booking> getAll()
++ void saveAll(List<Booking>)
++ Booking getById(long)
++ void save(Booking)
++ Booking update(Booking)
+}
+class com.senla.menu.action.impl.MenuAction1 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.menu.service.PropertiesService {
+- Map<Integer,String> menuMap
++ Map<Integer,String> readPropertiesFileAsMap(String,String)
+}
+enum com.senla.hotel.constant.RoomSection {
++  ID
++  CAPACITY
++  PRICE
++  AVAILABILITY
++  SERVICE
++  RATING
+}
+class com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl {
+- String ENTITY_FILENAME
+- RoomServicesServiceImpl roomServicesService
++ void setRoomServicesService(RoomServicesServiceImpl)
++ void exportEntity()
+}
+class com.senla.hotel.dto.GuestServicesEntityDTO {
+- long id
+- long guestId
+- Map<Date,Long> servicesOrdered
+}
+class com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl {
+- String ENTITY_NAME
++ ArrayList<Room> importEntities()
+}
+class com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl {
+- String ENTITY_FILENAME
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void exportEntity()
+}
+class com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl {
+- String ENTITY_NAME
++ ArrayList<RoomService> importEntities()
+}
+class com.senla.hotelio.service.entityimport.impl.BookingEntityImportServiceImpl {
+- String ENTITY_NAME
++ ArrayList<Booking> importEntities()
+}
+enum com.senla.hotel.constant.GuestServicesSection {
++  PRICE
++  DATE
+}
+class com.senla.hotel.dto.GuestBookingDTO {
+- {static} Set<Long> idHolder
+- long id
+- Guest guest
+- Booking booking
+- void generateId()
+}
+abstract class com.senla.hotelio.service.entityexport.ExportService {
+- {static} String EXPORT_PATH
+- {static} String EXTENSION
+- {static} String REGEX
+# void storeEntityToCsv(String,List<T>)
+- String getFieldsFromEntityInCsvFormat(Object)
+}
+interface com.senla.hotelio.service.entityimport.IImportService {
+~ ArrayList<T> importEntities()
+}
+class com.senla.hotel.dto.GuestServicesDTO {
+- {static} Set<Long> idHolder
+- long id
+- Date date
+- RoomService roomService
+- void generateId()
++ String toString()
+}
+class com.senla.menu.navigator.Navigator {
+- PropertiesService propertiesService
++ void setPropertiesService(PropertiesService)
++ void navigate(Menu,String)
+}
+class com.senla.hotel.service.impl.BookingServiceImpl {
+- {static} Set<Long> idHolder
+- BookingDAOImpl bookingDAO
+- RoomDAOImpl roomDAO
+- GuestDAOImpl guestDAO
++ void setBookingDAO(BookingDAOImpl)
++ void setRoomDAO(RoomDAOImpl)
++ void setGuestDAO(GuestDAOImpl)
++ void saveAll(List<Booking>)
++ List<GuestBookingDTO> findAllOrderedAlphabetically()
++ List<Booking> findAllOrderedByCheckOutDate()
++ List<Booking> findLastGuestOfRoomAndDates(int,long)
++ double getTotalPaymentByGuest(long)
++ List<Room> findAvailableRoomsByDate(Date)
++ long findCountOfAllGuests()
++ Booking getByGuestId(long)
++ void updateAllAndSaveIfNotExist(ArrayList<Booking>)
++ List<Booking> getAll()
+- void setId(Booking)
+}
+enum com.senla.hotel.constant.Ordering {
++  ASC
++  DESC
+}
+class com.senla.menu.action.impl.MenuAction15 {
+- BookingServiceImpl bookingService
+- GuestServiceImpl guestService
+- GuestServicesServiceImpl guestServicesService
+- RoomServiceImpl roomService
+- RoomServicesServiceImpl roomServicesService
+- BookingEntityImportServiceImpl bookingEntityImportService
+- GuestEntityImportServiceImpl guestEntityImportService
+- GuestServicesEntityImportServiceImpl guestServicesEntityImportService
+- RoomEntityImportServiceImpl roomEntityImportService
+- RoomServiceEntityImportServiceImpl roomServiceEntityImportService
++ void setBookingService(BookingServiceImpl)
++ void setGuestService(GuestServiceImpl)
++ void setGuestServicesService(GuestServicesServiceImpl)
++ void setRoomService(RoomServiceImpl)
++ void setRoomServicesService(RoomServicesServiceImpl)
++ void setBookingEntityImportService(BookingEntityImportServiceImpl)
++ void setGuestEntityImportService(GuestEntityImportServiceImpl)
++ void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl)
++ void setRoomEntityImportService(RoomEntityImportServiceImpl)
++ void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl)
++ void execute()
+}
+abstract class com.senla.hotelio.service.entityimport.ImportService {
+- {static} String IMPORT_PATH
+- {static} String DELIMITER
+- {static} String EXTENSION
+# ArrayList<List<String>> getEntitiesFromCsv(String)
+}
+interface com.senla.hotel.service.IBookingService {
+~ void saveAll(List<Booking>)
+~ List<GuestBookingDTO> findAllOrderedAlphabetically()
+~ List<Booking> findAllOrderedByCheckOutDate()
+~ List<Booking> findLastGuestOfRoomAndDates(int,long)
+~ double getTotalPaymentByGuest(long)
+~ List<Room> findAvailableRoomsByDate(Date)
+~ long findCountOfAllGuests()
+~ Booking getByGuestId(long)
+~ void updateAllAndSaveIfNotExist(ArrayList<Booking>)
+~ List<Booking> getAll()
+}
+class com.senla.menu.entity.Menu {
+- String title
+- Map<Integer,IAction> items
+}
+class com.senla.hotel.entity.Booking {
+- long id
+- long guestId
+- long guestServicesId
+- long bookedRoomId
+- Date checkInDate
+- Date checkOutDate
++ String toString()
+}
+class com.senla.menu.action.impl.MenuAction12 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.menu.entity.MenuItem {
+- Integer position
+- IAction action
+}
+class com.senla.menu.action.impl.MenuAction5 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+class com.senla.menu.action.impl.MenuAction14 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.hotel.service.impl.RoomServicesServiceImpl {
+- {static} Set<Long> idHolder
+- RoomServiceDAOImpl roomServiceDAO
++ void setRoomServiceDAO(RoomServiceDAOImpl)
++ void saveAll(List<RoomService>)
++ List<RoomService> getAllOrdered(RoomServiceSection,Ordering)
++ void updateAllAndSaveIfNotExist(ArrayList<RoomService>)
++ List<RoomService> getAll()
+- void setId(RoomService)
+}
+class com.senla.hotelio.service.entityimport.impl.GuestEntityImportServiceImpl {
+- String ENTITY_NAME
++ ArrayList<Guest> importEntities()
+}
+class com.senla.hotel.service.impl.GuestServicesServiceImpl {
+- {static} Set<Long> idHolder
+- GuestServicesDAOImpl guestServicesDAO
+- RoomServiceDAOImpl roomServiceDAO
+- ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList
++ void setGuestServicesEntityDTOList(HashMap<Long,ArrayList<GuestServicesEntityDTO>>)
++ void setGuestServicesDAO(GuestServicesDAOImpl)
++ void setRoomServiceDAO(RoomServiceDAOImpl)
++ void saveAll(List<GuestServicesEntityDTO>)
++ List<GuestServicesDTO> getByGuestIdSorted(long,GuestServicesSection,Ordering)
++ void updateAllAndSaveIfNotExist(ArrayList<GuestServices>)
++ List<GuestServicesEntityDTO> getAll()
++ GuestServicesEntityDTO getById(long)
+- GuestServices guestServiceConvertFromDTOtoEntity(GuestServicesEntityDTO)
+- GuestServicesEntityDTO guestServiceConvertFromEntityToDTO(GuestServices)
+- Map<Date,Long> jsonStringToMapConvert(String)
+- String mapToJsonStringConvert(Map<Date,Long>)
+- void setId(GuestServices)
+}
+class com.senla.menu.action.impl.MenuAction13 {
+- RoomServicesServiceImpl roomServicesService
++ void setRoomServicesService(RoomServicesServiceImpl)
++ void execute()
+}
+class Main {
++ {static} void main(String[])
+}
+class com.senla.menu.action.impl.MenuAction4 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+class com.senla.hotel.dao.impl.RoomServiceDAOImpl {
+- Map<Long,RoomService> roomServices
++ void setRoomServices(Map<Long,RoomService>)
++ List<RoomService> getAll()
++ void saveAll(List<RoomService>)
++ RoomService update(RoomService)
++ RoomService getById(long)
++ void save(RoomService)
+}
+interface com.senla.hotel.service.IGuestService {
+~ void saveAll(List<Guest>)
+~ void updateAllAndSaveIfNotExist(ArrayList<Guest>)
+~ List<Guest> getAll()
+}
+class com.senla.menu.controller.MenuController {
+- Scanner scanner
+- Menu menu
+- Navigator navigator
+- String menuDescriptionFileName
+- Builder builder
++ void setBuilder(Builder)
++ void setMenu(Menu)
++ void setNavigator(Navigator)
++ void setMenuDescriptionFileName(String)
++ MenuController showMenu()
++ void menuRolling()
+}
+class com.senla.hotelio.service.entityimport.impl.GuestServicesEntityImportServiceImpl {
+- String ENTITY_NAME
++ ArrayList<GuestServices> importEntities()
+}
+class com.senla.hotel.entity.Guest {
+- long id
+- String firstName
+- String lastName
++ String toString()
+}
+class com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl {
+- String ENTITY_FILENAME
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void exportEntity()
+}
+interface com.senla.hotel.service.IGuestServicesService {
+~ void saveAll(List<GuestServicesEntityDTO>)
+~ List<GuestServicesDTO> getByGuestIdSorted(long,GuestServicesSection,Ordering)
+~ void updateAllAndSaveIfNotExist(ArrayList<GuestServices>)
+~ List<GuestServicesEntityDTO> getAll()
+~ GuestServicesEntityDTO getById(long)
+}
+interface com.senla.hotelio.service.entityexport.IExportService {
+~ void exportEntity()
+}
+class com.senla.hotel.dao.impl.GuestServicesDAOImpl {
+- Map<Long,GuestServices> guestServices
++ void setGuestServices(Map<Long,GuestServices>)
++ List<GuestServices> getAll()
++ void saveAll(List<GuestServices>)
++ GuestServices update(GuestServices)
++ GuestServices getById(long)
++ void save(GuestServices)
+}
+class com.senla.betterthenspring.Container {
+- {static} HashMap<String,Object> instances
++ {static} HashMap<String,Object> getInstances()
+- {static} void storeAnnotatedInstanceInContainer(Set<Class<?>>)
++ {static} void injectValue()
++ {static} void injectAnnotatedFields()
++ {static} void storeAllAnnotatedClassesToContainer()
+}
+class com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl {
+- String ENTITY_FILENAME
+- GuestServiceImpl guestService
++ void setGuestService(GuestServiceImpl)
++ void exportEntity()
+}
+enum com.senla.hotel.constant.RoomServiceSection {
++  ROOM_SERVICE
++  PRICE
+}
+class com.senla.menu.action.impl.MenuAction3 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.hotel.entity.GuestServices {
+- long id
+- long guestId
+- String servicesOrdered
+}
+class com.senla.hotel.service.impl.GuestServiceImpl {
+- {static} Set<Long> idHolder
+- GuestDAOImpl guestDAO
++ void setGuestDAO(GuestDAOImpl)
++ void saveAll(List<Guest>)
++ void updateAllAndSaveIfNotExist(ArrayList<Guest>)
++ List<Guest> getAll()
+- void setId(Guest)
+}
+class com.senla.hotel.dao.impl.RoomDAOImpl {
+- Map<Long,Room> rooms
++ void setRooms(Map<Long,Room>)
++ Room update(Room)
++ Room getById(long)
++ void save(Room)
++ List<Room> getAll()
++ void saveAll(List<Room>)
+}
+interface com.senla.hotel.service.IRoomService {
+~ void saveAll(List<Room>)
+~ void doCheckIn(long)
+~ void doCheckOut(long)
+~ Room changeRoomService(long,long)
+~ Room changeRoomPrice(long,double)
+~ Room getRoom(long)
+~ void addRoom(Room)
+~ List<Room> findAllOrderedByPrice()
+~ List<Room> findAllOrderedByCapacity()
+~ List<Room> findAllOrderedByStars()
+~ List<Room> findAvailableOrderedByPrice()
+~ List<Room> findAvailableOrderedByCapacity()
+~ List<Room> findAvailableOrderedByStars()
+~ int findNumberOfAvailableRooms()
+~ double getRoomPrice(long)
+~ List<Room> getAllOrdered(RoomSection,Ordering)
+~ void updateAllAndSaveIfNotExist(ArrayList<Room>)
+~ List<Room> getAll()
+}
+abstract class com.senla.menu.action.MenuAction {
+# Scanner scanner
+# Ordering getOrdering()
+}
+class com.senla.menu.action.impl.MenuAction6 {
+- RoomServiceImpl roomService
++ void setRoomService(RoomServiceImpl)
++ void execute()
+}
+class com.senla.hotel.service.impl.RoomServiceImpl {
+- {static} Set<Long> idHolder
+- RoomDAOImpl roomDAO
++ void setRoomDAO(RoomDAOImpl)
++ void saveAll(List<Room>)
++ void doCheckIn(long)
++ void doCheckOut(long)
++ Room changeRoomService(long,long)
++ Room changeRoomPrice(long,double)
++ Room getRoom(long)
++ void addRoom(Room)
++ List<Room> findAllOrderedByPrice()
++ List<Room> findAllOrderedByCapacity()
++ List<Room> findAllOrderedByStars()
++ List<Room> findAvailableOrderedByPrice()
++ List<Room> findAvailableOrderedByCapacity()
++ List<Room> findAvailableOrderedByStars()
++ int findNumberOfAvailableRooms()
++ double getRoomPrice(long)
++ List<Room> getAllOrdered(RoomSection,Ordering)
++ void updateAllAndSaveIfNotExist(ArrayList<Room>)
++ List<Room> getAll()
+- void setId(Room)
+}
+class com.senla.menu.action.impl.MenuAction9 {
+- BookingServiceImpl bookingService
++ void setBookingService(BookingServiceImpl)
++ void execute()
+}
+class com.senla.betterthenspring.DataPuller {
+- {static} void findMapToBeFilled(Set<Class<?>>,HashMap<String,Object>)
+- {static} HashMap<Long,T> entityHandler(List<Object[]>,Type)
+- {static} Map<Date,Long> jsonStringToMapConvert(String)
+- {static} HashMap<Long,T> createEntityMap(ArrayList<T>)
+- {static} List<Object[]> takeListOfObjectsFieldsList(Set<Class<?>>,String)
+- {static} List<Object[]> transformToListOfObjectsFieldsList(List<List<Object>>)
+- {static} List<Object> getListOArraysOfTheSameParameters(String,String,Class<?>)
+- {static} List<Object> convertToLIstOfCastedObjects(String,Class<Object>)
++ {static} void fillDataToMapFromPropertiesFile()
+}
+
+
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction2
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction2
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction8
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction8
+com.senla.hotelio.service.entityexport.IExportService <|.. com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl
+com.senla.hotelio.service.entityexport.ExportService <|-- com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction11
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction11
+com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.GuestDAOImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction16
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction16
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction10
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction10
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction7
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction7
+com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.BookingDAOImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction1
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction1
+com.senla.hotelio.service.entityexport.IExportService <|.. com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl
+com.senla.hotelio.service.entityexport.ExportService <|-- com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl
+com.senla.hotelio.service.entityimport.IImportService <|.. com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.ImportService <|-- com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl
+com.senla.hotelio.service.entityexport.IExportService <|.. com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl
+com.senla.hotelio.service.entityexport.ExportService <|-- com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl
+com.senla.hotelio.service.entityimport.IImportService <|.. com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.ImportService <|-- com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.IImportService <|.. com.senla.hotelio.service.entityimport.impl.BookingEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.ImportService <|-- com.senla.hotelio.service.entityimport.impl.BookingEntityImportServiceImpl
+com.senla.hotel.service.IBookingService <|.. com.senla.hotel.service.impl.BookingServiceImpl
+com.senla.hotel.service.CommonService <|-- com.senla.hotel.service.impl.BookingServiceImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction15
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction15
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction12
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction12
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction5
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction5
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction14
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction14
+com.senla.hotel.service.IRoomServicesService <|.. com.senla.hotel.service.impl.RoomServicesServiceImpl
+com.senla.hotel.service.CommonService <|-- com.senla.hotel.service.impl.RoomServicesServiceImpl
+com.senla.hotelio.service.entityimport.IImportService <|.. com.senla.hotelio.service.entityimport.impl.GuestEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.ImportService <|-- com.senla.hotelio.service.entityimport.impl.GuestEntityImportServiceImpl
+com.senla.hotel.service.IGuestServicesService <|.. com.senla.hotel.service.impl.GuestServicesServiceImpl
+com.senla.hotel.service.CommonService <|-- com.senla.hotel.service.impl.GuestServicesServiceImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction13
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction13
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction4
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction4
+com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.RoomServiceDAOImpl
+com.senla.hotelio.service.entityimport.IImportService <|.. com.senla.hotelio.service.entityimport.impl.GuestServicesEntityImportServiceImpl
+com.senla.hotelio.service.entityimport.ImportService <|-- com.senla.hotelio.service.entityimport.impl.GuestServicesEntityImportServiceImpl
+com.senla.hotelio.service.entityexport.IExportService <|.. com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl
+com.senla.hotelio.service.entityexport.ExportService <|-- com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl
+com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.GuestServicesDAOImpl
+com.senla.hotelio.service.entityexport.IExportService <|.. com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl
+com.senla.hotelio.service.entityexport.ExportService <|-- com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction3
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction3
+com.senla.hotel.service.IGuestService <|.. com.senla.hotel.service.impl.GuestServiceImpl
+com.senla.hotel.service.CommonService <|-- com.senla.hotel.service.impl.GuestServiceImpl
+com.senla.hotel.dao.IEntityDAO <|.. com.senla.hotel.dao.impl.RoomDAOImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction6
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction6
+com.senla.hotel.service.IRoomService <|.. com.senla.hotel.service.impl.RoomServiceImpl
+com.senla.hotel.service.CommonService <|-- com.senla.hotel.service.impl.RoomServiceImpl
+com.senla.menu.action.IAction <|.. com.senla.menu.action.impl.MenuAction9
+com.senla.menu.action.MenuAction <|-- com.senla.menu.action.impl.MenuAction9
+@enduml

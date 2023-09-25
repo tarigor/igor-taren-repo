@@ -49,5 +49,3 @@ Entry point:
 - Java 11;
 - Lombok 1.18.26;
 - gson 2.10.1
-
-#### UML
