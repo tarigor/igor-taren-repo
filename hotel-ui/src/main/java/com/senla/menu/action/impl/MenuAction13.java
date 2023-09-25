@@ -28,7 +28,7 @@ public class MenuAction13 extends MenuAction implements IAction {
             selection = scanner.nextInt();
             switch (selection) {
                 case 0:
-                    selectionText = "ROME_SERVICES";
+                    selectionText = "ROOM_SERVICE";
                     break;
                 case 1:
                     selectionText = "PRICE";

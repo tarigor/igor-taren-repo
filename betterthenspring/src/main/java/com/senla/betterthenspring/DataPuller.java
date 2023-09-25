@@ -1,10 +1,13 @@
 package com.senla.betterthenspring;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.FieldProperty;
 import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.constant.ServiceType;
+import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.*;
 
 import java.io.FileInputStream;
@@ -45,29 +48,35 @@ public class DataPuller {
         switch (type.getTypeName()) {
             case ("java.util.Map<java.lang.Long, com.senla.hotel.entity.Room>"): {
                 ArrayList<Room> rooms = new ArrayList<>();
+                long id = 1;
                 for (Object[] roomsWithParameter : listOfObjectsFieldsList) {
                     rooms.add(new Room(
+                            id,
                             Integer.parseInt((String) roomsWithParameter[0]),
                             Double.parseDouble((String) roomsWithParameter[1]),
                             Boolean.parseBoolean((String) roomsWithParameter[2]),
                             Long.parseLong((String) roomsWithParameter[3]),
                             Integer.parseInt((String) roomsWithParameter[4])
                     ));
+                    id = id + 1;
                 }
                 return (HashMap<Long, T>) createEntityMap(rooms);
             }
 
             case ("java.util.Map<java.lang.Long, com.senla.hotel.entity.Booking>"): {
                 ArrayList<Booking> bookings = new ArrayList<>();
+                long id = 1;
                 for (Object[] bookingsWithParameter : listOfObjectsFieldsList) {
                     try {
                         bookings.add(new Booking(
+                                id,
                                 Long.parseLong((String) bookingsWithParameter[0]),
                                 Long.parseLong((String) bookingsWithParameter[1]),
                                 Long.parseLong((String) bookingsWithParameter[2]),
                                 new SimpleDateFormat("dd/MM/yyyy").parse((String) bookingsWithParameter[3]),
                                 new SimpleDateFormat("dd/MM/yyyy").parse((String) bookingsWithParameter[4])
                         ));
+                        id = id + 1;
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
@@ -77,38 +86,68 @@ public class DataPuller {
 
             case ("java.util.Map<java.lang.Long, com.senla.hotel.entity.Guest>"): {
                 ArrayList<Guest> guests = new ArrayList<>();
+                long id = 1;
                 for (Object[] guestsWithParameter : listOfObjectsFieldsList) {
                     guests.add(new Guest(
+                            id,
                             (String) guestsWithParameter[0],
                             (String) guestsWithParameter[1]
                     ));
+                    id = id + 1;
                 }
                 return (HashMap<Long, T>) createEntityMap(guests);
             }
 
             case ("java.util.Map<java.lang.Long, com.senla.hotel.entity.GuestServices>"): {
                 ArrayList<GuestServices> guestsServices = new ArrayList<>();
+                long id = 1;
                 for (Object[] guestsServicesWithParameter : listOfObjectsFieldsList) {
                     guestsServices.add(new GuestServices(
+                            id,
                             Long.parseLong((String) guestsServicesWithParameter[0]),
                             (String) guestsServicesWithParameter[1]
                     ));
+                    id = id + 1;
                 }
                 return (HashMap<Long, T>) createEntityMap(guestsServices);
             }
             case ("java.util.Map<java.lang.Long, com.senla.hotel.entity.RoomService>"): {
                 ArrayList<RoomService> roomServices = new ArrayList<>();
+                long id = 1;
                 for (Object[] roomServiceWithParameter : listOfObjectsFieldsList) {
                     roomServices.add(new RoomService(
+                            id,
                             ServiceType.valueOf((String) roomServiceWithParameter[0]),
                             Double.parseDouble((String) roomServiceWithParameter[1])
                     ));
+                    id = id + 1;
                 }
                 return (HashMap<Long, T>) createEntityMap(roomServices);
+            }
+            case ("java.util.HashMap<java.lang.Long, java.util.ArrayList<com.senla.hotel.dto.GuestServicesEntityDTO>>"): {
+                ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
+                HashMap<Long,ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOHashMap = new HashMap<>();
+                long id = 1;
+                for (Object[] guestServicesEntityDTO : listOfObjectsFieldsList) {
+                    guestServicesEntityDTOList.add(new GuestServicesEntityDTO(
+                            id,
+                            jsonStringToMapConvert((String) guestServicesEntityDTO[1])
+                    ));
+                    id = id + 1;
+                }
+                guestServicesEntityDTOHashMap.put(1L,guestServicesEntityDTOList);
+                return (HashMap<Long, T>) guestServicesEntityDTOHashMap;
             }
             default:
                 throw new NoSuchElementException("There is no such HashMap data");
         }
+    }
+
+    private static Map<Date, Long> jsonStringToMapConvert(String servicesOrdered) {
+        Gson gson = new Gson().newBuilder().setDateFormat("EEE MMM d H:mm:ss zzz yyyy").create();
+        Type type = new TypeToken<Map<Date, Long>>() {
+        }.getType();
+        return gson.fromJson(servicesOrdered, type);
     }
 
     private static <T> HashMap<Long, T> createEntityMap(ArrayList<T> entites) {

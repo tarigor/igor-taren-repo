@@ -46,5 +46,6 @@ public class MenuAction8 extends MenuAction implements IAction {
                         new GregorianCalendar(year, month + 1, day)
                                 .getTime())
                 .forEach(System.out::println);
+        System.out.println("9");
     }
 }

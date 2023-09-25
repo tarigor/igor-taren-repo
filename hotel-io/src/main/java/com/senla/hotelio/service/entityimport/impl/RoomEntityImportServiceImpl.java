@@ -1,19 +1,15 @@
 package com.senla.hotelio.service.entityimport.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CreateInstanceAndPutInContainer
 public class RoomEntityImportServiceImpl extends ImportService implements IImportService<Room> {
-    private static final RoomEntityImportServiceImpl INSTANCE = new RoomEntityImportServiceImpl();
     private final String ENTITY_NAME = "Room";
-
-    public static RoomEntityImportServiceImpl getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     public ArrayList<Room> importEntities() {

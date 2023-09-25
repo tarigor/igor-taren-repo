@@ -40,6 +40,39 @@ public class MenuAction15 extends MenuAction implements IAction {
         this.roomServicesService = roomServicesService;
     }
 
+    private BookingEntityImportServiceImpl bookingEntityImportService;
+
+    @InjectValue(key = "BookingEntityImportServiceImpl")
+    public void setBookingEntityImportService(BookingEntityImportServiceImpl bookingEntityImportService) {
+        this.bookingEntityImportService = bookingEntityImportService;
+    }
+
+    private GuestEntityImportServiceImpl guestEntityImportService;
+
+    @InjectValue(key = "GuestEntityImportServiceImpl")
+    public void setGuestEntityImportService(GuestEntityImportServiceImpl guestEntityImportService) {
+        this.guestEntityImportService = guestEntityImportService;
+    }
+
+    private GuestServicesEntityImportServiceImpl guestServicesEntityImportService;
+
+    @InjectValue(key = "GuestServicesEntityImportServiceImpl")
+    public void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl guestServicesEntityImportService) {
+        this.guestServicesEntityImportService = guestServicesEntityImportService;
+    }
+
+    private RoomEntityImportServiceImpl roomEntityImportService;
+    @InjectValue(key = "RoomEntityImportServiceImpl")
+    public void setRoomEntityImportService(RoomEntityImportServiceImpl roomEntityImportService) {
+        this.roomEntityImportService = roomEntityImportService;
+    }
+
+    private RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
+    @InjectValue(key = "RoomServiceEntityImportServiceImpl")
+    public void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
+        this.roomServiceEntityImportService = roomServiceEntityImportService;
+    }
+
     //Import the certain entity from the CSV file
     @Override
     public void execute() {
@@ -53,7 +86,7 @@ public class MenuAction15 extends MenuAction implements IAction {
                     System.out.println("before change");
                     bookingService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
-                    bookingService.updateAllAndSaveIfNotExist(BookingEntityImportServiceImpl.getInstance().importEntities());
+                    bookingService.updateAllAndSaveIfNotExist(bookingEntityImportService.importEntities());
                     System.out.println("after change");
                     bookingService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
@@ -62,7 +95,7 @@ public class MenuAction15 extends MenuAction implements IAction {
                     System.out.println("before change");
                     guestService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
-                    guestService.updateAllAndSaveIfNotExist(GuestEntityImportServiceImpl.getInstance().importEntities());
+                    guestService.updateAllAndSaveIfNotExist(guestEntityImportService.importEntities());
                     System.out.println("after change");
                     guestService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
@@ -71,17 +104,17 @@ public class MenuAction15 extends MenuAction implements IAction {
                     System.out.println("before change");
                     guestServicesService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
-                    guestServicesService.updateAllAndSaveIfNotExist(GuestServicesEntityImportServiceImpl.getInstance().importEntities());
+                    guestServicesService.updateAllAndSaveIfNotExist(guestServicesEntityImportService.importEntities());
                     System.out.println("after change");
                     guestServicesService.getAll().forEach(System.out::println);
                     System.out.println("-------------");
                     break;
                 case 3:
-                    roomService.updateAllAndSaveIfNotExist(RoomEntityImportServiceImpl.getInstance().importEntities());
+                    roomService.updateAllAndSaveIfNotExist(roomEntityImportService.importEntities());
                     roomService.getAll().forEach(System.out::println);
                     break;
                 case 4:
-                    roomServicesService.updateAllAndSaveIfNotExist(RoomServiceEntityImportServiceImpl.getInstance().importEntities());
+                    roomServicesService.updateAllAndSaveIfNotExist(roomServiceEntityImportService.importEntities());
                     roomServicesService.getAll().forEach(System.out::println);
                     break;
                 default: {

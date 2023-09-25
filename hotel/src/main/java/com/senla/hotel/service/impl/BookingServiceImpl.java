@@ -28,7 +28,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
         this.bookingDAO = bookingDAO;
     }
 
-    @InjectValue(key = " RoomDAOImpl")
+    @InjectValue(key = "RoomDAOImpl")
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }

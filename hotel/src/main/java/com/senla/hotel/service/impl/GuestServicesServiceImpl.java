@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
+import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
@@ -23,6 +24,12 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     private static final Set<Long> idHolder = new HashSet<>();
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomServiceDAOImpl roomServiceDAO;
+    private ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList;
+
+    @TakeDataFromPropertiesFile(entityName = "GuestServicesEntityDTO")
+    public void setGuestServicesEntityDTOList(HashMap<Long, ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOList) {
+        this.guestServicesEntityDTOList = guestServicesEntityDTOList.get(1L);
+    }
 
     @InjectValue(key = "GuestServicesDAOImpl")
     public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
@@ -50,6 +57,7 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     //    View the list of guest services and their price (sort by price, by date);
     @Override
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+        saveAll(guestServicesEntityDTOList);
         switch (guestServicesSection) {
             case PRICE:
                 return ordering == Ordering.ASC ?
@@ -92,6 +100,7 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
 
     @Override
     public List<GuestServicesEntityDTO> getAll() {
+        saveAll(guestServicesEntityDTOList);
         List<GuestServices> guestServices = guestServicesDAO.getAll();
         ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
         for (int i = 0; i < guestServices.size(); i++) {
@@ -110,6 +119,7 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     }
 
     private GuestServicesEntityDTO guestServiceConvertFromEntityToDTO(GuestServices guestServices) {
+
         return new GuestServicesEntityDTO(guestServices.getId(), guestServices.getGuestId(), jsonStringToMapConvert(guestServices.getServicesOrdered()));
     }
 
