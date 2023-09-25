@@ -1,0 +1,17 @@
+{
+  "0": {
+    "id": 1,
+    "guestId": 1,
+    "servicesOrdered": "{\"Mon Jun 05 00:00:00 CEST 2023\":\"3\";\"Mon Jun 06 00:00:00 CEST 2023\":\"1\"}"
+  },
+  "1": {
+    "id": 2,
+    "guestId": 2,
+    "servicesOrdered": "{\"Mon Jun 07 00:00:00 CEST 2023\":\"3\";\"Mon Jun 08 00:00:00 CEST 2023\":\"1\"}"
+  },
+  "2": {
+    "id": 3,
+    "guestId": 3,
+    "servicesOrdered": "{\"Mon Jun 09 00:00:00 CEST 2023\":\"3\";\"Mon Jun 15 00:00:00 CEST 2023\":\"1\"}"
+  }
+}

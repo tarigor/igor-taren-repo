@@ -7,4 +7,5 @@ module hotel {
     requires lombok;
     requires com.google.gson;
     requires annotations;
+    opens com.senla.hotel.entity to com.google.gson;
 }

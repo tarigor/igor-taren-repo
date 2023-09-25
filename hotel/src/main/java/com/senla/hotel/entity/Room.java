@@ -2,6 +2,7 @@ package com.senla.hotel.entity;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.FieldProperty;
+import com.senla.hotel.constant.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,16 +18,16 @@ public class Room {
     @FieldProperty
     private double price;
     @FieldProperty
-    private boolean isAvailable;
+    private RoomStatus roomStatus;
     @FieldProperty
     private long roomServiceId;
     @FieldProperty
     private int starsRating;
 
-    public Room(int capacity, double price, boolean isAvailable, long roomServiceId, int starsRating) {
+    public Room(int capacity, double price, RoomStatus roomStatus, long roomServiceId, int starsRating) {
         this.capacity = capacity;
         this.price = price;
-        this.isAvailable = isAvailable;
+        this.roomStatus = roomStatus;
         this.roomServiceId = roomServiceId;
         this.starsRating = starsRating;
     }
@@ -36,7 +37,7 @@ public class Room {
         return "Room{" +
                 "capacity=" + capacity +
                 ", price=" + price +
-                ", isAvailable=" + isAvailable +
+                ", roomStatus=" + roomStatus +
                 ", roomServiceId=" + roomServiceId +
                 ", starsRating=" + starsRating +
                 '}';

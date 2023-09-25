@@ -2,11 +2,27 @@
 
 Igor Taren's repository
 
-## Task #8
+## TASK#7 and TASK#8
 
-### _Annotations_
+### _Serialization and Annotations_
 
 #### Description:
+
+### Task 7.1 (difficulty 3)
+
+Add the ability to configure the program from the previous task using the property file:
+
+1. Electronic hotel administrator:
+
+- Enabling/disabling the ability to change the status of a room;
+- Number of guest records in the room history.
+
+### Task 7.2 (difficulty 5)
+
+Implement program state preservation by serializing its objects to a file. Restore the saved state at the start,
+and write the new state to a file at the end.
+It implies the use of standard serialization mechanisms (Serializable or Externalizable), but it is permissible
+to use other ones (for example, Jackson as a serializer in JSON).
 
 ### Task 8.1 (difficulty 5)
 
@@ -37,6 +53,9 @@ it is necessary to use the Dependency injection pattern and the Reflection mecha
 must be changed to this solution.
 
 ### Remarks
+
+Setting file for TASK7:
+*hotel/resources/settings.properties*
 
 Entities properties file path:
 *betterthenspring/resources*

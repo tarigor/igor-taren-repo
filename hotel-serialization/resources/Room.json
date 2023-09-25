@@ -1,0 +1,26 @@
+{
+  "0": {
+    "id": 1,
+    "capacity": 1,
+    "price": 12.2,
+    "roomStatus": "OCCUPIED",
+    "roomServiceId": 1,
+    "starsRating": 3
+  },
+  "1": {
+    "id": 2,
+    "capacity": 2,
+    "price": 23.5,
+    "roomStatus": "OCCUPIED",
+    "roomServiceId": 1,
+    "starsRating": 3
+  },
+  "2": {
+    "id": 3,
+    "capacity": 3,
+    "price": 34.5,
+    "roomStatus": "VACANT",
+    "roomServiceId": 1,
+    "starsRating": 3
+  }
+}

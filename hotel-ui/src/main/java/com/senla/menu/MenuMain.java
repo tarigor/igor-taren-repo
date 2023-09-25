@@ -11,6 +11,7 @@ import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
 import com.senla.menu.navigator.Navigator;
 import com.senla.menu.service.PropertiesService;
+import com.serialization.SerializationService;
 
 @CreateInstanceAndPutInContainer
 public class MenuMain {
@@ -35,6 +36,10 @@ public class MenuMain {
     private static MenuAction14 menuAction14;
     private static MenuAction15 menuAction15;
     private static MenuAction16 menuAction16;
+    private static MenuAction17 menuAction17;
+    private static MenuAction18 menuAction18;
+    private static MenuAction19 menuAction19;
+    private static SerializationService serializationService;
 
     @InjectValue(key = "MenuController")
     public static void setMenuController(MenuController menuController) {
@@ -136,6 +141,26 @@ public class MenuMain {
         MenuMain.menuAction16 = menuAction16;
     }
 
+    @InjectValue(key = "MenuAction17")
+    public static void setMenuAction17(MenuAction17 menuAction17) {
+        MenuMain.menuAction17 = menuAction17;
+    }
+
+    @InjectValue(key = "MenuAction18")
+    public static void setMenuAction18(MenuAction18 menuAction18) {
+        MenuMain.menuAction18 = menuAction18;
+    }
+
+    @InjectValue(key = "MenuAction19")
+    public static void setMenuAction19(MenuAction19 menuAction19) {
+        MenuMain.menuAction19 = menuAction19;
+    }
+
+    @InjectValue(key = "SerializationService")
+    public static void setSerializationService(SerializationService serializationService) {
+        MenuMain.serializationService = serializationService;
+    }
+
     public static void main(String[] args) {
 
         Container.storeAllAnnotatedClassesToContainer();
@@ -144,6 +169,9 @@ public class MenuMain {
 
         //       Hotel.init();
 
+        serializationService.selectToSerialize("Booking");
+
+        System.out.println("end");
         Menu menu = BUILDER
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price
@@ -178,6 +206,9 @@ public class MenuMain {
                 .addItem(new MenuItem(15, menuAction15))
                 //        16=Export the certain entity
                 .addItem(new MenuItem(16, menuAction16))
+                .addItem(new MenuItem(17, menuAction17))
+                .addItem(new MenuItem(18, menuAction18))
+                .addItem(new MenuItem(19, menuAction19))
                 .build();
 
 

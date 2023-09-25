@@ -5,6 +5,7 @@ module hotel.ui {
     requires hotel.io;
     requires lombok;
     requires betterthenspring;
+    requires hotel.serialization;
     exports com.senla.menu.navigator;
     exports com.senla.menu.service;
     exports com.senla.menu.builder;

@@ -18,10 +18,18 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
+    public static final String SETTING_NAME = "number_of_guest_records_in_the_room_history";
     private static final Set<Long> idHolder = new HashSet<>();
     private BookingDAOImpl bookingDAO;
     private RoomDAOImpl roomDAO;
     private GuestDAOImpl guestDAO;
+
+    private PropertyFileServiceImpl propertyFileService;
+
+    @InjectValue(key = "PropertyFileServiceImpl")
+    public void setPropertyFileService(PropertyFileServiceImpl propertyFileService) {
+        this.propertyFileService = propertyFileService;
+    }
 
     @InjectValue(key = "BookingDAOImpl")
     public void setBookingDAO(BookingDAOImpl bookingDAO) {
@@ -56,6 +64,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
                         .findFirst()
                         .orElseThrow(() -> new NoSuchElementException("There is no results of requested condition")), b))
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
+                .limit(Integer.parseInt(propertyFileService.getSettingFromPropertiesFile(SETTING_NAME)))
                 .collect(Collectors.toList());
     }
 
@@ -63,6 +72,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     public List<Booking> findAllOrderedByCheckOutDate() {
         return bookingDAO.getAll().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate))
+                .limit(Integer.parseInt(propertyFileService.getSettingFromPropertiesFile(SETTING_NAME)))
                 .collect(Collectors.toList());
     }
 

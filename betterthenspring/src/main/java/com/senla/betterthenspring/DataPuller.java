@@ -6,6 +6,7 @@ import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.FieldProperty;
 import com.senla.container.TakeDataFromPropertiesFile;
+import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.*;
@@ -54,7 +55,7 @@ public class DataPuller {
                             id,
                             Integer.parseInt((String) roomsWithParameter[0]),
                             Double.parseDouble((String) roomsWithParameter[1]),
-                            Boolean.parseBoolean((String) roomsWithParameter[2]),
+                            RoomStatus.valueOf((String) roomsWithParameter[2]),
                             Long.parseLong((String) roomsWithParameter[3]),
                             Integer.parseInt((String) roomsWithParameter[4])
                     ));
