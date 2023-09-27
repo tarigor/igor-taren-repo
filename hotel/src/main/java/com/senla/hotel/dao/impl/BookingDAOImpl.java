@@ -14,12 +14,12 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     private Map<Long, Booking> bookings = new HashMap<>();
 
-    public void setBookings(Map<Long, Booking> bookings) {
-        this.bookings = bookings;
-    }
-
     public Map<Long, Booking> getBookings() {
         return bookings;
+    }
+
+    public void setBookings(Map<Long, Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override

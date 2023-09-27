@@ -14,12 +14,12 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     private Map<Long, Room> rooms = new HashMap<>();
 
-    public void setRooms(Map<Long, Room> rooms) {
-        this.rooms = rooms;
-    }
-
     public Map<Long, Room> getRooms() {
         return rooms;
+    }
+
+    public void setRooms(Map<Long, Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override

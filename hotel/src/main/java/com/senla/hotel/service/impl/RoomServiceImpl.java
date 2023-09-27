@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceImpl extends CommonService implements IRoomService {
+    private static final Set<Long> idHolder = new HashSet<>();
     private Boolean checkInCheckOutPermission;
-    @ConfigProperty(propertiesFileName = "settings",parameterName = "ability-to-change-status-of-room", type = Boolean.class)
+    private RoomDAOImpl roomDAO;
+
+    @ConfigProperty(propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
     public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
         this.checkInCheckOutPermission = checkInCheckOutPermission;
     }
-
-    private static final Set<Long> idHolder = new HashSet<>();
-    private RoomDAOImpl roomDAO;
 
     @InjectValue(key = "RoomDAOImpl")
     public void setRoomDAO(RoomDAOImpl roomDAO) {

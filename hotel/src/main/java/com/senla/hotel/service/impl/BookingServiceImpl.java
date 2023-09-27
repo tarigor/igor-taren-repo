@@ -20,19 +20,17 @@ import java.util.stream.Collectors;
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
 
+    private static final Set<Long> idHolder = new HashSet<>();
     private Integer roomHistoryLimit;
+    private BookingDAOImpl bookingDAO;
+    private RoomDAOImpl roomDAO;
+    private GuestDAOImpl guestDAO;
+    private PropertyFileServiceImpl propertyFileService;
 
     @ConfigProperty(propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
         this.roomHistoryLimit = roomHistoryLimit;
     }
-
-    private static final Set<Long> idHolder = new HashSet<>();
-    private BookingDAOImpl bookingDAO;
-    private RoomDAOImpl roomDAO;
-    private GuestDAOImpl guestDAO;
-
-    private PropertyFileServiceImpl propertyFileService;
 
     @InjectValue(key = "PropertyFileServiceImpl")
     public void setPropertyFileService(PropertyFileServiceImpl propertyFileService) {

@@ -41,6 +41,7 @@ public class MenuMain {
     private static MenuAction18 menuAction18;
     private static MenuAction19 menuAction19;
     private static SerializationService serializationService;
+    private static InitializationService initializationService;
 
     @InjectValue(key = "MenuController")
     public static void setMenuController(MenuController menuController) {
@@ -161,8 +162,6 @@ public class MenuMain {
     public static void setSerializationService(SerializationService serializationService) {
         MenuMain.serializationService = serializationService;
     }
-
-    private static InitializationService initializationService;
 
     @InjectValue(key = "InitializationService")
     public static void setInit(InitializationService initializationService) {

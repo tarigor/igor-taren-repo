@@ -11,18 +11,17 @@ import java.util.HashMap;
 @CreateInstanceAndPutInContainer
 public class InitializationService {
     private DeserializationService deserializationService;
-
-    @InjectValue(key = "DeserializationService")
-    public void setDeserializationService(DeserializationService deserializationService) {
-        this.deserializationService = deserializationService;
-    }
-
     private BookingDAOImpl bookingDAO;
     private GuestDAOImpl guestDAO;
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomDAOImpl roomDAO;
     private RoomServiceDAOImpl roomServiceDAO;
     private GuestServicesServiceImpl guestServicesService;
+
+    @InjectValue(key = "DeserializationService")
+    public void setDeserializationService(DeserializationService deserializationService) {
+        this.deserializationService = deserializationService;
+    }
 
     @InjectValue(key = "BookingDAOImpl")
     public void setBookingDAO(BookingDAOImpl bookingDAO) {

@@ -3,15 +3,11 @@ package com.serialization;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.hotel.entity.Booking;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +38,7 @@ public class DeserializationService {
                     fileContent,
                     objectMapper.getTypeFactory().constructMapType(HashMap.class, Long.class, type)
             );
-            return  deserializedMap;
+            return deserializedMap;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
