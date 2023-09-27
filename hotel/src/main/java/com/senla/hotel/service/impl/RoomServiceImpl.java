@@ -1,5 +1,6 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.constant.Ordering;
@@ -15,24 +16,22 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceImpl extends CommonService implements IRoomService {
-    public static final String SETTING_NAME = "enabling_disabling_the_ability_to_change_the_status_of_room";
+    private Boolean checkInCheckOutPermission;
+    @ConfigProperty(propertiesFileName = "settings",parameterName = "ability-to-change-status-of-room", type = Boolean.class)
+    public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
+        this.checkInCheckOutPermission = checkInCheckOutPermission;
+    }
+
     private static final Set<Long> idHolder = new HashSet<>();
     private RoomDAOImpl roomDAO;
-    private PropertyFileServiceImpl propertyFileService;
 
     @InjectValue(key = "RoomDAOImpl")
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }
 
-    @InjectValue(key = "PropertyFileServiceImpl")
-    public void setPropertyFileService(PropertyFileServiceImpl propertyFileService) {
-        this.propertyFileService = propertyFileService;
-    }
-
     @Override
     public void saveAll(List<Room> rooms) {
-        HashMap<Long, Room> roomHashMap = new HashMap<>();
         for (Room room : rooms) {
             setId(room);
         }
@@ -41,7 +40,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void doCheckIn(long roomId) {
-        if (propertyFileService.getSettingFromPropertiesFile(SETTING_NAME).equals("enable")) {
+        if (checkInCheckOutPermission) {
             roomDAO.getById(roomId).setRoomStatus(RoomStatus.OCCUPIED);
             System.out.println("check-in performed for room -> " + roomId);
         } else {
@@ -51,7 +50,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void doCheckOut(long roomId) {
-        if (propertyFileService.getSettingFromPropertiesFile(SETTING_NAME).equals("enable")) {
+        if (checkInCheckOutPermission) {
             roomDAO.getById(roomId).setRoomStatus(RoomStatus.VACANT);
             System.out.println("check-out performed for room -> " + roomId);
         } else {

@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Set;
 
-public class Container {
+public class ContainerService {
     private static HashMap<String, Object> instances = new HashMap<>();
 
     public static HashMap<String, Object> getInstances() {
@@ -42,7 +42,7 @@ public class Container {
                 for (String p : m.getPackages()) {
                     try {
                         // Get all classes in the package
-                        Class<?>[] classes = Scanner.classesScan().toArray(new Class[0]);
+                        Class<?>[] classes = ScannerService.classesScan().toArray(new Class[0]);
                         for (Class<?> clazz : classes) {
                             if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
                                 Method[] methods = clazz.getDeclaredMethods();
@@ -77,7 +77,7 @@ public class Container {
     }
 
     public static void storeAllAnnotatedClassesToContainer() {
-        Set<Class<?>> scannedClasses = Scanner.classesScan();
+        Set<Class<?>> scannedClasses = ScannerService.classesScan();
         storeAnnotatedInstanceInContainer(scannedClasses);
     }
 }

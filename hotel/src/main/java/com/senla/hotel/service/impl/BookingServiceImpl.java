@@ -1,5 +1,6 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
@@ -18,7 +19,14 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
-    public static final String SETTING_NAME = "number_of_guest_records_in_the_room_history";
+
+    private Integer roomHistoryLimit;
+
+    @ConfigProperty(propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
+    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
+        this.roomHistoryLimit = roomHistoryLimit;
+    }
+
     private static final Set<Long> idHolder = new HashSet<>();
     private BookingDAOImpl bookingDAO;
     private RoomDAOImpl roomDAO;
@@ -64,7 +72,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
                         .findFirst()
                         .orElseThrow(() -> new NoSuchElementException("There is no results of requested condition")), b))
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
-                .limit(Integer.parseInt(propertyFileService.getSettingFromPropertiesFile(SETTING_NAME)))
+                .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
     }
 
@@ -72,7 +80,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     public List<Booking> findAllOrderedByCheckOutDate() {
         return bookingDAO.getAll().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate))
-                .limit(Integer.parseInt(propertyFileService.getSettingFromPropertiesFile(SETTING_NAME)))
+                .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
     }
 

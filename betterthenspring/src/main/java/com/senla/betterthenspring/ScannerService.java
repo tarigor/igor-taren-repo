@@ -3,7 +3,7 @@ package com.senla.betterthenspring;
 import java.io.File;
 import java.util.*;
 
-public class Scanner {
+public class ScannerService {
 
     public static Set<Class<?>> classesScan() {
         Set<Class<?>> classesToInspect = new HashSet<>();

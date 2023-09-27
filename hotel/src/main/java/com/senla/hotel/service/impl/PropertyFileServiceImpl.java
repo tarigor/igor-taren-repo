@@ -10,11 +10,10 @@ import java.util.Properties;
 @CreateInstanceAndPutInContainer
 public class PropertyFileServiceImpl {
 
-    public String getSettingFromPropertiesFile(String settingName) {
+    public String getSettingFromPropertiesFile(String propertiesFileName, String settingName) {
         String settingValue = "";
-        String FILE_SETTINGS_NAME = "settings.properties";
         String PATH = "\\hotel\\resources";
-        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + FILE_SETTINGS_NAME)) {
+        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
             Properties prop = new Properties();
             prop.load(input);
             settingValue = prop.getProperty(settingName);

@@ -54,11 +54,8 @@ must be changed to this solution.
 
 ### Remarks
 
-Setting file for TASK7:
+Settings file for TASK7:
 *hotel/resources/settings.properties*
-
-Entities properties file path:
-*betterthenspring/resources*
 
 Entry point:
 *com.senla.menu.MenuMain.main*

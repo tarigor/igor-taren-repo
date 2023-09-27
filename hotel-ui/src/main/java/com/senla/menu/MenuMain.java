@@ -1,6 +1,7 @@
 package com.senla.menu;
 
-import com.senla.betterthenspring.Container;
+import com.senla.betterthenspring.ContainerService;
+import com.senla.betterthenspring.PropertiesInjectionService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.menu.action.impl.*;
@@ -170,8 +171,9 @@ public class MenuMain {
 
     public static void main(String[] args) {
 
-        Container.storeAllAnnotatedClassesToContainer();
-        Container.injectAnnotatedFields();
+        ContainerService.storeAllAnnotatedClassesToContainer();
+        ContainerService.injectAnnotatedFields();
+        PropertiesInjectionService.injectProperties();
 
         initializationService.init();
 
