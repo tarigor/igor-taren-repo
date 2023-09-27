@@ -12,7 +12,11 @@ import java.util.Properties;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
-    private static final Properties properties = new Properties();
+    private static Properties properties;
+
+    public static void setProperties(Properties properties) {
+        PropertiesInjectionService.properties = properties;
+    }
 
     public static void injectProperties() {
         for (Module m : ModuleLayer.boot().modules()) {
@@ -32,9 +36,10 @@ public class PropertiesInjectionService {
                                         String parameterName = ((ConfigProperty) annotation).parameterName();
                                         Class<?> parameterType = ((ConfigProperty) annotation).type();
 
-                                        Object o = ContainerService.getInstances().get(clazz.getSimpleName());
-                                        method.invoke(o, getSettingFromPropertiesFile(propertiesFileName, parameterName, parameterType));
+                                        Properties properties = loadProperties(propertiesFileName);
 
+                                        Object o = ContainerService.getInstances().get(clazz.getSimpleName());
+                                        method.invoke(o, getSettingFromPropertiesFile(properties, parameterName, parameterType));
                                     }
                                 }
                             }
@@ -47,25 +52,15 @@ public class PropertiesInjectionService {
         }
     }
 
-    private static <T> Object getSettingFromPropertiesFile(String propertiesFileName, String settingName, Class<T> parameterType) {
-        String settingValue = "";
-        String PATH = "\\hotel\\resources";
-        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
-            properties.load(input);
-            settingValue = properties.getProperty(settingName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static <T> Object getSettingFromPropertiesFile(Properties properties, String settingName, Class<T> parameterType) {
+        String settingValue = properties.getProperty(settingName);
         if (settingValue == null) {
             throw new IllegalArgumentException("Input string is null");
         }
-
         if (settingValue == null) {
             throw new IllegalArgumentException("Wrapper class is null");
         }
-
         String stringValue = settingValue.trim(); // Remove leading/trailing whitespace
-
         try {
             if (parameterType == Integer.class) {
                 return (T) Integer.valueOf(stringValue);
@@ -87,6 +82,22 @@ public class PropertiesInjectionService {
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid input string format for " + parameterType.getSimpleName(), e);
+        }
+    }
+
+    private static Properties loadProperties(String propertiesFileName) {
+        if (properties == null) {
+            String PATH = "\\hotel\\resources";
+            Properties properties = new Properties();
+            try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
+                properties.load(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setProperties(properties);
+            return properties;
+        } else {
+            return properties;
         }
     }
 }
