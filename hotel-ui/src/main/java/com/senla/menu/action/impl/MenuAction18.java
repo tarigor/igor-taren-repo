@@ -36,9 +36,7 @@ public class MenuAction18 extends MenuAction implements IAction {
             switch (selection) {
                 case 0:
                     //Booking
-                    HashMap<Long, Booking> bookingsDes = (HashMap<Long, Booking>) deserializationService.deserializeToMap(Booking.class, "Booking");
-                    bookings.entrySet().forEach(e -> System.out.println("key=" + e.getValue() + " value=" + e.getValue()));
-                    bookings = bookingsDes;
+                    HashMap<Long, Booking> bookings = (HashMap<Long, Booking>) deserializationService.deserializeToMap(Booking.class, "Booking");
                     break;
                 case 1:
                     //Guest

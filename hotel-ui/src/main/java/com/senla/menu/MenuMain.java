@@ -3,7 +3,6 @@ package com.senla.menu;
 import com.senla.betterthenspring.Container;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.Hotel;
 import com.senla.menu.action.impl.*;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.controller.MenuController;
@@ -11,6 +10,7 @@ import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
 import com.senla.menu.navigator.Navigator;
 import com.senla.menu.service.PropertiesService;
+import com.serialization.InitializationService;
 import com.serialization.SerializationService;
 
 @CreateInstanceAndPutInContainer
@@ -161,16 +161,20 @@ public class MenuMain {
         MenuMain.serializationService = serializationService;
     }
 
+    private static InitializationService initializationService;
+
+    @InjectValue(key = "InitializationService")
+    public static void setInit(InitializationService initializationService) {
+        MenuMain.initializationService = initializationService;
+    }
+
     public static void main(String[] args) {
 
         Container.storeAllAnnotatedClassesToContainer();
         Container.injectAnnotatedFields();
 
-        Hotel.init();
+        initializationService.init();
 
-        serializationService.selectToSerialize("Booking");
-
-        System.out.println("end");
         Menu menu = BUILDER
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price

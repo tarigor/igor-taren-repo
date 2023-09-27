@@ -40,22 +40,14 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     }
 
     @Override
-    public void saveAll(List<GuestServicesEntityDTO> guestServicesEntityDTOList) {
-        ArrayList<GuestServices> guestServices = new ArrayList<>();
-        for (int i = 0; i < guestServicesEntityDTOList.size(); i++) {
-            guestServices.add(i, guestServiceConvertFromDTOtoEntity(guestServicesEntityDTOList.get(i)));
-            guestServices.get(i).setServicesOrdered(guestServices.get(i).getServicesOrdered().replace(",", ";"));
-        }
-        for (GuestServices guestService : guestServices) {
-            setId(guestService);
-        }
-        guestServicesDAO.saveAll(guestServices);
+    public void saveAll(Map<Long, GuestServices> guestServices) {
+        List<GuestServices> guestServicesList = new ArrayList<>(guestServices.values());
+        guestServicesDAO.saveAll(guestServicesList);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
-        saveAll(guestServicesEntityDTOList);
         switch (guestServicesSection) {
             case PRICE:
                 return ordering == Ordering.ASC ?
@@ -98,7 +90,6 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
 
     @Override
     public List<GuestServicesEntityDTO> getAll() {
-        saveAll(guestServicesEntityDTOList);
         List<GuestServices> guestServices = guestServicesDAO.getAll();
         ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
         for (int i = 0; i < guestServices.size(); i++) {

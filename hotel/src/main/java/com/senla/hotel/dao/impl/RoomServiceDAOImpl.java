@@ -13,6 +13,10 @@ import java.util.Map;
 public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
     private Map<Long, RoomService> roomServices = new HashMap<>();
 
+    public void setRoomServices(Map<Long, RoomService> roomServices) {
+        this.roomServices = roomServices;
+    }
+
     public Map<Long, RoomService> getRoomServices() {
         return roomServices;
     }

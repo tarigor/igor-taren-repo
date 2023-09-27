@@ -8,9 +8,10 @@ import com.senla.hotel.entity.GuestServices;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface IGuestServicesService {
-    void saveAll(List<GuestServicesEntityDTO> guestServicesEntityDTO);
+    void saveAll(Map<Long, GuestServices> guestServices);
 
     //    View the list of guest services and their price (sort by price, by date);
     List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering);

@@ -13,6 +13,10 @@ import java.util.Map;
 public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
     private Map<Long, GuestServices> guestServices = new HashMap<>();
 
+    public void setGuestServices(Map<Long, GuestServices> guestServices) {
+        this.guestServices = guestServices;
+    }
+
     public Map<Long, GuestServices> getGuestServices() {
         return guestServices;
     }

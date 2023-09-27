@@ -8,5 +8,8 @@ module hotel {
     requires com.google.gson;
     requires annotations;
     opens com.senla.hotel.entity to com.google.gson;
-    exports com.senla.hotel;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
+    exports com.senla.hotel.deserializationService;
 }
