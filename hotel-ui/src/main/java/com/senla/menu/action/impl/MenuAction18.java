@@ -2,7 +2,6 @@ package com.senla.menu.action.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.entity.*;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
@@ -18,7 +17,6 @@ public class MenuAction18 extends MenuAction implements IAction {
     private Map<Long, Booking> bookings;
     private DeserializationService deserializationService;
 
-    @TakeDataFromPropertiesFile(entityName = "Booking")
     public void setBookings(Map<Long, Booking> bookings) {
         this.bookings = bookings;
     }

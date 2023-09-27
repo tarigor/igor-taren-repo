@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
@@ -26,7 +25,6 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     private RoomServiceDAOImpl roomServiceDAO;
     private ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList;
 
-    @TakeDataFromPropertiesFile(entityName = "GuestServicesEntityDTO")
     public void setGuestServicesEntityDTOList(HashMap<Long, ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOList) {
         this.guestServicesEntityDTOList = guestServicesEntityDTOList.get(1L);
     }

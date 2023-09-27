@@ -3,7 +3,6 @@ package com.serialization;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.TakeDataFromPropertiesFile;
 import com.senla.hotel.entity.*;
 
 import java.io.FileWriter;
@@ -20,27 +19,22 @@ public class SerializationService {
     private Map<Long, Room> rooms;
     private Map<Long, RoomService> roomServices;
 
-    @TakeDataFromPropertiesFile(entityName = "Booking")
     public void setBookings(Map<Long, Booking> bookings) {
         this.bookings = bookings;
     }
 
-    @TakeDataFromPropertiesFile(entityName = "Guest")
     public void setGuests(Map<Long, Guest> guests) {
         this.guests = guests;
     }
 
-    @TakeDataFromPropertiesFile(entityName = "GuestServices")
     public void setGuestServices(Map<Long, GuestServices> guestServices) {
         this.guestServices = guestServices;
     }
 
-    @TakeDataFromPropertiesFile(entityName = "Room")
     public void setRooms(Map<Long, Room> rooms) {
         this.rooms = rooms;
     }
 
-    @TakeDataFromPropertiesFile(entityName = "RoomService")
     public void setRoomServices(Map<Long, RoomService> roomServices) {
         this.roomServices = roomServices;
     }

@@ -11,7 +11,5 @@
     <orderEntry type="module" module-name="annotations" />
     <orderEntry type="module" module-name="hotel" />
     <orderEntry type="module" module-name="hotel-io" />
-    <orderEntry type="module" module-name="betterthenspring" />
-    <orderEntry type="module" module-name="hotel-serialization" />
   </component>
 </module>
