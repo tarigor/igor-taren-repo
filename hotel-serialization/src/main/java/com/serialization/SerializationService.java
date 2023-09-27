@@ -3,7 +3,8 @@ package com.serialization;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.hotel.entity.*;
+import com.senla.container.InjectValue;
+import com.senla.hotel.dao.impl.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,52 +14,57 @@ import java.util.NoSuchElementException;
 @CreateInstanceAndPutInContainer
 public class SerializationService {
     private static final String RESOURCES_PATH = "\\hotel-serialization\\resources";
-    private Map<Long, Booking> bookings;
-    private Map<Long, Guest> guests;
-    private Map<Long, GuestServices> guestServices;
-    private Map<Long, Room> rooms;
-    private Map<Long, RoomService> roomServices;
+    private BookingDAOImpl bookingDAO;
+    private GuestDAOImpl guestDAO;
+    private GuestServicesDAOImpl guestServicesDAO;
+    private RoomDAOImpl roomDAO;
+    private RoomServiceDAOImpl roomServiceDAO;
 
-    public void setBookings(Map<Long, Booking> bookings) {
-        this.bookings = bookings;
+    @InjectValue(key = "BookingDAOImpl")
+    public void setBookingDAO(BookingDAOImpl bookingDAO) {
+        this.bookingDAO = bookingDAO;
     }
 
-    public void setGuests(Map<Long, Guest> guests) {
-        this.guests = guests;
+    @InjectValue(key = "GuestDAOImpl")
+    public void setGuestDAO(GuestDAOImpl guestDAO) {
+        this.guestDAO = guestDAO;
     }
 
-    public void setGuestServices(Map<Long, GuestServices> guestServices) {
-        this.guestServices = guestServices;
+    @InjectValue(key = "GuestServicesDAOImpl")
+    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+        this.guestServicesDAO = guestServicesDAO;
     }
 
-    public void setRooms(Map<Long, Room> rooms) {
-        this.rooms = rooms;
+    @InjectValue(key = "RoomDAOImpl")
+    public void setRoomDAO(RoomDAOImpl roomDAO) {
+        this.roomDAO = roomDAO;
     }
 
-    public void setRoomServices(Map<Long, RoomService> roomServices) {
-        this.roomServices = roomServices;
+    @InjectValue(key = "RoomServiceDAOImpl")
+    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+        this.roomServiceDAO = roomServiceDAO;
     }
 
     public void selectToSerialize(String mapName) {
         switch (mapName) {
             case "Booking": {
-                serializeMap(bookings, "Booking");
+                serializeMap(bookingDAO.getBookings(), "Booking");
                 break;
             }
             case "Guest": {
-                serializeMap(guests, "Guest");
+                serializeMap(guestDAO.getGuests(), "Guest");
                 break;
             }
             case "GuestServices": {
-                serializeMap(guestServices, "GuestServices");
+                serializeMap(guestServicesDAO.getGuestServices(), "GuestServices");
                 break;
             }
             case "Room": {
-                serializeMap(rooms, "Room");
+                serializeMap(roomDAO.getRooms(), "Room");
                 break;
             }
             case "RoomServices": {
-                serializeMap(roomServices, "RoomServices");
+                serializeMap(roomServiceDAO.getRoomServices(), "RoomServices");
                 break;
             }
             default:

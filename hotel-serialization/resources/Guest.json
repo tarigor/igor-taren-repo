@@ -1,17 +1,17 @@
 {
-  "0": {
-    "id": 1,
-    "firstName": "Igor",
-    "lastName": "Petrov"
-  },
   "1": {
-    "id": 2,
+    "id": 1,
     "firstName": "Vasya",
-    "lastName": "Ivanov"
+    "lastName": "Pupkin"
   },
   "2": {
+    "id": 2,
+    "firstName": "Lelik",
+    "lastName": "Bolik"
+  },
+  "3": {
     "id": 3,
-    "firstName": "Petya",
-    "lastName": "Sidorov"
+    "firstName": "Olya",
+    "lastName": "Kolya"
   }
 }

@@ -12,6 +12,11 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
     private Map<Long, RoomService> roomServices = new HashMap<>();
+
+    public Map<Long, RoomService> getRoomServices() {
+        return roomServices;
+    }
+
     @Override
     public List<RoomService> getAll() {
         return new ArrayList<>(roomServices.values());

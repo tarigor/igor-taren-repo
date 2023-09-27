@@ -13,6 +13,11 @@ import java.util.Map;
 public class RoomDAOImpl implements IEntityDAO<Room> {
 
     private Map<Long, Room> rooms = new HashMap<>();
+
+    public Map<Long, Room> getRooms() {
+        return rooms;
+    }
+
     @Override
     public Room update(Room room) {
         Room updatedRoom = getById(room.getId());
