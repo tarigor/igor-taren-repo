@@ -12,6 +12,7 @@ import java.util.Properties;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
+    private static final Properties properties = new Properties();
 
     public static void injectProperties() {
         for (Module m : ModuleLayer.boot().modules()) {
@@ -50,9 +51,8 @@ public class PropertiesInjectionService {
         String settingValue = "";
         String PATH = "\\hotel\\resources";
         try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            settingValue = prop.getProperty(settingName);
+            properties.load(input);
+            settingValue = properties.getProperty(settingName);
         } catch (IOException e) {
             e.printStackTrace();
         }
