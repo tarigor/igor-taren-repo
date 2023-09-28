@@ -95,9 +95,7 @@ public class PropertiesInjectionService {
                 e.printStackTrace();
             }
             setProperties(properties);
-            return properties;
-        } else {
-            return properties;
         }
+        return properties;
     }
 }
