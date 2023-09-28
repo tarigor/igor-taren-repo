@@ -14,11 +14,6 @@ import java.util.Properties;
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
     static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
-    private static Properties properties;
-
-    public static void setProperties(Properties properties) {
-        PropertiesInjectionService.properties = properties;
-    }
 
     public static void injectProperties() {
         for (Module m : ModuleLayer.boot().modules()) {
