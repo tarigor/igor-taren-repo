@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Properties;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
+    static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
     private static Properties properties;
 
     public static void setProperties(Properties properties) {
@@ -36,10 +38,10 @@ public class PropertiesInjectionService {
                                         String parameterName = ((ConfigProperty) annotation).parameterName();
                                         Class<?> parameterType = ((ConfigProperty) annotation).type();
 
-                                        Properties properties = loadProperties(propertiesFileName);
+                                        Properties propertiesFromContainer = loadProperties(propertiesFileName);
 
                                         Object o = ContainerService.getInstances().get(clazz.getSimpleName());
-                                        method.invoke(o, getSettingFromPropertiesFile(properties, parameterName, parameterType));
+                                        method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
                                     }
                                 }
                             }
@@ -86,7 +88,7 @@ public class PropertiesInjectionService {
     }
 
     private static Properties loadProperties(String propertiesFileName) {
-        if (properties == null) {
+        if (propertiesHashMap.get(propertiesFileName) == null) {
             String PATH = "\\hotel\\resources";
             Properties properties = new Properties();
             try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
@@ -94,8 +96,10 @@ public class PropertiesInjectionService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            setProperties(properties);
+            propertiesHashMap.put(propertiesFileName, properties);
+            return properties;
+        } else {
+            return propertiesHashMap.get(propertiesFileName);
         }
-        return properties;
     }
 }
