@@ -1,5 +1,6 @@
 package com.senla.hotel.entity;
 
+import com.senla.hotel.constant.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,16 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Room {
     private long id;
-    private int capacity;
+    private Integer capacity;
     private double price;
-    private boolean isAvailable;
+    private RoomStatus roomStatus;
     private long roomServiceId;
     private int starsRating;
 
-    public Room(int capacity, double price, boolean isAvailable, long roomServiceId, int starsRating) {
+    public Room(int capacity, double price, RoomStatus roomStatus, long roomServiceId, int starsRating) {
         this.capacity = capacity;
         this.price = price;
-        this.isAvailable = isAvailable;
+        this.roomStatus = roomStatus;
         this.roomServiceId = roomServiceId;
         this.starsRating = starsRating;
     }
@@ -26,10 +27,9 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "id=" + id +
-                ", capacity=" + capacity +
+                "capacity=" + capacity +
                 ", price=" + price +
-                ", isAvailable=" + isAvailable +
+                ", roomStatus=" + roomStatus +
                 ", roomServiceId=" + roomServiceId +
                 ", starsRating=" + starsRating +
                 '}';

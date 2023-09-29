@@ -1,10 +1,21 @@
 package com.senla.menu.action.impl;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.RoomServiceSection;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 
+@CreateInstanceAndPutInContainer
 public class MenuAction13 extends MenuAction implements IAction {
+    private RoomServicesServiceImpl roomServicesService;
+
+    @InjectValue(key = "RoomServicesServiceImpl")
+    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+        this.roomServicesService = roomServicesService;
+    }
+
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
     @Override
     public void execute() {
@@ -17,7 +28,7 @@ public class MenuAction13 extends MenuAction implements IAction {
             selection = scanner.nextInt();
             switch (selection) {
                 case 0:
-                    selectionText = "ROME_SERVICES";
+                    selectionText = "ROOM_SERVICE";
                     break;
                 case 1:
                     selectionText = "PRICE";

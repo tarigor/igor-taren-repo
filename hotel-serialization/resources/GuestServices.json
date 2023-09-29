@@ -1,0 +1,17 @@
+{
+  "1": {
+    "id": 1,
+    "guestId": 1,
+    "servicesOrdered": "{\"Thu Jun 01 00:00:00 CEST 2023\":1;\"Mon Jun 05 00:00:00 CEST 2023\":4;\"Sun Jun 04 00:00:00 CEST 2023\":4;\"Sat Jun 03 00:00:00 CEST 2023\":4;\"Fri Jun 02 00:00:00 CEST 2023\":4}"
+  },
+  "2": {
+    "id": 2,
+    "guestId": 2,
+    "servicesOrdered": "{\"Fri Jun 16 00:00:00 CEST 2023\":4;\"Thu Jun 15 00:00:00 CEST 2023\":4;\"Wed Jun 14 00:00:00 CEST 2023\":4;\"Tue Jun 13 00:00:00 CEST 2023\":4;\"Mon Jun 12 00:00:00 CEST 2023\":1}"
+  },
+  "3": {
+    "id": 3,
+    "guestId": 3,
+    "servicesOrdered": "{\"Thu Jun 29 00:00:00 CEST 2023\":4;\"Wed Jun 28 00:00:00 CEST 2023\":4;\"Tue Jun 27 00:00:00 CEST 2023\":4;\"Mon Jun 26 00:00:00 CEST 2023\":4;\"Sun Jun 25 00:00:00 CEST 2023\":1}"
+  }
+}

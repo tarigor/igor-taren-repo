@@ -1,8 +1,11 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.container.ConfigProperty;
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
-import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.CommonService;
@@ -11,13 +14,20 @@ import com.senla.hotel.service.IRoomService;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class RoomServiceImpl extends CommonService implements IRoomService {
-    private static final RoomServiceImpl INSTANCE = new RoomServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
+    private Boolean checkInCheckOutPermission;
+    private RoomDAOImpl roomDAO;
 
-    public static RoomServiceImpl getInstance() {
-        return INSTANCE;
+    @ConfigProperty(propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
+    public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
+        this.checkInCheckOutPermission = checkInCheckOutPermission;
+    }
+
+    @InjectValue(key = "RoomDAOImpl")
+    public void setRoomDAO(RoomDAOImpl roomDAO) {
+        this.roomDAO = roomDAO;
     }
 
     @Override
@@ -30,12 +40,22 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void doCheckIn(long roomId) {
-        roomDAO.getById(roomId).setAvailable(false);
+        if (checkInCheckOutPermission) {
+            roomDAO.getById(roomId).setRoomStatus(RoomStatus.OCCUPIED);
+            System.out.println("check-in performed for room -> " + roomId);
+        } else {
+            System.out.println("It is not allowed to change the status of the room");
+        }
     }
 
     @Override
     public void doCheckOut(long roomId) {
-        roomDAO.getById(roomId).setAvailable(true);
+        if (checkInCheckOutPermission) {
+            roomDAO.getById(roomId).setRoomStatus(RoomStatus.VACANT);
+            System.out.println("check-out performed for room -> " + roomId);
+        } else {
+            System.out.println("It is not allowed to change the status of the room");
+        }
     }
 
     @Override
@@ -85,7 +105,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByPrice() {
         return roomDAO.getAll().stream()
-                .filter(Room::isAvailable)
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
@@ -93,7 +113,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByCapacity() {
         return roomDAO.getAll().stream()
-                .filter(Room::isAvailable)
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
                 .sorted(Comparator.comparing(Room::getCapacity))
                 .collect(Collectors.toList());
     }
@@ -101,7 +121,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByStars() {
         return roomDAO.getAll().stream()
-                .filter(Room::isAvailable)
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
                 .sorted(Comparator.comparing(Room::getStarsRating))
                 .collect(Collectors.toList());
     }
@@ -109,7 +129,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     @Override
     public int findNumberOfAvailableRooms() {
         return (int) roomDAO.getAll().stream()
-                .filter(Room::isAvailable)
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
                 .count();
     }
 
@@ -150,10 +170,10 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
             case AVAILABILITY:
                 return ordering == Ordering.ASC ?
                         roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::isAvailable))
+                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT)))
                                 .collect(Collectors.toList()) :
                         roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::isAvailable).reversed())
+                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT), Comparator.reverseOrder()))
                                 .collect(Collectors.toList());
             case SERVICE:
                 return ordering == Ordering.ASC ?

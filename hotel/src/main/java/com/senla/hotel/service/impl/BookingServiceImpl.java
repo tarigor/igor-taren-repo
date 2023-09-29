@@ -1,6 +1,8 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.dao.IEntityDAO;
+import com.senla.container.ConfigProperty;
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
@@ -15,15 +17,39 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class BookingServiceImpl extends CommonService implements IBookingService {
-    private static final BookingServiceImpl INSTANCE = new BookingServiceImpl();
-    private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<Booking> bookingDAO = BookingDAOImpl.getInstance();
-    private final IEntityDAO<Room> roomDAO = RoomDAOImpl.getInstance();
-    private final IEntityDAO<Guest> guestDAO = GuestDAOImpl.getInstance();
 
-    public static BookingServiceImpl getInstance() {
-        return INSTANCE;
+    private static final Set<Long> idHolder = new HashSet<>();
+    private Integer roomHistoryLimit;
+    private BookingDAOImpl bookingDAO;
+    private RoomDAOImpl roomDAO;
+    private GuestDAOImpl guestDAO;
+    private PropertyFileServiceImpl propertyFileService;
+
+    @ConfigProperty(propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
+    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
+        this.roomHistoryLimit = roomHistoryLimit;
+    }
+
+    @InjectValue(key = "PropertyFileServiceImpl")
+    public void setPropertyFileService(PropertyFileServiceImpl propertyFileService) {
+        this.propertyFileService = propertyFileService;
+    }
+
+    @InjectValue(key = "BookingDAOImpl")
+    public void setBookingDAO(BookingDAOImpl bookingDAO) {
+        this.bookingDAO = bookingDAO;
+    }
+
+    @InjectValue(key = "RoomDAOImpl")
+    public void setRoomDAO(RoomDAOImpl roomDAO) {
+        this.roomDAO = roomDAO;
+    }
+
+    @InjectValue(key = "GuestDAOImpl")
+    public void setGuestDAO(GuestDAOImpl guestDAO) {
+        this.guestDAO = guestDAO;
     }
 
     @Override
@@ -44,6 +70,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
                         .findFirst()
                         .orElseThrow(() -> new NoSuchElementException("There is no results of requested condition")), b))
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
+                .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
     }
 
@@ -51,6 +78,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     public List<Booking> findAllOrderedByCheckOutDate() {
         return bookingDAO.getAll().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate))
+                .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
     }
 

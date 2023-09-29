@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -13,7 +14,7 @@ import java.util.Map;
 public class GuestServicesEntityDTO {
     private long id;
     private long guestId;
-    private Map<Date, Long> servicesOrdered;
+    private Map<Date, Long> servicesOrdered = new HashMap<>();
 
     public GuestServicesEntityDTO(long guestId, Map<Date, Long> servicesOrdered) {
         this.guestId = guestId;

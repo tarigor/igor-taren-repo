@@ -2,15 +2,15 @@ package com.senla.hotel.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IGuestServicesService;
 
@@ -18,27 +18,31 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CreateInstanceAndPutInContainer
 public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
-    private static final GuestServicesServiceImpl INSTANCE = new GuestServicesServiceImpl();
     private static final Set<Long> idHolder = new HashSet<>();
-    private final IEntityDAO<GuestServices> guestServicesDAO = GuestServicesDAOImpl.getInstance();
-    private final IEntityDAO<RoomService> roomServiceDAO = RoomServiceDAOImpl.getInstance();
+    private GuestServicesDAOImpl guestServicesDAO;
+    private RoomServiceDAOImpl roomServiceDAO;
+    private ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList;
 
-    public static GuestServicesServiceImpl getInstance() {
-        return INSTANCE;
+    public void setGuestServicesEntityDTOList(HashMap<Long, ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOList) {
+        this.guestServicesEntityDTOList = guestServicesEntityDTOList.get(1L);
+    }
+
+    @InjectValue(key = "GuestServicesDAOImpl")
+    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+        this.guestServicesDAO = guestServicesDAO;
+    }
+
+    @InjectValue(key = "RoomServiceDAOImpl")
+    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+        this.roomServiceDAO = roomServiceDAO;
     }
 
     @Override
-    public void saveAll(List<GuestServicesEntityDTO> guestServicesEntityDTOList) {
-        ArrayList<GuestServices> guestServices = new ArrayList<>();
-        for (int i = 0; i < guestServicesEntityDTOList.size(); i++) {
-            guestServices.add(i, guestServiceConvertFromDTOtoEntity(guestServicesEntityDTOList.get(i)));
-            guestServices.get(i).setServicesOrdered(guestServices.get(i).getServicesOrdered().replace(",", ";"));
-        }
-        for (GuestServices guestService : guestServices) {
-            setId(guestService);
-        }
-        guestServicesDAO.saveAll(guestServices);
+    public void saveAll(Map<Long, GuestServices> guestServices) {
+        List<GuestServices> guestServicesList = new ArrayList<>(guestServices.values());
+        guestServicesDAO.saveAll(guestServicesList);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
@@ -104,6 +108,7 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     }
 
     private GuestServicesEntityDTO guestServiceConvertFromEntityToDTO(GuestServices guestServices) {
+
         return new GuestServicesEntityDTO(guestServices.getId(), guestServices.getGuestId(), jsonStringToMapConvert(guestServices.getServicesOrdered()));
     }
 

@@ -1,22 +1,19 @@
 package com.senla.menu.controller;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.navigator.Navigator;
 
 import java.util.Scanner;
 
+@CreateInstanceAndPutInContainer
 public class MenuController {
-    private static final MenuController INSTANCE = new MenuController();
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private Menu menu;
     private Navigator navigator;
     private String menuDescriptionFileName;
     private Builder builder;
-
-    public static MenuController getInstance() {
-        return INSTANCE;
-    }
 
     public void setBuilder(Builder builder) {
         this.builder = builder;

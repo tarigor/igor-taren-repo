@@ -1,0 +1,22 @@
+{
+  "1": {
+    "id": 1,
+    "serviceType": "NONE",
+    "price": 12.3
+  },
+  "2": {
+    "id": 2,
+    "serviceType": "MAINTENANCE",
+    "price": 22.7
+  },
+  "3": {
+    "id": 3,
+    "serviceType": "REPAIR",
+    "price": 34.4
+  },
+  "4": {
+    "id": 4,
+    "serviceType": "CLEANING",
+    "price": 10.4
+  }
+}

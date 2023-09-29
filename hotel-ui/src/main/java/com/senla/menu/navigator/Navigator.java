@@ -1,18 +1,14 @@
 package com.senla.menu.navigator;
 
+import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.service.PropertiesService;
 
 import java.util.Map;
 
+@CreateInstanceAndPutInContainer
 public class Navigator {
-
-    private static final Navigator INSTANCE = new Navigator();
     private PropertiesService propertiesService;
-
-    public static Navigator getInstance() {
-        return INSTANCE;
-    }
 
     public void setPropertiesService(PropertiesService propertiesService) {
         this.propertiesService = propertiesService;
