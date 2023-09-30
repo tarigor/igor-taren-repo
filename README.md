@@ -8,7 +8,6 @@ Igor Taren's repository
 
 #### Description:
 
-
 ### Task Requirements:
 
 All tasks are performed in a separate project, in a new task-9 branch.
@@ -25,6 +24,7 @@ TIMED_WAITING,
 TERMINATED;
 
 #### Graph description for Task 9.1
+
 ![](TASK_9.png)
 
 ### Task 9.2 (difficulty 2) "ThreadAlternator"

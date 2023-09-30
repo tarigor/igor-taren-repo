@@ -9,6 +9,14 @@ public class ThreadAlternator implements Runnable {
         this.lock = lock;
     }
 
+    public static void main(String[] args) {
+        Object lock = new Object();
+        Thread thread1 = new Thread(new ThreadAlternator("Thread-1", lock));
+        Thread thread2 = new Thread(new ThreadAlternator("Thread-2", lock));
+        thread1.start();
+        thread2.start();
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -27,13 +35,5 @@ public class ThreadAlternator implements Runnable {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Object lock = new Object();
-        Thread thread1 = new Thread(new ThreadAlternator("Thread-1", lock));
-        Thread thread2 = new Thread(new ThreadAlternator("Thread-2", lock));
-        thread1.start();
-        thread2.start();
     }
 }

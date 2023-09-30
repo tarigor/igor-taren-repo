@@ -9,6 +9,11 @@ public class TimeGenerator extends Thread {
         this.interval = intervalInSeconds * 1000;
     }
 
+    public static void main(String[] args) {
+        long n = 2;
+        new TimeGenerator(n).start();
+    }
+
     @Override
     public void run() {
         while (!Thread.interrupted()) {
@@ -19,10 +24,5 @@ public class TimeGenerator extends Thread {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        long n = 2;
-        new TimeGenerator(n).start();
     }
 }
