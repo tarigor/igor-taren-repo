@@ -14,8 +14,6 @@ public interface IRoomService {
 
     void doCheckOut(long roomId);
 
-    Room changeRoomService(long roomId, long serviceStatusId);
-
     Room changeRoomPrice(long roomId, double price);
 
     Room getRoom(long roomId);

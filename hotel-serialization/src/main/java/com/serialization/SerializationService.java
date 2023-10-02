@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 @CreateInstanceAndPutInContainer
 public class SerializationService {
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\resources";
+    private static final String RESOURCES_PATH = "\\hotel-serialization\\resources\\serialized";
     private BookingDAOImpl bookingDAO;
     private GuestDAOImpl guestDAO;
     private GuestServicesDAOImpl guestServicesDAO;

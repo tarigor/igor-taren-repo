@@ -18,8 +18,8 @@ public interface IGuestServicesService {
 
     void updateAllAndSaveIfNotExist(ArrayList<GuestServices> guestServicesList);
 
-    List<GuestServicesEntityDTO> getAll();
+    List<GuestServices> getAll();
 
-    GuestServicesEntityDTO getById(long id);
+    GuestServices getById(long id);
 
 }

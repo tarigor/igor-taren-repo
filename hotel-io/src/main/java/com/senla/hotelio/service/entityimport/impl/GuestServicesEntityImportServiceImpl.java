@@ -5,6 +5,8 @@ import com.senla.hotel.entity.GuestServices;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +19,16 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
         ArrayList<GuestServices> guestsServices = new ArrayList<>();
         ArrayList<List<String>> guestsServicesWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> guestsServicesWithParameter : guestsServicesWithParameters) {
-            guestsServices.add(new GuestServices(
-                    Long.parseLong(guestsServicesWithParameter.get(0)),
-                    Long.parseLong(guestsServicesWithParameter.get(1)),
-                    guestsServicesWithParameter.get(2)
-            ));
+            try {
+                guestsServices.add(new GuestServices(
+                        Long.parseLong(guestsServicesWithParameter.get(0)),
+                        Long.parseLong(guestsServicesWithParameter.get(1)),
+                        Long.parseLong(guestsServicesWithParameter.get(2)),
+                        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(guestsServicesWithParameter.get(3))
+                ));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
         return guestsServices;
     }

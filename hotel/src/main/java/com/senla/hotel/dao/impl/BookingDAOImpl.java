@@ -46,7 +46,6 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
     public Booking update(Booking booking) {
         Booking updatedBooking = getById(booking.getId());
         updatedBooking.setGuestId(booking.getGuestId());
-        updatedBooking.setGuestServicesId(booking.getGuestServicesId());
         updatedBooking.setBookedRoomId(booking.getBookedRoomId());
         updatedBooking.setCheckInDate(booking.getCheckInDate());
         updatedBooking.setCheckOutDate(booking.getCheckOutDate());

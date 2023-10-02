@@ -59,12 +59,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     }
 
     @Override
-    public Room changeRoomService(long roomId, long serviceTypeId) {
-        roomDAO.getById(roomId).setRoomServiceId(serviceTypeId);
-        return roomDAO.getById(roomId);
-    }
-
-    @Override
     public Room changeRoomPrice(long roomId, double price) {
         roomDAO.getById(roomId).setPrice(price);
         return roomDAO.getById(roomId);
@@ -174,14 +168,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
                                 .collect(Collectors.toList()) :
                         roomDAO.getAll().stream()
                                 .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT), Comparator.reverseOrder()))
-                                .collect(Collectors.toList());
-            case SERVICE:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getRoomServiceId))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getRoomServiceId).reversed())
                                 .collect(Collectors.toList());
             case RATING:
                 return ordering == Ordering.ASC ?

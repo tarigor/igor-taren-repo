@@ -35,7 +35,8 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
     public GuestServices update(GuestServices guestServices) {
         GuestServices updatedGuestServices = getById(guestServices.getGuestId());
         updatedGuestServices.setGuestId(guestServices.getGuestId());
-        updatedGuestServices.setServicesOrdered(guestServices.getServicesOrdered());
+        updatedGuestServices.setRoomServiceId(guestServices.getRoomServiceId());
+        updatedGuestServices.setRoomServiceOrderDate(guestServices.getRoomServiceOrderDate());
         return updatedGuestServices;
     }
 
