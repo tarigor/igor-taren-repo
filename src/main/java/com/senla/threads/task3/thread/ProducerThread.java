@@ -1,4 +1,4 @@
-package com.senla.threads.task3.threads;
+package com.senla.threads.task3.thread;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Condition;

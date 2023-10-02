@@ -1,4 +1,4 @@
-package com.senla.threads.task1.threads;
+package com.senla.threads.task1.thread;
 
 import static com.senla.threads.task1.ThreadStates.step;
 

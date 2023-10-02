@@ -1,6 +1,6 @@
 package com.senla.threads.task1;
 
-import com.senla.threads.task1.threads.RunnableThread;
+import com.senla.threads.task1.thread.RunnableThread;
 
 public class ThreadStates {
     public static int step = 0;

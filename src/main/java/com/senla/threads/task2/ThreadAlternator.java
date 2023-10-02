@@ -1,6 +1,6 @@
 package com.senla.threads.task2;
 
-import com.senla.threads.task2.threads.RunnableThread;
+import com.senla.threads.task2.thread.RunnableThread;
 
 import java.util.concurrent.Semaphore;
 
