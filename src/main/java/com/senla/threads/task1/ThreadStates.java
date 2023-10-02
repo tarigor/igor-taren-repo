@@ -1,7 +1,17 @@
 package com.senla.threads.task1;
 
+import com.senla.threads.task1.threads.RunnableThread;
+
 public class ThreadStates {
     public static int step = 0;
+
+    {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     public static void main(String[] args) {
 

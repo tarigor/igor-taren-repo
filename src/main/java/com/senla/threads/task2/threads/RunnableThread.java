@@ -1,4 +1,4 @@
-package com.senla.threads.task2;
+package com.senla.threads.task2.threads;
 
 import java.util.concurrent.Semaphore;
 

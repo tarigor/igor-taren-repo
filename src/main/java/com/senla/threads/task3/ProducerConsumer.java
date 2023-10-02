@@ -1,5 +1,8 @@
 package com.senla.threads.task3;
 
+import com.senla.threads.task3.threads.ConsumerThread;
+import com.senla.threads.task3.threads.ProducerThread;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Condition;

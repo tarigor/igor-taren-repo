@@ -1,5 +1,7 @@
 package com.senla.threads.task2;
 
+import com.senla.threads.task2.threads.RunnableThread;
+
 import java.util.concurrent.Semaphore;
 
 public class ThreadAlternator {

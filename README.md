@@ -23,10 +23,6 @@ WAITING,
 TIMED_WAITING,
 TERMINATED;
 
-#### Graph description for Task 9.1
-
-![](TASK_9.png)
-
 ### Task 9.2 (difficulty 2) "ThreadAlternator"
 
 Create 2 threads that will take turns to output their name to the console.
