@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac45ff33-d383-445e-85a3-0c6c721f803d" name="Changes" comment="TASK_10 branch created">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="ac45ff33-d383-445e-85a3-0c6c721f803d" name="Changes" comment="DDL and data filling to the DB implemented">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +125,7 @@
       <updated>1696229136097</updated>
       <workItem from="1696229140188" duration="10279000" />
       <workItem from="1696255282011" duration="49000" />
-      <workItem from="1696255338009" duration="1585000" />
+      <workItem from="1696255338009" duration="2473000" />
     </task>
     <task id="LOCAL-00001" summary="separate packages created for each subtask">
       <created>1696231520391</created>
@@ -186,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696255401771</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="DDL and data filling to the DB implemented">
+      <created>1696257271861</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1696257271861</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +216,7 @@
     <MESSAGE value="task 4 re-implemented using ScheduledExecutorService. code clean-up made. README modified" />
     <MESSAGE value="name of packages renamed" />
     <MESSAGE value="TASK_10 branch created" />
-    <option name="LAST_COMMIT_MESSAGE" value="TASK_10 branch created" />
+    <MESSAGE value="DDL and data filling to the DB implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="DDL and data filling to the DB implemented" />
   </component>
 </project>
