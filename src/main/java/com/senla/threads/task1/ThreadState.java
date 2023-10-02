@@ -1,4 +1,4 @@
-package com.senla.threads;
+package com.senla.threads.task1;
 
 import java.text.SimpleDateFormat;
 

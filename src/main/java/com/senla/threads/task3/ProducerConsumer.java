@@ -1,4 +1,4 @@
-package com.senla.threads;
+package com.senla.threads.task3;
 
 import java.util.LinkedList;
 

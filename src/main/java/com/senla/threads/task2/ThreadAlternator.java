@@ -1,4 +1,4 @@
-package com.senla.threads;
+package com.senla.threads.task2;
 
 public class ThreadAlternator implements Runnable {
     private final String threadName;
