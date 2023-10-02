@@ -7,7 +7,7 @@ public class ThreadStates {
 
         ThreadStates lock = new ThreadStates();
 
-        java.lang.Thread thread = new java.lang.Thread(new Thread("thread-1", lock));
+        Thread thread = new java.lang.Thread(new SingleThread("thread-1", lock));
         printThreadState(thread);
         thread.start();
         printThreadState(thread);
@@ -15,73 +15,73 @@ public class ThreadStates {
         synchronized (lock) {
             while (true) {
                 try {
-                    java.lang.Thread.sleep(1000);
+                    Thread.sleep(1000);
                     printThreadState(thread);
-                    if (thread.getState() == java.lang.Thread.State.BLOCKED) {
+                    if (thread.getState() == Thread.State.BLOCKED) {
                         step = 2;
                         break;
                     }
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
             lock.notify();
         }
 
         try {
-            java.lang.Thread.sleep(100);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
-            java.lang.Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
         }
 
         synchronized (lock) {
             while (true) {
                 try {
-                    java.lang.Thread.sleep(1000);
+                    Thread.sleep(1000);
                     printThreadState(thread);
-                    if (thread.getState() == java.lang.Thread.State.WAITING) {
+                    if (thread.getState() == Thread.State.WAITING) {
                         step = 3;
                         break;
                     }
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
             lock.notify();
         }
 
         try {
-            java.lang.Thread.sleep(100);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
-            java.lang.Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
         }
 
         synchronized (lock) {
             while (true) {
                 try {
-                    java.lang.Thread.sleep(1000);
+                    Thread.sleep(1000);
                     printThreadState(thread);
-                    if (thread.getState() == java.lang.Thread.State.TIMED_WAITING) {
+                    if (thread.getState() == Thread.State.TIMED_WAITING) {
                         step = 4;
                         break;
                     }
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
             lock.notify();
         }
 
         try {
-            java.lang.Thread.sleep(1000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
-            java.lang.Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
         }
 
         printThreadState(thread);
     }
 
-    private static void printThreadState(java.lang.Thread thread) {
+    private static void printThreadState(Thread thread) {
         System.out.println("Thread " + thread.getName() + " is in state: " + thread.getState());
     }
 

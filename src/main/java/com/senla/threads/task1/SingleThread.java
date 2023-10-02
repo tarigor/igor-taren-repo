@@ -2,11 +2,11 @@ package com.senla.threads.task1;
 
 import static com.senla.threads.task1.ThreadStates.step;
 
-public class Thread implements Runnable {
+public class SingleThread implements Runnable {
     private String threadName;
     private Object lock;
 
-    public Thread(String threadName, Object lock) {
+    public SingleThread(String threadName, Object lock) {
         this.threadName = threadName;
         this.lock = lock;
     }
@@ -18,7 +18,7 @@ public class Thread implements Runnable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -28,7 +28,7 @@ public class Thread implements Runnable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -38,7 +38,7 @@ public class Thread implements Runnable {
                 try {
                     lock.wait(2000);
                 } catch (InterruptedException e) {
-                    java.lang.Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt();
                 }
             }
         }

@@ -1,39 +1,14 @@
 package com.senla.threads.task2;
 
-public class ThreadAlternator implements Runnable {
-    private final String threadName;
-    private final Object lock;
+import java.util.concurrent.Semaphore;
 
-    public ThreadAlternator(String threadName, Object lock) {
-        this.threadName = threadName;
-        this.lock = lock;
-    }
-
+public class ThreadAlternator {
     public static void main(String[] args) {
-        Object lock = new Object();
-        Thread thread1 = new Thread(new ThreadAlternator("Thread-1", lock));
-        Thread thread2 = new Thread(new ThreadAlternator("Thread-2", lock));
-        thread1.start();
-        thread2.start();
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            synchronized (lock) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                System.out.println(threadName);
-                lock.notify();
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        Semaphore semaphore1 = new Semaphore(1);
+        Semaphore semaphore2 = new Semaphore(0);
+        Thread singleThread1 = new Thread(new SingleThread("Thread-1", semaphore1, semaphore2));
+        Thread singleThread2 = new Thread(new SingleThread("Thread-2", semaphore2, semaphore1));
+        singleThread1.start();
+        singleThread2.start();
     }
 }
