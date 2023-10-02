@@ -7,11 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="annotations" />
     <orderEntry type="module" module-name="hotel" />
     <orderEntry type="module" module-name="hotel-io" />
     <orderEntry type="module" module-name="betterthenspring" />
     <orderEntry type="module" module-name="hotel-serialization" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
