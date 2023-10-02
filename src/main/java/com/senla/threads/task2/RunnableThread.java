@@ -2,12 +2,12 @@ package com.senla.threads.task2;
 
 import java.util.concurrent.Semaphore;
 
-public class SingleThread implements Runnable {
+public class RunnableThread implements Runnable {
     private final String threadName;
     private final Semaphore currentSemaphore;
     private final Semaphore nextSemaphore;
 
-    public SingleThread(String threadName, Semaphore currentSemaphore, Semaphore nextSemaphore) {
+    public RunnableThread(String threadName, Semaphore currentSemaphore, Semaphore nextSemaphore) {
         this.threadName = threadName;
         this.currentSemaphore = currentSemaphore;
         this.nextSemaphore = nextSemaphore;

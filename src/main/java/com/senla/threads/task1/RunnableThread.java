@@ -2,11 +2,11 @@ package com.senla.threads.task1;
 
 import static com.senla.threads.task1.ThreadStates.step;
 
-public class SingleThread implements Runnable {
+public class RunnableThread implements Runnable {
     private String threadName;
     private Object lock;
 
-    public SingleThread(String threadName, Object lock) {
+    public RunnableThread(String threadName, Object lock) {
         this.threadName = threadName;
         this.lock = lock;
     }

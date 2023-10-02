@@ -7,7 +7,7 @@ public class ThreadStates {
 
         ThreadStates lock = new ThreadStates();
 
-        Thread thread = new java.lang.Thread(new SingleThread("thread-1", lock));
+        Thread thread = new java.lang.Thread(new RunnableThread("thread-1", lock));
         printThreadState(thread);
         thread.start();
         printThreadState(thread);
