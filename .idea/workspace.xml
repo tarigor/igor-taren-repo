@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac45ff33-d383-445e-85a3-0c6c721f803d" name="Changes" comment="DDL and data filling to the DB implemented">
+    <list default="true" id="ac45ff33-d383-445e-85a3-0c6c721f803d" name="Changes" comment="all tasks completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +126,7 @@
       <updated>1696229136097</updated>
       <workItem from="1696229140188" duration="10279000" />
       <workItem from="1696255282011" duration="49000" />
-      <workItem from="1696255338009" duration="2473000" />
+      <workItem from="1696255338009" duration="3179000" />
     </task>
     <task id="LOCAL-00001" summary="separate packages created for each subtask">
       <created>1696231520391</created>
@@ -190,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696257271861</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="all tasks completed">
+      <created>1696258801885</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1696258801885</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +225,7 @@
     <MESSAGE value="name of packages renamed" />
     <MESSAGE value="TASK_10 branch created" />
     <MESSAGE value="DDL and data filling to the DB implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="DDL and data filling to the DB implemented" />
+    <MESSAGE value="all tasks completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="all tasks completed" />
   </component>
 </project>

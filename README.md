@@ -155,3 +155,7 @@ script for filling the database with valid data;
 script with 25 requests separated by comments with the task number.
 
 the database must be filled in such a way that at least one record corresponds to each sample.
+
+### DB used:
+
+H2(in-memory)
