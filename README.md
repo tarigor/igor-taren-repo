@@ -48,4 +48,8 @@ to the method, at the “output” we get an object or a list of objects);
 
 - Java 11;
 - Lombok 1.18.26;
-- gson 2.10.1
+- gson 2.10.1;
+- jackson-annotations-2.15.2;
+- jackson-core-2.15.2;
+- jackson-databind-2.15.2;
+- mysql-connector-java-8.0.25
