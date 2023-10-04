@@ -20,7 +20,7 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     private Boolean checkInCheckOutPermission;
     private RoomDAOImpl roomDAO;
 
-    @ConfigProperty(propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
+    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
     public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
         this.checkInCheckOutPermission = checkInCheckOutPermission;
     }

@@ -4,6 +4,7 @@ import com.senla.betterthenspring.ContainerService;
 import com.senla.betterthenspring.PropertiesInjectionService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
+import com.senla.hoteldb.DatabaseService;
 import com.senla.menu.action.impl.*;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.controller.MenuController;
@@ -42,6 +43,7 @@ public class MenuMain {
     private static MenuAction19 menuAction19;
     private static SerializationService serializationService;
     private static InitializationService initializationService;
+    private static DatabaseService databaseService;
 
     @InjectValue(key = "MenuController")
     public static void setMenuController(MenuController menuController) {
@@ -167,6 +169,10 @@ public class MenuMain {
     public static void setInit(InitializationService initializationService) {
         MenuMain.initializationService = initializationService;
     }
+    @InjectValue(key = "DatabaseService")
+    public static void setDatabaseService(DatabaseService databaseService) {
+        MenuMain.databaseService = databaseService;
+    }
 
     public static void main(String[] args) {
 
@@ -175,6 +181,8 @@ public class MenuMain {
         PropertiesInjectionService.injectProperties();
 
         initializationService.init();
+
+        databaseService.databaseInitialize();
 
         Menu menu = BUILDER
                 .setTitle("HOTEL OPERATION")

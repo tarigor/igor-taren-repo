@@ -29,11 +29,12 @@ public class PropertiesInjectionService {
                                     if (method.isAnnotationPresent(ConfigProperty.class)) {
                                         Annotation annotation = method.getAnnotation(ConfigProperty.class);
 
+                                        String moduleName = ((ConfigProperty) annotation).moduleName();
                                         String propertiesFileName = ((ConfigProperty) annotation).propertiesFileName();
                                         String parameterName = ((ConfigProperty) annotation).parameterName();
                                         Class<?> parameterType = ((ConfigProperty) annotation).type();
 
-                                        Properties propertiesFromContainer = loadProperties(propertiesFileName);
+                                        Properties propertiesFromContainer = loadProperties(moduleName, propertiesFileName);
 
                                         Object o = ContainerService.getInstances().get(clazz.getSimpleName());
                                         method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
@@ -82,9 +83,9 @@ public class PropertiesInjectionService {
         }
     }
 
-    private static Properties loadProperties(String propertiesFileName) {
+    private static Properties loadProperties(String moduleName, String propertiesFileName) {
         if (propertiesHashMap.get(propertiesFileName) == null) {
-            String PATH = "\\hotel\\resources";
+            String PATH = "\\" + moduleName + "\\resources";
             Properties properties = new Properties();
             try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
                 properties.load(input);

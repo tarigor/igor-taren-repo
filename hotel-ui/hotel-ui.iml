@@ -13,5 +13,6 @@
     <orderEntry type="module" module-name="betterthenspring" />
     <orderEntry type="module" module-name="hotel-serialization" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module" module-name="hotel-db" />
   </component>
 </module>

@@ -27,7 +27,7 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     private GuestDAOImpl guestDAO;
     private PropertyFileServiceImpl propertyFileService;
 
-    @ConfigProperty(propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
+    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
         this.roomHistoryLimit = roomHistoryLimit;
     }
