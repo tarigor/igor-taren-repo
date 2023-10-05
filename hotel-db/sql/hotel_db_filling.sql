@@ -1,25 +1,25 @@
-INSERT INTO HOTEL.GUEST (FIRST_NAME, LAST_NAME) VALUES ('Igor', 'Ivanov');
-INSERT INTO HOTEL.GUEST (FIRST_NAME, LAST_NAME) VALUES ('Sergei', 'Petrov');
-INSERT INTO HOTEL.GUEST (FIRST_NAME, LAST_NAME) VALUES ('Ivan', 'Sidorov');
-INSERT INTO HOTEL.GUEST (FIRST_NAME, LAST_NAME) VALUES ('Alex', 'Kirov');
+INSERT INTO hotel.guest (first_name, last_name) VALUES ('Igor', 'Ivanov');
+INSERT INTO hotel.guest (first_name, last_name) VALUES ('Sergei', 'Petrov');
+INSERT INTO hotel.guest (first_name, last_name) VALUES ('Ivan', 'Sidorov');
+INSERT INTO hotel.guest (first_name, last_name) VALUES ('Alex', 'Kirov');
 
-INSERT INTO HOTEL.ROOM (CAPACITY, PRICE, ROOM_STATUS, STARS_RATING) VALUES (1, 45.3, 'VACANT', 3);
-INSERT INTO HOTEL.ROOM (CAPACITY, PRICE, ROOM_STATUS, STARS_RATING) VALUES (1, 49.3, 'VACANT', 3);
-INSERT INTO HOTEL.ROOM (CAPACITY, PRICE, ROOM_STATUS, STARS_RATING) VALUES (2, 78.3, 'OCCUPIED', 3);
-INSERT INTO HOTEL.ROOM (CAPACITY, PRICE, ROOM_STATUS, STARS_RATING) VALUES (3, 89.3, 'VACANT', 3);
+INSERT INTO hotel.room (capacity, price, room_status, stars_rating) VALUES (1, 45.3, 'VACANT', 3);
+INSERT INTO hotel.room (capacity, price, room_status, stars_rating) VALUES (1, 49.3, 'VACANT', 3);
+INSERT INTO hotel.room (capacity, price, room_status, stars_rating) VALUES (2, 78.3, 'OCCUPIED', 3);
+INSERT INTO hotel.room (capacity, price, room_status, stars_rating) VALUES (3, 89.3, 'VACANT', 3);
 
-INSERT INTO HOTEL.ROOM_SERVICE (SERVICE_TYPE, PRICE) VALUES ('CLEANING', 23.6);
-INSERT INTO HOTEL.ROOM_SERVICE (SERVICE_TYPE, PRICE) VALUES ('REPAIR', 45.3);
-INSERT INTO HOTEL.ROOM_SERVICE (SERVICE_TYPE, PRICE) VALUES ('MAINTENANCE', 36.2);
+INSERT INTO hotel.room_service (service_type, price) VALUES ('CLEANING', 23.6);
+INSERT INTO hotel.room_service (service_type, price) VALUES ('REPAIR', 45.3);
+INSERT INTO hotel.room_service (service_type, price) VALUES ('MAINTENANCE', 36.2);
 
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (1, 1, '2023-09-10');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (1, 1, '2023-09-11');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (1, 1, '2023-09-12');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (2, 1, '2023-09-04');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (2, 1, '2023-09-05');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (2, 2, '2023-09-06');
-INSERT INTO HOTEL.GUEST_SERVICE (GUEST_ID, ROOM_SERVICE_ID, ROOM_SERVICE_ORDER_DATE) VALUES (3, 1, '2023-09-08');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (1, 1, '2023-09-10');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (1, 1, '2023-09-11');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (1, 1, '2023-09-12');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (2, 1, '2023-09-04');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (2, 1, '2023-09-05');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (2, 2, '2023-09-06');
+INSERT INTO hotel.guest_service (guest_id, room_service_id, room_service_order_date) VALUES (3, 1, '2023-09-08');
 
-INSERT INTO HOTEL.BOOKING (GUEST_ID, ROOM_ID, CHECK_IN_DATE, CHECK_OUT_DATE) VALUES (1, 1, '2023-09-10', '2023-09-12');
-INSERT INTO HOTEL.BOOKING (GUEST_ID, ROOM_ID, CHECK_IN_DATE, CHECK_OUT_DATE) VALUES (2, 2, '2023-09-04', '2023-09-06');
-INSERT INTO HOTEL.BOOKING (GUEST_ID, ROOM_ID, CHECK_IN_DATE, CHECK_OUT_DATE) VALUES (3, 3, '2023-09-08', '2023-09-09');
+INSERT INTO hotel.booking (guest_id, room_id, check_in_date, check_out_date) VALUES (1, 1, '2023-09-10', '2023-09-12');
+INSERT INTO hotel.booking (guest_id, room_id, check_in_date, check_out_date) VALUES (2, 2, '2023-09-04', '2023-09-06');
+INSERT INTO hotel.booking (guest_id, room_id, check_in_date, check_out_date) VALUES (3, 3, '2023-09-08', '2023-09-09');

@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface ConfigProperty {
     String moduleName();
+
     String propertiesFileName();
 
     String parameterName();

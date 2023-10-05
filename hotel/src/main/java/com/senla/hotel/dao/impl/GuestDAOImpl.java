@@ -1,16 +1,23 @@
 package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
+import com.senla.hotel.constant.Table;
 import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.entity.Guest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class GuestDAOImpl implements IEntityDAO<Guest> {
+    private DAOService daoService;
+    @InjectValue(key = "DAOService")
+    public void setDaoService(DAOService daoService) {
+        this.daoService = daoService;
+    }
     private Map<Long, Guest> guests = new HashMap<>();
 
     public Map<Long, Guest> getGuests() {
@@ -23,30 +30,27 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public List<Guest> getAll() {
-        return new ArrayList<>(guests.values());
+        return daoService.getAll(Table.GUEST);
     }
 
     @Override
     public void saveAll(List<Guest> guests) {
-        guests.forEach(this::save);
+        daoService.saveAll(guests, Table.GUEST);;
     }
 
     @Override
     public Guest update(Guest guest) {
-        Guest updatedGuest = getById(guest.getId());
-        updatedGuest.setFirstName(guest.getFirstName());
-        updatedGuest.setLastName(guest.getLastName());
-        return updatedGuest;
+        return daoService.update(guest, Table.GUEST);
     }
 
     @Override
     public Guest getById(long guestId) {
-        return guests.get(guestId);
+        return daoService.getById(guestId, Table.GUEST);
     }
 
     @Override
     public void save(Guest guest) {
-        this.guests.put(guest.getId(), guest);
+       daoService.save(guest, Table.GUEST);
     }
 
 

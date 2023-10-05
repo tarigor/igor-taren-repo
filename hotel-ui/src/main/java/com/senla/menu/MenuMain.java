@@ -4,6 +4,10 @@ import com.senla.betterthenspring.ContainerService;
 import com.senla.betterthenspring.PropertiesInjectionService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
+import com.senla.hotel.constant.RoomStatus;
+import com.senla.hotel.constant.ServiceType;
+import com.senla.hotel.dao.impl.*;
+import com.senla.hotel.entity.*;
 import com.senla.hoteldb.DatabaseService;
 import com.senla.menu.action.impl.*;
 import com.senla.menu.builder.Builder;
@@ -14,6 +18,9 @@ import com.senla.menu.navigator.Navigator;
 import com.senla.menu.service.PropertiesService;
 import com.serialization.InitializationService;
 import com.serialization.SerializationService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @CreateInstanceAndPutInContainer
 public class MenuMain {
@@ -169,9 +176,40 @@ public class MenuMain {
     public static void setInit(InitializationService initializationService) {
         MenuMain.initializationService = initializationService;
     }
+
     @InjectValue(key = "DatabaseService")
     public static void setDatabaseService(DatabaseService databaseService) {
         MenuMain.databaseService = databaseService;
+    }
+
+
+    //for test
+
+    static BookingDAOImpl bookingDAO;
+    static GuestDAOImpl guestDAO;
+    static GuestServicesDAOImpl guestServicesDAO;
+    static RoomDAOImpl roomDAO;
+    static RoomServiceDAOImpl roomServiceDAO;
+
+    @InjectValue(key = "BookingDAOImpl")
+    public static void setBookingDAO(BookingDAOImpl bookingDAO) {
+        MenuMain.bookingDAO = bookingDAO;
+    }
+    @InjectValue(key = "GuestDAOImpl")
+    public static void setGuestDAO(GuestDAOImpl guestDAO) {
+        MenuMain.guestDAO = guestDAO;
+    }
+    @InjectValue(key = "GuestServicesDAOImpl")
+    public static void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+        MenuMain.guestServicesDAO = guestServicesDAO;
+    }
+    @InjectValue(key = "RoomDAOImpl")
+    public static void setRoomDAO(RoomDAOImpl roomDAO) {
+        MenuMain.roomDAO = roomDAO;
+    }
+    @InjectValue(key = "RoomServiceDAOImpl")
+    public static void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+        MenuMain.roomServiceDAO = roomServiceDAO;
     }
 
     public static void main(String[] args) {
@@ -180,9 +218,8 @@ public class MenuMain {
         ContainerService.injectAnnotatedFields();
         PropertiesInjectionService.injectProperties();
 
-        initializationService.init();
-
         databaseService.databaseInitialize();
+        databaseService.registerConnection();
 
         Menu menu = BUILDER
                 .setTitle("HOTEL OPERATION")

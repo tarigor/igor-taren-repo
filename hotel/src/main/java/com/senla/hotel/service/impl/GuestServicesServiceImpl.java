@@ -7,7 +7,6 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.CommonService;

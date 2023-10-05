@@ -11,5 +11,8 @@ module hotel {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
+    requires java.sql;
+    requires hotel.db;
     exports com.senla.hotel.deserializationService;
+    exports com.senla.hotel.dao.service;
 }

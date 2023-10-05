@@ -16,42 +16,50 @@ public class DatabaseService {
     private String dbUrl;
     private String user;
     private String password;
+    private Connection connection;
 
     @ConfigProperty(moduleName = "hotel-db", propertiesFileName = "database", parameterName = "jdbcDriver", type = String.class)
     public void setJdbcDriver(String jdbcDriver) {
         this.jdbcDriver = jdbcDriver;
     }
+
     @ConfigProperty(moduleName = "hotel-db", propertiesFileName = "database", parameterName = "dbUrl", type = String.class)
     public void setDbUrl(String dbUrl) {
         this.dbUrl = dbUrl;
     }
+
     @ConfigProperty(moduleName = "hotel-db", propertiesFileName = "database", parameterName = "user", type = String.class)
     public void setUser(String user) {
         this.user = user;
     }
+
     @ConfigProperty(moduleName = "hotel-db", propertiesFileName = "database", parameterName = "password", type = String.class)
     public void setPassword(String password) {
         this.password = password;
     }
 
-    private Connection connection;
-
     public Connection getConnection() {
+        try {
+            if (connection.isClosed()) {
+                registerConnection();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return connection;
     }
 
-    public void databaseInitialize(){
+    public void databaseInitialize() {
         String os = System.getProperty(OS_NAME).toLowerCase();
         try {
             Process process;
             int exitCode;
             if (os.contains("win")) {
-                // Windows
-               process = new ProcessBuilder("cmd.exe", "/c", System.getProperty("user.dir")  + BATCH_FILE_PATH + ".bat").start();
-                System.out.println("here");
+                //Windows
+                process = new ProcessBuilder("cmd.exe", "/c", System.getProperty("user.dir") + BATCH_FILE_PATH + ".bat").start();
             } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
-                // Linux or Unix
-                process = new ProcessBuilder(System.getProperty("user.dir") + "\\" +BATCH_FILE_PATH + ".sh").start();
+                //Linux
+                process = new ProcessBuilder(System.getProperty("user.dir") + "\\" + BATCH_FILE_PATH + ".sh").start();
             } else {
                 System.err.println("Unsupported operating system: " + os);
                 return;
@@ -59,7 +67,6 @@ public class DatabaseService {
             exitCode = process.waitFor();
             if (exitCode == 0) {
                 System.out.println("Batch file executed successfully.");
-                System.out.println("here2");
             } else {
                 System.err.println("Batch file execution failed with exit code " + exitCode);
             }
@@ -68,7 +75,7 @@ public class DatabaseService {
         }
     }
 
-    public DatabaseService registerConnection() {
+    public void registerConnection() {
         Connection connection;
         try {
             Class.forName(jdbcDriver);
@@ -77,40 +84,5 @@ public class DatabaseService {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        //STEP 3: Execute a query
-//            System.out.println("Creating table in given database...");
-//            stmt = connection.createStatement();
-//            String sql = "CREATE TABLE   REGISTRATION " +
-//                    "(id INTEGER not NULL, " +
-//                    " first VARCHAR(255), " +
-//                    " last VARCHAR(255), " +
-//                    " age INTEGER, " +
-//                    " PRIMARY KEY ( id ))";
-//            stmt.executeUpdate(sql);
-//            System.out.println("Created table in given database...");
-
-        // STEP 4: Clean-up environment
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException se) {
-//            //Handle errors for JDBC
-//            se.printStackTrace();
-//        } catch (Exception e) {
-//            //Handle errors for Class.forName
-//            e.printStackTrace();
-//        } finally {
-//            //finally block used to close resources
-//            try {
-//                if (stmt != null) stmt.close();
-//            } catch (SQLException se2) {
-//            } // nothing we can do
-//            try {
-//                if (connection != null) connection.close();
-//            } catch (SQLException se) {
-//                se.printStackTrace();
-//            } //end finally try
-//        } //end try
-        return this;
     }
 }

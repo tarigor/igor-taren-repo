@@ -1,16 +1,23 @@
 package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
+import com.senla.hotel.constant.Table;
 import com.senla.hotel.dao.IEntityDAO;
+import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.entity.GuestServices;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
+    private DAOService daoService;
+    @InjectValue(key = "DAOService")
+    public void setDaoService(DAOService daoService) {
+        this.daoService = daoService;
+    }
     private Map<Long, GuestServices> guestServices = new HashMap<>();
 
     public Map<Long, GuestServices> getGuestServices() {
@@ -23,30 +30,26 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public List<GuestServices> getAll() {
-        return new ArrayList<>(guestServices.values());
+        return daoService.getAll(Table.GUEST_SERVICE);
     }
 
     @Override
     public void saveAll(List<GuestServices> guestServices) {
-        guestServices.forEach(this::save);
+        daoService.saveAll(guestServices, Table.GUEST_SERVICE);
     }
 
     @Override
     public GuestServices update(GuestServices guestServices) {
-        GuestServices updatedGuestServices = getById(guestServices.getGuestId());
-        updatedGuestServices.setGuestId(guestServices.getGuestId());
-        updatedGuestServices.setRoomServiceId(guestServices.getRoomServiceId());
-        updatedGuestServices.setRoomServiceOrderDate(guestServices.getRoomServiceOrderDate());
-        return updatedGuestServices;
+        return daoService.update(guestServices, Table.GUEST_SERVICE);
     }
 
     @Override
     public GuestServices getById(long guestId) {
-        return guestServices.get(guestId);
+        return daoService.getById(guestId, Table.GUEST_SERVICE);
     }
 
     @Override
     public void save(GuestServices guestServices) {
-        this.guestServices.put(guestServices.getId(), guestServices);
+        daoService.save(guestServices, Table.GUEST_SERVICE);
     }
 }
