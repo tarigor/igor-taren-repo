@@ -14,11 +14,12 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class RoomDAOImpl implements IEntityDAO<Room> {
     private DAOService daoService;
+    private Map<Long, Room> rooms = new HashMap<>();
+
     @InjectValue(key = "DAOService")
     public void setDaoService(DAOService daoService) {
         this.daoService = daoService;
     }
-    private Map<Long, Room> rooms = new HashMap<>();
 
     public Map<Long, Room> getRooms() {
         return rooms;
@@ -40,7 +41,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public void save(Room room) {
-       daoService.save(room, Table.ROOM);
+        daoService.save(room, Table.ROOM);
     }
 
     @Override

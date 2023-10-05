@@ -14,11 +14,12 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
     private DAOService daoService;
+    private Map<Long, GuestServices> guestServices = new HashMap<>();
+
     @InjectValue(key = "DAOService")
     public void setDaoService(DAOService daoService) {
         this.daoService = daoService;
     }
-    private Map<Long, GuestServices> guestServices = new HashMap<>();
 
     public Map<Long, GuestServices> getGuestServices() {
         return guestServices;

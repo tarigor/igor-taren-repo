@@ -30,6 +30,68 @@ public class DAOService {
     public static final String WHERE_ID = " WHERE id = ?";
     private DatabaseService databaseService;
 
+    private static <T> T mapResultSetToCustomClass(ResultSet resultSet, Table table) throws SQLException {
+        switch (table) {
+            case BOOKING:
+                return (T) mapBookingResultSet(resultSet);
+            case GUEST:
+                return (T) mapGuestResultSet(resultSet);
+            case GUEST_SERVICE:
+                return (T) mapGuestServiceResultSet(resultSet);
+            case ROOM:
+                return (T) mapRoomResultSet(resultSet);
+            case ROOM_SERVICE:
+                return (T) mapRoomServiceResultSet(resultSet);
+            default:
+                throw new IllegalArgumentException("Unsupported table: " + table);
+        }
+    }
+
+    private static Booking mapBookingResultSet(ResultSet resultSet) throws SQLException {
+        Booking booking = new Booking();
+        booking.setId(resultSet.getLong("id"));
+        booking.setGuestId(resultSet.getLong("guest_id"));
+        booking.setBookedRoomId(resultSet.getLong("room_id"));
+        booking.setCheckInDate(resultSet.getDate("check_in_date"));
+        booking.setCheckOutDate(resultSet.getDate("check_out_date"));
+        return booking;
+    }
+
+    private static Guest mapGuestResultSet(ResultSet resultSet) throws SQLException {
+        Guest guest = new Guest();
+        guest.setId(resultSet.getLong("id"));
+        guest.setFirstName(resultSet.getString("first_name"));
+        guest.setLastName(resultSet.getString("last_name"));
+        return guest;
+    }
+
+    private static GuestServices mapGuestServiceResultSet(ResultSet resultSet) throws SQLException {
+        GuestServices guestService = new GuestServices();
+        guestService.setId(resultSet.getLong("id"));
+        guestService.setGuestId(resultSet.getLong("guest_id"));
+        guestService.setRoomServiceId(resultSet.getLong("room_service_id"));
+        guestService.setRoomServiceOrderDate(resultSet.getDate("room_service_order_date"));
+        return guestService;
+    }
+
+    private static Room mapRoomResultSet(ResultSet resultSet) throws SQLException {
+        Room room = new Room();
+        room.setId(resultSet.getLong("id"));
+        room.setCapacity(resultSet.getInt("capacity"));
+        room.setPrice(resultSet.getDouble("price"));
+        room.setRoomStatus(RoomStatus.valueOf(resultSet.getString("room_status")));
+        room.setStarsRating(resultSet.getInt("stars_rating"));
+        return room;
+    }
+
+    private static RoomService mapRoomServiceResultSet(ResultSet resultSet) throws SQLException {
+        RoomService roomService = new RoomService();
+        roomService.setId(resultSet.getLong("id"));
+        roomService.setServiceType(ServiceType.valueOf(resultSet.getString("service_type")));
+        roomService.setPrice(resultSet.getDouble("price"));
+        return roomService;
+    }
+
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -121,68 +183,6 @@ public class DAOService {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private static <T> T mapResultSetToCustomClass(ResultSet resultSet, Table table) throws SQLException {
-        switch (table) {
-            case BOOKING:
-                return (T) mapBookingResultSet(resultSet);
-            case GUEST:
-                return (T) mapGuestResultSet(resultSet);
-            case GUEST_SERVICE:
-                return (T) mapGuestServiceResultSet(resultSet);
-            case ROOM:
-                return (T) mapRoomResultSet(resultSet);
-            case ROOM_SERVICE:
-                return (T) mapRoomServiceResultSet(resultSet);
-            default:
-                throw new IllegalArgumentException("Unsupported table: " + table);
-        }
-    }
-
-    private static Booking mapBookingResultSet(ResultSet resultSet) throws SQLException {
-        Booking booking = new Booking();
-        booking.setId(resultSet.getLong("id"));
-        booking.setGuestId(resultSet.getLong("guest_id"));
-        booking.setBookedRoomId(resultSet.getLong("room_id"));
-        booking.setCheckInDate(resultSet.getDate("check_in_date"));
-        booking.setCheckOutDate(resultSet.getDate("check_out_date"));
-        return booking;
-    }
-
-    private static Guest mapGuestResultSet(ResultSet resultSet) throws SQLException {
-        Guest guest = new Guest();
-        guest.setId(resultSet.getLong("id"));
-        guest.setFirstName(resultSet.getString("first_name"));
-        guest.setLastName(resultSet.getString("last_name"));
-        return guest;
-    }
-
-    private static GuestServices mapGuestServiceResultSet(ResultSet resultSet) throws SQLException {
-        GuestServices guestService = new GuestServices();
-        guestService.setId(resultSet.getLong("id"));
-        guestService.setGuestId(resultSet.getLong("guest_id"));
-        guestService.setRoomServiceId(resultSet.getLong("room_service_id"));
-        guestService.setRoomServiceOrderDate(resultSet.getDate("room_service_order_date"));
-        return guestService;
-    }
-
-    private static Room mapRoomResultSet(ResultSet resultSet) throws SQLException {
-        Room room = new Room();
-        room.setId(resultSet.getLong("id"));
-        room.setCapacity(resultSet.getInt("capacity"));
-        room.setPrice(resultSet.getDouble("price"));
-        room.setRoomStatus(RoomStatus.valueOf(resultSet.getString("room_status")));
-        room.setStarsRating(resultSet.getInt("stars_rating"));
-        return room;
-    }
-
-    private static RoomService mapRoomServiceResultSet(ResultSet resultSet) throws SQLException {
-        RoomService roomService = new RoomService();
-        roomService.setId(resultSet.getLong("id"));
-        roomService.setServiceType(ServiceType.valueOf(resultSet.getString("service_type")));
-        roomService.setPrice(resultSet.getDouble("price"));
-        return roomService;
     }
 
     private <T> void setEntityValues(PreparedStatement preparedStatement, T entity, String tableName) throws SQLException {
