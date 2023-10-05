@@ -18,11 +18,6 @@ import com.serialization.SerializationService;
 
 @CreateInstanceAndPutInContainer
 public class MenuMain {
-    static BookingDAOImpl bookingDAO;
-    static GuestDAOImpl guestDAO;
-    static GuestServicesDAOImpl guestServicesDAO;
-    static RoomDAOImpl roomDAO;
-    static RoomServiceDAOImpl roomServiceDAO;
     private static String MENU_DESCRIPTION_FILENAME = "menu.properties";
     private static MenuController MENU_CONTROLLER;
     private static Builder BUILDER;
@@ -155,9 +150,6 @@ public class MenuMain {
     public static void setMenuAction17(MenuAction17 menuAction17) {
         MenuMain.menuAction17 = menuAction17;
     }
-
-
-    //for test
 
     @InjectValue(key = "MenuAction18")
     public static void setMenuAction18(MenuAction18 menuAction18) {
