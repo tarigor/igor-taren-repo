@@ -184,31 +184,6 @@ public class MenuMain {
         MenuMain.databaseService = databaseService;
     }
 
-    @InjectValue(key = "BookingDAOImpl")
-    public static void setBookingDAO(BookingDAOImpl bookingDAO) {
-        MenuMain.bookingDAO = bookingDAO;
-    }
-
-    @InjectValue(key = "GuestDAOImpl")
-    public static void setGuestDAO(GuestDAOImpl guestDAO) {
-        MenuMain.guestDAO = guestDAO;
-    }
-
-    @InjectValue(key = "GuestServicesDAOImpl")
-    public static void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
-        MenuMain.guestServicesDAO = guestServicesDAO;
-    }
-
-    @InjectValue(key = "RoomDAOImpl")
-    public static void setRoomDAO(RoomDAOImpl roomDAO) {
-        MenuMain.roomDAO = roomDAO;
-    }
-
-    @InjectValue(key = "RoomServiceDAOImpl")
-    public static void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
-        MenuMain.roomServiceDAO = roomServiceDAO;
-    }
-
     public static void main(String[] args) {
 
         ContainerService.storeAllAnnotatedClassesToContainer();
