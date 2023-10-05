@@ -6,13 +6,17 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
+import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IBookingService;
+import com.senla.hoteldb.DatabaseService;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +30,8 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     private RoomDAOImpl roomDAO;
     private GuestDAOImpl guestDAO;
     private PropertyFileServiceImpl propertyFileService;
+    private DatabaseService databaseService;
+    private DAOService daoService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
@@ -52,6 +58,15 @@ public class BookingServiceImpl extends CommonService implements IBookingService
         this.guestDAO = guestDAO;
     }
 
+    @InjectValue(key = "DatabaseService")
+    public void setDatabaseService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
+    @InjectValue(key = "DAOService")
+    public void setDaoService(DAOService daoService) {
+        this.daoService = daoService;
+    }
+
     @Override
     public void saveAll(List<Booking> bookings) {
         for (Booking booking : bookings) {
@@ -63,15 +78,41 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<GuestBookingDTO> findAllOrderedAlphabetically() {
-        List<Guest> guests = guestDAO.getAll();
-        return bookingDAO.getAll().stream()
-                .map(b -> new GuestBookingDTO(guests.stream()
-                        .filter(g -> g.getId() == b.getGuestId())
-                        .findFirst()
-                        .orElseThrow(() -> new NoSuchElementException("There is no results of requested condition")), b))
-                .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
-                .limit(roomHistoryLimit)
-                .collect(Collectors.toList());
+        Connection connection = databaseService.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            daoService.setConnectionNotClose(true);
+            List<Guest> guests = guestDAO.getAll();
+            List<Booking> bookings = bookingDAO.getAll();
+            List<GuestBookingDTO> result = bookings.stream()
+                    .map(b -> new GuestBookingDTO(guests.stream()
+                            .filter(g -> g.getId() == b.getGuestId())
+                            .findFirst()
+                            .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))
+                    .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
+                    .limit(roomHistoryLimit)
+                    .collect(Collectors.toList());
+            connection.commit();
+            return result;
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackException) {
+                rollbackException.printStackTrace();
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true); // Restore auto-commit mode
+                    connection.close();
+                    daoService.setConnectionNotClose(false);
+                } catch (SQLException closeException) {
+                    closeException.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -103,11 +144,37 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
-        return bookingDAO.getAll().stream()
-                .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
-                        (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
-                .map(b -> roomDAO.getById(b.getBookedRoomId()))
-                .collect(Collectors.toList());
+        List<Room> availableRooms = new ArrayList<>();
+        Connection connection = databaseService.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            daoService.setConnectionNotClose(true);
+            List<Booking> bookings = bookingDAO.getAll();
+            availableRooms = bookings.stream()
+                    .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
+                            (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
+                    .map(b -> roomDAO.getById(b.getBookedRoomId()))
+                    .collect(Collectors.toList());
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackException) {
+                rollbackException.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                    daoService.setConnectionNotClose(false);
+                } catch (SQLException closeException) {
+                    closeException.printStackTrace();
+                }
+            }
+        }
+        return availableRooms;
     }
 
 

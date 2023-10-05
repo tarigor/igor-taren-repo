@@ -36,6 +36,11 @@ public class DAOService {
         this.databaseService = databaseService;
     }
 
+    private Boolean connectionNotClose;
+
+    public void setConnectionNotClose(Boolean connectionNotClose) {
+        this.connectionNotClose = connectionNotClose;
+    }
 
     public <T> List<T> getAll(Table table) {
         List<T> result = new ArrayList<>();
@@ -50,7 +55,9 @@ public class DAOService {
             }
             resultSet.close();
             statement.close();
-            connection.close();
+            if (!connectionNotClose) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions as needed
@@ -71,7 +78,9 @@ public class DAOService {
             }
             resultSet.close();
             preparedStatement.close();
-            connection.close();
+            if (!connectionNotClose) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,7 +96,9 @@ public class DAOService {
                 preparedStatement.executeUpdate();
             }
             preparedStatement.close();
-            connection.close();
+            if (!connectionNotClose) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,7 +111,9 @@ public class DAOService {
             setEntityValues(preparedStatement, entity, table.name());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
+            if (!connectionNotClose) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,7 +126,9 @@ public class DAOService {
             setEntityValues(preparedStatement, entity, table.name());
             int rowsAffected = preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
+            if (!connectionNotClose) {
+                connection.close();
+            }
             if (rowsAffected > 0) {
                 return entity;
             } else {
