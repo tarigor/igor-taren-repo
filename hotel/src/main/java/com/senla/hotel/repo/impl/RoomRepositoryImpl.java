@@ -19,16 +19,6 @@ public class RoomRepositoryImpl implements IEntityRepository<Room> {
     public static final String UPDATE = "UPDATE room SET capacity=?, price=?, room_status=?, stars_rating=? WHERE id=";
     protected DatabaseService databaseService;
 
-    private static Room mapRoomResultSet(ResultSet resultSet) throws SQLException {
-        Room room = new Room();
-        room.setId(resultSet.getLong("id"));
-        room.setCapacity(resultSet.getInt("capacity"));
-        room.setPrice(resultSet.getDouble("price"));
-        room.setRoomStatus(RoomStatus.valueOf(resultSet.getString("room_status")));
-        room.setStarsRating(resultSet.getInt("stars_rating"));
-        return room;
-    }
-
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -133,6 +123,16 @@ public class RoomRepositoryImpl implements IEntityRepository<Room> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private Room mapRoomResultSet(ResultSet resultSet) throws SQLException {
+        Room room = new Room();
+        room.setId(resultSet.getLong("id"));
+        room.setCapacity(resultSet.getInt("capacity"));
+        room.setPrice(resultSet.getDouble("price"));
+        room.setRoomStatus(RoomStatus.valueOf(resultSet.getString("room_status")));
+        room.setStarsRating(resultSet.getInt("stars_rating"));
+        return room;
     }
 
     private void setRoomValues(PreparedStatement preparedStatement, Room room) throws SQLException {

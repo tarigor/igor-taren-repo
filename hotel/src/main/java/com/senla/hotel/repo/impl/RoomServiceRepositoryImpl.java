@@ -19,14 +19,6 @@ public class RoomServiceRepositoryImpl implements IEntityRepository<RoomService>
     public static final String UPDATE = "UPDATE room_service SET service_type=?, price=? WHERE id=";
     protected DatabaseService databaseService;
 
-    private static RoomService mapRoomServiceResultSet(ResultSet resultSet) throws SQLException {
-        RoomService roomService = new RoomService();
-        roomService.setId(resultSet.getLong("id"));
-        roomService.setServiceType(ServiceType.valueOf(resultSet.getString("service_type")));
-        roomService.setPrice(resultSet.getDouble("price"));
-        return roomService;
-    }
-
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -131,6 +123,14 @@ public class RoomServiceRepositoryImpl implements IEntityRepository<RoomService>
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private RoomService mapRoomServiceResultSet(ResultSet resultSet) throws SQLException {
+        RoomService roomService = new RoomService();
+        roomService.setId(resultSet.getLong("id"));
+        roomService.setServiceType(ServiceType.valueOf(resultSet.getString("service_type")));
+        roomService.setPrice(resultSet.getDouble("price"));
+        return roomService;
     }
 
     private void setRoomServiceValues(PreparedStatement preparedStatement, RoomService roomService) throws SQLException {

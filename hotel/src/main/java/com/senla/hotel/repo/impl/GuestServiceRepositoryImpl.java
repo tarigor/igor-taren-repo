@@ -18,15 +18,6 @@ public class GuestServiceRepositoryImpl implements IEntityRepository<GuestServic
     public static final String UPDATE = "UPDATE guest_service SET guest_id=?, room_service_id=?, room_service_order_date=? WHERE id=";
     protected DatabaseService databaseService;
 
-    private static GuestServices mapGuestServicesResultSet(ResultSet resultSet) throws SQLException {
-        GuestServices guestService = new GuestServices();
-        guestService.setId(resultSet.getLong("id"));
-        guestService.setGuestId(resultSet.getLong("guest_id"));
-        guestService.setRoomServiceId(resultSet.getLong("room_service_id"));
-        guestService.setRoomServiceOrderDate(resultSet.getDate("room_service_order_date"));
-        return guestService;
-    }
-
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -131,6 +122,15 @@ public class GuestServiceRepositoryImpl implements IEntityRepository<GuestServic
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private GuestServices mapGuestServicesResultSet(ResultSet resultSet) throws SQLException {
+        GuestServices guestService = new GuestServices();
+        guestService.setId(resultSet.getLong("id"));
+        guestService.setGuestId(resultSet.getLong("guest_id"));
+        guestService.setRoomServiceId(resultSet.getLong("room_service_id"));
+        guestService.setRoomServiceOrderDate(resultSet.getDate("room_service_order_date"));
+        return guestService;
     }
 
     private void setGuestServicesValues(PreparedStatement preparedStatement, GuestServices guestServices) throws SQLException {

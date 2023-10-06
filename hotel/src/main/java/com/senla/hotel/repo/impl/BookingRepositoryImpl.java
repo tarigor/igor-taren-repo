@@ -18,16 +18,6 @@ public class BookingRepositoryImpl implements IEntityRepository<Booking> {
     public static final String UPDATE = "UPDATE booking SET guest_id=?, room_id=?, check_in_date=?, check_out_date=? WHERE id=";
     protected DatabaseService databaseService;
 
-    private static Booking mapBookingResultSet(ResultSet resultSet) throws SQLException {
-        Booking booking = new Booking();
-        booking.setId(resultSet.getLong("id"));
-        booking.setGuestId(resultSet.getLong("guest_id"));
-        booking.setBookedRoomId(resultSet.getLong("room_id"));
-        booking.setCheckInDate(resultSet.getDate("check_in_date"));
-        booking.setCheckOutDate(resultSet.getDate("check_out_date"));
-        return booking;
-    }
-
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -132,6 +122,16 @@ public class BookingRepositoryImpl implements IEntityRepository<Booking> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private Booking mapBookingResultSet(ResultSet resultSet) throws SQLException {
+        Booking booking = new Booking();
+        booking.setId(resultSet.getLong("id"));
+        booking.setGuestId(resultSet.getLong("guest_id"));
+        booking.setBookedRoomId(resultSet.getLong("room_id"));
+        booking.setCheckInDate(resultSet.getDate("check_in_date"));
+        booking.setCheckOutDate(resultSet.getDate("check_out_date"));
+        return booking;
     }
 
     private void setBookingValues(PreparedStatement preparedStatement, Booking booking) throws SQLException {

@@ -18,14 +18,6 @@ public class GuestRepositoryImpl implements IEntityRepository<Guest> {
     public static final String UPDATE = "UPDATE guest SET first_name=?, last_name=? WHERE id=";
     protected DatabaseService databaseService;
 
-    private static Guest mapGuestResultSet(ResultSet resultSet) throws SQLException {
-        Guest guest = new Guest();
-        guest.setId(resultSet.getLong("id"));
-        guest.setFirstName(resultSet.getString("first_name"));
-        guest.setLastName(resultSet.getString("last_name"));
-        return guest;
-    }
-
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -130,6 +122,14 @@ public class GuestRepositoryImpl implements IEntityRepository<Guest> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private Guest mapGuestResultSet(ResultSet resultSet) throws SQLException {
+        Guest guest = new Guest();
+        guest.setId(resultSet.getLong("id"));
+        guest.setFirstName(resultSet.getString("first_name"));
+        guest.setLastName(resultSet.getString("last_name"));
+        return guest;
     }
 
     private void setGuestValues(PreparedStatement preparedStatement, Guest guest) throws SQLException {
