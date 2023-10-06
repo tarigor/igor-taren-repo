@@ -9,15 +9,13 @@ import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
-import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IGuestServicesService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
-public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
-    private static final Set<Long> idHolder = new HashSet<>();
+public class GuestServicesServiceImpl implements IGuestServicesService {
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomServiceDAOImpl roomServiceDAO;
 
@@ -32,9 +30,8 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     }
 
     @Override
-    public void saveAll(Map<Long, GuestServices> guestServices) {
-        List<GuestServices> guestServicesList = new ArrayList<>(guestServices.values());
-        guestServicesDAO.saveAll(guestServicesList);
+    public void saveAll(List< GuestServices> guestServices) {
+        guestServicesDAO.saveAll(guestServices);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
@@ -108,7 +105,6 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
             if (guestServicesDAO.getById(guestServices.getId()) != null) {
                 guestServicesDAO.update(guestServices);
             } else {
-                setId(guestServices);
                 guestServicesDAO.save(guestServices);
             }
         }
@@ -122,11 +118,5 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     @Override
     public GuestServices getById(long id) {
         return guestServicesDAO.getById(id);
-    }
-
-    private void setId(GuestServices guestServices) {
-        if (guestServices.getId() == 0) {
-            guestServices.setId(generateId(idHolder));
-        }
     }
 }
