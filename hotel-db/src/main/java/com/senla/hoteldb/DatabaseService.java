@@ -40,7 +40,7 @@ public class DatabaseService {
 
     public Connection getConnection() {
         try {
-            if (connection.isClosed()) {
+            if (connection.isClosed() || connection == null) {
                 registerConnection();
             }
         } catch (SQLException e) {

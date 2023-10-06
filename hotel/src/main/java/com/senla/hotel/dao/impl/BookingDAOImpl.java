@@ -2,56 +2,43 @@ package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.constant.Table;
 import com.senla.hotel.dao.IEntityDAO;
-import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.entity.Booking;
+import com.senla.hotel.repo.impl.BookingRepositoryImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class BookingDAOImpl implements IEntityDAO<Booking> {
+    private BookingRepositoryImpl bookingRepository;
 
-    private Map<Long, Booking> bookings = new HashMap<>();
-    private DAOService daoService;
-
-    @InjectValue(key = "DAOService")
-    public void setDaoService(DAOService daoService) {
-        this.daoService = daoService;
-    }
-
-    public Map<Long, Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Map<Long, Booking> bookings) {
-        this.bookings = bookings;
+    @InjectValue(key = "BookingRepositoryImpl")
+    public void setBookingRepository(BookingRepositoryImpl bookingRepository) {
+        this.bookingRepository = bookingRepository;
     }
 
     @Override
     public List<Booking> getAll() {
-        return daoService.getAll(Table.BOOKING);
+        return bookingRepository.getAll();
     }
 
     @Override
     public void saveAll(List<Booking> bookings) {
-        daoService.saveAll(bookings, Table.BOOKING);
+        bookingRepository.saveAll(bookings);
     }
 
     @Override
     public Booking getById(long bookingId) {
-        return daoService.getById(bookingId, Table.BOOKING);
+        return bookingRepository.getById(bookingId);
     }
 
     @Override
     public void save(Booking booking) {
-        daoService.save(booking, Table.BOOKING);
+        bookingRepository.save(booking);
     }
 
     @Override
     public Booking update(Booking booking) {
-        return daoService.update(booking, Table.BOOKING);
+        return bookingRepository.update(booking);
     }
 }

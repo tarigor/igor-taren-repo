@@ -60,11 +60,11 @@ public class InitializationService {
         HashMap<Long, Room> rooms = (HashMap<Long, Room>) deserializationService.deserializeToMap(Room.class, "Room");
         HashMap<Long, RoomService> roomServices = (HashMap<Long, RoomService>) deserializationService.deserializeToMap(RoomService.class, "RoomServices");
 
-        bookingDAO.setBookings(bookings);
-        guestDAO.setGuests(guests);
-        guestServicesDAO.setGuestServices(guestServices);
-        guestServicesService.saveAll(guestServices);
-        roomDAO.setRooms(rooms);
-        roomServiceDAO.setRoomServices(roomServices);
+//        bookingDAO.setBookings(bookings);
+//        guestDAO.setGuests(guests);
+//        guestServicesDAO.setGuestServices(guestServices);
+//        guestServicesService.saveAll(guestServices);
+//        roomDAO.setRooms(rooms);
+//        roomServiceDAO.setRoomServices(roomServices);
     }
 }

@@ -6,7 +6,6 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.dao.impl.BookingDAOImpl;
 import com.senla.hotel.dao.impl.GuestDAOImpl;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
-import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
@@ -31,7 +30,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     private GuestDAOImpl guestDAO;
     private PropertyFileServiceImpl propertyFileService;
     private DatabaseService databaseService;
-    private DAOService daoService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
@@ -62,10 +60,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
-    @InjectValue(key = "DAOService")
-    public void setDaoService(DAOService daoService) {
-        this.daoService = daoService;
-    }
 
     @Override
     public void saveAll(List<Booking> bookings) {
@@ -81,7 +75,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
         Connection connection = databaseService.getConnection();
         try {
             connection.setAutoCommit(false);
-            daoService.setConnectionNotClose(true);
             List<Guest> guests = guestDAO.getAll();
             List<Booking> bookings = bookingDAO.getAll();
             List<GuestBookingDTO> result = bookings.stream()
@@ -107,7 +100,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
                 try {
                     connection.setAutoCommit(true); // Restore auto-commit mode
                     connection.close();
-                    daoService.setConnectionNotClose(false);
                 } catch (SQLException closeException) {
                     closeException.printStackTrace();
                 }
@@ -136,9 +128,8 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     @Override
     public double getTotalPaymentByGuest(long guestId) {
         Booking booking = getByGuestId(guestId);
-        long bookedDays = Duration.between(booking.getCheckInDate().toInstant(), booking.getCheckOutDate().toInstant())
-                .toDays();
-        return roomDAO.getById(booking.getBookedRoomId()).getPrice() * bookedDays;
+        Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
+        return roomDAO.getById(booking.getBookedRoomId()).getPrice() * duration.toDays();
     }
 
     //    List of rooms that will be available on a certain date in the future;
@@ -148,7 +139,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
         Connection connection = databaseService.getConnection();
         try {
             connection.setAutoCommit(false);
-            daoService.setConnectionNotClose(true);
             List<Booking> bookings = bookingDAO.getAll();
             availableRooms = bookings.stream()
                     .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
@@ -168,7 +158,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
                 try {
                     connection.setAutoCommit(true);
                     connection.close();
-                    daoService.setConnectionNotClose(false);
                 } catch (SQLException closeException) {
                     closeException.printStackTrace();
                 }

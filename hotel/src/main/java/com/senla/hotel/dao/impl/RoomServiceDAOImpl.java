@@ -2,55 +2,43 @@ package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.constant.Table;
 import com.senla.hotel.dao.IEntityDAO;
-import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.entity.RoomService;
+import com.senla.hotel.repo.impl.RoomServiceRepositoryImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
-    private DAOService daoService;
-    private Map<Long, RoomService> roomServices = new HashMap<>();
+    private RoomServiceRepositoryImpl roomServiceRepository;
 
-    @InjectValue(key = "DAOService")
-    public void setDaoService(DAOService daoService) {
-        this.daoService = daoService;
-    }
-
-    public Map<Long, RoomService> getRoomServices() {
-        return roomServices;
-    }
-
-    public void setRoomServices(Map<Long, RoomService> roomServices) {
-        this.roomServices = roomServices;
+    @InjectValue(key = "RoomServiceRepositoryImpl")
+    public void setRoomServiceRepository(RoomServiceRepositoryImpl roomServiceRepository) {
+        this.roomServiceRepository = roomServiceRepository;
     }
 
     @Override
     public List<RoomService> getAll() {
-        return daoService.getAll(Table.ROOM_SERVICE);
+        return roomServiceRepository.getAll();
     }
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
-        daoService.saveAll(roomServices, Table.ROOM_SERVICE);
+        roomServiceRepository.saveAll(roomServices);
     }
 
     @Override
     public RoomService update(RoomService roomService) {
-        return daoService.update(roomService, Table.ROOM_SERVICE);
+        return roomServiceRepository.update(roomService);
     }
 
     @Override
     public RoomService getById(long serviceId) {
-        return daoService.getById(serviceId, Table.ROOM_SERVICE);
+        return roomServiceRepository.getById(serviceId);
     }
 
     @Override
     public void save(RoomService roomService) {
-        daoService.save(roomService, Table.ROOM_SERVICE);
+        roomServiceRepository.save(roomService);
     }
 }

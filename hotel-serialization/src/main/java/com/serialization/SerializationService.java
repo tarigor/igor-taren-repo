@@ -4,67 +4,74 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.dao.impl.*;
+import com.senla.hotel.entity.*;
+import com.senla.hotel.repo.impl.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class SerializationService {
     private static final String RESOURCES_PATH = "\\hotel-serialization\\resources\\serialized";
-    private BookingDAOImpl bookingDAO;
-    private GuestDAOImpl guestDAO;
-    private GuestServicesDAOImpl guestServicesDAO;
-    private RoomDAOImpl roomDAO;
-    private RoomServiceDAOImpl roomServiceDAO;
+    private BookingRepositoryImpl bookingRepository;
+    private GuestRepositoryImpl guestRepository;
+    private GuestServiceRepositoryImpl guestServiceRepository;
+    private RoomRepositoryImpl roomRepository;
+    private RoomServiceRepositoryImpl roomServiceRepository;
 
-    @InjectValue(key = "BookingDAOImpl")
-    public void setBookingDAO(BookingDAOImpl bookingDAO) {
-        this.bookingDAO = bookingDAO;
+    @InjectValue(key = "BookingRepositoryImpl")
+    public void setBookingRepository(BookingRepositoryImpl bookingRepository) {
+        this.bookingRepository = bookingRepository;
     }
 
-    @InjectValue(key = "GuestDAOImpl")
-    public void setGuestDAO(GuestDAOImpl guestDAO) {
-        this.guestDAO = guestDAO;
+    @InjectValue(key = "GuestRepositoryImpl")
+    public void setGuestRepository(GuestRepositoryImpl guestRepository) {
+        this.guestRepository = guestRepository;
     }
 
-    @InjectValue(key = "GuestServicesDAOImpl")
-    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
-        this.guestServicesDAO = guestServicesDAO;
+    @InjectValue(key = "GuestServiceRepositoryImpl")
+    public void setGuestServiceRepository(GuestServiceRepositoryImpl guestServiceRepository) {
+        this.guestServiceRepository = guestServiceRepository;
     }
 
-    @InjectValue(key = "RoomDAOImpl")
-    public void setRoomDAO(RoomDAOImpl roomDAO) {
-        this.roomDAO = roomDAO;
+    @InjectValue(key = "RoomRepositoryImpl")
+    public void setRoomRepository(RoomRepositoryImpl roomRepository) {
+        this.roomRepository = roomRepository;
     }
 
-    @InjectValue(key = "RoomServiceDAOImpl")
-    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
-        this.roomServiceDAO = roomServiceDAO;
+    @InjectValue(key = "RoomServiceRepositoryImpl")
+    public void setRoomServiceRepository(RoomServiceRepositoryImpl roomServiceRepository) {
+        this.roomServiceRepository = roomServiceRepository;
     }
 
     public void selectToSerialize(String mapName) {
         switch (mapName) {
             case "Booking": {
-                serializeMap(bookingDAO.getBookings(), "Booking");
+                serializeMap(bookingRepository.getAll().stream()
+                        .collect(Collectors.groupingBy(Booking::getId)), "Booking");
                 break;
             }
             case "Guest": {
-                serializeMap(guestDAO.getGuests(), "Guest");
+                serializeMap(guestRepository.getAll().stream()
+                        .collect(Collectors.groupingBy(Guest::getId)), "Guest");
                 break;
             }
             case "GuestServices": {
-                serializeMap(guestServicesDAO.getGuestServices(), "GuestServices");
+                serializeMap(guestServiceRepository.getAll().stream()
+                        .collect(Collectors.groupingBy(GuestServices::getId)), "GuestServices");
                 break;
             }
             case "Room": {
-                serializeMap(roomDAO.getRooms(), "Room");
+                serializeMap(roomRepository.getAll().stream()
+                        .collect(Collectors.groupingBy(Room::getId)), "Room");
                 break;
             }
             case "RoomServices": {
-                serializeMap(roomServiceDAO.getRoomServices(), "RoomServices");
+                serializeMap(roomServiceRepository.getAll().stream()
+                        .collect(Collectors.groupingBy(RoomService::getId)), "RoomServices");
                 break;
             }
             default:

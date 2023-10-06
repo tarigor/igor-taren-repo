@@ -2,57 +2,43 @@ package com.senla.hotel.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.constant.Table;
 import com.senla.hotel.dao.IEntityDAO;
-import com.senla.hotel.dao.service.DAOService;
 import com.senla.hotel.entity.Room;
+import com.senla.hotel.repo.impl.RoomRepositoryImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class RoomDAOImpl implements IEntityDAO<Room> {
-    private DAOService daoService;
-    private Map<Long, Room> rooms = new HashMap<>();
+    private RoomRepositoryImpl roomRepository;
 
-    @InjectValue(key = "DAOService")
-    public void setDaoService(DAOService daoService) {
-        this.daoService = daoService;
-    }
-
-    public Map<Long, Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(Map<Long, Room> rooms) {
-        this.rooms = rooms;
+    @InjectValue(key = "RoomRepositoryImpl")
+    public void setRoomRepository(RoomRepositoryImpl roomRepository) {
+        this.roomRepository = roomRepository;
     }
 
     @Override
     public Room update(Room room) {
-        return daoService.update(room, Table.ROOM);
+        return roomRepository.update(room);
     }
 
     @Override
     public Room getById(long roomId) {
-        return daoService.getById(roomId, Table.ROOM);
+        return roomRepository.getById(roomId);
     }
 
     @Override
     public void save(Room room) {
-        daoService.save(room, Table.ROOM);
+        roomRepository.save(room);
     }
 
     @Override
     public List<Room> getAll() {
-        return daoService.getAll(Table.ROOM);
+        return roomRepository.getAll();
     }
 
     @Override
     public void saveAll(List<Room> rooms) {
-        daoService.saveAll(rooms, Table.ROOM);
+        roomRepository.saveAll(rooms);
     }
-
-
 }

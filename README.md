@@ -42,9 +42,11 @@ Implement transaction support in the developed program. Add transactionality to 
   to the method, at the “output” we get an object or a list of objects);
 
 ### Hotel_DB Scheme
+
 ![](HOTEL_DB.png)
 
 ### Hotel DB SQL scripts location
+
 ![](SQL_scripts.png)
 
 #### Stack

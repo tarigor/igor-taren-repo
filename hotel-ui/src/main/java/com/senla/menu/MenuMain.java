@@ -4,7 +4,6 @@ import com.senla.betterthenspring.ContainerService;
 import com.senla.betterthenspring.PropertiesInjectionService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.dao.impl.*;
 import com.senla.hoteldb.DatabaseService;
 import com.senla.menu.action.impl.*;
 import com.senla.menu.builder.Builder;
