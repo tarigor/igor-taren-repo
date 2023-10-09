@@ -18,6 +18,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
     public static final String INSERT_INTO = "INSERT INTO room_service (service_type, price) VALUES (?, ?)";
     public static final String UPDATE = "UPDATE room_service SET service_type=?, price=? WHERE id=";
     protected DatabaseService databaseService;
+    private Connection connection;
 
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
@@ -26,7 +27,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public List<RoomService> getAll() {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         List<RoomService> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -49,7 +50,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public RoomService getById(long id) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         RoomService result = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WHERE_ID);
@@ -71,7 +72,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             for (RoomService roomService : roomServices) {
@@ -89,7 +90,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public RoomService update(RoomService roomService) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE + roomService.getId());
             setRoomServiceValues(preparedStatement, roomService);
@@ -111,7 +112,7 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public void save(RoomService roomService) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             setRoomServiceValues(preparedStatement, roomService);

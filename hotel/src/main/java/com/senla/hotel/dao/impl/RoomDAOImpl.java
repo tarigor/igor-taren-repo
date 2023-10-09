@@ -18,7 +18,9 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
     public static final String INSERT_INTO = "INSERT INTO room (capacity, price, room_status, stars_rating) VALUES (?, ?, ?, ?)";
     public static final String UPDATE = "UPDATE room SET capacity=?, price=?, room_status=?, stars_rating=? WHERE id=";
     protected DatabaseService databaseService;
-        @InjectValue(key = "DatabaseService")
+    private Connection connection;
+
+    @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
@@ -27,8 +29,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
     @Override
     public List<Room> getAll() {
         List<Room> result = new ArrayList<>();
-//        Connection connection = databaseService.getConnection();
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             Statement statement = connection.createStatement();
             String query = SELECT_FROM;
@@ -50,8 +51,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public Room getById(long id) {
-        //        Connection connection = databaseService.getConnection();
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         Room result = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WHERE_ID);
@@ -73,8 +73,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public void saveAll(List<Room> rooms) {
-        //        Connection connection = databaseService.getConnection();
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             for (Room room : rooms) {
@@ -92,8 +91,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public Room update(Room room) {
-        //        Connection connection = databaseService.getConnection();
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE + room.getId());
             setRoomValues(preparedStatement, room);
@@ -115,8 +113,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public void save(Room room) {
-        //        Connection connection = databaseService.getConnection();
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             setRoomValues(preparedStatement, room);

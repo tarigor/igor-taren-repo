@@ -19,6 +19,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
     protected DatabaseService databaseService;
 
     private Connection connection;
+
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;

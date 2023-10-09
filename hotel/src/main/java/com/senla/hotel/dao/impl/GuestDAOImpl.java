@@ -16,13 +16,14 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
     public static final String SELECT_WHERE_ID = "SELECT * FROM guest WHERE id=?";
     public static final String INSERT_INTO = "INSERT INTO guest  (first_name, last_name) VALUES (?, ?)";
     public static final String UPDATE = "UPDATE guest SET first_name=?, last_name=? WHERE id=";
-    private Connection connection;
     protected DatabaseService databaseService;
+    private Connection connection;
 
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
+
     @Override
     public List<Guest> getAll() {
         connection = databaseService.getConnection();

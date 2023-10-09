@@ -18,6 +18,7 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
     public static final String INSERT_INTO = "INSERT INTO guest_service (guest_id, room_service_id, room_service_order_date) VALUES (?, ?, ?)";
     public static final String UPDATE = "UPDATE guest_service SET guest_id=?, room_service_id=?, room_service_order_date=? WHERE id=";
     protected DatabaseService databaseService;
+    private Connection connection;
 
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
@@ -26,7 +27,7 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public List<GuestServices> getAll() {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         List<GuestServices> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -49,7 +50,7 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public GuestServices getById(long id) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         GuestServices result = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WHERE_ID);
@@ -89,7 +90,7 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public GuestServices update(GuestServices guestServices) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE + guestServices.getId());
             setGuestServicesValues(preparedStatement, guestServices);
@@ -111,7 +112,7 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public void save(GuestServices guestServices) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             setGuestServicesValues(preparedStatement, guestServices);
