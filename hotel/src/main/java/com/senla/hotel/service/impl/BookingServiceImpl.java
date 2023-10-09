@@ -10,31 +10,24 @@ import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
-import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IBookingService;
+import com.senla.hoteldb.DatabaseService;
 
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
-public class BookingServiceImpl extends CommonService implements IBookingService {
-
-    private static final Set<Long> idHolder = new HashSet<>();
+public class BookingServiceImpl implements IBookingService {
     private Integer roomHistoryLimit;
     private BookingDAOImpl bookingDAO;
     private RoomDAOImpl roomDAO;
     private GuestDAOImpl guestDAO;
-    private PropertyFileServiceImpl propertyFileService;
+    private DatabaseService databaseService;
 
-    @ConfigProperty(propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
+    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
         this.roomHistoryLimit = roomHistoryLimit;
-    }
-
-    @InjectValue(key = "PropertyFileServiceImpl")
-    public void setPropertyFileService(PropertyFileServiceImpl propertyFileService) {
-        this.propertyFileService = propertyFileService;
     }
 
     @InjectValue(key = "BookingDAOImpl")
@@ -52,26 +45,32 @@ public class BookingServiceImpl extends CommonService implements IBookingService
         this.guestDAO = guestDAO;
     }
 
+    @InjectValue(key = "DatabaseService")
+    public void setDatabaseService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
+
     @Override
     public void saveAll(List<Booking> bookings) {
-        for (Booking booking : bookings) {
-            setId(booking);
-        }
         bookingDAO.saveAll(bookings);
     }
 
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<GuestBookingDTO> findAllOrderedAlphabetically() {
+        databaseService.setAutocommit(false);
         List<Guest> guests = guestDAO.getAll();
-        return bookingDAO.getAll().stream()
+        List<Booking> bookings = bookingDAO.getAll();
+        List<GuestBookingDTO> result = bookings.stream()
                 .map(b -> new GuestBookingDTO(guests.stream()
                         .filter(g -> g.getId() == b.getGuestId())
                         .findFirst()
-                        .orElseThrow(() -> new NoSuchElementException("There is no results of requested condition")), b))
+                        .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
                 .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
+        databaseService.commit();
+        return result;
     }
 
     @Override
@@ -95,19 +94,22 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     @Override
     public double getTotalPaymentByGuest(long guestId) {
         Booking booking = getByGuestId(guestId);
-        long bookedDays = Duration.between(booking.getCheckInDate().toInstant(), booking.getCheckOutDate().toInstant())
-                .toDays();
-        return roomDAO.getById(booking.getBookedRoomId()).getPrice() * bookedDays;
+        Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
+        return roomDAO.getById(booking.getBookedRoomId()).getPrice() * duration.toDays();
     }
 
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
-        return bookingDAO.getAll().stream()
+        databaseService.setAutocommit(false);
+        List<Booking> bookings = bookingDAO.getAll();
+        List<Room> availableRooms = bookings.stream()
                 .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
                         (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
                 .map(b -> roomDAO.getById(b.getBookedRoomId()))
                 .collect(Collectors.toList());
+        databaseService.commit();
+        return availableRooms;
     }
 
 
@@ -133,7 +135,6 @@ public class BookingServiceImpl extends CommonService implements IBookingService
             if (bookingDAO.getById(booking.getId()) != null) {
                 bookingDAO.update(booking);
             } else {
-                setId(booking);
                 bookingDAO.save(booking);
             }
         }
@@ -142,11 +143,5 @@ public class BookingServiceImpl extends CommonService implements IBookingService
     @Override
     public List<Booking> getAll() {
         return bookingDAO.getAll();
-    }
-
-    private void setId(Booking booking) {
-        if (booking.getId() == 0) {
-            booking.setId(generateId(idHolder));
-        }
     }
 }

@@ -24,7 +24,7 @@ public class MenuAction12 extends MenuAction implements IAction {
 
         boolean correct = false;
         while (!correct) {
-            System.out.println("Please select the ordering \n0->ID\n1->CAPACITY\n2->PRICE\n3->AVAILABILITY\n4->SERVICE\n5->RATING");
+            System.out.println("Please select the ordering \n0->ID\n1->CAPACITY\n2->PRICE\n3->AVAILABILITY\n4->RATING");
             selection = scanner.nextInt();
             switch (selection) {
                 case 0:
@@ -40,9 +40,6 @@ public class MenuAction12 extends MenuAction implements IAction {
                     selectionText = "AVAILABILITY";
                     break;
                 case 4:
-                    selectionText = "SERVICE";
-                    break;
-                case 5:
                     selectionText = "RATING";
                     break;
                 default: {

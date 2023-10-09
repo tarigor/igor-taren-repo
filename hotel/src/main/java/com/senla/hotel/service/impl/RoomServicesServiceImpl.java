@@ -6,15 +6,13 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.entity.RoomService;
-import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IRoomServicesService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
-public class RoomServicesServiceImpl extends CommonService implements IRoomServicesService {
-    private static final Set<Long> idHolder = new HashSet<>();
+public class RoomServicesServiceImpl implements IRoomServicesService {
     private RoomServiceDAOImpl roomServiceDAO;
 
     @InjectValue(key = "RoomServiceDAOImpl")
@@ -24,9 +22,6 @@ public class RoomServicesServiceImpl extends CommonService implements IRoomServi
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
-        for (RoomService roomService : roomServices) {
-            setId(roomService);
-        }
         roomServiceDAO.saveAll(roomServices);
     }
 
@@ -60,7 +55,6 @@ public class RoomServicesServiceImpl extends CommonService implements IRoomServi
             if (roomServiceDAO.getById(roomService.getId()) != null) {
                 roomServiceDAO.update(roomService);
             } else {
-                setId(roomService);
                 roomServiceDAO.save(roomService);
             }
         }
@@ -69,11 +63,5 @@ public class RoomServicesServiceImpl extends CommonService implements IRoomServi
     @Override
     public List<RoomService> getAll() {
         return roomServiceDAO.getAll();
-    }
-
-    private void setId(RoomService roomService) {
-        if (roomService.getId() == 0) {
-            roomService.setId(generateId(idHolder));
-        }
     }
 }

@@ -8,19 +8,17 @@ import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
-import com.senla.hotel.service.CommonService;
 import com.senla.hotel.service.IRoomService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
-public class RoomServiceImpl extends CommonService implements IRoomService {
-    private static final Set<Long> idHolder = new HashSet<>();
+public class RoomServiceImpl implements IRoomService {
     private Boolean checkInCheckOutPermission;
     private RoomDAOImpl roomDAO;
 
-    @ConfigProperty(propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
+    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
     public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
         this.checkInCheckOutPermission = checkInCheckOutPermission;
     }
@@ -32,9 +30,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void saveAll(List<Room> rooms) {
-        for (Room room : rooms) {
-            setId(room);
-        }
         roomDAO.saveAll(rooms);
     }
 
@@ -59,12 +54,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     }
 
     @Override
-    public Room changeRoomService(long roomId, long serviceTypeId) {
-        roomDAO.getById(roomId).setRoomServiceId(serviceTypeId);
-        return roomDAO.getById(roomId);
-    }
-
-    @Override
     public Room changeRoomPrice(long roomId, double price) {
         roomDAO.getById(roomId).setPrice(price);
         return roomDAO.getById(roomId);
@@ -77,7 +66,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
 
     @Override
     public void addRoom(Room room) {
-        setId(room);
         roomDAO.save(room);
     }
 
@@ -175,14 +163,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
                         roomDAO.getAll().stream()
                                 .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT), Comparator.reverseOrder()))
                                 .collect(Collectors.toList());
-            case SERVICE:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getRoomServiceId))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getRoomServiceId).reversed())
-                                .collect(Collectors.toList());
             case RATING:
                 return ordering == Ordering.ASC ?
                         roomDAO.getAll().stream()
@@ -202,7 +182,6 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
             if (roomDAO.getById(room.getId()) != null) {
                 roomDAO.update(room);
             } else {
-                setId(room);
                 roomDAO.save(room);
             }
         }
@@ -211,11 +190,5 @@ public class RoomServiceImpl extends CommonService implements IRoomService {
     @Override
     public List<Room> getAll() {
         return roomDAO.getAll();
-    }
-
-    private void setId(Room room) {
-        if (room.getId() == 0) {
-            room.setId(generateId(idHolder));
-        }
     }
 }

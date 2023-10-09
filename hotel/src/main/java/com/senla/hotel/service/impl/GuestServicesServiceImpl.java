@@ -1,7 +1,5 @@
 package com.senla.hotel.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
@@ -9,25 +7,20 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.dto.GuestServicesEntityDTO;
 import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.service.CommonService;
+import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
 
-import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
-public class GuestServicesServiceImpl extends CommonService implements IGuestServicesService {
-    private static final Set<Long> idHolder = new HashSet<>();
+public class GuestServicesServiceImpl implements IGuestServicesService {
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomServiceDAOImpl roomServiceDAO;
-    private ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList;
-
-    public void setGuestServicesEntityDTOList(HashMap<Long, ArrayList<GuestServicesEntityDTO>> guestServicesEntityDTOList) {
-        this.guestServicesEntityDTOList = guestServicesEntityDTOList.get(1L);
-    }
 
     @InjectValue(key = "GuestServicesDAOImpl")
     public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
@@ -40,40 +33,54 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
     }
 
     @Override
-    public void saveAll(Map<Long, GuestServices> guestServices) {
-        List<GuestServices> guestServicesList = new ArrayList<>(guestServices.values());
-        guestServicesDAO.saveAll(guestServicesList);
+    public void saveAll(List<GuestServices> guestServices) {
+        guestServicesDAO.saveAll(guestServices);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+        List<RoomService> roomServices = roomServiceDAO.getAll();
+        List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
+                .filter(guestServices -> guestServices.getGuestId() == guestId)
+                .collect(Collectors.toList());
+
+        Comparator<GuestServicesDTO> comparator;
+
         switch (guestServicesSection) {
             case PRICE:
-                return ordering == Ordering.ASC ?
-                        getById(guestId)
-                                .getServicesOrdered().entrySet().stream()
-                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                                .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()))
-                                .collect(Collectors.toList()) :
-                        getById(guestId)
-                                .getServicesOrdered().entrySet().stream()
-                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                                .sorted(Comparator.comparingDouble((GuestServicesDTO g) -> g.getRoomService().getPrice()).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(GuestServicesDTO::getRoomServicePrice);
+                break;
             case DATE:
-                return ordering == Ordering.ASC ?
-                        getById(guestId).getServicesOrdered().entrySet().stream()
-                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getDate))
-                                .collect(Collectors.toList()) :
-                        getById(guestId).getServicesOrdered().entrySet().stream()
-                                .map(e -> new GuestServicesDTO(e.getKey(), roomServiceDAO.getById(e.getValue())))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getDate).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(GuestServicesDTO::getRoomServiceOrderDate);
+                break;
             default:
-                throw new IndexOutOfBoundsException("An ordering by section ->" + guestServicesSection + "is not possible");
+                throw new IndexOutOfBoundsException("An ordering by section -> " + guestServicesSection + " is not possible");
         }
+
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
+
+        return guestServicesByGuestId.stream()
+                .map(guestServices -> new GuestServicesDTO(
+                        guestServices.getId(),
+                        guestServices.getGuestId(),
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
+                        guestServices.getRoomServiceOrderDate(),
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
+                ))
+                .sorted(comparator)
+                .collect(Collectors.toList());
+    }
+
+    private int getIndexByServiceID(List<RoomService> roomServices, long roomServiceId) {
+        for (int i = 0; i < roomServices.size(); i++) {
+            if (roomServices.get(i).getId() == roomServiceId) {
+                return i;
+            }
+        }
+        throw new NoSuchElementException("there is no such record in RoomService");
     }
 
     @Override
@@ -82,51 +89,18 @@ public class GuestServicesServiceImpl extends CommonService implements IGuestSer
             if (guestServicesDAO.getById(guestServices.getId()) != null) {
                 guestServicesDAO.update(guestServices);
             } else {
-                setId(guestServices);
                 guestServicesDAO.save(guestServices);
             }
         }
     }
 
     @Override
-    public List<GuestServicesEntityDTO> getAll() {
-        List<GuestServices> guestServices = guestServicesDAO.getAll();
-        ArrayList<GuestServicesEntityDTO> guestServicesEntityDTOList = new ArrayList<>();
-        for (int i = 0; i < guestServices.size(); i++) {
-            guestServicesEntityDTOList.add(i, guestServiceConvertFromEntityToDTO(guestServices.get(i)));
-        }
-        return guestServicesEntityDTOList;
+    public List<GuestServices> getAll() {
+        return guestServicesDAO.getAll();
     }
 
     @Override
-    public GuestServicesEntityDTO getById(long id) {
-        return guestServiceConvertFromEntityToDTO(guestServicesDAO.getById(id));
-    }
-
-    private GuestServices guestServiceConvertFromDTOtoEntity(GuestServicesEntityDTO guestServicesEntityDTO) {
-        return new GuestServices(guestServicesEntityDTO.getGuestId(), mapToJsonStringConvert(guestServicesEntityDTO.getServicesOrdered()));
-    }
-
-    private GuestServicesEntityDTO guestServiceConvertFromEntityToDTO(GuestServices guestServices) {
-
-        return new GuestServicesEntityDTO(guestServices.getId(), guestServices.getGuestId(), jsonStringToMapConvert(guestServices.getServicesOrdered()));
-    }
-
-    private Map<Date, Long> jsonStringToMapConvert(String servicesOrdered) {
-        Gson gson = new Gson().newBuilder().setDateFormat("EEE MMM d H:mm:ss zzz yyyy").create();
-        Type type = new TypeToken<Map<Date, Long>>() {
-        }.getType();
-        return gson.fromJson(servicesOrdered, type);
-    }
-
-    private String mapToJsonStringConvert(Map<Date, Long> servicesOrdered) {
-        Gson gson = new Gson();
-        return gson.toJson(servicesOrdered);
-    }
-
-    private void setId(GuestServices guestServices) {
-        if (guestServices.getId() == 0) {
-            guestServices.setId(generateId(idHolder));
-        }
+    public GuestServices getById(long id) {
+        return guestServicesDAO.getById(id);
     }
 }

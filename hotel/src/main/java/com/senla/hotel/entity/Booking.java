@@ -18,7 +18,6 @@ public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
     private long id;
     private long guestId;
-    private long guestServicesId;
     private long bookedRoomId;
     @JsonSerialize(converter = DateToStringConverter.class)
     @JsonDeserialize(converter = StringToDateConverter.class)
@@ -27,9 +26,8 @@ public class Booking implements Serializable {
     @JsonDeserialize(converter = StringToDateConverter.class)
     private Date checkOutDate;
 
-    public Booking(long guestId, long guestServicesId, long bookedRoomId, Date checkInDate, Date checkOutDate) {
+    public Booking(long guestId, long bookedRoomId, Date checkInDate, Date checkOutDate) {
         this.guestId = guestId;
-        this.guestServicesId = guestServicesId;
         this.bookedRoomId = bookedRoomId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -40,7 +38,6 @@ public class Booking implements Serializable {
         return "Booking{" +
                 "id=" + id +
                 ", guestId=" + guestId +
-                ", guestServicesId=" + guestServicesId +
                 ", bookedRoomId=" + bookedRoomId +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +

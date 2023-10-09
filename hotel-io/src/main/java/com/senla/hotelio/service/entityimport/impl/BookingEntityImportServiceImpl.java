@@ -24,10 +24,8 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
                         Long.parseLong(bookingsWithParameter.get(0)),
                         Long.parseLong(bookingsWithParameter.get(1)),
                         Long.parseLong(bookingsWithParameter.get(2)),
-                        Long.parseLong(bookingsWithParameter.get(3)),
-//                        new SimpleDateFormat("EEE MMM dd H:mm:ss zzz yyyy").parse(bookingsWithParameter.get(4)),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(4)),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(5))
+                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(3)),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(4))
                 ));
             } catch (ParseException e) {
                 throw new RuntimeException(e);

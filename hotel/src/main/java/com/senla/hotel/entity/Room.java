@@ -13,14 +13,12 @@ public class Room {
     private Integer capacity;
     private double price;
     private RoomStatus roomStatus;
-    private long roomServiceId;
     private int starsRating;
 
-    public Room(int capacity, double price, RoomStatus roomStatus, long roomServiceId, int starsRating) {
+    public Room(int capacity, double price, RoomStatus roomStatus, int starsRating) {
         this.capacity = capacity;
         this.price = price;
         this.roomStatus = roomStatus;
-        this.roomServiceId = roomServiceId;
         this.starsRating = starsRating;
     }
 
@@ -30,7 +28,6 @@ public class Room {
                 "capacity=" + capacity +
                 ", price=" + price +
                 ", roomStatus=" + roomStatus +
-                ", roomServiceId=" + roomServiceId +
                 ", starsRating=" + starsRating +
                 '}';
     }
