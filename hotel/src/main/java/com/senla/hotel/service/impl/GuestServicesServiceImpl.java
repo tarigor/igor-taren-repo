@@ -11,7 +11,10 @@ import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -30,7 +33,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     }
 
     @Override
-    public void saveAll(List< GuestServices> guestServices) {
+    public void saveAll(List<GuestServices> guestServices) {
         guestServicesDAO.saveAll(guestServices);
     }
 
@@ -38,56 +41,37 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     @Override
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
         List<RoomService> roomServices = roomServiceDAO.getAll();
-        List<GuestServices> guestServicesBYGuestId = guestServicesDAO.getAll().stream()
-                .filter(guestServices -> guestServices.getGuestId() == guestId).collect(Collectors.toList());
+        List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
+                .filter(guestServices -> guestServices.getGuestId() == guestId)
+                .collect(Collectors.toList());
+
+        Comparator<GuestServicesDTO> comparator;
+
         switch (guestServicesSection) {
             case PRICE:
-                return ordering == Ordering.ASC ?
-                        guestServicesBYGuestId.stream()
-                                .map(guestServices -> new GuestServicesDTO(
-                                        guestServices.getId(),
-                                        guestServices.getGuestId(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
-                                        guestServices.getRoomServiceOrderDate(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
-                                ))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getRoomServicePrice))
-                                .collect(Collectors.toList()) :
-                        guestServicesBYGuestId.stream()
-                                .map(guestServices -> new GuestServicesDTO(
-                                        guestServices.getId(),
-                                        guestServices.getGuestId(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
-                                        guestServices.getRoomServiceOrderDate(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
-                                ))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getRoomServicePrice).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(GuestServicesDTO::getRoomServicePrice);
+                break;
             case DATE:
-                return ordering == Ordering.ASC ?
-                        guestServicesBYGuestId.stream()
-                                .map(guestServices -> new GuestServicesDTO(
-                                        guestServices.getId(),
-                                        guestServices.getGuestId(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
-                                        guestServices.getRoomServiceOrderDate(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
-                                ))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getRoomServiceOrderDate))
-                                .collect(Collectors.toList()) :
-                        guestServicesBYGuestId.stream()
-                                .map(guestServices -> new GuestServicesDTO(
-                                        guestServices.getId(),
-                                        guestServices.getGuestId(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
-                                        guestServices.getRoomServiceOrderDate(),
-                                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
-                                ))
-                                .sorted(Comparator.comparing(GuestServicesDTO::getRoomServiceOrderDate).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(GuestServicesDTO::getRoomServiceOrderDate);
+                break;
             default:
-                throw new IndexOutOfBoundsException("An ordering by section ->" + guestServicesSection + "is not possible");
+                throw new IndexOutOfBoundsException("An ordering by section -> " + guestServicesSection + " is not possible");
         }
+
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
+
+        return guestServicesByGuestId.stream()
+                .map(guestServices -> new GuestServicesDTO(
+                        guestServices.getId(),
+                        guestServices.getGuestId(),
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
+                        guestServices.getRoomServiceOrderDate(),
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
+                ))
+                .sorted(comparator)
+                .collect(Collectors.toList());
     }
 
     private int getIndexByServiceID(List<RoomService> roomServices, long roomServiceId) {

@@ -18,6 +18,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
     public static final String UPDATE = "UPDATE booking SET guest_id=?, room_id=?, check_in_date=?, check_out_date=? WHERE id=";
     protected DatabaseService databaseService;
 
+    private Connection connection;
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -25,7 +26,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public List<Booking> getAll() {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         List<Booking> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -48,7 +49,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public Booking getById(long id) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         Booking result = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WHERE_ID);
@@ -70,7 +71,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public void saveAll(List<Booking> bookings) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             for (Booking booking : bookings) {
@@ -88,7 +89,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public Booking update(Booking booking) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE + booking.getId());
             setBookingValues(preparedStatement, booking);
@@ -110,7 +111,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public void save(Booking booking) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             setBookingValues(preparedStatement, booking);

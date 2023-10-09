@@ -16,16 +16,16 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
     public static final String SELECT_WHERE_ID = "SELECT * FROM guest WHERE id=?";
     public static final String INSERT_INTO = "INSERT INTO guest  (first_name, last_name) VALUES (?, ?)";
     public static final String UPDATE = "UPDATE guest SET first_name=?, last_name=? WHERE id=";
+    private Connection connection;
     protected DatabaseService databaseService;
 
     @InjectValue(key = "DatabaseService")
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
-
     @Override
     public List<Guest> getAll() {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         List<Guest> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -48,7 +48,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public Guest getById(long id) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         Guest result = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WHERE_ID);
@@ -70,7 +70,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public void saveAll(List<Guest> guests) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             for (Guest guest : guests) {
@@ -88,7 +88,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public Guest update(Guest guest) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE + guest.getId());
             setGuestValues(preparedStatement, guest);
@@ -110,7 +110,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public void save(Guest guest) {
-        Connection connection = databaseService.getConnection();
+        connection = databaseService.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO);
             setGuestValues(preparedStatement, guest);

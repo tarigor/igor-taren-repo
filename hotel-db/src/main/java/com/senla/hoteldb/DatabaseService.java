@@ -76,13 +76,40 @@ public class DatabaseService {
     }
 
     public void registerConnection() {
-        Connection connection;
         try {
             Class.forName(jdbcDriver);
             connection = DriverManager.getConnection(dbUrl, user, password);
-            this.connection = connection;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void setAutocommit(Boolean state) {
+        try {
+            connection.setAutoCommit(state);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void commit() {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackException) {
+                rollbackException.printStackTrace();
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true); // Restore auto-commit mode
+                    connection.close();
+                } catch (SQLException closeException) {
+                    closeException.printStackTrace();
+                }
+            }
         }
     }
 }

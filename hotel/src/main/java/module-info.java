@@ -14,5 +14,5 @@ module hotel {
     requires java.sql;
     requires hotel.db;
     exports com.senla.hotel.deserializationService;
-    exports com.senla.hotel.repo.impl;
+    exports com.senla.hotel.dao;
 }

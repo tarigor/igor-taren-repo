@@ -13,8 +13,6 @@ import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
 import com.senla.hoteldb.DatabaseService;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -60,39 +58,19 @@ public class BookingServiceImpl implements IBookingService {
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<GuestBookingDTO> findAllOrderedAlphabetically() {
-        Connection connection = databaseService.getConnection();
-        try {
-            connection.setAutoCommit(false);
-            List<Guest> guests = guestDAO.getAll();
-            List<Booking> bookings = bookingDAO.getAll();
-            List<GuestBookingDTO> result = bookings.stream()
-                    .map(b -> new GuestBookingDTO(guests.stream()
-                            .filter(g -> g.getId() == b.getGuestId())
-                            .findFirst()
-                            .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))
-                    .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
-                    .limit(roomHistoryLimit)
-                    .collect(Collectors.toList());
-            connection.commit();
-            return result;
-        } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException rollbackException) {
-                rollbackException.printStackTrace();
-            }
-            e.printStackTrace();
-            return Collections.emptyList();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true); // Restore auto-commit mode
-                    connection.close();
-                } catch (SQLException closeException) {
-                    closeException.printStackTrace();
-                }
-            }
-        }
+        databaseService.setAutocommit(false);
+        List<Guest> guests = guestDAO.getAll();
+        List<Booking> bookings = bookingDAO.getAll();
+        List<GuestBookingDTO> result = bookings.stream()
+                .map(b -> new GuestBookingDTO(guests.stream()
+                        .filter(g -> g.getId() == b.getGuestId())
+                        .findFirst()
+                        .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))
+                .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
+                .limit(roomHistoryLimit)
+                .collect(Collectors.toList());
+        databaseService.commit();
+        return result;
     }
 
     @Override
@@ -123,34 +101,14 @@ public class BookingServiceImpl implements IBookingService {
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
-        List<Room> availableRooms = new ArrayList<>();
-        Connection connection = databaseService.getConnection();
-        try {
-            connection.setAutoCommit(false);
-            List<Booking> bookings = bookingDAO.getAll();
-            availableRooms = bookings.stream()
-                    .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
-                            (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
-                    .map(b -> roomDAO.getById(b.getBookedRoomId()))
-                    .collect(Collectors.toList());
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException rollbackException) {
-                rollbackException.printStackTrace();
-            }
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException closeException) {
-                    closeException.printStackTrace();
-                }
-            }
-        }
+        databaseService.setAutocommit(false);
+        List<Booking> bookings = bookingDAO.getAll();
+        List<Room> availableRooms = bookings.stream()
+                .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
+                        (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
+                .map(b -> roomDAO.getById(b.getBookedRoomId()))
+                .collect(Collectors.toList());
+        databaseService.commit();
         return availableRooms;
     }
 
