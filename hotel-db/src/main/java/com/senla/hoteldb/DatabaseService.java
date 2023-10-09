@@ -104,7 +104,7 @@ public class DatabaseService {
         } finally {
             if (connection != null) {
                 try {
-                    connection.setAutoCommit(true); // Restore auto-commit mode
+                    connection.setAutoCommit(true);
                     connection.close();
                 } catch (SQLException closeException) {
                     closeException.printStackTrace();
