@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ImportService {
-    private static final String IMPORT_PATH = "\\hotel-io\\resources\\csv\\import";
+    private static final String IMPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\import";
     private static final String DELIMITER = ",";
     private static final String EXTENSION = ".csv";
 

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class SerializationService {
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\resources\\serialized";
+    private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources\\serialized";
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;

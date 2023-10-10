@@ -14,7 +14,7 @@ import java.util.Map;
 @CreateInstanceAndPutInContainer
 public class DeserializationService {
 
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\resources";
+    private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources";
 
     private static String readFileToString(String filePath) {
         StringBuilder content = new StringBuilder();

@@ -3,5 +3,8 @@ module betterthenspring {
     requires annotations;
     requires hotel;
     requires hotel.io;
-    requires com.google.gson;
+    requires maven.model;
+    requires maven.core;
+    requires plexus.utils;
+    requires org.reflections;
 }

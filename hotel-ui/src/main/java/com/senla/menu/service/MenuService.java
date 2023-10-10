@@ -11,7 +11,7 @@ import com.senla.menu.navigator.Navigator;
 
 @CreateInstanceAndPutInContainer
 public class MenuService {
-    private String MENU_DESCRIPTION_FILENAME = "\\hotel-ui\\resources\\menu.properties";
+    private String MENU_DESCRIPTION_FILENAME = "\\hotel-ui\\src\\main\\resources\\menu.properties";
     private MenuController MENU_CONTROLLER;
     private Builder BUILDER;
     private PropertiesService PROPERTIES_SERVICE;

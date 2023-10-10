@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class ExportService {
-    private static final String EXPORT_PATH = "\\hotel-io\\resources\\csv\\export";
+    private static final String EXPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\export";
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "(?<=\\=)(.*?)(?=\\,)";
 

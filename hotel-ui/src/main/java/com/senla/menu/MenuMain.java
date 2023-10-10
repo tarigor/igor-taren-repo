@@ -2,10 +2,13 @@ package com.senla.menu;
 
 import com.senla.betterthenspring.ContainerService;
 import com.senla.betterthenspring.PropertiesInjectionService;
+import com.senla.betterthenspring.ScannerService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hoteldb.DatabaseService;
 import com.senla.menu.service.MenuService;
+
+import java.util.Set;
 
 @CreateInstanceAndPutInContainer
 public class MenuMain {
@@ -24,9 +27,11 @@ public class MenuMain {
 
     public static void main(String[] args) {
 
-        ContainerService.storeAllAnnotatedClassesToContainer();
-        ContainerService.injectAnnotatedFields();
-        PropertiesInjectionService.injectProperties();
+        Set<Class<?>> scannedClasses = ScannerService.classesScan();
+
+        ContainerService.storeAnnotatedInstanceInContainer(scannedClasses);
+        ContainerService.injectValue(scannedClasses);
+        PropertiesInjectionService.injectProperties(scannedClasses);
 
         databaseService.databaseInitialize();
         databaseService.registerConnection();
