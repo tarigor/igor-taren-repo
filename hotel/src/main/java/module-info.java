@@ -10,6 +10,7 @@ module hotel {
     requires hotel.db;
     requires lombok;
     requires com.fasterxml.jackson.databind;
+    requires org.slf4j;
     exports com.senla.hotel.deserializationService;
     exports com.senla.hotel.dao;
 }

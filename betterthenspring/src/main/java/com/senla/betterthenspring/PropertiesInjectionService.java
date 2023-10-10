@@ -2,6 +2,8 @@ package com.senla.betterthenspring;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.Set;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
+    private static final Logger logger = LoggerFactory.getLogger(PropertiesInjectionService.class);
     static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
 
     public static void injectProperties(Set<Class<?>> classes) {
@@ -36,6 +39,7 @@ public class PropertiesInjectionService {
                         try {
                             method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
                         } catch (IllegalAccessException | InvocationTargetException e) {
+                            logger.error("an error occurred during injection value from properties->" + e.getMessage());
                             throw new RuntimeException(e);
                         }
                     }
@@ -70,6 +74,7 @@ public class PropertiesInjectionService {
                 throw new IllegalArgumentException("Unsupported wrapper class");
             }
         } catch (NumberFormatException e) {
+            logger.error("an error occurred during getting value from properties->" + e.getMessage());
             throw new IllegalArgumentException("Invalid input string format for " + parameterType.getSimpleName(), e);
         }
     }
@@ -81,6 +86,7 @@ public class PropertiesInjectionService {
             try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
                 properties.load(input);
             } catch (IOException e) {
+                logger.error("an error occurred during a properties load->" + e.getMessage());
                 e.printStackTrace();
             }
             propertiesHashMap.put(propertiesFileName, properties);

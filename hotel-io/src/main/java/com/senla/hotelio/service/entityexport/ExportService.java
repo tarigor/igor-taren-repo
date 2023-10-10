@@ -1,5 +1,8 @@
 package com.senla.hotelio.service.entityexport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class ExportService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExportService.class);
     private static final String EXPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\export";
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "(?<=\\=)(.*?)(?=\\,)";
@@ -22,6 +27,7 @@ public abstract class ExportService {
                 Files.write(path, getFieldsFromEntityInCsvFormat(o).getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
             }
         } catch (IOException e) {
+            logger.error("an error occurred during file operation->" + e.getMessage());
             throw new RuntimeException(e);
         }
     }

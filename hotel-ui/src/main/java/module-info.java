@@ -7,6 +7,7 @@ module hotel.ui {
     requires hotel.serialization;
     requires hotel.db;
     requires lombok;
+    requires org.slf4j;
     exports com.senla.menu.navigator;
     exports com.senla.menu.service;
     exports com.senla.menu.builder;

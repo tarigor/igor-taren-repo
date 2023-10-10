@@ -10,7 +10,9 @@ import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IRoomService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer

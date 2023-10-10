@@ -7,4 +7,5 @@ module betterthenspring {
     requires maven.core;
     requires plexus.utils;
     requires org.reflections;
+    requires org.slf4j;
 }

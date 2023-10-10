@@ -2,6 +2,8 @@ package com.senla.betterthenspring;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -11,6 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ContainerService {
+    private static final Logger logger = LoggerFactory.getLogger(ContainerService.class);
     private static HashMap<String, Object> instances = new HashMap<>();
 
     public static HashMap<String, Object> getInstances() {
@@ -29,6 +32,7 @@ public class ContainerService {
                     instances.put(key, instance);
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
+                    logger.error("an error occurred during storing instance of class in container->" + e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -50,6 +54,7 @@ public class ContainerService {
                             try {
                                 method.invoke(o, objectToInject);
                             } catch (IllegalAccessException | InvocationTargetException e) {
+                                logger.error("an error occurred during injecting of value->" + e.getMessage());
                                 throw new RuntimeException(e);
                             }
                         }

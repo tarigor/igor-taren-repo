@@ -5,6 +5,8 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Guest;
 import com.senla.hoteldb.DatabaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
     public static final String SELECT_WHERE_ID = "SELECT * FROM guest WHERE id=?";
     public static final String INSERT_INTO = "INSERT INTO guest  (first_name, last_name) VALUES (?, ?)";
     public static final String UPDATE = "UPDATE guest SET first_name=?, last_name=? WHERE id=";
+    private static final Logger logger = LoggerFactory.getLogger(GuestDAOImpl.class);
     protected DatabaseService databaseService;
     private Connection connection;
 
@@ -42,6 +45,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -64,6 +68,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -83,6 +88,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -104,6 +110,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
                 return null;
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -121,6 +128,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
     }

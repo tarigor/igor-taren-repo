@@ -5,6 +5,8 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.dao.IEntityDAO;
 import com.senla.hotel.entity.Booking;
 import com.senla.hoteldb.DatabaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
     public static final String SELECT_WHERE_ID = "SELECT * FROM booking WHERE id=?";
     public static final String INSERT_INTO = "INSERT INTO booking (guest_id, room_id, check_in_date, check_out_date) VALUES (?, ?, ?, ?)";
     public static final String UPDATE = "UPDATE booking SET guest_id=?, room_id=?, check_in_date=?, check_out_date=? WHERE id=";
+    private static final Logger logger = LoggerFactory.getLogger(BookingDAOImpl.class);
     protected DatabaseService databaseService;
 
     private Connection connection;
@@ -43,6 +46,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -65,6 +69,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -84,6 +89,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -105,6 +111,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
                 return null;
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -122,6 +129,7 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
                 connection.close();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             e.printStackTrace();
         }
     }

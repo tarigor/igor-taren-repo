@@ -6,6 +6,8 @@ import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.entity.*;
 import com.senla.hotel.service.impl.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,12 +17,13 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class SerializationService {
+    private static final Logger logger = LoggerFactory.getLogger(SerializationService.class);
     private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources\\serialized";
+    RoomServicesServiceImpl roomServicesService;
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;
     private RoomServiceImpl roomService;
-    RoomServicesServiceImpl roomServicesService;
 
     @InjectValue(key = "BookingServiceImpl")
     public void setBookingService(BookingServiceImpl bookingService) {
@@ -86,6 +89,7 @@ public class SerializationService {
             gson.toJson(map, writer);
             System.out.println("Serialization completed successfully.");
         } catch (IOException e) {
+            logger.error("an error occurred during an IO operation->" + e.getMessage());
             e.printStackTrace();
         }
     }

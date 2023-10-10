@@ -2,6 +2,8 @@ package com.senla.hoteldb;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 @CreateInstanceAndPutInContainer
 public class DatabaseService {
     public static final String OS_NAME = "os.name";
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseService.class);
     private static final String BATCH_FILE_PATH = "\\hotel-db\\sql\\db";
     private String jdbcDriver;
     private String dbUrl;
@@ -44,6 +47,7 @@ public class DatabaseService {
                 registerConnection();
             }
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             throw new RuntimeException(e);
         }
         return connection;
@@ -71,6 +75,7 @@ public class DatabaseService {
                 System.err.println("Batch file execution failed with exit code " + exitCode);
             }
         } catch (IOException | InterruptedException e) {
+            logger.error("an error occurred during IO operation->" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -80,6 +85,7 @@ public class DatabaseService {
             Class.forName(jdbcDriver);
             connection = DriverManager.getConnection(dbUrl, user, password);
         } catch (SQLException | ClassNotFoundException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -88,6 +94,7 @@ public class DatabaseService {
         try {
             connection.setAutoCommit(state);
         } catch (SQLException e) {
+            logger.error("an error occurred during SQL operation->" + e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -99,6 +106,7 @@ public class DatabaseService {
             try {
                 connection.rollback();
             } catch (SQLException rollbackException) {
+                logger.error("an error occurred during SQL operation->" + e.getMessage());
                 rollbackException.printStackTrace();
             }
         } finally {
@@ -107,6 +115,7 @@ public class DatabaseService {
                     connection.setAutoCommit(true);
                     connection.close();
                 } catch (SQLException closeException) {
+                    logger.error("an error occurred during SQL operation->" + closeException.getMessage());
                     closeException.printStackTrace();
                 }
             }

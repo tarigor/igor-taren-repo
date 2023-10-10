@@ -1,11 +1,10 @@
 package com.senla.betterthenspring;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ScannerService {
+    private static final Logger logger = LoggerFactory.getLogger(ScannerService.class);
 
     public static Set<Class<?>> classesScan() {
         List<Class<?>> classes = new ArrayList<>();
@@ -23,6 +23,7 @@ public class ScannerService {
                 System.out.println(clazz.getName());
             }
         } catch (IOException | XmlPullParserException e) {
+            logger.error("an error occurred during a class scan->" + e.getMessage());
             e.printStackTrace();
         }
         return new HashSet<>(classes);
@@ -54,7 +55,6 @@ public class ScannerService {
 
     private static List<Class<?>> getClassesInModule(String modulePath) throws IOException, XmlPullParserException {
         List<Class<?>> classes = new ArrayList<>();
-        Model model = readPomFile(modulePath);
         String sourceDirectory = modulePath + File.separator + "src" + File.separator + "main" + File.separator + "java";
         File sourceDir = new File(sourceDirectory);
         List<Class<?>> classes1 = null;
@@ -78,17 +78,12 @@ public class ScannerService {
                     try {
                         classes.add(Class.forName(className));
                     } catch (ClassNotFoundException e) {
+                        logger.error("an error occurred during getting a class->" + e.getMessage());
                         throw new RuntimeException(e);
                     }
                 }
             }
         }
         return classes;
-    }
-
-    private static Model readPomFile(String pomFilePath) throws IOException, XmlPullParserException {
-        MavenXpp3Reader reader = new MavenXpp3Reader();
-        FileReader fileReader = new FileReader(new File(pomFilePath, "pom.xml"));
-        return reader.read(fileReader);
     }
 }

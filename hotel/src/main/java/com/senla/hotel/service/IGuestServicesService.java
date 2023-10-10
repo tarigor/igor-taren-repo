@@ -7,7 +7,6 @@ import com.senla.hotel.entity.GuestServices;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public interface IGuestServicesService {
     void saveAll(List<GuestServices> guestServices);
