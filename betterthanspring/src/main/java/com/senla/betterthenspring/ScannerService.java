@@ -18,10 +18,6 @@ public class ScannerService {
         List<Class<?>> classes = new ArrayList<>();
         try {
             classes = getAllClassesInMavenProject(System.getProperty("user.dir"));
-
-            for (Class<?> clazz : classes) {
-                System.out.println(clazz.getName());
-            }
         } catch (IOException | XmlPullParserException e) {
             logger.error("an error occurred during a class scan->" + e.getMessage());
             e.printStackTrace();
@@ -45,7 +41,6 @@ public class ScannerService {
                 if (file.isDirectory() && new File(file, "pom.xml").exists()) {
                     String modulePath = file.getAbsolutePath();
                     classes.addAll(getClassesInModule(modulePath));
-                    System.out.println("");
                     traverseModules(file, classes);
                 }
             }
@@ -70,7 +65,7 @@ public class ScannerService {
             for (File file : files) {
                 if (file.isDirectory()) {
                     collectClasses(file, sourceDirectory, classes);
-                } else if (file.isFile() && file.getName().endsWith(".java") && !file.getName().contains("module-info")) {
+                } else if (file.isFile() && file.getName().endsWith(".java")) {
                     String filePath = file.getAbsolutePath();
                     String className = filePath.substring(sourceDirectory.length() + 1)
                             .replace(File.separatorChar, '.')
