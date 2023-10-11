@@ -36,10 +36,9 @@ public class MenuAction11 extends MenuAction implements IAction {
                 case 1:
                     selectionText = "DATE";
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
-                }
             }
             correct = true;
         }

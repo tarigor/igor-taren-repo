@@ -34,10 +34,9 @@ public class MenuAction19 extends MenuAction implements IAction {
                     //Guest
                     roomService.doCheckOut(roomId);
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
-                }
             }
             correct = true;
         }

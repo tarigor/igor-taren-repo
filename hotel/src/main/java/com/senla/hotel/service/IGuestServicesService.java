@@ -19,5 +19,4 @@ public interface IGuestServicesService {
     List<GuestServices> getAll();
 
     GuestServices getById(long id);
-
 }

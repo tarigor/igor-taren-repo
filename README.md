@@ -39,6 +39,6 @@ https://drive.google.com/open?id=1KbO2r4FEEUcKfwq7cKeaOMvYSMv8FiCN
 - jackson-databind-2.15.2;
 - mysql-connector-java-8.0.25
 
-#### Application start
+#### cmd to application start
 
 _mvn exec:java -pl hotel-ui_ 

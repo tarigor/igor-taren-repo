@@ -43,5 +43,4 @@ public abstract class ExportService {
         }
         return resultText.substring(0, resultText.length() - 1) + "\n";
     }
-
 }

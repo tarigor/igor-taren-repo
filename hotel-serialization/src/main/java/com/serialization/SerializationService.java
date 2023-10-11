@@ -4,8 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.entity.*;
-import com.senla.hotel.service.impl.*;
+import com.senla.hotel.entity.Booking;
+import com.senla.hotel.entity.Guest;
+import com.senla.hotel.entity.GuestServices;
+import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.RoomService;
+import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hotel.service.impl.GuestServiceImpl;
+import com.senla.hotel.service.impl.GuestServicesServiceImpl;
+import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,31 +60,26 @@ public class SerializationService {
 
     public void selectToSerialize(String mapName) {
         switch (mapName) {
-            case "Booking": {
+            case "Booking":
                 serializeMap(bookingService.getAll().stream()
                         .collect(Collectors.groupingBy(Booking::getId)), "Booking");
                 break;
-            }
-            case "Guest": {
+            case "Guest":
                 serializeMap(guestService.getAll().stream()
                         .collect(Collectors.groupingBy(Guest::getId)), "Guest");
                 break;
-            }
-            case "GuestServices": {
+            case "GuestServices":
                 serializeMap(guestServicesService.getAll().stream()
                         .collect(Collectors.groupingBy(GuestServices::getId)), "GuestServices");
                 break;
-            }
-            case "Room": {
+            case "Room":
                 serializeMap(roomService.getAll().stream()
                         .collect(Collectors.groupingBy(Room::getId)), "Room");
                 break;
-            }
-            case "RoomServices": {
+            case "RoomServices":
                 serializeMap(roomServicesService.getAll().stream()
                         .collect(Collectors.groupingBy(RoomService::getId)), "RoomServices");
                 break;
-            }
             default:
                 throw new NoSuchElementException("There is no such an entity");
         }

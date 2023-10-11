@@ -2,7 +2,25 @@ package com.senla.menu.service;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.menu.action.impl.*;
+import com.senla.menu.action.impl.MenuAction1;
+import com.senla.menu.action.impl.MenuAction10;
+import com.senla.menu.action.impl.MenuAction11;
+import com.senla.menu.action.impl.MenuAction12;
+import com.senla.menu.action.impl.MenuAction13;
+import com.senla.menu.action.impl.MenuAction14;
+import com.senla.menu.action.impl.MenuAction15;
+import com.senla.menu.action.impl.MenuAction16;
+import com.senla.menu.action.impl.MenuAction17;
+import com.senla.menu.action.impl.MenuAction18;
+import com.senla.menu.action.impl.MenuAction19;
+import com.senla.menu.action.impl.MenuAction2;
+import com.senla.menu.action.impl.MenuAction3;
+import com.senla.menu.action.impl.MenuAction4;
+import com.senla.menu.action.impl.MenuAction5;
+import com.senla.menu.action.impl.MenuAction6;
+import com.senla.menu.action.impl.MenuAction7;
+import com.senla.menu.action.impl.MenuAction8;
+import com.senla.menu.action.impl.MenuAction9;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.controller.MenuController;
 import com.senla.menu.entity.Menu;
@@ -13,9 +31,9 @@ import com.senla.menu.navigator.Navigator;
 public class MenuService {
     private String MENU_DESCRIPTION_FILENAME = "\\hotel-ui\\src\\main\\resources\\menu.properties";
     private MenuController MENU_CONTROLLER;
-    private Builder BUILDER;
+    private Builder builder;
     private PropertiesService PROPERTIES_SERVICE;
-    private Navigator NAVIGATOR;
+    private Navigator navigator;
     private MenuAction1 menuAction1;
     private MenuAction2 menuAction2;
     private MenuAction3 menuAction3;
@@ -42,8 +60,8 @@ public class MenuService {
     }
 
     @InjectValue(key = "Builder")
-    public void setBUILDER(Builder BUILDER) {
-        this.BUILDER = BUILDER;
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
     }
 
     @InjectValue(key = "PropertiesService")
@@ -52,8 +70,8 @@ public class MenuService {
     }
 
     @InjectValue(key = "Navigator")
-    public void setNAVIGATOR(Navigator NAVIGATOR) {
-        this.NAVIGATOR = NAVIGATOR;
+    public void setNavigator(Navigator navigator) {
+        this.navigator = navigator;
     }
 
     @InjectValue(key = "MenuAction1")
@@ -152,7 +170,7 @@ public class MenuService {
     }
 
     public void showMenu() {
-        Menu menu = BUILDER
+        Menu menu = builder
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price
                 .addItem(new MenuItem(1, menuAction1))
@@ -192,12 +210,12 @@ public class MenuService {
                 .build();
 
 
-        NAVIGATOR.setPropertiesService(PROPERTIES_SERVICE);
+        navigator.setPropertiesService(PROPERTIES_SERVICE);
 
         MENU_CONTROLLER.setMenu(menu);
-        MENU_CONTROLLER.setNavigator(NAVIGATOR);
+        MENU_CONTROLLER.setNavigator(navigator);
         MENU_CONTROLLER.setMenuDescriptionFileName(MENU_DESCRIPTION_FILENAME);
-        MENU_CONTROLLER.setBuilder(BUILDER);
+        MENU_CONTROLLER.setBuilder(builder);
         MENU_CONTROLLER.showMenu()
                 .menuRolling();
     }

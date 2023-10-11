@@ -31,6 +31,4 @@ public class PropertiesService {
         }
         return menuMap;
     }
-
-
 }

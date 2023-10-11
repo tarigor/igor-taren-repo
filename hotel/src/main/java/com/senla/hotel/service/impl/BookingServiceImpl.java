@@ -14,7 +14,11 @@ import com.senla.hotel.service.IBookingService;
 import com.senla.hoteldb.DatabaseService;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
