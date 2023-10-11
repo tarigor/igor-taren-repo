@@ -38,7 +38,7 @@ public class ScannerService {
         return traverseModules(projectDir, classes);
     }
 
-    private static List<Class<?>> traverseModules(File directory, List<Class<?>> classes) throws IOException, XmlPullParserException {
+    private static List<Class<?>> traverseModules(File directory, List<Class<?>> classes) {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
@@ -53,7 +53,7 @@ public class ScannerService {
         return classes;
     }
 
-    private static List<Class<?>> getClassesInModule(String modulePath) throws IOException, XmlPullParserException {
+    private static List<Class<?>> getClassesInModule(String modulePath) {
         List<Class<?>> classes = new ArrayList<>();
         String sourceDirectory = modulePath + File.separator + "src" + File.separator + "main" + File.separator + "java";
         File sourceDir = new File(sourceDirectory);

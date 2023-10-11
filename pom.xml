@@ -89,7 +89,7 @@
 
     <modules>
         <module>annotations</module>
-        <module>betterthenspring</module>
+        <module>betterthanspring</module>
         <module>hotel</module>
         <module>hotel-db</module>
         <module>hotel-io</module>
