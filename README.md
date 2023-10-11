@@ -52,4 +52,4 @@ https://drive.google.com/open?id=1KbO2r4FEEUcKfwq7cKeaOMvYSMv8FiCN
 
 #### cmd to application start
 
-_mvn exec:java -pl hotel-ui_ 
+_mvn clean install exec:java -pl hotel-ui_ 
