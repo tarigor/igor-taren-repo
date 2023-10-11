@@ -57,11 +57,11 @@ public class ScannerService {
         List<Class<?>> classes = new ArrayList<>();
         String sourceDirectory = modulePath + File.separator + "src" + File.separator + "main" + File.separator + "java";
         File sourceDir = new File(sourceDirectory);
-        List<Class<?>> classes1 = null;
+        List<Class<?>> classesInModule = null;
         if (sourceDir.exists() && sourceDir.isDirectory()) {
-            classes1 = collectClasses(sourceDir, sourceDirectory, classes);
+            classesInModule = collectClasses(sourceDir, sourceDirectory, classes);
         }
-        return classes1;
+        return classesInModule;
     }
 
     private static List<Class<?>> collectClasses(File directory, String sourceDirectory, List<Class<?>> classes) {
