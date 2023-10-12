@@ -25,9 +25,9 @@
         <mysql.connector.version>8.1.0</mysql.connector.version>
         <maven.surefire-plugin.version>3.1.2</maven.surefire-plugin.version>
         <maven.compiler-plugin.version>3.11.0</maven.compiler-plugin.version>
-        <logback.core.version>1.4.11</logback.core.version>
+        <logback.core.version>1.4.7</logback.core.version>
         <slf4j.api.version>2.0.9</slf4j.api.version>
-        <logback.classic.version>1.4.11</logback.classic.version>
+        <logback.classic.version>1.4.7</logback.classic.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
         <maven.site.plugin.version>3.12.0</maven.site.plugin.version>
     </properties>
@@ -170,7 +170,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.classic.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
