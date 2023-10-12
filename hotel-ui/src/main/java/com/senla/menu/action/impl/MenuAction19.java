@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MenuAction19 extends MenuAction implements IAction {
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }

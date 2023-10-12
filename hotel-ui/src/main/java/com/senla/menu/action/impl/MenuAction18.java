@@ -25,7 +25,7 @@ public class MenuAction18 extends MenuAction implements IAction {
         this.bookings = bookings;
     }
 
-    @InjectValue(key = "DeserializationService")
+    @InjectValue
     public void setDeserializationService(DeserializationService deserializationService) {
         this.deserializationService = deserializationService;
     }

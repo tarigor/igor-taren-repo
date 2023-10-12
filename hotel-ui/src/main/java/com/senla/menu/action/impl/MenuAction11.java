@@ -11,7 +11,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction11 extends MenuAction implements IAction {
     private GuestServicesServiceImpl guestServicesService;
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }

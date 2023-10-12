@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class RoomServicesServiceImpl implements IRoomServicesService {
     private RoomServiceDAOImpl roomServiceDAO;
 
-    @InjectValue(key = "RoomServiceDAOImpl")
+    @InjectValue
     public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }

@@ -26,7 +26,7 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
     protected DatabaseService databaseService;
     private Connection connection;
 
-    @InjectValue(key = "DatabaseService")
+    @InjectValue
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }

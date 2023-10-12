@@ -27,7 +27,7 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
     protected DatabaseService databaseService;
     private Connection connection;
 
-    @InjectValue(key = "DatabaseService")
+    @InjectValue
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }

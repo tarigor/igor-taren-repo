@@ -11,7 +11,7 @@ public class MenuAction4 extends MenuAction implements IAction {
 
     private BookingServiceImpl bookingService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }

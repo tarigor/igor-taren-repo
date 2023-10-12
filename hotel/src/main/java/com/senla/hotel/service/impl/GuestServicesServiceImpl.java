@@ -22,12 +22,12 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomServiceDAOImpl roomServiceDAO;
 
-    @InjectValue(key = "GuestServicesDAOImpl")
+    @InjectValue
     public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
         this.guestServicesDAO = guestServicesDAO;
     }
 
-    @InjectValue(key = "RoomServiceDAOImpl")
+    @InjectValue
     public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }

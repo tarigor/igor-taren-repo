@@ -54,117 +54,117 @@ public class MenuService {
     private MenuAction18 menuAction18;
     private MenuAction19 menuAction19;
 
-    @InjectValue(key = "MenuController")
+    @InjectValue
     public void setMenuController(MenuController menuController) {
         this.MENU_CONTROLLER = menuController;
     }
 
-    @InjectValue(key = "Builder")
+    @InjectValue
     public void setBuilder(Builder builder) {
         this.builder = builder;
     }
 
-    @InjectValue(key = "PropertiesService")
+    @InjectValue
     public void setPropertiesService(PropertiesService propertiesService) {
         this.PROPERTIES_SERVICE = propertiesService;
     }
 
-    @InjectValue(key = "Navigator")
+    @InjectValue
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    @InjectValue(key = "MenuAction1")
+    @InjectValue
     public void setMenuAction1(MenuAction1 menuAction1) {
         this.menuAction1 = menuAction1;
     }
 
-    @InjectValue(key = "MenuAction2")
+    @InjectValue
     public void setMenuAction2(MenuAction2 menuAction2) {
         this.menuAction2 = menuAction2;
     }
 
-    @InjectValue(key = "MenuAction3")
+    @InjectValue
     public void setMenuAction3(MenuAction3 menuAction3) {
         this.menuAction3 = menuAction3;
     }
 
-    @InjectValue(key = "MenuAction4")
+    @InjectValue
     public void setMenuAction4(MenuAction4 menuAction4) {
         this.menuAction4 = menuAction4;
     }
 
-    @InjectValue(key = "MenuAction5")
+    @InjectValue
     public void setMenuAction5(MenuAction5 menuAction5) {
         this.menuAction5 = menuAction5;
     }
 
-    @InjectValue(key = "MenuAction6")
+    @InjectValue
     public void setMenuAction6(MenuAction6 menuAction6) {
         this.menuAction6 = menuAction6;
     }
 
-    @InjectValue(key = "MenuAction7")
+    @InjectValue
     public void setMenuAction7(MenuAction7 menuAction7) {
         this.menuAction7 = menuAction7;
     }
 
-    @InjectValue(key = "MenuAction8")
+    @InjectValue
     public void setMenuAction8(MenuAction8 menuAction8) {
         this.menuAction8 = menuAction8;
     }
 
-    @InjectValue(key = "MenuAction9")
+    @InjectValue
     public void setMenuAction9(MenuAction9 menuAction9) {
         this.menuAction9 = menuAction9;
     }
 
-    @InjectValue(key = "MenuAction10")
+    @InjectValue
     public void setMenuAction10(MenuAction10 menuAction10) {
         this.menuAction10 = menuAction10;
     }
 
-    @InjectValue(key = "MenuAction11")
+    @InjectValue
     public void setMenuAction11(MenuAction11 menuAction11) {
         this.menuAction11 = menuAction11;
     }
 
-    @InjectValue(key = "MenuAction12")
+    @InjectValue
     public void setMenuAction12(MenuAction12 menuAction12) {
         this.menuAction12 = menuAction12;
     }
 
-    @InjectValue(key = "MenuAction13")
+    @InjectValue
     public void setMenuAction13(MenuAction13 menuAction13) {
         this.menuAction13 = menuAction13;
     }
 
-    @InjectValue(key = "MenuAction14")
+    @InjectValue
     public void setMenuAction14(MenuAction14 menuAction14) {
         this.menuAction14 = menuAction14;
     }
 
-    @InjectValue(key = "MenuAction15")
+    @InjectValue
     public void setMenuAction15(MenuAction15 menuAction15) {
         this.menuAction15 = menuAction15;
     }
 
-    @InjectValue(key = "MenuAction16")
+    @InjectValue
     public void setMenuAction16(MenuAction16 menuAction16) {
         this.menuAction16 = menuAction16;
     }
 
-    @InjectValue(key = "MenuAction17")
+    @InjectValue
     public void setMenuAction17(MenuAction17 menuAction17) {
         this.menuAction17 = menuAction17;
     }
 
-    @InjectValue(key = "MenuAction18")
+    @InjectValue
     public void setMenuAction18(MenuAction18 menuAction18) {
         this.menuAction18 = menuAction18;
     }
 
-    @InjectValue(key = "MenuAction19")
+    @InjectValue
     public void setMenuAction19(MenuAction19 menuAction19) {
         this.menuAction19 = menuAction19;
     }

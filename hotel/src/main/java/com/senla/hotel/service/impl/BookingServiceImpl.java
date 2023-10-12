@@ -34,22 +34,22 @@ public class BookingServiceImpl implements IBookingService {
         this.roomHistoryLimit = roomHistoryLimit;
     }
 
-    @InjectValue(key = "BookingDAOImpl")
+    @InjectValue
     public void setBookingDAO(BookingDAOImpl bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
-    @InjectValue(key = "RoomDAOImpl")
+    @InjectValue
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }
 
-    @InjectValue(key = "GuestDAOImpl")
+    @InjectValue
     public void setGuestDAO(GuestDAOImpl guestDAO) {
         this.guestDAO = guestDAO;
     }
 
-    @InjectValue(key = "DatabaseService")
+    @InjectValue
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }

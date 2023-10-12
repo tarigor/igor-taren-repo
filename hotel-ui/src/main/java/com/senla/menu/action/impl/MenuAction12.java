@@ -11,7 +11,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction12 extends MenuAction implements IAction {
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }

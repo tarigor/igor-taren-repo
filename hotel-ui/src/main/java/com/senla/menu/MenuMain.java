@@ -15,12 +15,12 @@ public class MenuMain {
     private static DatabaseService databaseService;
     private static MenuService menuService;
 
-    @InjectValue(key = "DatabaseService")
+    @InjectValue
     public static void setDatabaseService(DatabaseService databaseService) {
         MenuMain.databaseService = databaseService;
     }
 
-    @InjectValue(key = "MenuService")
+    @InjectValue
     public static void setMenuService(MenuService menuService) {
         MenuMain.menuService = menuService;
     }

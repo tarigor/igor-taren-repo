@@ -5,7 +5,6 @@ import com.senla.container.InjectValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -46,9 +45,7 @@ public class ContainerService {
                 Method[] methods = clazz.getDeclaredMethods();
                 for (Method method : methods) {
                     if (method.isAnnotationPresent(InjectValue.class)) {
-                        Annotation annotation = method.getAnnotation(InjectValue.class);
-                        String key = ((InjectValue) annotation).key();
-                        Object objectToInject = instances.get(key);
+                        Object objectToInject = instances.get(getInjectingClassName(method));
                         if (objectToInject != null) {
                             Object o = instances.get(clazz.getSimpleName());
                             try {
@@ -62,5 +59,11 @@ public class ContainerService {
                 }
             }
         }
+    }
+
+    private static String getInjectingClassName(Method method) {
+        String value = method.getParameters()[0].toString().replace(" arg0", "");
+        int lastIndex = value.lastIndexOf(".");
+        return value.substring(lastIndex + 1);
     }
 }

@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
 public class MenuAction8 extends MenuAction implements IAction {
     private BookingServiceImpl bookingService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }

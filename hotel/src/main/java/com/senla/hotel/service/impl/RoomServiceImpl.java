@@ -25,7 +25,7 @@ public class RoomServiceImpl implements IRoomService {
         this.checkInCheckOutPermission = checkInCheckOutPermission;
     }
 
-    @InjectValue(key = "RoomDAOImpl")
+    @InjectValue
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }

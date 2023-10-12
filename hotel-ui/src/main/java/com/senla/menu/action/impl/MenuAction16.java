@@ -20,27 +20,27 @@ public class MenuAction16 extends MenuAction implements IAction {
     private RoomEntityExportServiceImpl roomEntityExportService;
     private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
-    @InjectValue(key = "BookingEntityExportServiceImpl")
+    @InjectValue
     public void setBookingEntityExportService(BookingEntityExportServiceImpl bookingEntityExportService) {
         this.bookingEntityExportService = bookingEntityExportService;
     }
 
-    @InjectValue(key = "GuestEntityExportServiceImpl")
+    @InjectValue
     public void setGuestEntityExportService(GuestEntityExportServiceImpl guestEntityExportService) {
         this.guestEntityExportService = guestEntityExportService;
     }
 
-    @InjectValue(key = "GuestServicesEntityExportServiceImpl")
+    @InjectValue
     public void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl guestServicesEntityExportService) {
         this.guestServicesEntityExportService = guestServicesEntityExportService;
     }
 
-    @InjectValue(key = "RoomEntityExportServiceImpl")
+    @InjectValue
     public void setRoomEntityExportService(RoomEntityExportServiceImpl roomEntityExportService) {
         this.roomEntityExportService = roomEntityExportService;
     }
 
-    @InjectValue(key = "RoomServiceEntityExportServiceImpl")
+    @InjectValue
     public void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {
         this.roomServiceEntityExportService = roomServiceEntityExportService;
     }

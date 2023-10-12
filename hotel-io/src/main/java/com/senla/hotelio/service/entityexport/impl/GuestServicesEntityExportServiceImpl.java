@@ -14,7 +14,7 @@ public class GuestServicesEntityExportServiceImpl extends ExportService implemen
     private final String ENTITY_FILENAME = "GuestServices";
     private GuestServicesServiceImpl guestServicesService;
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }

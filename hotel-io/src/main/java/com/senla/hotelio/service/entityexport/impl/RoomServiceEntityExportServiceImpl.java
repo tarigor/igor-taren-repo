@@ -14,7 +14,7 @@ public class RoomServiceEntityExportServiceImpl extends ExportService implements
     private final String ENTITY_FILENAME = "RoomServices";
     private RoomServicesServiceImpl roomServicesService;
 
-    @InjectValue(key = "RoomServicesServiceImpl")
+    @InjectValue
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }

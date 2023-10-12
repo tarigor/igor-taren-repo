@@ -15,7 +15,7 @@ public class GuestEntityExportServiceImpl extends ExportService implements IExpo
 
     private GuestServiceImpl guestService;
 
-    @InjectValue(key = "GuestServiceImpl")
+    @InjectValue
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }

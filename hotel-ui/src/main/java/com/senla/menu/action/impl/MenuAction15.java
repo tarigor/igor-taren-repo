@@ -28,52 +28,52 @@ public class MenuAction15 extends MenuAction implements IAction {
     private RoomEntityImportServiceImpl roomEntityImportService;
     private RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    @InjectValue(key = "GuestServiceImpl")
+    @InjectValue
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
-    @InjectValue(key = "RoomServicesServiceImpl")
+    @InjectValue
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
 
-    @InjectValue(key = "BookingEntityImportServiceImpl")
+    @InjectValue
     public void setBookingEntityImportService(BookingEntityImportServiceImpl bookingEntityImportService) {
         this.bookingEntityImportService = bookingEntityImportService;
     }
 
-    @InjectValue(key = "GuestEntityImportServiceImpl")
+    @InjectValue
     public void setGuestEntityImportService(GuestEntityImportServiceImpl guestEntityImportService) {
         this.guestEntityImportService = guestEntityImportService;
     }
 
-    @InjectValue(key = "GuestServicesEntityImportServiceImpl")
+    @InjectValue
     public void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl guestServicesEntityImportService) {
         this.guestServicesEntityImportService = guestServicesEntityImportService;
     }
 
-    @InjectValue(key = "RoomEntityImportServiceImpl")
+    @InjectValue
     public void setRoomEntityImportService(RoomEntityImportServiceImpl roomEntityImportService) {
         this.roomEntityImportService = roomEntityImportService;
     }
 
-    @InjectValue(key = "RoomServiceEntityImportServiceImpl")
+    @InjectValue
     public void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
         this.roomServiceEntityImportService = roomServiceEntityImportService;
     }

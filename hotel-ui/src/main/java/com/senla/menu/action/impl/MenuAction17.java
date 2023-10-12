@@ -13,7 +13,7 @@ public class MenuAction17 extends MenuAction implements IAction {
 
     private SerializationService serializationService;
 
-    @InjectValue(key = "SerializationService")
+    @InjectValue
     public void setSerializationService(SerializationService serializationService) {
         this.serializationService = serializationService;
     }

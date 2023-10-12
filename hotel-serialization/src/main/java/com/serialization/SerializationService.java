@@ -33,27 +33,27 @@ public class SerializationService {
     private GuestServicesServiceImpl guestServicesService;
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    @InjectValue(key = "GuestServiceImpl")
+    @InjectValue
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
-    @InjectValue(key = "RoomServicesServiceImpl")
+    @InjectValue
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }

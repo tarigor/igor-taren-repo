@@ -13,7 +13,7 @@ import java.util.List;
 public class GuestServiceImpl implements IGuestService {
     private GuestDAOImpl guestDAO;
 
-    @InjectValue(key = "GuestDAOImpl")
+    @InjectValue
     public void setGuestDAO(GuestDAOImpl guestDAO) {
         this.guestDAO = guestDAO;
     }
