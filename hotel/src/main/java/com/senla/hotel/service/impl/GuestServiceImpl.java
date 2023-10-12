@@ -7,15 +7,13 @@ import com.senla.hotel.entity.Guest;
 import com.senla.hotel.service.IGuestService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @CreateInstanceAndPutInContainer
 public class GuestServiceImpl implements IGuestService {
     private GuestDAOImpl guestDAO;
 
-    @InjectValue(key = "GuestDAOImpl")
+    @InjectValue
     public void setGuestDAO(GuestDAOImpl guestDAO) {
         this.guestDAO = guestDAO;
     }

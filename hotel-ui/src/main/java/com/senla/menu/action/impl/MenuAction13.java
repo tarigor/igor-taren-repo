@@ -11,7 +11,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction13 extends MenuAction implements IAction {
     private RoomServicesServiceImpl roomServicesService;
 
-    @InjectValue(key = "RoomServicesServiceImpl")
+    @InjectValue
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
@@ -33,10 +33,9 @@ public class MenuAction13 extends MenuAction implements IAction {
                 case 1:
                     selectionText = "PRICE";
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
-                }
             }
             correct = true;
         }

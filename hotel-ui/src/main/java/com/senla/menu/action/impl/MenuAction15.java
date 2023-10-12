@@ -2,8 +2,16 @@ package com.senla.menu.action.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.service.impl.*;
-import com.senla.hotelio.service.entityimport.impl.*;
+import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hotel.service.impl.GuestServiceImpl;
+import com.senla.hotel.service.impl.GuestServicesServiceImpl;
+import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
+import com.senla.hotelio.service.entityimport.impl.BookingEntityImportServiceImpl;
+import com.senla.hotelio.service.entityimport.impl.GuestEntityImportServiceImpl;
+import com.senla.hotelio.service.entityimport.impl.GuestServicesEntityImportServiceImpl;
+import com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl;
+import com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 
@@ -20,52 +28,52 @@ public class MenuAction15 extends MenuAction implements IAction {
     private RoomEntityImportServiceImpl roomEntityImportService;
     private RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    @InjectValue(key = "GuestServiceImpl")
+    @InjectValue
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
-    @InjectValue(key = "RoomServicesServiceImpl")
+    @InjectValue
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
 
-    @InjectValue(key = "BookingEntityImportServiceImpl")
+    @InjectValue
     public void setBookingEntityImportService(BookingEntityImportServiceImpl bookingEntityImportService) {
         this.bookingEntityImportService = bookingEntityImportService;
     }
 
-    @InjectValue(key = "GuestEntityImportServiceImpl")
+    @InjectValue
     public void setGuestEntityImportService(GuestEntityImportServiceImpl guestEntityImportService) {
         this.guestEntityImportService = guestEntityImportService;
     }
 
-    @InjectValue(key = "GuestServicesEntityImportServiceImpl")
+    @InjectValue
     public void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl guestServicesEntityImportService) {
         this.guestServicesEntityImportService = guestServicesEntityImportService;
     }
 
-    @InjectValue(key = "RoomEntityImportServiceImpl")
+    @InjectValue
     public void setRoomEntityImportService(RoomEntityImportServiceImpl roomEntityImportService) {
         this.roomEntityImportService = roomEntityImportService;
     }
 
-    @InjectValue(key = "RoomServiceEntityImportServiceImpl")
+    @InjectValue
     public void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
         this.roomServiceEntityImportService = roomServiceEntityImportService;
     }
@@ -114,10 +122,9 @@ public class MenuAction15 extends MenuAction implements IAction {
                     roomServicesService.updateAllAndSaveIfNotExist(roomServiceEntityImportService.importEntities());
                     roomServicesService.getAll().forEach(System.out::println);
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
-                }
             }
             correct = true;
         }

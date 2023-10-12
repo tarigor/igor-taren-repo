@@ -11,7 +11,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction11 extends MenuAction implements IAction {
     private GuestServicesServiceImpl guestServicesService;
 
-    @InjectValue(key = "GuestServicesServiceImpl")
+    @InjectValue
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
@@ -36,10 +36,9 @@ public class MenuAction11 extends MenuAction implements IAction {
                 case 1:
                     selectionText = "DATE";
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
-                }
             }
             correct = true;
         }

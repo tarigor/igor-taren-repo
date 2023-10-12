@@ -39,11 +39,9 @@ public interface IRoomService {
 
     double getRoomPrice(long roomId);
 
-    //
     List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering);
 
     void updateAllAndSaveIfNotExist(ArrayList<Room> rooms);
 
     List<Room> getAll();
-
 }

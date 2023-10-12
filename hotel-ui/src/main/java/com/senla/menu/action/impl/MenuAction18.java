@@ -2,7 +2,11 @@ package com.senla.menu.action.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.entity.*;
+import com.senla.hotel.entity.Booking;
+import com.senla.hotel.entity.Guest;
+import com.senla.hotel.entity.GuestServices;
+import com.senla.hotel.entity.Room;
+import com.senla.hotel.entity.RoomService;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import com.serialization.DeserializationService;
@@ -21,7 +25,7 @@ public class MenuAction18 extends MenuAction implements IAction {
         this.bookings = bookings;
     }
 
-    @InjectValue(key = "DeserializationService")
+    @InjectValue
     public void setDeserializationService(DeserializationService deserializationService) {
         this.deserializationService = deserializationService;
     }
@@ -54,10 +58,9 @@ public class MenuAction18 extends MenuAction implements IAction {
                     //RoomService
                     HashMap<Long, RoomService> roomServices = (HashMap<Long, RoomService>) deserializationService.deserializeToMap(RoomService.class, "RoomServices");
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
-                }
             }
             correct = true;
         }

@@ -15,7 +15,7 @@ public class RoomEntityExportServiceImpl extends ExportService implements IExpor
 
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }

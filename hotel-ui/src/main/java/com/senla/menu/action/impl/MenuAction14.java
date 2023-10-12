@@ -10,7 +10,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction14 extends MenuAction implements IAction {
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }

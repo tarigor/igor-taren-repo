@@ -2,7 +2,11 @@ package com.senla.menu.action.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotelio.service.entityexport.impl.*;
+import com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl;
+import com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl;
+import com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl;
+import com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl;
+import com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 
@@ -16,27 +20,27 @@ public class MenuAction16 extends MenuAction implements IAction {
     private RoomEntityExportServiceImpl roomEntityExportService;
     private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
-    @InjectValue(key = "BookingEntityExportServiceImpl")
+    @InjectValue
     public void setBookingEntityExportService(BookingEntityExportServiceImpl bookingEntityExportService) {
         this.bookingEntityExportService = bookingEntityExportService;
     }
 
-    @InjectValue(key = "GuestEntityExportServiceImpl")
+    @InjectValue
     public void setGuestEntityExportService(GuestEntityExportServiceImpl guestEntityExportService) {
         this.guestEntityExportService = guestEntityExportService;
     }
 
-    @InjectValue(key = "GuestServicesEntityExportServiceImpl")
+    @InjectValue
     public void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl guestServicesEntityExportService) {
         this.guestServicesEntityExportService = guestServicesEntityExportService;
     }
 
-    @InjectValue(key = "RoomEntityExportServiceImpl")
+    @InjectValue
     public void setRoomEntityExportService(RoomEntityExportServiceImpl roomEntityExportService) {
         this.roomEntityExportService = roomEntityExportService;
     }
 
-    @InjectValue(key = "RoomServiceEntityExportServiceImpl")
+    @InjectValue
     public void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {
         this.roomServiceEntityExportService = roomServiceEntityExportService;
     }
@@ -66,10 +70,9 @@ public class MenuAction16 extends MenuAction implements IAction {
                 case 4:
                     roomServiceEntityExportService.exportEntity();
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
-                }
             }
             correct = true;
         }

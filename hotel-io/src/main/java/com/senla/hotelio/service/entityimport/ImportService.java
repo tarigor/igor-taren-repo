@@ -1,5 +1,8 @@
 package com.senla.hotelio.service.entityimport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ImportService {
-    private static final String IMPORT_PATH = "\\hotel-io\\resources\\csv\\import";
+
+    private static final Logger logger = LoggerFactory.getLogger(ImportService.class);
+    private static final String IMPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\import";
     private static final String DELIMITER = ",";
     private static final String EXTENSION = ".csv";
 
@@ -22,9 +27,9 @@ public abstract class ImportService {
                 entities.add(Arrays.asList(line.split(DELIMITER)));
             }
         } catch (IOException e) {
+            logger.error("an error occurred during a file operation->" + e.getMessage());
             throw new RuntimeException("An error occurred while handling a file with a filename -> " + "\n" + e.getMessage());
         }
         return entities;
     }
-
 }

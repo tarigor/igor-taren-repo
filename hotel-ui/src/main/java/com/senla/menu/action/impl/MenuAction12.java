@@ -11,7 +11,7 @@ import com.senla.menu.action.MenuAction;
 public class MenuAction12 extends MenuAction implements IAction {
     private RoomServiceImpl roomService;
 
-    @InjectValue(key = "RoomServiceImpl")
+    @InjectValue
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
@@ -42,10 +42,9 @@ public class MenuAction12 extends MenuAction implements IAction {
                 case 4:
                     selectionText = "RATING";
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-5. Try again");
                     continue;
-                }
             }
             correct = true;
         }

@@ -16,7 +16,7 @@ public class BookingEntityExportServiceImpl extends ExportService implements IEx
 
     private BookingServiceImpl bookingService;
 
-    @InjectValue(key = "BookingServiceImpl")
+    @InjectValue
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }

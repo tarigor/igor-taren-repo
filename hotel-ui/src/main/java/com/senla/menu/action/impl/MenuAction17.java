@@ -13,7 +13,7 @@ public class MenuAction17 extends MenuAction implements IAction {
 
     private SerializationService serializationService;
 
-    @InjectValue(key = "SerializationService")
+    @InjectValue
     public void setSerializationService(SerializationService serializationService) {
         this.serializationService = serializationService;
     }
@@ -46,10 +46,9 @@ public class MenuAction17 extends MenuAction implements IAction {
                     //RoomService
                     serializationService.selectToSerialize("RoomServices");
                     break;
-                default: {
+                default:
                     System.out.println("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
-                }
             }
             correct = true;
         }

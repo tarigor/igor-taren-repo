@@ -14,7 +14,11 @@ import com.senla.hotel.service.IBookingService;
 import com.senla.hoteldb.DatabaseService;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -30,22 +34,22 @@ public class BookingServiceImpl implements IBookingService {
         this.roomHistoryLimit = roomHistoryLimit;
     }
 
-    @InjectValue(key = "BookingDAOImpl")
+    @InjectValue
     public void setBookingDAO(BookingDAOImpl bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
-    @InjectValue(key = "RoomDAOImpl")
+    @InjectValue
     public void setRoomDAO(RoomDAOImpl roomDAO) {
         this.roomDAO = roomDAO;
     }
 
-    @InjectValue(key = "GuestDAOImpl")
+    @InjectValue
     public void setGuestDAO(GuestDAOImpl guestDAO) {
         this.guestDAO = guestDAO;
     }
 
-    @InjectValue(key = "DatabaseService")
+    @InjectValue
     public void setDatabaseService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }

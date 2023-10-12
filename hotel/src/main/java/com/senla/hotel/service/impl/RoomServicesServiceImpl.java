@@ -8,14 +8,16 @@ import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomServicesService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServicesServiceImpl implements IRoomServicesService {
     private RoomServiceDAOImpl roomServiceDAO;
 
-    @InjectValue(key = "RoomServiceDAOImpl")
+    @InjectValue
     public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }

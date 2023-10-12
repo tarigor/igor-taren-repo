@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.senla.container.CreateInstanceAndPutInContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,8 +15,8 @@ import java.util.Map;
 
 @CreateInstanceAndPutInContainer
 public class DeserializationService {
-
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\resources";
+    private static final Logger logger = LoggerFactory.getLogger(DeserializationService.class);
+    private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources";
 
     private static String readFileToString(String filePath) {
         StringBuilder content = new StringBuilder();
@@ -24,6 +26,7 @@ public class DeserializationService {
                 content.append(line).append("\n"); // Add newline character if needed
             }
         } catch (IOException e) {
+            logger.error("an error occurred during an IO operation->" + e.getMessage());
             e.printStackTrace();
         }
         return content.toString();
@@ -40,6 +43,7 @@ public class DeserializationService {
             );
             return deserializedMap;
         } catch (JsonProcessingException e) {
+            logger.error("an error occurred during an JSON operation->" + e.getMessage());
             throw new RuntimeException(e);
         }
     }

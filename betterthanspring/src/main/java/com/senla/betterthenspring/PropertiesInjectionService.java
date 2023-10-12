@@ -2,51 +2,49 @@ package com.senla.betterthenspring;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Set;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
+    private static final Logger logger = LoggerFactory.getLogger(PropertiesInjectionService.class);
     static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
 
-    public static void injectProperties() {
-        for (Module m : ModuleLayer.boot().modules()) {
-            if (m.getName().contains("hotel"))
-                for (String p : m.getPackages()) {
-                    try {
-                        // Get all classes in the package
-                        Class<?>[] classes = ScannerService.classesScan().toArray(new Class[0]);
-                        for (Class<?> clazz : classes) {
-                            if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
-                                Method[] methods = clazz.getDeclaredMethods();
-                                for (Method method : methods) {
-                                    if (method.isAnnotationPresent(ConfigProperty.class)) {
-                                        Annotation annotation = method.getAnnotation(ConfigProperty.class);
+    public static void injectProperties(Set<Class<?>> classes) {
+        for (Class<?> clazz : classes) {
+            if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
+                Method[] methods = clazz.getDeclaredMethods();
+                for (Method method : methods) {
+                    if (method.isAnnotationPresent(ConfigProperty.class)) {
+                        Annotation annotation = method.getAnnotation(ConfigProperty.class);
 
-                                        String moduleName = ((ConfigProperty) annotation).moduleName();
-                                        String propertiesFileName = ((ConfigProperty) annotation).propertiesFileName();
-                                        String parameterName = ((ConfigProperty) annotation).parameterName();
-                                        Class<?> parameterType = ((ConfigProperty) annotation).type();
+                        String moduleName = ((ConfigProperty) annotation).moduleName();
+                        String propertiesFileName = ((ConfigProperty) annotation).propertiesFileName();
+                        String parameterName = ((ConfigProperty) annotation).parameterName();
+                        Class<?> parameterType = ((ConfigProperty) annotation).type();
 
-                                        Properties propertiesFromContainer = loadProperties(moduleName, propertiesFileName);
+                        Properties propertiesFromContainer = loadProperties(moduleName, propertiesFileName);
 
-                                        Object o = ContainerService.getInstances().get(clazz.getSimpleName());
-                                        method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
-                                    }
-                                }
-                            }
+                        Object o = ContainerService.getInstances().get(clazz.getSimpleName());
+                        try {
+                            method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            logger.error("an error occurred during injection value from properties->" + e.getMessage());
+                            throw new RuntimeException(e);
                         }
-                    } catch (Exception e) {
-                        System.out.println("error -> " + e);
-                        e.printStackTrace();
                     }
                 }
+            }
         }
     }
 
@@ -54,9 +52,6 @@ public class PropertiesInjectionService {
         String settingValue = properties.getProperty(settingName);
         if (settingValue == null) {
             throw new IllegalArgumentException("Input string is null");
-        }
-        if (settingValue == null) {
-            throw new IllegalArgumentException("Wrapper class is null");
         }
         String stringValue = settingValue.trim(); // Remove leading/trailing whitespace
         try {
@@ -79,17 +74,19 @@ public class PropertiesInjectionService {
                 throw new IllegalArgumentException("Unsupported wrapper class");
             }
         } catch (NumberFormatException e) {
+            logger.error("an error occurred during getting value from properties->" + e.getMessage());
             throw new IllegalArgumentException("Invalid input string format for " + parameterType.getSimpleName(), e);
         }
     }
 
     private static Properties loadProperties(String moduleName, String propertiesFileName) {
         if (propertiesHashMap.get(propertiesFileName) == null) {
-            String PATH = "\\" + moduleName + "\\resources";
+            String PATH = "\\" + moduleName + "\\src\\main\\resources";
             Properties properties = new Properties();
             try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
                 properties.load(input);
             } catch (IOException e) {
+                logger.error("an error occurred during a properties load->" + e.getMessage());
                 e.printStackTrace();
             }
             propertiesHashMap.put(propertiesFileName, properties);

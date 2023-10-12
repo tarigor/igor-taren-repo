@@ -2,59 +2,54 @@
 
 Igor Taren's repository
 
-## TASK#11
+## TASK#12
 
-### _JDBC_
+### _Maven and Logging_
 
 #### Description:
 
-### Task 11.1
+### Task 12.1
 
-Create an ER database diagram, a set of DDL scripts for creating a structure and a set of DML scripts that allow you
-to fill the database for your program from previous classes with test data. To create a .bat file that allows you
-to quickly install the database and fill it with test data.
+Transfer the main project to Maven. The project should have a modular structure.
 
-### Task 11.2
+### Task 12.2
 
-Prepare model entities from the program written during the previous lessons for storage in the database (presence of id,
-correct connections).
+Сonnect any logging library and configure logging in the project as a dependency (logback, log4j2)
 
-### Task 11.3
+### Task 12.3
 
-Implement connection to the database created in step 1 in your application using jdbc.
+Add a plugin to the project assembly that checks code style. Configure it (including linking the plugin to
+the execution phase). Recommendations for choosing a plugin: maven-checkstyle-plugin, checkstyle.
 
-### Task 11.4
+(https://maven.apache.org/plugins/maven-checkstyle-plugin/usage.html)
 
-Implement transaction support in the developed program. Add transactionality to application methods where necessary.
+Config files can be taken here:
 
-### Task Requirements:
+https://drive.google.com/open?id=1UgfDCZDNINSsoBgjn65bgIdYPZLGCU9G
 
-- the application must comply with the principles of OOP;
-- the application must have a DAO level to work with the database;
-- using the GenericDAO design pattern;
-- the object of the class of obtaining a connection to the database, as well as the connection itself, must be in
-  a single instance;
-- the application must have high-quality exception handling;
-- compliance with the principle of high cohesion;
-- all literals must be in constants;
-- jdbc configuration via properties;
-- the main CRUD methods should be implemented through an object-oriented approach (an object should come to the “input”
-  to the method, at the “output” we get an object or a list of objects);
-
-### Hotel_DB Scheme
-
-![](HOTEL_DB.png)
-
-### Hotel DB SQL scripts location
-
-![](SQL_scripts.png)
+https://drive.google.com/open?id=1KbO2r4FEEUcKfwq7cKeaOMvYSMv8FiCN
 
 #### Stack
 
-- Java 11;
-- Lombok 1.18.26;
-- gson 2.10.1;
-- jackson-annotations-2.15.2;
-- jackson-core-2.15.2;
-- jackson-databind-2.15.2;
-- mysql-connector-java-8.0.25
+- java.version 11
+- maven.compiler.plugin.version 3.11.0
+- maven.surefire.plugin.version 3.1.2
+- maven.checkstyle.plugin.version 3.3.0
+- maven.site.plugin 3.12.0
+- lombok.version 1.18.22
+- gson.version 2.10.1
+- jackson.annotations.version 2.15.2
+- jackson.core.version 2.15.2
+- jackson.databind.version 2.15.2
+- mysql.connector.version 8.1.0
+- maven.surefire-plugin.version 3.1.2
+- maven.compiler-plugin.version 3.11.0
+- logback.core.version 1.4.11
+- slf4j.api.version 2.0.9
+- logback.classic.version 1.4.11
+- maven.checkstyle.plugin.version 3.3.0
+- maven.site.plugin.version 3.12.0
+
+#### cmd to application start
+
+_mvn clean install exec:java -pl hotel-ui_ 
