@@ -41,22 +41,27 @@ public class MenuAction18 extends MenuAction implements IAction {
                 case 0:
                     //Booking
                     HashMap<Long, Booking> bookings = (HashMap<Long, Booking>) deserializationService.deserializeToMap(Booking.class, "Booking");
+                    toPrint(bookings);
                     break;
                 case 1:
                     //Guest
                     HashMap<Long, Guest> guests = (HashMap<Long, Guest>) deserializationService.deserializeToMap(Guest.class, "Guest");
+                    toPrint(guests);
                     break;
                 case 2:
                     //GuestService
                     HashMap<Long, GuestServices> guestServices = (HashMap<Long, GuestServices>) deserializationService.deserializeToMap(GuestServices.class, "GuestServices");
+                    toPrint(guestServices);
                     break;
                 case 3:
                     //Room
                     HashMap<Long, Room> rooms = (HashMap<Long, Room>) deserializationService.deserializeToMap(Room.class, "Room");
+                    toPrint(rooms);
                     break;
                 case 4:
                     //RoomService
                     HashMap<Long, RoomService> roomServices = (HashMap<Long, RoomService>) deserializationService.deserializeToMap(RoomService.class, "RoomServices");
+                    toPrint(roomServices);
                     break;
                 default:
                     System.out.println("Wrong input! The selection must be in between 0-4. Try again");

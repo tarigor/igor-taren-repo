@@ -11,7 +11,7 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceEntityImportServiceImpl extends ImportService implements IImportService<RoomService> {
-    private final String ENTITY_NAME = "RoomService";
+    private final String ENTITY_NAME = "RoomServices";
 
     @Override
     public ArrayList<RoomService> importEntities() {

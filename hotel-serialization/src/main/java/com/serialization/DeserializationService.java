@@ -2,7 +2,7 @@ package com.serialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,10 @@ public class DeserializationService {
     public <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) {
         String fileContent = readFileToString(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json");
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Date.class, new CustomDateDeserializer());
+        objectMapper.registerModule(module);
+//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         try {
             Map<Long, T> deserializedMap = objectMapper.readValue(
                     fileContent,

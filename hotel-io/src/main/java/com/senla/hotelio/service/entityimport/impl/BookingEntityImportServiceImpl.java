@@ -43,8 +43,8 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
                         Long.parseLong(bookingsWithParameter.get(0)),
                         guestService.getById(Long.parseLong(bookingsWithParameter.get(1))),
                         roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(3)),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(4))
+                        new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(3)),
+                        new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(4))
                 ));
             } catch (ParseException e) {
                 logger.error("an error occurred during a parse operation->" + e.getMessage());

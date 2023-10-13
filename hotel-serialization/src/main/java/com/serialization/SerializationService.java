@@ -62,23 +62,23 @@ public class SerializationService {
         switch (mapName) {
             case "Booking":
                 serializeMap(bookingService.getAll().stream()
-                        .collect(Collectors.groupingBy(Booking::getId)), "Booking");
+                        .collect(Collectors.toMap(Booking::getId, booking -> booking)), "Booking");
                 break;
             case "Guest":
                 serializeMap(guestService.getAll().stream()
-                        .collect(Collectors.groupingBy(Guest::getId)), "Guest");
+                        .collect(Collectors.toMap(Guest::getId, guest -> guest)), "Guest");
                 break;
             case "GuestServices":
                 serializeMap(guestServicesService.getAll().stream()
-                        .collect(Collectors.groupingBy(GuestServices::getId)), "GuestServices");
+                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestServices");
                 break;
             case "Room":
                 serializeMap(roomService.getAll().stream()
-                        .collect(Collectors.groupingBy(Room::getId)), "Room");
+                        .collect(Collectors.toMap(Room::getId, room -> room)), "Room");
                 break;
             case "RoomServices":
                 serializeMap(roomServicesService.getAll().stream()
-                        .collect(Collectors.groupingBy(RoomService::getId)), "RoomServices");
+                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
                 break;
             default:
                 throw new NoSuchElementException("There is no such an entity");

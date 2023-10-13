@@ -9,6 +9,7 @@ import com.senla.hoteldb.HibernateService;
 import com.senla.menu.service.MenuService;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @CreateInstanceAndPutInContainer
@@ -28,6 +29,7 @@ public class MenuMain {
     }
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
 
         Set<Class<?>> scannedClasses = ScannerService.classesScan();
 
