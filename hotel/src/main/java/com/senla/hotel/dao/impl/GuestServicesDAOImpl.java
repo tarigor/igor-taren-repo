@@ -12,7 +12,7 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
-    protected HibernateService hibernateService;
+    private HibernateService hibernateService;
 
     @InjectValue
     public void setHibernateConfig(HibernateService hibernateService) {
@@ -21,45 +21,66 @@ public class GuestServicesDAOImpl implements IEntityDAO<GuestServices> {
 
     @Override
     public List<GuestServices> getAll() {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.createQuery("FROM GuestServices", GuestServices.class).list();
+        }
+        try (session) {
             return session.createQuery("FROM GuestServices", GuestServices.class).list();
         }
     }
 
     @Override
     public GuestServices getById(long id) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.get(GuestServices.class, id);
+        }
+        try (session) {
             return session.get(GuestServices.class, id);
         }
     }
 
     @Override
     public void saveAll(List<GuestServices> guestServices) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             for (GuestServices guestService : guestServices) {
                 session.persist(guestService);
             }
-            transaction.commit();
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                for (GuestServices guestService : guestServices) {
+                    session.persist(guestService);
+                }
+                transaction.commit();
+            }
         }
     }
 
     @Override
     public GuestServices update(GuestServices guestServices) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            GuestServices updatedGuestServices = session.merge(guestServices);
-            transaction.commit();
-            return updatedGuestServices;
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(guestServices);
+        }
+        try (session) {
+            return session.merge(guestServices);
         }
     }
 
     @Override
     public void save(GuestServices guestServices) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             session.persist(guestServices);
-            transaction.commit();
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                session.persist(guestServices);
+                transaction.commit();
+            }
         }
     }
 }

@@ -73,9 +73,6 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> findAllOrderedByPrice() {
-        System.out.println();
-        List<Room> rooms = roomDAO.getAll();
-        System.out.println();
         return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());

@@ -21,45 +21,65 @@ public class RoomDAOImpl implements IEntityDAO<Room> {
 
     @Override
     public List<Room> getAll() {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            System.out.println("");
+            return session.createQuery("FROM Room", Room.class).list();
+        }
+        try (session) {
             return session.createQuery("FROM Room", Room.class).list();
         }
     }
 
     @Override
     public Room getById(long id) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.get(Room.class, id);
+        }
+        try (session) {
             return session.get(Room.class, id);
         }
     }
 
     @Override
     public void saveAll(List<Room> rooms) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             for (Room room : rooms) {
                 session.persist(room);
             }
-            transaction.commit();
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                for (Room room : rooms) {
+                    session.persist(room);
+                }
+                transaction.commit();
+            }
         }
     }
 
     @Override
     public Room update(Room room) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Room updatedRoom = session.merge(room);
-            transaction.commit();
-            return updatedRoom;
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(room);
+        }
+        try (session) {
+            return session.merge(room);
         }
     }
 
     @Override
     public void save(Room room) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             session.persist(room);
-            transaction.commit();
+        } else {
+            try (session) {
+                session.persist(room);
+            }
         }
     }
 }

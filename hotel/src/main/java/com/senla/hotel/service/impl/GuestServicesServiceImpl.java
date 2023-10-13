@@ -11,6 +11,7 @@ import com.senla.hotel.dto.GuestServicesDTO;
 import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
+import com.senla.hoteldb.HibernateService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,6 +23,12 @@ import java.util.stream.Collectors;
 public class GuestServicesServiceImpl implements IGuestServicesService {
     private GuestServicesDAOImpl guestServicesDAO;
     private RoomServiceDAOImpl roomServiceDAO;
+    private HibernateService hibernateService;
+
+    @InjectValue
+    public void setHibernateConfig(HibernateService hibernateService) {
+        this.hibernateService = hibernateService;
+    }
 
     @InjectValue
     public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
@@ -41,6 +48,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     //    View the list of guest services and their price (sort by price, by date);
     @Override
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+        hibernateService.beginTransaction();
         List<RoomService> roomServices = roomServiceDAO.getAll();
         List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
                 .filter(guestServices -> guestServices.getGuest().getId() == guestId)
@@ -63,7 +71,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
             comparator = comparator.reversed();
         }
 
-        return guestServicesByGuestId.stream()
+        List<GuestServicesDTO> guestServicesDTOList = guestServicesByGuestId.stream()
                 .map(guestServices -> new GuestServicesDTO(
                         guestServices.getId(),
                         guestServices.getGuest().getId(),
@@ -73,6 +81,8 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 ))
                 .sorted(comparator)
                 .collect(Collectors.toList());
+        hibernateService.commit();
+        return guestServicesDTOList;
     }
 
     private int getIndexByServiceID(List<RoomService> roomServices, long roomServiceId) {

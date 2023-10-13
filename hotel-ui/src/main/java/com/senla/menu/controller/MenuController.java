@@ -46,8 +46,8 @@ public class MenuController {
         if (item != 0) {
             try {
                 builder.getItems().get(item).execute();
-            } catch (NullPointerException e) {
-                logger.error("There is no such an item->" + item + " , please select an item within the provided menu");
+            } catch (Exception e) {
+                logger.error("An error occurred -> " + e.getMessage());
             }
             System.out.println("----------------------------------");
             showMenu();

@@ -11,6 +11,7 @@ import com.senla.hotel.entity.Booking;
 import com.senla.hotel.entity.Guest;
 import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
+import com.senla.hoteldb.HibernateService;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class BookingServiceImpl implements IBookingService {
     private BookingDAOImpl bookingDAO;
     private RoomDAOImpl roomDAO;
     private GuestDAOImpl guestDAO;
+    private HibernateService hibernateService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
@@ -47,6 +49,11 @@ public class BookingServiceImpl implements IBookingService {
         this.guestDAO = guestDAO;
     }
 
+    @InjectValue
+    public void setHibernateConfig(HibernateService hibernateService) {
+        this.hibernateService = hibernateService;
+    }
+
     @Override
     public void saveAll(List<Booking> bookings) {
         bookingDAO.saveAll(bookings);
@@ -55,6 +62,7 @@ public class BookingServiceImpl implements IBookingService {
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
     public List<GuestBookingDTO> findAllOrderedAlphabetically() {
+        hibernateService.beginTransaction();
         List<Guest> guests = guestDAO.getAll();
         List<Booking> bookings = bookingDAO.getAll();
         List<GuestBookingDTO> result = bookings.stream()
@@ -65,6 +73,7 @@ public class BookingServiceImpl implements IBookingService {
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
                 .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
+        hibernateService.commit();
         return result;
     }
 
@@ -96,12 +105,14 @@ public class BookingServiceImpl implements IBookingService {
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
+        hibernateService.beginTransaction();
         List<Booking> bookings = bookingDAO.getAll();
         List<Room> availableRooms = bookings.stream()
                 .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
                         (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
                 .map(b -> roomDAO.getById(b.getRoom().getId()))
                 .collect(Collectors.toList());
+        hibernateService.commit();
         return availableRooms;
     }
 

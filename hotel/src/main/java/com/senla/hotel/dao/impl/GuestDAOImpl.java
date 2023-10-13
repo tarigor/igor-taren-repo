@@ -12,7 +12,7 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class GuestDAOImpl implements IEntityDAO<Guest> {
-    protected HibernateService hibernateService;
+    private HibernateService hibernateService;
 
     @InjectValue
     public void setHibernateConfig(HibernateService hibernateService) {
@@ -21,45 +21,64 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
 
     @Override
     public List<Guest> getAll() {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.createQuery("FROM Guest", Guest.class).list();
+        }
+        try (session) {
             return session.createQuery("FROM Guest", Guest.class).list();
         }
     }
 
     @Override
     public Guest getById(long id) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.get(Guest.class, id);
+        }
+        try (session) {
             return session.get(Guest.class, id);
         }
     }
 
     @Override
     public void saveAll(List<Guest> guests) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             for (Guest guest : guests) {
                 session.persist(guest);
             }
-            transaction.commit();
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                for (Guest guest : guests) {
+                    session.persist(guest);
+                }
+                transaction.commit();
+            }
         }
     }
 
     @Override
     public Guest update(Guest guest) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Guest updatedGuest = session.merge(guest);
-            transaction.commit();
-            return updatedGuest;
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(guest);
+        }
+        try (session) {
+            return session.merge(guest);
         }
     }
 
     @Override
     public void save(Guest guest) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             session.persist(guest);
-            transaction.commit();
+        } else {
+            try (session) {
+                session.persist(guest);
+            }
         }
     }
 }

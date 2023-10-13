@@ -3,6 +3,7 @@ package com.senla.hoteldb;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class HibernateService {
     private String user;
     private String password;
     private String dialect;
+
+    private Session session;
 
     @ConfigProperty(moduleName = "hotel-db", propertiesFileName = "database", parameterName = "jdbcDriver", type = String.class)
     public void setJdbcDriver(String jdbcDriver) {
@@ -65,9 +68,28 @@ public class HibernateService {
         }
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public Session getSession() {
+        if (session == null || !session.isOpen()) {
+            this.session = sessionFactory.openSession();
+        }
+        return session;
     }
+
+    public void beginTransaction() {
+        getSession();
+        session.beginTransaction();
+    }
+
+    public void commit() {
+        try {
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+        }
+    }
+
 
     public void databaseInitialize() {
         String os = System.getProperty(OS_NAME).toLowerCase();

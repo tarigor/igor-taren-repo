@@ -12,7 +12,7 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
-    protected HibernateService hibernateService;
+    private HibernateService hibernateService;
 
     @InjectValue
     public void setHibernateConfig(HibernateService hibernateService) {
@@ -21,45 +21,64 @@ public class RoomServiceDAOImpl implements IEntityDAO<RoomService> {
 
     @Override
     public List<RoomService> getAll() {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.createQuery("FROM RoomService", RoomService.class).list();
+        }
+        try (session) {
             return session.createQuery("FROM RoomService", RoomService.class).list();
         }
     }
 
     @Override
     public RoomService getById(long id) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.get(RoomService.class, id);
+        }
+        try (session) {
             return session.get(RoomService.class, id);
         }
     }
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             for (RoomService roomService : roomServices) {
                 session.persist(roomService);
             }
-            transaction.commit();
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                for (RoomService roomService : roomServices) {
+                    session.persist(roomService);
+                }
+                transaction.commit();
+            }
         }
     }
 
     @Override
     public RoomService update(RoomService roomService) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            RoomService updatedRoomService = session.merge(roomService);
-            transaction.commit();
-            return updatedRoomService;
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(roomService);
+        }
+        try (session) {
+            return session.merge(roomService);
         }
     }
 
     @Override
     public void save(RoomService roomService) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             session.persist(roomService);
-            transaction.commit();
+        } else {
+            try (session) {
+                session.persist(roomService);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class BookingDAOImpl implements IEntityDAO<Booking> {
-    protected HibernateService hibernateService;
+    private HibernateService hibernateService;
 
     @InjectValue
     public void setHibernateConfig(HibernateService hibernateService) {
@@ -21,21 +21,35 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public List<Booking> getAll() {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.createQuery("FROM Booking", Booking.class).list();
+        }
+        try (session) {
             return session.createQuery("FROM Booking", Booking.class).list();
         }
     }
 
     @Override
     public Booking getById(long id) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.get(Booking.class, id);
+        }
+        try (session) {
             return session.get(Booking.class, id);
         }
     }
 
     @Override
     public void saveAll(List<Booking> bookings) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            for (Booking booking : bookings) {
+                session.persist(booking);
+            }
+        }
+        try (session) {
             Transaction transaction = session.beginTransaction();
             for (Booking booking : bookings) {
                 session.persist(booking);
@@ -46,20 +60,23 @@ public class BookingDAOImpl implements IEntityDAO<Booking> {
 
     @Override
     public Booking update(Booking booking) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Booking updatedBooking = session.merge(booking);
-            transaction.commit();
-            return updatedBooking;
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(booking);
+        }
+        try (session) {
+            return session.merge(booking);
         }
     }
 
     @Override
     public void save(Booking booking) {
-        try (Session session = hibernateService.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
             session.persist(booking);
-            transaction.commit();
+        }
+        try (session) {
+            session.persist(booking);
         }
     }
 }
