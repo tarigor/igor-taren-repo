@@ -44,6 +44,7 @@ All work with dependencies is done with the help of maven.
 - logback.classic.version 1.4.11
 - maven.checkstyle.plugin.version 3.3.0
 - maven.site.plugin.version 3.12.0
+- hibernate.core 6.3.1.Final
 
 #### cmd to application start
 

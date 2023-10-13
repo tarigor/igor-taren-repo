@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <hibernate.core.version>6.3.1.Final</hibernate.core.version>
+    </properties>
+
     <parent>
         <groupId>groupId</groupId>
         <artifactId>igor-taren-repo</artifactId>
@@ -26,7 +30,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.3.1.Final</version>
-            <scope>compile</scope>
+            <scope>${hibernate.core.version}</scope>
         </dependency>
     </dependencies>
 </project>
