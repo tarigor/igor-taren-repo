@@ -64,6 +64,7 @@ public class HibernateService {
             }
             sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {
+            logger.error("An error occurred during session register -> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -87,6 +88,7 @@ public class HibernateService {
         } catch (Exception e) {
             session.getTransaction().rollback();
             session.close();
+            logger.error("An error occurred during the transaction -> " + e.getMessage());
         }
     }
 
