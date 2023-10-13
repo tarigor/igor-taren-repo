@@ -30,6 +30,7 @@
         <logback.classic.version>1.4.7</logback.classic.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
         <maven.site.plugin.version>3.12.0</maven.site.plugin.version>
+        <hibernate.core.version>6.3.1.Final</hibernate.core.version>
     </properties>
 
     <build>
