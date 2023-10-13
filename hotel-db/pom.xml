@@ -29,8 +29,8 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.3.1.Final</version>
-            <scope>${hibernate.core.version}</scope>
+            <version>${hibernate.core.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
