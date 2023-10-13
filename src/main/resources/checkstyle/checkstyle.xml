@@ -36,7 +36,7 @@
         names will be relative to the specified directory. See
         http://checkstyle.sourceforge.net/5.x/config.html#Checker
  -->
-<!--        <property name="igor-taren-repo" value="${basedir}"/>-->
+    <!--        <property name="igor-taren-repo" value="${basedir}"/>-->
 
 
     <!-- Checks that each Java package has a Javadoc file used for commenting. -->
@@ -97,17 +97,17 @@
 
         <!-- Checks for Headers                                -->
         <!-- See http://checkstyle.sf.net/config_header.html   -->
-<!--         <module name="Header">-->
+        <!--         <module name="Header">-->
         <!-- The follow property value demonstrates the ability     -->
         <!-- to have access to ANT properties. In this case it uses -->
         <!-- the ${basedir} property to allow Checkstyle to be run  -->
         <!-- from any directory within a project. See property      -->
         <!-- expansion,                                             -->
         <!-- http://checkstyle.sf.net/config.html#properties        -->
-<!--         <property-->
-<!--             name="headerFile"-->
-<!--             value="${basedir}/java.header"/>-->
-<!--         </module>-->
+        <!--         <property-->
+        <!--             name="headerFile"-->
+        <!--             value="${basedir}/java.header"/>-->
+        <!--         </module>-->
 
 
         <!-- Checks for imports                              -->

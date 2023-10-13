@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.senla</groupId>
-    <artifactId>betterthenspring</artifactId>
+    <artifactId>betterthanspring</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 

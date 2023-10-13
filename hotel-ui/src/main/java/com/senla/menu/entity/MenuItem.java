@@ -9,6 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class MenuItem {
-    private Integer position;
+    private final Integer position;
     private final IAction action;
 }
