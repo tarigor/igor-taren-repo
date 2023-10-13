@@ -2,16 +2,16 @@
   "1": {
     "id": 1,
     "serviceType": "CLEANING",
-    "price": 12.3
+    "price": 23.6
   },
   "2": {
     "id": 2,
     "serviceType": "REPAIR",
-    "price": 22.7
+    "price": 45.3
   },
   "3": {
     "id": 3,
     "serviceType": "MAINTENANCE",
-    "price": 34.4
+    "price": 36.2
   }
 }
