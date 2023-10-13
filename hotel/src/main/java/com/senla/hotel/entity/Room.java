@@ -1,34 +1,37 @@
 package com.senla.hotel.entity;
 
-import com.senla.hotel.constant.RoomStatus;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Entity
+@Table(name = "room")
 @Data
-@AllArgsConstructor
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Room {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "capacity", nullable = false)
     private Integer capacity;
-    private double price;
-    private RoomStatus roomStatus;
-    private int starsRating;
 
-    public Room(int capacity, double price, RoomStatus roomStatus, int starsRating) {
-        this.capacity = capacity;
-        this.price = price;
-        this.roomStatus = roomStatus;
-        this.starsRating = starsRating;
-    }
+    @Column(name = "price", nullable = false)
+    private Double price;
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "capacity=" + capacity +
-                ", price=" + price +
-                ", roomStatus=" + roomStatus +
-                ", starsRating=" + starsRating +
-                '}';
-    }
+    @Column(name = "room_status", nullable = false, length = 50)
+    private String roomStatus;
+
+    @Column(name = "stars_rating", nullable = false)
+    private Integer starsRating;
 }

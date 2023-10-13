@@ -1,29 +1,32 @@
 package com.senla.hotel.entity;
 
-import com.senla.hotel.constant.ServiceType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+
+@Entity
+@Table(name = "room_service")
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomService {
-    private long id;
-    private ServiceType serviceType;
-    private double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    public RoomService(ServiceType serviceType, double price) {
-        this.serviceType = serviceType;
-        this.price = price;
-    }
+    @Column(name = "service_type", nullable = false, length = 40)
+    private String serviceType;
 
-    @Override
-    public String toString() {
-        return "RoomService{" +
-                "id=" + id +
-                ", serviceType=" + serviceType +
-                ", price=" + price +
-                '}';
-    }
+    @Column(name = "price", nullable = false)
+    private Double price;
 }
