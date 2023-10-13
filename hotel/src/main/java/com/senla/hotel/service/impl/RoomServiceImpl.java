@@ -38,7 +38,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public void doCheckIn(long roomId) {
         if (checkInCheckOutPermission) {
-            roomDAO.getById(roomId).setRoomStatus(RoomStatus.OCCUPIED);
+            roomDAO.getById(roomId).setRoomStatus(RoomStatus.OCCUPIED.name());
             System.out.println("check-in performed for room -> " + roomId);
         } else {
             System.out.println("It is not allowed to change the status of the room");
@@ -48,7 +48,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public void doCheckOut(long roomId) {
         if (checkInCheckOutPermission) {
-            roomDAO.getById(roomId).setRoomStatus(RoomStatus.VACANT);
+            roomDAO.getById(roomId).setRoomStatus(RoomStatus.VACANT.name());
             System.out.println("check-out performed for room -> " + roomId);
         } else {
             System.out.println("It is not allowed to change the status of the room");
@@ -73,6 +73,9 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> findAllOrderedByPrice() {
+        System.out.println();
+        List<Room> rooms = roomDAO.getAll();
+        System.out.println();
         return roomDAO.getAll().stream()
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
@@ -95,7 +98,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByPrice() {
         return roomDAO.getAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .sorted(Comparator.comparing(Room::getPrice))
                 .collect(Collectors.toList());
     }
@@ -103,7 +106,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByCapacity() {
         return roomDAO.getAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .sorted(Comparator.comparing(Room::getCapacity))
                 .collect(Collectors.toList());
     }
@@ -111,7 +114,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> findAvailableOrderedByStars() {
         return roomDAO.getAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .sorted(Comparator.comparing(Room::getStarsRating))
                 .collect(Collectors.toList());
     }
@@ -119,7 +122,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public int findNumberOfAvailableRooms() {
         return (int) roomDAO.getAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT))
+                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .count();
     }
 
@@ -160,10 +163,10 @@ public class RoomServiceImpl implements IRoomService {
             case AVAILABILITY:
                 return ordering == Ordering.ASC ?
                         roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT)))
+                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name())))
                                 .collect(Collectors.toList()) :
                         roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT), Comparator.reverseOrder()))
+                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()), Comparator.reverseOrder()))
                                 .collect(Collectors.toList());
             case RATING:
                 return ordering == Ordering.ASC ?

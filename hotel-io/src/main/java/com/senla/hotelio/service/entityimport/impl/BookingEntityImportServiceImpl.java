@@ -1,7 +1,10 @@
 package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.entity.Booking;
+import com.senla.hotel.service.impl.GuestServiceImpl;
+import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import org.slf4j.Logger;
@@ -17,6 +20,19 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
     private static final Logger logger = LoggerFactory.getLogger(BookingEntityImportServiceImpl.class);
     private final String ENTITY_NAME = "Booking";
 
+    private GuestServiceImpl guestService;
+    private RoomServiceImpl roomService;
+
+    @InjectValue
+    public void setGuestService(GuestServiceImpl guestService) {
+        this.guestService = guestService;
+    }
+
+    @InjectValue
+    public void setRoomService(RoomServiceImpl roomService) {
+        this.roomService = roomService;
+    }
+
     @Override
     public ArrayList<Booking> importEntities() {
         ArrayList<Booking> bookings = new ArrayList<>();
@@ -25,8 +41,8 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
             try {
                 bookings.add(new Booking(
                         Long.parseLong(bookingsWithParameter.get(0)),
-                        Long.parseLong(bookingsWithParameter.get(1)),
-                        Long.parseLong(bookingsWithParameter.get(2)),
+                        guestService.getById(Long.parseLong(bookingsWithParameter.get(1))),
+                        roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))),
                         new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(3)),
                         new SimpleDateFormat("dd/MM/yyyy").parse(bookingsWithParameter.get(4))
                 ));

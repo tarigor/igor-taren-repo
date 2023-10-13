@@ -3,23 +3,19 @@ package com.senla.hoteldb;
 
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class HibernateService {
+    public static final String OS_NAME = "os.name";
     private static final Logger logger = LoggerFactory.getLogger(HibernateService.class);
     private static final String BATCH_FILE_PATH = "\\hotel-db\\sql\\db";
-    public static final String OS_NAME = "os.name";
     private SessionFactory sessionFactory;
     private String jdbcDriver;
     private String dbUrl;
@@ -52,7 +48,7 @@ public class HibernateService {
         this.dialect = dialect;
     }
 
-    public void registerSession(){
+    public void registerSession(List<Class<?>> clazz) {
         try {
             Configuration configuration = new Configuration();
             configuration.setProperty("hibernate.connection.driver_class", jdbcDriver);
@@ -60,11 +56,9 @@ public class HibernateService {
             configuration.setProperty("hibernate.connection.username", user);
             configuration.setProperty("hibernate.connection.password", password);
             configuration.setProperty("hibernate.dialect", dialect);
-            configuration.addAnnotatedClass(Booking.class);
-            configuration.addAnnotatedClass(Guest.class);
-            configuration.addAnnotatedClass(GuestServices.class);
-            configuration.addAnnotatedClass(Room.class);
-            configuration.addAnnotatedClass(RoomService.class);
+            for (Class<?> s : clazz) {
+                configuration.addAnnotatedClass(s);
+            }
             sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {
             e.printStackTrace();

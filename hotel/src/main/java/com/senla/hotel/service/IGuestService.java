@@ -11,4 +11,6 @@ public interface IGuestService {
     void updateAllAndSaveIfNotExist(ArrayList<Guest> guests);
 
     List<Guest> getAll();
+
+    Guest getById(Long id);
 }

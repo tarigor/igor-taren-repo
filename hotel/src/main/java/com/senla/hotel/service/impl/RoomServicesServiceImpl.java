@@ -66,4 +66,9 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
     public List<RoomService> getAll() {
         return roomServiceDAO.getAll();
     }
+
+    @Override
+    public RoomService getById(Long id) {
+        return roomServiceDAO.getById(id);
+    }
 }

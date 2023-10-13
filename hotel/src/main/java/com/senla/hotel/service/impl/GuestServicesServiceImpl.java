@@ -4,6 +4,7 @@ import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
 import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
@@ -42,7 +43,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
         List<RoomService> roomServices = roomServiceDAO.getAll();
         List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
-                .filter(guestServices -> guestServices.getGuestId() == guestId)
+                .filter(guestServices -> guestServices.getGuest().getId() == guestId)
                 .collect(Collectors.toList());
 
         Comparator<GuestServicesDTO> comparator;
@@ -65,10 +66,10 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         return guestServicesByGuestId.stream()
                 .map(guestServices -> new GuestServicesDTO(
                         guestServices.getId(),
-                        guestServices.getGuestId(),
-                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
+                        guestServices.getGuest().getId(),
+                        ServiceType.valueOf(roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomService().getId())).getServiceType()),
                         guestServices.getRoomServiceOrderDate(),
-                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomService().getId())).getPrice()
                 ))
                 .sorted(comparator)
                 .collect(Collectors.toList());

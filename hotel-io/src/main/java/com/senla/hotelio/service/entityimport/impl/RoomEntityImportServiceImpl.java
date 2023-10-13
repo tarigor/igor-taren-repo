@@ -22,7 +22,7 @@ public class RoomEntityImportServiceImpl extends ImportService implements IImpor
                     Long.parseLong(roomsWithParameter.get(0)),
                     Integer.parseInt(roomsWithParameter.get(1)),
                     Double.parseDouble(roomsWithParameter.get(2)),
-                    RoomStatus.valueOf(roomsWithParameter.get(3)),
+                    RoomStatus.valueOf(roomsWithParameter.get(3)).name(),
                     Integer.parseInt(roomsWithParameter.get(4))
             ));
         }

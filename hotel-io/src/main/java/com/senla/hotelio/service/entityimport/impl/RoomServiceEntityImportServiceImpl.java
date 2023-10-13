@@ -20,7 +20,7 @@ public class RoomServiceEntityImportServiceImpl extends ImportService implements
         for (List<String> roomServiceWithParameter : roomServicesWithParameters) {
             roomServices.add(new RoomService(
                     Long.parseLong(roomServiceWithParameter.get(0)),
-                    ServiceType.valueOf(roomServiceWithParameter.get(1)),
+                    ServiceType.valueOf(roomServiceWithParameter.get(1)).name(),
                     Double.parseDouble(roomServiceWithParameter.get(2))
             ));
         }

@@ -15,4 +15,6 @@ public interface IRoomServicesService {
     void updateAllAndSaveIfNotExist(ArrayList<RoomService> roomServices);
 
     List<RoomService> getAll();
+
+    RoomService getById(Long id);
 }

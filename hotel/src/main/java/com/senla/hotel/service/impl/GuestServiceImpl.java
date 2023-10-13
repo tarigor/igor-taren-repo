@@ -38,4 +38,9 @@ public class GuestServiceImpl implements IGuestService {
     public List<Guest> getAll() {
         return guestDAO.getAll();
     }
+
+    @Override
+    public Guest getById(Long id) {
+        return guestDAO.getById(id);
+    }
 }

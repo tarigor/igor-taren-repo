@@ -28,6 +28,4 @@ public class Guest {
 
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
-
-
 }

@@ -1,7 +1,10 @@
 package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.container.InjectValue;
 import com.senla.hotel.entity.GuestServices;
+import com.senla.hotel.service.impl.GuestServiceImpl;
+import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import org.slf4j.Logger;
@@ -16,6 +19,18 @@ import java.util.List;
 public class GuestServicesEntityImportServiceImpl extends ImportService implements IImportService<GuestServices> {
     private static final Logger logger = LoggerFactory.getLogger(GuestServicesEntityImportServiceImpl.class);
     private final String ENTITY_NAME = "GuestServices";
+    private GuestServiceImpl guestService;
+    private RoomServicesServiceImpl roomServicesService;
+
+    @InjectValue
+    public void setGuestService(GuestServiceImpl guestService) {
+        this.guestService = guestService;
+    }
+
+    @InjectValue
+    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+        this.roomServicesService = roomServicesService;
+    }
 
     @Override
     public ArrayList<GuestServices> importEntities() {
@@ -25,8 +40,8 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
             try {
                 guestsServices.add(new GuestServices(
                         Long.parseLong(guestsServicesWithParameter.get(0)),
-                        Long.parseLong(guestsServicesWithParameter.get(1)),
-                        Long.parseLong(guestsServicesWithParameter.get(2)),
+                        guestService.getById(Long.parseLong(guestsServicesWithParameter.get(1))),
+                        roomServicesService.getById(Long.parseLong(guestsServicesWithParameter.get(2))),
                         new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(guestsServicesWithParameter.get(3))
                 ));
             } catch (ParseException e) {

@@ -1,5 +1,6 @@
 package com.senla.betterthenspring;
 
+import jakarta.persistence.Entity;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +81,15 @@ public class ScannerService {
             }
         }
         return classes;
+    }
+
+    public static List<Class<?>> getClassesEntityAnnotated(Set<Class<?>> classes) {
+        List<Class<?>> entityClasses = new ArrayList<>();
+        for (Class<?> clazz : classes) {
+            if (clazz.isAnnotationPresent(Entity.class)) {
+                entityClasses.add(clazz);
+            }
+        }
+        return entityClasses;
     }
 }
