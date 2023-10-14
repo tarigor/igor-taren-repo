@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
-public class HibernateService {
+public class HibernateService implements AutoCloseable {
     public static final String OS_NAME = "os.name";
     private static final Logger logger = LoggerFactory.getLogger(HibernateService.class);
     private static final String BATCH_FILE_PATH = "\\hotel-db\\sql\\db";
@@ -84,14 +84,18 @@ public class HibernateService {
     public void commit() {
         try {
             session.getTransaction().commit();
-            session.close();
+            close();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            session.close();
+            close();
             logger.error("An error occurred during the transaction -> " + e.getMessage());
         }
     }
 
+    @Override
+    public void close() {
+        session.close();
+    }
 
     public void databaseInitialize() {
         String os = System.getProperty(OS_NAME).toLowerCase();
