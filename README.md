@@ -8,8 +8,6 @@ Igor Taren's repository
 
 #### Description:
 
-### Task 13
-
 Add the implementation of working with the database using hibernate to the project.
 
 Technical requirements:
