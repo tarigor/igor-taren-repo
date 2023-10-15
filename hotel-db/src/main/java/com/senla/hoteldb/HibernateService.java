@@ -58,7 +58,6 @@ public class HibernateService implements AutoCloseable {
             configuration.setProperty("hibernate.connection.url", dbUrl);
             configuration.setProperty("hibernate.connection.username", user);
             configuration.setProperty("hibernate.connection.password", password);
-            configuration.setProperty("hibernate.dialect", dialect);
             for (Class<?> s : clazz) {
                 configuration.addAnnotatedClass(s);
             }

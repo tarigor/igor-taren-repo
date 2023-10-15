@@ -16,7 +16,6 @@ public class PropertiesService {
     private final Map<Integer, String> menuMap = new TreeMap<>();
 
     public Map<Integer, String> readPropertiesFileAsMap(String filename, String delimiter) {
-        System.out.println("fileName->" + filename);
         try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + filename))) {
             String line;
             while ((line = reader.readLine()) != null) {

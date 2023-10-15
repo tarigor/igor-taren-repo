@@ -3,15 +3,17 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    %highlight(%d{HH:mm:ss.SSS}) %highlight([%thread]) %highlight(%-5level) %highlight(%logger{36}) -
-                    %highlight(%msg)%n
-                    %n
+                    %highlight(%d{HH:mm:ss.SSS}) %highlight([%thread]) %highlight(%-5level) %highlight(%logger{99}) - %highlight(%msg) %n
                 </pattern>
             </layout>
         </encoder>
     </appender>
 
+    <logger name="org.hibernate" level="INFO"/>
+
     <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
+
+
 </configuration>

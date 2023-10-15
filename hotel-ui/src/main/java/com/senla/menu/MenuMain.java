@@ -6,6 +6,7 @@ import com.senla.betterthenspring.ScannerService;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hoteldb.HibernateService;
+import com.senla.menu.exception.CommonExceptionHotelUIModule;
 import com.senla.menu.service.MenuService;
 
 import java.util.List;
@@ -42,7 +43,11 @@ public class MenuMain {
         List<Class<?>> classesEntityAnnotated = ScannerService.getClassesEntityAnnotated(scannedClasses);
         hibernateService.registerSession(classesEntityAnnotated);
 
-        menuService.showMenu();
+        try {
+            menuService.showMenu();
+        } catch (CommonExceptionHotelUIModule e) {
+            throw new RuntimeException("An error occurred -> " + e.getMessage());
+        }
     }
 }
 

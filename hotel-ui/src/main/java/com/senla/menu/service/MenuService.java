@@ -25,6 +25,7 @@ import com.senla.menu.builder.Builder;
 import com.senla.menu.controller.MenuController;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
+import com.senla.menu.exception.CommonExceptionHotelUIModule;
 import com.senla.menu.navigator.Navigator;
 
 @CreateInstanceAndPutInContainer
@@ -169,7 +170,7 @@ public class MenuService {
         this.menuAction19 = menuAction19;
     }
 
-    public void showMenu() {
+    public void showMenu() throws CommonExceptionHotelUIModule {
         Menu menu = builder
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price

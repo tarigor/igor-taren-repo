@@ -22,7 +22,6 @@ public class ContainerService {
     public static void storeAnnotatedInstanceInContainer(Set<Class<?>> classes) {
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
-                System.out.println("detected class with field annotation->" + clazz);
                 String key = clazz.getSimpleName();
                 try {
                     Constructor<?> constructor = clazz.getDeclaredConstructor();
@@ -36,7 +35,7 @@ public class ContainerService {
                 }
             }
         }
-        instances.forEach((k, v) -> System.out.println("class name->" + k + " object->" + v));
+        instances.forEach((k, v) -> logger.info("class name -> " + k + ":" + v));
     }
 
     public static void injectValue(Set<Class<?>> classes) {
