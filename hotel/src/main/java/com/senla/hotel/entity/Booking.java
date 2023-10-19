@@ -11,19 +11,20 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "booking")
-@Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,10 +48,35 @@ public class Booking implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date checkOutDate;
 
+
     public Booking(Guest guest, Room room, Date checkInDate, Date checkOutDate) {
         this.guest = guest;
         this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return id.equals(booking.id) && guest.equals(booking.guest) && room.equals(booking.room) && checkInDate.equals(booking.checkInDate) && checkOutDate.equals(booking.checkOutDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, guest, room, checkInDate, checkOutDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", guest=" + guest +
+                ", room=" + room +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                '}';
     }
 }

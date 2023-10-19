@@ -11,18 +11,19 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "guest_service")
-@Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class GuestServices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,27 @@ public class GuestServices {
     @Column(name = "room_service_order_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date roomServiceOrderDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GuestServices that = (GuestServices) o;
+        return id.equals(that.id) && guest.equals(that.guest) && roomService.equals(that.roomService) && roomServiceOrderDate.equals(that.roomServiceOrderDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, guest, roomService, roomServiceOrderDate);
+    }
+
+    @Override
+    public String toString() {
+        return "GuestServices{" +
+                "id=" + id +
+                ", guest=" + guest +
+                ", roomService=" + roomService +
+                ", roomServiceOrderDate=" + roomServiceOrderDate +
+                '}';
+    }
 }

@@ -7,17 +7,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
+
+import java.util.Objects;
 
 
 @Entity
 @Table(name = "room_service")
-@Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class RoomService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +31,26 @@ public class RoomService {
 
     @Column(name = "price", nullable = false)
     private Double price;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoomService that = (RoomService) o;
+        return id.equals(that.id) && serviceType.equals(that.serviceType) && price.equals(that.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, serviceType, price);
+    }
+
+    @Override
+    public String toString() {
+        return "RoomService{" +
+                "id=" + id +
+                ", serviceType='" + serviceType + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

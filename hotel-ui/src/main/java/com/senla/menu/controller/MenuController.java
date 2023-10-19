@@ -45,6 +45,7 @@ public class MenuController {
         System.out.println("select an option");
         int item = scanner.nextInt();
         if (item != 0) {
+            System.out.println("----------------------------------");
             try {
                 builder.getItems().get(item).execute();
             } catch (Exception e) {

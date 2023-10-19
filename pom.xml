@@ -50,6 +50,8 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <goal>clean</goal>
+                    <goal>install</goal>
                 </configuration>
             </plugin>
             <plugin>
