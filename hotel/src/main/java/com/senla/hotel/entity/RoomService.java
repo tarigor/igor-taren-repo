@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class RoomService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,14 +45,5 @@ public class RoomService {
     @Override
     public int hashCode() {
         return Objects.hash(id, serviceType, price);
-    }
-
-    @Override
-    public String toString() {
-        return "RoomService{" +
-                "id=" + id +
-                ", serviceType='" + serviceType + '\'' +
-                ", price=" + price +
-                '}';
     }
 }

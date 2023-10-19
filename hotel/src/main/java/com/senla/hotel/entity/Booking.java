@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +26,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,10 +36,12 @@ public class Booking implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false)
+    @ToString.Exclude
     private Guest guest;
 
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
+    @ToString.Exclude
     private Room room;
 
     @Column(name = "check_in_date", nullable = false)
@@ -67,16 +71,5 @@ public class Booking implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, guest, room, checkInDate, checkOutDate);
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", guest=" + guest +
-                ", room=" + room +
-                ", checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkOutDate +
-                '}';
     }
 }

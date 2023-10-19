@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class GuestServices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +34,12 @@ public class GuestServices {
 
     @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false)
+    @ToString.Exclude
     private Guest guest;
 
     @ManyToOne
     @JoinColumn(name = "room_service_id", nullable = false)
+    @ToString.Exclude
     private RoomService roomService;
 
     @Column(name = "room_service_order_date", nullable = false)
@@ -53,15 +57,5 @@ public class GuestServices {
     @Override
     public int hashCode() {
         return Objects.hash(id, guest, roomService, roomServiceOrderDate);
-    }
-
-    @Override
-    public String toString() {
-        return "GuestServices{" +
-                "id=" + id +
-                ", guest=" + guest +
-                ", roomService=" + roomService +
-                ", roomServiceOrderDate=" + roomServiceOrderDate +
-                '}';
     }
 }
