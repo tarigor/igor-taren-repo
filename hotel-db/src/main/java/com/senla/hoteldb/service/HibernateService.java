@@ -103,20 +103,19 @@ public class HibernateService implements AutoCloseable {
             int exitCode;
             if (os.contains("win")) {
                 //Windows
-                String path = System.getProperty("user.dir") + BATCH_FILE_PATH + ".bat";
                 process = new ProcessBuilder("cmd.exe", "/c", System.getProperty("user.dir") + BATCH_FILE_PATH + ".bat").start();
             } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
                 //Linux
                 process = new ProcessBuilder(System.getProperty("user.dir") + "\\" + BATCH_FILE_PATH + ".sh").start();
             } else {
-                System.err.println("Unsupported operating system: " + os);
+                logger.error("Unsupported operating system: " + os);
                 return;
             }
             exitCode = process.waitFor();
             if (exitCode == 0) {
                 logger.info("Batch file executed successfully.");
             } else {
-                System.err.println("Batch file execution failed with exit code " + exitCode);
+                logger.error("Batch file execution failed with exit code " + exitCode);
             }
         } catch (IOException | InterruptedException e) {
             logger.error("an error occurred during IO operation->" + e.getMessage());
