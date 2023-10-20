@@ -30,7 +30,6 @@ public abstract class ImportService {
             logger.error("an error occurred during a file operation->" + e.getMessage());
             throw new RuntimeException("An error occurred while handling a file with a filename -> " + "\n" + e.getMessage());
         }
-        System.out.println("");
         return entities;
     }
 }

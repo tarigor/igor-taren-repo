@@ -6,9 +6,12 @@ import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction13 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction13.class);
     private RoomServicesServiceImpl roomServicesService;
 
     @InjectValue
@@ -34,7 +37,7 @@ public class MenuAction13 extends MenuAction implements IAction {
                     selectionText = "PRICE";
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-1. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
             }
             correct = true;

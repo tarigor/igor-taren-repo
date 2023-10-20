@@ -59,27 +59,27 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
             </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>${maven.checkstyle.plugin.version}</version>
-                            <configuration>
-                                <configLocation>src/main/resources/checkstyle/checkstyle.xml</configLocation>
-                                <consoleOutput>true</consoleOutput>
-                                <failsOnError>true</failsOnError>
-                                <linkXRef>false</linkXRef>
-                                <outputDirectory>target/site</outputDirectory>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>checkstyle</id>
-                                    <phase>validate</phase>
-                                    <goals>
-                                        <goal>check</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>src/main/resources/checkstyle/checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <outputDirectory>target/site</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -91,22 +91,22 @@
         </plugins>
     </build>
 
-        <reporting>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${maven.checkstyle.plugin.version}</version>
-                    <reportSets>
-                        <reportSet>
-                            <reports>
-                                <report>checkstyle</report>
-                            </reports>
-                        </reportSet>
-                    </reportSets>
-                </plugin>
-            </plugins>
-        </reporting>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <modules>
         <module>annotations</module>

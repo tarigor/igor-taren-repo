@@ -2,7 +2,7 @@ package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.hotel.constant.RoomStatus;
-import com.senla.hotel.entity.Room;
+import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 

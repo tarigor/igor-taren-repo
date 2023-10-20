@@ -3,8 +3,8 @@ package com.senla.hotelio.service.entityexport.impl;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.dto.entityexport.BookingExport;
-import com.senla.hotel.entity.Booking;
 import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hoteldb.entity.Booking;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
 

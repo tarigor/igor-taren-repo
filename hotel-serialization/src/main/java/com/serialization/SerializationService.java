@@ -4,16 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.GuestServices;
+import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.entity.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,7 +90,7 @@ public class SerializationService {
         try (FileWriter writer = new FileWriter(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json")) {
             // Serialize the Map to JSON and write it to the file
             gson.toJson(map, writer);
-            System.out.println("Serialization completed successfully.");
+            logger.info("Serialization completed successfully");
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation->" + e.getMessage());
             e.printStackTrace();

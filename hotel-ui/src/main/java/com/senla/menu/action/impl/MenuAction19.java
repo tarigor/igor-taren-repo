@@ -5,11 +5,14 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction19 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction19.class);
     private RoomServiceImpl roomService;
 
     @InjectValue
@@ -35,7 +38,7 @@ public class MenuAction19 extends MenuAction implements IAction {
                     roomService.doCheckOut(roomId);
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-1. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
             }
             correct = true;

@@ -3,7 +3,7 @@ package com.senla.hotel.service;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.entity.GuestServices;
+import com.senla.hoteldb.entity.GuestServices;
 
 import java.util.ArrayList;
 import java.util.List;

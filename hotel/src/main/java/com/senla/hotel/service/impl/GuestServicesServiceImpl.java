@@ -5,13 +5,13 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.ServiceType;
-import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
-import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
 import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IGuestServicesService;
-import com.senla.hoteldb.HibernateService;
+import com.senla.hoteldb.dao.impl.GuestServicesDAO;
+import com.senla.hoteldb.dao.impl.RoomServiceDAO;
+import com.senla.hoteldb.entity.GuestServices;
+import com.senla.hoteldb.entity.RoomService;
+import com.senla.hoteldb.service.HibernateService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class GuestServicesServiceImpl implements IGuestServicesService {
-    private GuestServicesDAOImpl guestServicesDAO;
-    private RoomServiceDAOImpl roomServiceDAO;
+    private GuestServicesDAO guestServicesDAO;
+    private RoomServiceDAO roomServiceDAO;
     private HibernateService hibernateService;
 
     @InjectValue
@@ -31,12 +31,12 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     }
 
     @InjectValue
-    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+    public void setGuestServicesDAO(GuestServicesDAO guestServicesDAO) {
         this.guestServicesDAO = guestServicesDAO;
     }
 
     @InjectValue
-    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+    public void setRoomServiceDAO(RoomServiceDAO roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 

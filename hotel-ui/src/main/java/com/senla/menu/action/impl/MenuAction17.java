@@ -5,12 +5,14 @@ import com.senla.container.InjectValue;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import com.serialization.SerializationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction17 extends MenuAction implements IAction {
-
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction17.class);
     private SerializationService serializationService;
 
     @InjectValue
@@ -47,7 +49,7 @@ public class MenuAction17 extends MenuAction implements IAction {
                     serializationService.selectToSerialize("RoomServices");
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-4. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
             }
             correct = true;

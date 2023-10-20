@@ -3,15 +3,15 @@ package com.senla.hotel.service.impl;
 import com.senla.container.ConfigProperty;
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.dao.impl.BookingDAOImpl;
-import com.senla.hotel.dao.impl.GuestDAOImpl;
-import com.senla.hotel.dao.impl.RoomDAOImpl;
 import com.senla.hotel.dto.GuestBookingDTO;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IBookingService;
-import com.senla.hoteldb.HibernateService;
+import com.senla.hoteldb.dao.impl.BookingDAO;
+import com.senla.hoteldb.dao.impl.GuestDAO;
+import com.senla.hoteldb.dao.impl.RoomDAO;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.service.HibernateService;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl implements IBookingService {
     private Integer roomHistoryLimit;
-    private BookingDAOImpl bookingDAO;
-    private RoomDAOImpl roomDAO;
-    private GuestDAOImpl guestDAO;
+    private BookingDAO bookingDAO;
+    private RoomDAO roomDAO;
+    private GuestDAO guestDAO;
     private HibernateService hibernateService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
@@ -35,17 +35,17 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @InjectValue
-    public void setBookingDAO(BookingDAOImpl bookingDAO) {
+    public void setBookingDAO(BookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
     @InjectValue
-    public void setRoomDAO(RoomDAOImpl roomDAO) {
+    public void setRoomDAO(RoomDAO roomDAO) {
         this.roomDAO = roomDAO;
     }
 
     @InjectValue
-    public void setGuestDAO(GuestDAOImpl guestDAO) {
+    public void setGuestDAO(GuestDAO guestDAO) {
         this.guestDAO = guestDAO;
     }
 

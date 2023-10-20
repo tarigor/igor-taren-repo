@@ -2,19 +2,19 @@ package com.senla.hotel.service.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.dao.impl.GuestDAOImpl;
-import com.senla.hotel.entity.Guest;
 import com.senla.hotel.service.IGuestService;
+import com.senla.hoteldb.dao.impl.GuestDAO;
+import com.senla.hoteldb.entity.Guest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class GuestServiceImpl implements IGuestService {
-    private GuestDAOImpl guestDAO;
+    private GuestDAO guestDAO;
 
     @InjectValue
-    public void setGuestDAO(GuestDAOImpl guestDAO) {
+    public void setGuestDAO(GuestDAO guestDAO) {
         this.guestDAO = guestDAO;
     }
 

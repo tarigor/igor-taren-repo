@@ -4,9 +4,9 @@ import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
-import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomServicesService;
+import com.senla.hoteldb.dao.impl.RoomServiceDAO;
+import com.senla.hoteldb.entity.RoomService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServicesServiceImpl implements IRoomServicesService {
-    private RoomServiceDAOImpl roomServiceDAO;
+    private RoomServiceDAO roomServiceDAO;
 
     @InjectValue
-    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+    public void setRoomServiceDAO(RoomServiceDAO roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 

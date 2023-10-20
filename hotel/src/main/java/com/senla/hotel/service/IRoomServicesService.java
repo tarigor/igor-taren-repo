@@ -2,7 +2,7 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
-import com.senla.hotel.entity.RoomService;
+import com.senla.hoteldb.entity.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;

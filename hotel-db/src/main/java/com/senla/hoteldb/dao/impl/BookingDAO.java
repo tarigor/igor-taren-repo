@@ -1,17 +1,17 @@
-package com.senla.hotel.dao.impl;
+package com.senla.hoteldb.dao.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.dao.IEntityDAO;
-import com.senla.hotel.entity.Guest;
-import com.senla.hoteldb.HibernateService;
+import com.senla.hoteldb.dao.IEntityDAO;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.service.HibernateService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
-public class GuestDAOImpl implements IEntityDAO<Guest> {
+public class BookingDAO implements IEntityDAO<Booking> {
     private HibernateService hibernateService;
 
     @InjectValue
@@ -20,65 +20,63 @@ public class GuestDAOImpl implements IEntityDAO<Guest> {
     }
 
     @Override
-    public List<Guest> getAll() {
+    public List<Booking> getAll() {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.createQuery("FROM Guest", Guest.class).list();
+            return session.createQuery("FROM Booking", Booking.class).list();
         }
         try (session) {
-            return session.createQuery("FROM Guest", Guest.class).list();
+            return session.createQuery("FROM Booking", Booking.class).list();
         }
     }
 
     @Override
-    public Guest getById(long id) {
+    public Booking getById(long id) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.get(Guest.class, id);
+            return session.get(Booking.class, id);
         }
         try (session) {
-            return session.get(Guest.class, id);
+            return session.get(Booking.class, id);
         }
     }
 
     @Override
-    public void saveAll(List<Guest> guests) {
+    public void saveAll(List<Booking> bookings) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            for (Guest guest : guests) {
-                session.persist(guest);
+            for (Booking booking : bookings) {
+                session.persist(booking);
             }
-        } else {
-            try (session) {
-                Transaction transaction = session.beginTransaction();
-                for (Guest guest : guests) {
-                    session.persist(guest);
-                }
-                transaction.commit();
-            }
-        }
-    }
-
-    @Override
-    public Guest update(Guest guest) {
-        Session session = hibernateService.getSession();
-        if (session.getTransaction().isActive()) {
-            return session.merge(guest);
         }
         try (session) {
-            return session.merge(guest);
+            Transaction transaction = session.beginTransaction();
+            for (Booking booking : bookings) {
+                session.persist(booking);
+            }
+            transaction.commit();
         }
     }
 
     @Override
-    public void save(Guest guest) {
+    public Booking update(Booking booking) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            session.persist(guest);
-        } else {
-            try (session) {
-                session.persist(guest);
-            }
+            return session.merge(booking);
+        }
+        try (session) {
+            return session.merge(booking);
+        }
+    }
+
+    @Override
+    public void save(Booking booking) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            session.persist(booking);
+        }
+        try (session) {
+            session.persist(booking);
         }
     }
 }

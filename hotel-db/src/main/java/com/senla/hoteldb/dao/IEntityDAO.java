@@ -1,4 +1,4 @@
-package com.senla.hotel.dao;
+package com.senla.hoteldb.dao;
 
 import java.util.List;
 

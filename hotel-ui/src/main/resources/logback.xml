@@ -3,7 +3,8 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    %highlight(%d{HH:mm:ss.SSS}) %highlight([%thread]) %highlight(%-5level) %highlight(%logger{99}) - %highlight(%msg) %n
+                    %highlight(%d{HH:mm:ss.SSS}) %highlight([%thread]) %highlight(%-5level) %highlight(%logger{99}) -
+                    %highlight(%msg) %n
                 </pattern>
             </layout>
         </encoder>

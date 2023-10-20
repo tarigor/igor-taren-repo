@@ -5,11 +5,14 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.GregorianCalendar;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction8 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction8.class);
     private BookingServiceImpl bookingService;
 
     @InjectValue
@@ -30,13 +33,13 @@ public class MenuAction8 extends MenuAction implements IAction {
             System.out.println("Enter an month number");
             month = scanner.nextInt();
             if (month > 12) {
-                System.out.println("The month is limited by number 12");
+                logger.error("The month is limited by number 12");
                 continue;
             }
             System.out.println("Enter an day number");
             day = scanner.nextInt();
             if (day > 31) {
-                System.out.println("The month is limited by number 31");
+                logger.error("The month is limited by number 31");
                 continue;
             }
             correct = true;
@@ -46,6 +49,5 @@ public class MenuAction8 extends MenuAction implements IAction {
                         new GregorianCalendar(year, month + 1, day)
                                 .getTime())
                 .forEach(System.out::println);
-        System.out.println("9");
     }
 }

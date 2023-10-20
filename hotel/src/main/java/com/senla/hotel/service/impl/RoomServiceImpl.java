@@ -6,9 +6,11 @@ import com.senla.container.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
-import com.senla.hotel.dao.impl.RoomDAOImpl;
-import com.senla.hotel.entity.Room;
 import com.senla.hotel.service.IRoomService;
+import com.senla.hoteldb.dao.impl.RoomDAO;
+import com.senla.hoteldb.entity.Room;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,8 +19,9 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServiceImpl implements IRoomService {
+    private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
     private Boolean checkInCheckOutPermission;
-    private RoomDAOImpl roomDAO;
+    private RoomDAO roomDAO;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
     public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
@@ -26,7 +29,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @InjectValue
-    public void setRoomDAO(RoomDAOImpl roomDAO) {
+    public void setRoomDAO(RoomDAO roomDAO) {
         this.roomDAO = roomDAO;
     }
 
@@ -41,7 +44,7 @@ public class RoomServiceImpl implements IRoomService {
             roomDAO.getById(roomId).setRoomStatus(RoomStatus.OCCUPIED.name());
             System.out.println("check-in performed for room -> " + roomId);
         } else {
-            System.out.println("It is not allowed to change the status of the room");
+            logger.error("It is not allowed to change the status of the room");
         }
     }
 
@@ -51,7 +54,7 @@ public class RoomServiceImpl implements IRoomService {
             roomDAO.getById(roomId).setRoomStatus(RoomStatus.VACANT.name());
             System.out.println("check-out performed for room -> " + roomId);
         } else {
-            System.out.println("It is not allowed to change the status of the room");
+            logger.error("It is not allowed to change the status of the room");
         }
     }
 

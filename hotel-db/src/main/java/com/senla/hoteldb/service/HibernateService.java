@@ -1,4 +1,4 @@
-package com.senla.hoteldb;
+package com.senla.hoteldb.service;
 
 
 import com.senla.container.ConfigProperty;
@@ -114,7 +114,7 @@ public class HibernateService implements AutoCloseable {
             }
             exitCode = process.waitFor();
             if (exitCode == 0) {
-                System.out.println("Batch file executed successfully.");
+                logger.info("Batch file executed successfully.");
             } else {
                 System.err.println("Batch file execution failed with exit code " + exitCode);
             }

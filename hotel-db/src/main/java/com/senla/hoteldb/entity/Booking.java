@@ -1,4 +1,4 @@
-package com.senla.hotel.entity;
+package com.senla.hoteldb.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -2,9 +2,9 @@ package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.container.CreateInstanceAndPutInContainer;
 import com.senla.container.InjectValue;
-import com.senla.hotel.entity.GuestServices;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
+import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import org.slf4j.Logger;

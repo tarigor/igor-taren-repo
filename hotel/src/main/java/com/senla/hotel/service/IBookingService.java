@@ -1,8 +1,8 @@
 package com.senla.hotel.service;
 
 import com.senla.hotel.dto.GuestBookingDTO;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Room;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Room;
 
 import java.util.ArrayList;
 import java.util.Date;

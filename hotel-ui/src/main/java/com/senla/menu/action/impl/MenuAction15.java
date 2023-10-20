@@ -14,9 +14,12 @@ import com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl;
 import com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction15 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction15.class);
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;
@@ -123,7 +126,7 @@ public class MenuAction15 extends MenuAction implements IAction {
                     roomServicesService.getAll().forEach(System.out::println);
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-4. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
             }
             correct = true;
