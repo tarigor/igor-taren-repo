@@ -1,4 +1,4 @@
-package com.senla.betterthenspring;
+package com.senla.betterthenspring.service;
 
 import jakarta.persistence.Entity;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;

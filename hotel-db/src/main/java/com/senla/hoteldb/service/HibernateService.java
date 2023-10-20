@@ -1,8 +1,8 @@
 package com.senla.hoteldb.service;
 
 
-import com.senla.container.ConfigProperty;
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.ConfigProperty;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -103,12 +103,13 @@ public class HibernateService implements AutoCloseable {
             int exitCode;
             if (os.contains("win")) {
                 //Windows
+                String path = System.getProperty("user.dir") + BATCH_FILE_PATH + ".bat";
                 process = new ProcessBuilder("cmd.exe", "/c", System.getProperty("user.dir") + BATCH_FILE_PATH + ".bat").start();
             } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
                 //Linux
                 process = new ProcessBuilder(System.getProperty("user.dir") + "\\" + BATCH_FILE_PATH + ".sh").start();
             } else {
-                logger.error("Unsupported operating system: " + os);
+                System.err.println("Unsupported operating system: " + os);
                 return;
             }
             exitCode = process.waitFor();

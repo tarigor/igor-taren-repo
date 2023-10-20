@@ -1,6 +1,6 @@
 package com.senla.hotelio.service.entityimport.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;

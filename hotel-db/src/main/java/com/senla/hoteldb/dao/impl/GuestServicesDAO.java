@@ -1,7 +1,7 @@
 package com.senla.hoteldb.dao.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hoteldb.dao.IEntityDAO;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.service.HibernateService;

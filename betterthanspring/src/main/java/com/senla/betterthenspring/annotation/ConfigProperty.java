@@ -1,4 +1,4 @@
-package com.senla.container;
+package com.senla.betterthenspring.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,12 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface InjectValue {
+public @interface ConfigProperty {
+    String moduleName();
+
+    String propertiesFileName();
+
+    String parameterName();
+
+    Class<?> type();
 }

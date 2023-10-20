@@ -1,6 +1,6 @@
 package com.senla.menu.navigator;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.service.PropertiesService;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package com.senla.menu.service;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.senla.container;
+package com.senla.betterthenspring.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

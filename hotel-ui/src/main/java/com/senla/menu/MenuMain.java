@@ -1,10 +1,10 @@
 package com.senla.menu;
 
-import com.senla.betterthenspring.ContainerService;
-import com.senla.betterthenspring.PropertiesInjectionService;
-import com.senla.betterthenspring.ScannerService;
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.service.ContainerService;
+import com.senla.betterthenspring.service.PropertiesInjectionService;
+import com.senla.betterthenspring.service.ScannerService;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hoteldb.service.HibernateService;
 import com.senla.menu.exception.CommonExceptionHotelUIModule;
 import com.senla.menu.service.MenuService;

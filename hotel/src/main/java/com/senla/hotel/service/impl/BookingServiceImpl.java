@@ -1,8 +1,8 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.container.ConfigProperty;
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.ConfigProperty;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.dto.GuestBookingDTO;
 import com.senla.hotel.service.IBookingService;
 import com.senla.hoteldb.dao.impl.BookingDAO;

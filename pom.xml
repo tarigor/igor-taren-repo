@@ -109,7 +109,6 @@
     </reporting>
 
     <modules>
-        <module>annotations</module>
         <module>betterthanspring</module>
         <module>hotel</module>
         <module>hotel-db</module>

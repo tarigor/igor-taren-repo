@@ -2,8 +2,8 @@ package com.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;

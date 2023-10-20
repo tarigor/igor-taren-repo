@@ -1,7 +1,7 @@
 package com.senla.menu.service;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.menu.action.impl.MenuAction1;
 import com.senla.menu.action.impl.MenuAction10;
 import com.senla.menu.action.impl.MenuAction11;

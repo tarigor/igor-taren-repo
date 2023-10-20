@@ -1,7 +1,7 @@
-package com.senla.betterthenspring;
+package com.senla.betterthenspring.service;
 
-import com.senla.container.ConfigProperty;
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.ConfigProperty;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
