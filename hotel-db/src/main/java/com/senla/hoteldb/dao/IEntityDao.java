@@ -2,7 +2,7 @@ package com.senla.hoteldb.dao;
 
 import java.util.List;
 
-public interface IEntityDAO<T> {
+public interface IEntityDao<T> {
     List<T> getAll();
 
     T getById(long entityId);

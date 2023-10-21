@@ -12,13 +12,13 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GuestBookingDTO {
+public class GuestBookingDto {
     private static Set<Long> idHolder = new HashSet<>();
     private long id;
     private Guest guest;
     private Booking booking;
 
-    public GuestBookingDTO(Guest guest, Booking booking) {
+    public GuestBookingDto(Guest guest, Booking booking) {
         generateId();
         this.guest = guest;
         this.booking = booking;

@@ -2,8 +2,8 @@ package com.senla.hoteldb.dao.impl;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
-import com.senla.hoteldb.dao.IEntityDAO;
-import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.dao.IEntityDao;
+import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.service.HibernateService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
-public class BookingDAO implements IEntityDAO<Booking> {
+public class RoomServiceDao implements IEntityDao<RoomService> {
     private HibernateService hibernateService;
 
     @InjectValue
@@ -20,63 +20,65 @@ public class BookingDAO implements IEntityDAO<Booking> {
     }
 
     @Override
-    public List<Booking> getAll() {
+    public List<RoomService> getAll() {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.createQuery("FROM Booking", Booking.class).list();
+            return session.createQuery("FROM RoomService", RoomService.class).list();
         }
         try (session) {
-            return session.createQuery("FROM Booking", Booking.class).list();
+            return session.createQuery("FROM RoomService", RoomService.class).list();
         }
     }
 
     @Override
-    public Booking getById(long id) {
+    public RoomService getById(long id) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.get(Booking.class, id);
+            return session.get(RoomService.class, id);
         }
         try (session) {
-            return session.get(Booking.class, id);
+            return session.get(RoomService.class, id);
         }
     }
 
     @Override
-    public void saveAll(List<Booking> bookings) {
+    public void saveAll(List<RoomService> roomServices) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            for (Booking booking : bookings) {
-                session.persist(booking);
+            for (RoomService roomService : roomServices) {
+                session.persist(roomService);
+            }
+        } else {
+            try (session) {
+                Transaction transaction = session.beginTransaction();
+                for (RoomService roomService : roomServices) {
+                    session.persist(roomService);
+                }
+                transaction.commit();
             }
         }
+    }
+
+    @Override
+    public RoomService update(RoomService roomService) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            return session.merge(roomService);
+        }
         try (session) {
-            Transaction transaction = session.beginTransaction();
-            for (Booking booking : bookings) {
-                session.persist(booking);
+            return session.merge(roomService);
+        }
+    }
+
+    @Override
+    public void save(RoomService roomService) {
+        Session session = hibernateService.getSession();
+        if (session.getTransaction().isActive()) {
+            session.persist(roomService);
+        } else {
+            try (session) {
+                session.persist(roomService);
             }
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public Booking update(Booking booking) {
-        Session session = hibernateService.getSession();
-        if (session.getTransaction().isActive()) {
-            return session.merge(booking);
-        }
-        try (session) {
-            return session.merge(booking);
-        }
-    }
-
-    @Override
-    public void save(Booking booking) {
-        Session session = hibernateService.getSession();
-        if (session.getTransaction().isActive()) {
-            session.persist(booking);
-        }
-        try (session) {
-            session.persist(booking);
         }
     }
 }

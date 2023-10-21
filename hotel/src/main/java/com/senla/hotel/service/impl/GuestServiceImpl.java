@@ -3,7 +3,7 @@ package com.senla.hotel.service.impl;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.IGuestService;
-import com.senla.hoteldb.dao.impl.GuestDAO;
+import com.senla.hoteldb.dao.impl.GuestDao;
 import com.senla.hoteldb.entity.Guest;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @CreateInstanceAndPutInContainer
 public class GuestServiceImpl implements IGuestService {
-    private GuestDAO guestDAO;
+    private GuestDao guestDAO;
 
     @InjectValue
-    public void setGuestDAO(GuestDAO guestDAO) {
+    public void setGuestDAO(GuestDao guestDAO) {
         this.guestDAO = guestDAO;
     }
 

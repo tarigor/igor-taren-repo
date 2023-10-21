@@ -2,8 +2,8 @@ package com.senla.hoteldb.dao.impl;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
-import com.senla.hoteldb.dao.IEntityDAO;
-import com.senla.hoteldb.entity.RoomService;
+import com.senla.hoteldb.dao.IEntityDao;
+import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.service.HibernateService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
-public class RoomServiceDAO implements IEntityDAO<RoomService> {
+public class GuestServicesDao implements IEntityDao<GuestServices> {
     private HibernateService hibernateService;
 
     @InjectValue
@@ -20,39 +20,39 @@ public class RoomServiceDAO implements IEntityDAO<RoomService> {
     }
 
     @Override
-    public List<RoomService> getAll() {
+    public List<GuestServices> getAll() {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.createQuery("FROM RoomService", RoomService.class).list();
+            return session.createQuery("FROM GuestServices", GuestServices.class).list();
         }
         try (session) {
-            return session.createQuery("FROM RoomService", RoomService.class).list();
+            return session.createQuery("FROM GuestServices", GuestServices.class).list();
         }
     }
 
     @Override
-    public RoomService getById(long id) {
+    public GuestServices getById(long id) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.get(RoomService.class, id);
+            return session.get(GuestServices.class, id);
         }
         try (session) {
-            return session.get(RoomService.class, id);
+            return session.get(GuestServices.class, id);
         }
     }
 
     @Override
-    public void saveAll(List<RoomService> roomServices) {
+    public void saveAll(List<GuestServices> guestServices) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            for (RoomService roomService : roomServices) {
-                session.persist(roomService);
+            for (GuestServices guestService : guestServices) {
+                session.persist(guestService);
             }
         } else {
             try (session) {
                 Transaction transaction = session.beginTransaction();
-                for (RoomService roomService : roomServices) {
-                    session.persist(roomService);
+                for (GuestServices guestService : guestServices) {
+                    session.persist(guestService);
                 }
                 transaction.commit();
             }
@@ -60,24 +60,26 @@ public class RoomServiceDAO implements IEntityDAO<RoomService> {
     }
 
     @Override
-    public RoomService update(RoomService roomService) {
+    public GuestServices update(GuestServices guestServices) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.merge(roomService);
+            return session.merge(guestServices);
         }
         try (session) {
-            return session.merge(roomService);
+            return session.merge(guestServices);
         }
     }
 
     @Override
-    public void save(RoomService roomService) {
+    public void save(GuestServices guestServices) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            session.persist(roomService);
+            session.persist(guestServices);
         } else {
             try (session) {
-                session.persist(roomService);
+                Transaction transaction = session.beginTransaction();
+                session.persist(guestServices);
+                transaction.commit();
             }
         }
     }

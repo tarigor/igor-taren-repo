@@ -3,11 +3,11 @@ package com.senla.hotel.service.impl;
 import com.senla.betterthenspring.annotation.ConfigProperty;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
-import com.senla.hotel.dto.GuestBookingDTO;
+import com.senla.hotel.dto.GuestBookingDto;
 import com.senla.hotel.service.IBookingService;
-import com.senla.hoteldb.dao.impl.BookingDAO;
-import com.senla.hoteldb.dao.impl.GuestDAO;
-import com.senla.hoteldb.dao.impl.RoomDAO;
+import com.senla.hoteldb.dao.impl.BookingDao;
+import com.senla.hoteldb.dao.impl.GuestDao;
+import com.senla.hoteldb.dao.impl.RoomDao;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl implements IBookingService {
     private Integer roomHistoryLimit;
-    private BookingDAO bookingDAO;
-    private RoomDAO roomDAO;
-    private GuestDAO guestDAO;
+    private BookingDao bookingDAO;
+    private RoomDao roomDAO;
+    private GuestDao guestDAO;
     private HibernateService hibernateService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
@@ -35,17 +35,17 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @InjectValue
-    public void setBookingDAO(BookingDAO bookingDAO) {
+    public void setBookingDAO(BookingDao bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
     @InjectValue
-    public void setRoomDAO(RoomDAO roomDAO) {
+    public void setRoomDAO(RoomDao roomDAO) {
         this.roomDAO = roomDAO;
     }
 
     @InjectValue
-    public void setGuestDAO(GuestDAO guestDAO) {
+    public void setGuestDAO(GuestDao guestDAO) {
         this.guestDAO = guestDAO;
     }
 
@@ -61,12 +61,12 @@ public class BookingServiceImpl implements IBookingService {
 
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
-    public List<GuestBookingDTO> findAllOrderedAlphabetically() {
+    public List<GuestBookingDto> findAllOrderedAlphabetically() {
         hibernateService.beginTransaction();
         List<Guest> guests = guestDAO.getAll();
         List<Booking> bookings = bookingDAO.getAll();
-        List<GuestBookingDTO> result = bookings.stream()
-                .map(b -> new GuestBookingDTO(guests.stream()
+        List<GuestBookingDto> result = bookings.stream()
+                .map(b -> new GuestBookingDto(guests.stream()
                         .filter(g -> g.getId() == b.getGuest().getId())
                         .findFirst()
                         .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))

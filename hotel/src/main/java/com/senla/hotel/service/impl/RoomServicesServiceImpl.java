@@ -5,7 +5,7 @@ import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
-import com.senla.hoteldb.dao.impl.RoomServiceDAO;
+import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.RoomService;
 
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServicesServiceImpl implements IRoomServicesService {
-    private RoomServiceDAO roomServiceDAO;
+    private RoomServiceDao roomServiceDAO;
 
     @InjectValue
-    public void setRoomServiceDAO(RoomServiceDAO roomServiceDAO) {
+    public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 

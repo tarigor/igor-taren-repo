@@ -2,8 +2,8 @@ package com.senla.hoteldb.dao.impl;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
-import com.senla.hoteldb.dao.IEntityDAO;
-import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.dao.IEntityDao;
+import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.service.HibernateService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 @CreateInstanceAndPutInContainer
-public class RoomDAO implements IEntityDAO<Room> {
+public class GuestDao implements IEntityDao<Guest> {
     private HibernateService hibernateService;
 
     @InjectValue
@@ -20,39 +20,39 @@ public class RoomDAO implements IEntityDAO<Room> {
     }
 
     @Override
-    public List<Room> getAll() {
+    public List<Guest> getAll() {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.createQuery("FROM Room", Room.class).list();
+            return session.createQuery("FROM Guest", Guest.class).list();
         }
         try (session) {
-            return session.createQuery("FROM Room", Room.class).list();
+            return session.createQuery("FROM Guest", Guest.class).list();
         }
     }
 
     @Override
-    public Room getById(long id) {
+    public Guest getById(long id) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.get(Room.class, id);
+            return session.get(Guest.class, id);
         }
         try (session) {
-            return session.get(Room.class, id);
+            return session.get(Guest.class, id);
         }
     }
 
     @Override
-    public void saveAll(List<Room> rooms) {
+    public void saveAll(List<Guest> guests) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            for (Room room : rooms) {
-                session.persist(room);
+            for (Guest guest : guests) {
+                session.persist(guest);
             }
         } else {
             try (session) {
                 Transaction transaction = session.beginTransaction();
-                for (Room room : rooms) {
-                    session.persist(room);
+                for (Guest guest : guests) {
+                    session.persist(guest);
                 }
                 transaction.commit();
             }
@@ -60,24 +60,24 @@ public class RoomDAO implements IEntityDAO<Room> {
     }
 
     @Override
-    public Room update(Room room) {
+    public Guest update(Guest guest) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            return session.merge(room);
+            return session.merge(guest);
         }
         try (session) {
-            return session.merge(room);
+            return session.merge(guest);
         }
     }
 
     @Override
-    public void save(Room room) {
+    public void save(Guest guest) {
         Session session = hibernateService.getSession();
         if (session.getTransaction().isActive()) {
-            session.persist(room);
+            session.persist(guest);
         } else {
             try (session) {
-                session.persist(room);
+                session.persist(guest);
             }
         }
     }

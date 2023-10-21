@@ -7,7 +7,7 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.service.IRoomService;
-import com.senla.hoteldb.dao.impl.RoomDAO;
+import com.senla.hoteldb.dao.impl.RoomDao;
 import com.senla.hoteldb.entity.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class RoomServiceImpl implements IRoomService {
     private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
     private Boolean checkInCheckOutPermission;
-    private RoomDAO roomDAO;
+    private RoomDao roomDAO;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
     public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
@@ -29,7 +29,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @InjectValue
-    public void setRoomDAO(RoomDAO roomDAO) {
+    public void setRoomDAO(RoomDao roomDAO) {
         this.roomDAO = roomDAO;
     }
 
