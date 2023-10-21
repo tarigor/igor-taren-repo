@@ -1,8 +1,8 @@
-# igor-taren-repo
+#### _igor-taren-repo_
 
-Igor Taren's repository
+# HOTEL SERVICE
 
-## TASK#13
+### TASK#13
 
 ### _Hibernate_
 
