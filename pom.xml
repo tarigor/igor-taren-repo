@@ -64,7 +64,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven.checkstyle.plugin.version}</version>
                 <configuration>
-                    <configLocation>src/main/resources/checkstyle/checkstyle.xml</configLocation>
+                    <configLocation>hotel-ui/src/main/resources/checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
