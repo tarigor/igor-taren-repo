@@ -1,14 +1,17 @@
 package com.senla.menu.action.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction11 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction11.class);
     private GuestServicesServiceImpl guestServicesService;
 
     @InjectValue
@@ -37,7 +40,7 @@ public class MenuAction11 extends MenuAction implements IAction {
                     selectionText = "DATE";
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-1. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-1. Try again");
                     continue;
             }
             correct = true;

@@ -1,6 +1,6 @@
 package com.senla.menu.builder;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;

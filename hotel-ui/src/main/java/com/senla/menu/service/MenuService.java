@@ -1,7 +1,7 @@
 package com.senla.menu.service;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.menu.action.impl.MenuAction1;
 import com.senla.menu.action.impl.MenuAction10;
 import com.senla.menu.action.impl.MenuAction11;
@@ -25,6 +25,7 @@ import com.senla.menu.builder.Builder;
 import com.senla.menu.controller.MenuController;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
+import com.senla.menu.exception.CommonExceptionHotelUIModule;
 import com.senla.menu.navigator.Navigator;
 
 @CreateInstanceAndPutInContainer
@@ -169,7 +170,7 @@ public class MenuService {
         this.menuAction19 = menuAction19;
     }
 
-    public void showMenu() {
+    public void showMenu() throws CommonExceptionHotelUIModule {
         Menu menu = builder
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price

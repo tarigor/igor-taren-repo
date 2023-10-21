@@ -1,7 +1,7 @@
 package com.senla.menu.action.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl;
@@ -9,11 +9,14 @@ import com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction16 extends MenuAction implements IAction {
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction16.class);
     protected BookingEntityExportServiceImpl bookingEntityExportService;
     private GuestEntityExportServiceImpl guestEntityExportService;
     private GuestServicesEntityExportServiceImpl guestServicesEntityExportService;
@@ -48,7 +51,6 @@ public class MenuAction16 extends MenuAction implements IAction {
     //Export the certain entity
     @Override
     public void execute() {
-        System.out.println("im here1");
         int selection;
         boolean correct = false;
         while (!correct) {
@@ -71,7 +73,7 @@ public class MenuAction16 extends MenuAction implements IAction {
                     roomServiceEntityExportService.exportEntity();
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-4. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
             }
             correct = true;

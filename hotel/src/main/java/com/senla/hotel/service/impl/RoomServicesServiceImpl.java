@@ -1,12 +1,12 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
-import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
-import com.senla.hotel.entity.RoomService;
 import com.senla.hotel.service.IRoomServicesService;
+import com.senla.hoteldb.dao.impl.RoomServiceDao;
+import com.senla.hoteldb.entity.RoomService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServicesServiceImpl implements IRoomServicesService {
-    private RoomServiceDAOImpl roomServiceDAO;
+    private RoomServiceDao roomServiceDAO;
 
     @InjectValue
-    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+    public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 
@@ -65,5 +65,10 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
     @Override
     public List<RoomService> getAll() {
         return roomServiceDAO.getAll();
+    }
+
+    @Override
+    public RoomService getById(Long id) {
+        return roomServiceDAO.getById(id);
     }
 }

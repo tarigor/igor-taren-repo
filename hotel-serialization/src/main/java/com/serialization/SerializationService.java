@@ -2,18 +2,18 @@ package com.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.GuestServices;
+import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.entity.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,23 +62,23 @@ public class SerializationService {
         switch (mapName) {
             case "Booking":
                 serializeMap(bookingService.getAll().stream()
-                        .collect(Collectors.groupingBy(Booking::getId)), "Booking");
+                        .collect(Collectors.toMap(Booking::getId, booking -> booking)), "Booking");
                 break;
             case "Guest":
                 serializeMap(guestService.getAll().stream()
-                        .collect(Collectors.groupingBy(Guest::getId)), "Guest");
+                        .collect(Collectors.toMap(Guest::getId, guest -> guest)), "Guest");
                 break;
             case "GuestServices":
                 serializeMap(guestServicesService.getAll().stream()
-                        .collect(Collectors.groupingBy(GuestServices::getId)), "GuestServices");
+                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestServices");
                 break;
             case "Room":
                 serializeMap(roomService.getAll().stream()
-                        .collect(Collectors.groupingBy(Room::getId)), "Room");
+                        .collect(Collectors.toMap(Room::getId, room -> room)), "Room");
                 break;
             case "RoomServices":
                 serializeMap(roomServicesService.getAll().stream()
-                        .collect(Collectors.groupingBy(RoomService::getId)), "RoomServices");
+                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
                 break;
             default:
                 throw new NoSuchElementException("There is no such an entity");
@@ -90,7 +90,7 @@ public class SerializationService {
         try (FileWriter writer = new FileWriter(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json")) {
             // Serialize the Map to JSON and write it to the file
             gson.toJson(map, writer);
-            System.out.println("Serialization completed successfully.");
+            logger.info("Serialization completed successfully");
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation->" + e.getMessage());
             e.printStackTrace();

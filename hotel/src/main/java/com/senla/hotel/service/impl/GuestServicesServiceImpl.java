@@ -1,15 +1,17 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.dao.impl.GuestServicesDAOImpl;
-import com.senla.hotel.dao.impl.RoomServiceDAOImpl;
-import com.senla.hotel.dto.GuestServicesDTO;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.RoomService;
+import com.senla.hotel.constant.ServiceType;
+import com.senla.hotel.dto.GuestServicesDto;
 import com.senla.hotel.service.IGuestServicesService;
+import com.senla.hoteldb.dao.impl.GuestServicesDao;
+import com.senla.hoteldb.dao.impl.RoomServiceDao;
+import com.senla.hoteldb.entity.GuestServices;
+import com.senla.hoteldb.entity.RoomService;
+import com.senla.hoteldb.service.HibernateService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,16 +21,22 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class GuestServicesServiceImpl implements IGuestServicesService {
-    private GuestServicesDAOImpl guestServicesDAO;
-    private RoomServiceDAOImpl roomServiceDAO;
+    private GuestServicesDao guestServicesDAO;
+    private RoomServiceDao roomServiceDAO;
+    private HibernateService hibernateService;
 
     @InjectValue
-    public void setGuestServicesDAO(GuestServicesDAOImpl guestServicesDAO) {
+    public void setHibernateConfig(HibernateService hibernateService) {
+        this.hibernateService = hibernateService;
+    }
+
+    @InjectValue
+    public void setGuestServicesDAO(GuestServicesDao guestServicesDAO) {
         this.guestServicesDAO = guestServicesDAO;
     }
 
     @InjectValue
-    public void setRoomServiceDAO(RoomServiceDAOImpl roomServiceDAO) {
+    public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }
 
@@ -39,20 +47,21 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
 
     //    View the list of guest services and their price (sort by price, by date);
     @Override
-    public List<GuestServicesDTO> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+    public List<GuestServicesDto> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
+        hibernateService.beginTransaction();
         List<RoomService> roomServices = roomServiceDAO.getAll();
         List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
-                .filter(guestServices -> guestServices.getGuestId() == guestId)
+                .filter(guestServices -> guestServices.getGuest().getId() == guestId)
                 .collect(Collectors.toList());
 
-        Comparator<GuestServicesDTO> comparator;
+        Comparator<GuestServicesDto> comparator;
 
         switch (guestServicesSection) {
             case PRICE:
-                comparator = Comparator.comparing(GuestServicesDTO::getRoomServicePrice);
+                comparator = Comparator.comparing(GuestServicesDto::getRoomServicePrice);
                 break;
             case DATE:
-                comparator = Comparator.comparing(GuestServicesDTO::getRoomServiceOrderDate);
+                comparator = Comparator.comparing(GuestServicesDto::getRoomServiceOrderDate);
                 break;
             default:
                 throw new IndexOutOfBoundsException("An ordering by section -> " + guestServicesSection + " is not possible");
@@ -62,16 +71,18 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
             comparator = comparator.reversed();
         }
 
-        return guestServicesByGuestId.stream()
-                .map(guestServices -> new GuestServicesDTO(
+        List<GuestServicesDto> guestServicesDtoList = guestServicesByGuestId.stream()
+                .map(guestServices -> new GuestServicesDto(
                         guestServices.getId(),
-                        guestServices.getGuestId(),
-                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getServiceType(),
+                        guestServices.getGuest().getId(),
+                        ServiceType.valueOf(roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomService().getId())).getServiceType()),
                         guestServices.getRoomServiceOrderDate(),
-                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomServiceId())).getPrice()
+                        roomServices.get(getIndexByServiceID(roomServices, guestServices.getRoomService().getId())).getPrice()
                 ))
                 .sorted(comparator)
                 .collect(Collectors.toList());
+        hibernateService.commit();
+        return guestServicesDtoList;
     }
 
     private int getIndexByServiceID(List<RoomService> roomServices, long roomServiceId) {

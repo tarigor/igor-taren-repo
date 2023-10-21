@@ -1,17 +1,17 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.container.ConfigProperty;
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
-import com.senla.hotel.dao.impl.BookingDAOImpl;
-import com.senla.hotel.dao.impl.GuestDAOImpl;
-import com.senla.hotel.dao.impl.RoomDAOImpl;
-import com.senla.hotel.dto.GuestBookingDTO;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.Room;
+import com.senla.betterthenspring.annotation.ConfigProperty;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
+import com.senla.hotel.dto.GuestBookingDto;
 import com.senla.hotel.service.IBookingService;
-import com.senla.hoteldb.DatabaseService;
+import com.senla.hoteldb.dao.impl.BookingDao;
+import com.senla.hoteldb.dao.impl.GuestDao;
+import com.senla.hoteldb.dao.impl.RoomDao;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.service.HibernateService;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -24,10 +24,10 @@ import java.util.stream.Collectors;
 @CreateInstanceAndPutInContainer
 public class BookingServiceImpl implements IBookingService {
     private Integer roomHistoryLimit;
-    private BookingDAOImpl bookingDAO;
-    private RoomDAOImpl roomDAO;
-    private GuestDAOImpl guestDAO;
-    private DatabaseService databaseService;
+    private BookingDao bookingDAO;
+    private RoomDao roomDAO;
+    private GuestDao guestDAO;
+    private HibernateService hibernateService;
 
     @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
     public void setRoomHistoryLimit(Integer roomHistoryLimit) {
@@ -35,23 +35,23 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @InjectValue
-    public void setBookingDAO(BookingDAOImpl bookingDAO) {
+    public void setBookingDAO(BookingDao bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
     @InjectValue
-    public void setRoomDAO(RoomDAOImpl roomDAO) {
+    public void setRoomDAO(RoomDao roomDAO) {
         this.roomDAO = roomDAO;
     }
 
     @InjectValue
-    public void setGuestDAO(GuestDAOImpl guestDAO) {
+    public void setGuestDAO(GuestDao guestDAO) {
         this.guestDAO = guestDAO;
     }
 
     @InjectValue
-    public void setDatabaseService(DatabaseService databaseService) {
-        this.databaseService = databaseService;
+    public void setHibernateConfig(HibernateService hibernateService) {
+        this.hibernateService = hibernateService;
     }
 
     @Override
@@ -61,19 +61,19 @@ public class BookingServiceImpl implements IBookingService {
 
     //    List of guests and their rooms (sort alphabetically and by check-out date);
     @Override
-    public List<GuestBookingDTO> findAllOrderedAlphabetically() {
-        databaseService.setAutocommit(false);
+    public List<GuestBookingDto> findAllOrderedAlphabetically() {
+        hibernateService.beginTransaction();
         List<Guest> guests = guestDAO.getAll();
         List<Booking> bookings = bookingDAO.getAll();
-        List<GuestBookingDTO> result = bookings.stream()
-                .map(b -> new GuestBookingDTO(guests.stream()
-                        .filter(g -> g.getId() == b.getGuestId())
+        List<GuestBookingDto> result = bookings.stream()
+                .map(b -> new GuestBookingDto(guests.stream()
+                        .filter(g -> g.getId() == b.getGuest().getId())
                         .findFirst()
                         .orElseThrow(() -> new NoSuchElementException("There is no result for the requested condition")), b))
                 .sorted(Comparator.comparing(g -> g.getGuest().getLastName()))
                 .limit(roomHistoryLimit)
                 .collect(Collectors.toList());
-        databaseService.commit();
+        hibernateService.commit();
         return result;
     }
 
@@ -99,20 +99,20 @@ public class BookingServiceImpl implements IBookingService {
     public double getTotalPaymentByGuest(long guestId) {
         Booking booking = getByGuestId(guestId);
         Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
-        return roomDAO.getById(booking.getBookedRoomId()).getPrice() * duration.toDays();
+        return roomDAO.getById(booking.getRoom().getId()).getPrice() * duration.toDays();
     }
 
     //    List of rooms that will be available on a certain date in the future;
     @Override
     public List<Room> findAvailableRoomsByDate(Date date) {
-        databaseService.setAutocommit(false);
+        hibernateService.beginTransaction();
         List<Booking> bookings = bookingDAO.getAll();
         List<Room> availableRooms = bookings.stream()
                 .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
                         (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
-                .map(b -> roomDAO.getById(b.getBookedRoomId()))
+                .map(b -> roomDAO.getById(b.getRoom().getId()))
                 .collect(Collectors.toList());
-        databaseService.commit();
+        hibernateService.commit();
         return availableRooms;
     }
 
@@ -128,7 +128,7 @@ public class BookingServiceImpl implements IBookingService {
     @Override
     public Booking getByGuestId(long guestId) {
         return bookingDAO.getAll().stream()
-                .filter(b -> b.getGuestId() == guestId)
+                .filter(b -> b.getGuest().getId() == guestId)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("There is no booking for such a guest with id->" + guestId));
     }

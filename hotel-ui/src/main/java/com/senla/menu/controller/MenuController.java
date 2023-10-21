@@ -1,8 +1,9 @@
 package com.senla.menu.controller;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.entity.Menu;
+import com.senla.menu.exception.CommonExceptionHotelUIModule;
 import com.senla.menu.navigator.Navigator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,15 +40,17 @@ public class MenuController {
         return this;
     }
 
-    public void menuRolling() {
+    public void menuRolling() throws CommonExceptionHotelUIModule {
         System.out.println("0. Exit");
         System.out.println("select an option");
         int item = scanner.nextInt();
         if (item != 0) {
+            System.out.println("----------------------------------");
             try {
                 builder.getItems().get(item).execute();
-            } catch (NullPointerException e) {
-                logger.error("There is no such an item->" + item + " , please select an item within the provided menu");
+            } catch (Exception e) {
+                logger.error("An error occurred -> " + e.getMessage());
+                throw new CommonExceptionHotelUIModule(e);
             }
             System.out.println("----------------------------------");
             showMenu();

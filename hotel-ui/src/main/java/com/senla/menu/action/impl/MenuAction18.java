@@ -1,15 +1,17 @@
 package com.senla.menu.action.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
-import com.senla.container.InjectValue;
-import com.senla.hotel.entity.Booking;
-import com.senla.hotel.entity.Guest;
-import com.senla.hotel.entity.GuestServices;
-import com.senla.hotel.entity.Room;
-import com.senla.hotel.entity.RoomService;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.InjectValue;
+import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.GuestServices;
+import com.senla.hoteldb.entity.Room;
+import com.senla.hoteldb.entity.RoomService;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import com.serialization.DeserializationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.Scanner;
 
 @CreateInstanceAndPutInContainer
 public class MenuAction18 extends MenuAction implements IAction {
-
+    private static final Logger logger = LoggerFactory.getLogger(MenuAction18.class);
     private Map<Long, Booking> bookings;
     private DeserializationService deserializationService;
 
@@ -41,25 +43,30 @@ public class MenuAction18 extends MenuAction implements IAction {
                 case 0:
                     //Booking
                     HashMap<Long, Booking> bookings = (HashMap<Long, Booking>) deserializationService.deserializeToMap(Booking.class, "Booking");
+                    toPrint(bookings);
                     break;
                 case 1:
                     //Guest
                     HashMap<Long, Guest> guests = (HashMap<Long, Guest>) deserializationService.deserializeToMap(Guest.class, "Guest");
+                    toPrint(guests);
                     break;
                 case 2:
                     //GuestService
                     HashMap<Long, GuestServices> guestServices = (HashMap<Long, GuestServices>) deserializationService.deserializeToMap(GuestServices.class, "GuestServices");
+                    toPrint(guestServices);
                     break;
                 case 3:
                     //Room
                     HashMap<Long, Room> rooms = (HashMap<Long, Room>) deserializationService.deserializeToMap(Room.class, "Room");
+                    toPrint(rooms);
                     break;
                 case 4:
                     //RoomService
                     HashMap<Long, RoomService> roomServices = (HashMap<Long, RoomService>) deserializationService.deserializeToMap(RoomService.class, "RoomServices");
+                    toPrint(roomServices);
                     break;
                 default:
-                    System.out.println("Wrong input! The selection must be in between 0-4. Try again");
+                    logger.error("Wrong input! The selection must be in between 0-4. Try again");
                     continue;
             }
             correct = true;

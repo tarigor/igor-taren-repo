@@ -17,7 +17,7 @@ public abstract class ExportService {
     private static final Logger logger = LoggerFactory.getLogger(ExportService.class);
     private static final String EXPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\export";
     private static final String EXTENSION = ".csv";
-    private static final String REGEX = "(?<=\\=)(.*?)(?=\\,)";
+    private static final String REGEX = "=([^,}]+)";
 
     protected <T> void storeEntityToCsv(String entityFileName, List<T> list) {
         try {
@@ -33,14 +33,17 @@ public abstract class ExportService {
     }
 
     private String getFieldsFromEntityInCsvFormat(Object entity) {
-        System.out.println("entity->" + entity.toString());
+        String input = entity.toString().replace(")", "");
         Pattern pattern = Pattern.compile(REGEX);
-        Matcher matcher = pattern.matcher(entity.toString().replace("}", ","));
-        StringBuilder resultText = new StringBuilder();
+        Matcher matcher = pattern.matcher(input);
+        StringBuilder result = new StringBuilder();
         while (matcher.find()) {
-            String result = matcher.group(1).replace("'", "");
-            resultText.append(result).append(",");
+            String value = matcher.group(1);
+            result.append(value).append(",");
         }
-        return resultText.substring(0, resultText.length() - 1) + "\n";
+        if (result.length() > 0) {
+            result.deleteCharAt(result.length() - 1);
+        }
+        return result + "\n";
     }
 }

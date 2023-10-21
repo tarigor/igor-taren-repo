@@ -1,8 +1,8 @@
 package com.senla.hotelio.service.entityimport.impl;
 
-import com.senla.container.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.hotel.constant.RoomStatus;
-import com.senla.hotel.entity.Room;
+import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 
@@ -22,7 +22,7 @@ public class RoomEntityImportServiceImpl extends ImportService implements IImpor
                     Long.parseLong(roomsWithParameter.get(0)),
                     Integer.parseInt(roomsWithParameter.get(1)),
                     Double.parseDouble(roomsWithParameter.get(2)),
-                    RoomStatus.valueOf(roomsWithParameter.get(3)),
+                    RoomStatus.valueOf(roomsWithParameter.get(3)).name(),
                     Integer.parseInt(roomsWithParameter.get(4))
             ));
         }
