@@ -32,27 +32,27 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
 
     @Override
     public List<RoomService> getAllOrdered(RoomServiceSection roomServiceSection, Ordering ordering) {
+        Comparator<RoomService> comparator;
+
         switch (roomServiceSection) {
             case ROOM_SERVICE:
-                return ordering == Ordering.ASC ?
-                        roomServiceDAO.getAll().stream()
-                                .sorted(Comparator.comparing(RoomService::getServiceType))
-                                .collect(Collectors.toList()) :
-                        roomServiceDAO.getAll().stream()
-                                .sorted(Comparator.comparing(RoomService::getServiceType).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(RoomService::getServiceType);
+                break;
             case PRICE:
-                return ordering == Ordering.ASC ?
-                        roomServiceDAO.getAll().stream()
-                                .sorted(Comparator.comparing(RoomService::getPrice))
-                                .collect(Collectors.toList()) :
-                        roomServiceDAO.getAll().stream()
-                                .sorted(Comparator.comparing(RoomService::getPrice).reversed())
-                                .collect(Collectors.toList());
+                comparator = Comparator.comparing(RoomService::getPrice);
+                break;
             default:
                 logger.error("An ordering by section -> {} is not possible", roomServiceSection);
-                throw new IndexOutOfBoundsException("An ordering by section ->" + roomServiceSection + "is not possible");
+                throw new IllegalArgumentException("An ordering by section -> " + roomServiceSection + " is not possible");
         }
+
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
+
+        return roomServiceDAO.getAll().stream()
+                .sorted(comparator)
+                .collect(Collectors.toList());
     }
 
     @Override

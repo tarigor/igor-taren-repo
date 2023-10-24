@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -30,12 +29,12 @@ public class PropertiesInjectionService {
                 Method[] methods = clazz.getDeclaredMethods();
                 for (Method method : methods) {
                     if (method.isAnnotationPresent(ConfigProperty.class)) {
-                        Annotation annotation = method.getAnnotation(ConfigProperty.class);
+                        ConfigProperty annotation = method.getAnnotation(ConfigProperty.class);
 
-                        String moduleName = ((ConfigProperty) annotation).moduleName();
-                        String propertiesFileName = ((ConfigProperty) annotation).propertiesFileName();
-                        String parameterName = ((ConfigProperty) annotation).parameterName();
-                        Class<?> parameterType = ((ConfigProperty) annotation).type();
+                        String moduleName = annotation.moduleName();
+                        String propertiesFileName = annotation.propertiesFileName();
+                        String parameterName = annotation.parameterName();
+                        Class<?> parameterType = annotation.type();
 
                         Properties propertiesFromContainer = loadProperties(moduleName, propertiesFileName);
 
@@ -89,11 +88,11 @@ public class PropertiesInjectionService {
         if (propertiesHashMap.get(propertiesFileName) == null) {
             String PATH = BACKSLASH + moduleName + RESOURCES_PATH;
             Properties properties = new Properties();
-            try (InputStream input = new FileInputStream(System.getProperty(USER_DIR) + PATH + BACKSLASH + propertiesFileName + PROPERTIES_EXTENSION)) {
+            String propertyFilePath = System.getProperty(USER_DIR) + PATH + BACKSLASH + propertiesFileName + PROPERTIES_EXTENSION;
+            try (InputStream input = new FileInputStream(propertyFilePath)) {
                 properties.load(input);
             } catch (IOException e) {
-                logger.error("an error occurred during a properties load -> {}", e.getMessage());
-                e.printStackTrace();
+                logger.error("An error occurred while loading properties from file '{}': {}", propertyFilePath, e.getMessage());
             }
             propertiesHashMap.put(propertiesFileName, properties);
             return properties;

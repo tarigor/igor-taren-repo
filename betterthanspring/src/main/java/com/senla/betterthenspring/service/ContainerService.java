@@ -16,7 +16,7 @@ public class ContainerService {
     public static final String TARGET = " arg0";
     public static final String REPLACEMENT = "";
     private static final Logger logger = LoggerFactory.getLogger(ContainerService.class);
-    private static HashMap<String, Object> instances = new HashMap<>();
+    private static final HashMap<String, Object> instances = new HashMap<>();
 
     public static HashMap<String, Object> getInstances() {
         return instances;
@@ -34,7 +34,7 @@ public class ContainerService {
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
                     logger.error("an error occurred during storing instance of class in container -> {}", e.getMessage());
-                    e.printStackTrace();
+                    throw new RuntimeException("an error occurred during storing instance of class in container -> {}" + e.getMessage());
                 }
             }
         }

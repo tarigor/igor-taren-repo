@@ -93,7 +93,6 @@ public class SerializationService {
             logger.info("Serialization completed successfully");
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            e.printStackTrace();
         }
     }
 }

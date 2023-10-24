@@ -23,7 +23,6 @@ public class StringToDateConverter extends StdConverter<String, Date> {
             System.out.println("Parsed Date: " + date);
         } catch (ParseException e) {
             logger.error("an error occurred during a parse operation -> {}", e.getMessage());
-            e.printStackTrace();
         }
         return date;
     }

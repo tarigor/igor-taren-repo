@@ -15,7 +15,7 @@ public class ScannerService {
     public static final String TEXT = "java\\";
     public static final String JAVA_FILE_EXTENSION = ".java";
     public static final char DOT_CHAR = '.';
-    public static final String QUOTES = "";
+    public static final String EMPTY_CHAR = "";
     public static final String USER_DIR = "user.dir";
     private static final Logger logger = LoggerFactory.getLogger(ScannerService.class);
 
@@ -34,7 +34,7 @@ public class ScannerService {
                     String filePath = file.getAbsolutePath();
                     String classPath = filePath.substring(filePath.indexOf(TEXT) + TEXT.length())
                             .replace(File.separatorChar, DOT_CHAR)
-                            .replace(JAVA_FILE_EXTENSION, QUOTES);
+                            .replace(JAVA_FILE_EXTENSION, EMPTY_CHAR);
                     try {
                         classes.add(Class.forName(classPath));
                     } catch (ClassNotFoundException e) {

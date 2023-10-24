@@ -28,7 +28,6 @@ public class DeserializationService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            e.printStackTrace();
         }
         return content.toString();
     }

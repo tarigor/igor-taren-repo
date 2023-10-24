@@ -3,6 +3,7 @@ package com.senla.hoteldb.service;
 
 import com.senla.betterthenspring.annotation.ConfigProperty;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -62,9 +63,8 @@ public class HibernateService implements AutoCloseable {
                 configuration.addAnnotatedClass(s);
             }
             sessionFactory = configuration.buildSessionFactory();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             logger.error("An error occurred during session register -> {}", e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -119,7 +119,6 @@ public class HibernateService implements AutoCloseable {
             }
         } catch (IOException | InterruptedException e) {
             logger.error("an error occurred during IO operation -> {}", e.getMessage());
-            e.printStackTrace();
         }
     }
 }

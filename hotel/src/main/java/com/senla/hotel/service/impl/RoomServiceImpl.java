@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -134,51 +135,36 @@ public class RoomServiceImpl implements IRoomService {
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
     public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+        Comparator<Room> comparator = getComparatorForSection(roomSection, ordering);
+
+        List<Room> rooms = roomDAO.getAll();
+
+        if (comparator != null) {
+            return rooms.stream()
+                    .sorted(comparator)
+                    .collect(Collectors.toList());
+        } else {
+            logger.error("An ordering by section -> {} is not possible", roomSection);
+            throw new IllegalArgumentException("An ordering by section -> " + roomSection + " is not possible");
+        }
+    }
+
+    private Comparator<Room> getComparatorForSection(RoomSection roomSection, Ordering ordering) {
         switch (roomSection) {
             case ID:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getId))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getId).reversed())
-                                .collect(Collectors.toList());
-
+                return ordering == Ordering.ASC ? Comparator.comparing(Room::getId) : Comparator.comparing(Room::getId).reversed();
             case CAPACITY:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getCapacity))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getCapacity).reversed())
-                                .collect(Collectors.toList());
+                return ordering == Ordering.ASC ? Comparator.comparing(Room::getCapacity) : Comparator.comparing(Room::getCapacity).reversed();
             case PRICE:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getPrice))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getPrice).reversed())
-                                .collect(Collectors.toList());
+                return ordering == Ordering.ASC ? Comparator.comparing(Room::getPrice) : Comparator.comparing(Room::getPrice).reversed();
             case AVAILABILITY:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name())))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()), Comparator.reverseOrder()))
-                                .collect(Collectors.toList());
+                return ordering == Ordering.ASC ? Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name())) :
+                        Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()), Comparator.reverseOrder());
             case RATING:
-                return ordering == Ordering.ASC ?
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getStarsRating))
-                                .collect(Collectors.toList()) :
-                        roomDAO.getAll().stream()
-                                .sorted(Comparator.comparing(Room::getStarsRating).reversed())
-                                .collect(Collectors.toList());
+                return ordering == Ordering.ASC ? Comparator.comparing(Room::getStarsRating) : Comparator.comparing(Room::getStarsRating).reversed();
             default:
-                logger.error("An ordering by section -> {} is not possible", roomSection);
-                throw new IndexOutOfBoundsException("An ordering by section ->" + roomSection + "is not possible");
+                logger.error("there is no such a section -> {}", roomSection);
+                throw new NoSuchElementException("there is no such a section -> " + roomSection);
         }
     }
 
