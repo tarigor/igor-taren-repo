@@ -3,6 +3,7 @@ package com.senla.hoteldb.service;
 
 import com.senla.betterthenspring.annotation.ConfigProperty;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.hoteldb.exception.HotelDbModuleException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,7 +53,7 @@ public class HibernateService implements AutoCloseable {
         this.dialect = dialect;
     }
 
-    public void registerSession(List<Class<?>> clazz) {
+    public void registerSession(List<Class<?>> clazz) throws HotelDbModuleException {
         try {
             Configuration configuration = new Configuration();
             configuration.setProperty("hibernate.connection.driver_class", jdbcDriver);
@@ -65,6 +66,7 @@ public class HibernateService implements AutoCloseable {
             sessionFactory = configuration.buildSessionFactory();
         } catch (HibernateException e) {
             logger.error("An error occurred during session register -> {}", e.getMessage());
+            throw new HotelDbModuleException("An error occurred during session register -> " + e.getMessage());
         }
     }
 
@@ -83,11 +85,13 @@ public class HibernateService implements AutoCloseable {
     public void commit() {
         try {
             session.getTransaction().commit();
-            close();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             session.getTransaction().rollback();
-            close();
             logger.error("An error occurred during the transaction -> {}", e.getMessage());
+        } catch (Exception e) {
+            logger.error("An error occurred during the transaction -> {}", e.getMessage());
+        } finally {
+            close();
         }
     }
 
@@ -96,7 +100,7 @@ public class HibernateService implements AutoCloseable {
         session.close();
     }
 
-    public void databaseInitialize() {
+    public void databaseInitialize() throws HotelDbModuleException {
         String os = System.getProperty(OS_NAME).toLowerCase();
         try {
             Process process;
@@ -119,6 +123,7 @@ public class HibernateService implements AutoCloseable {
             }
         } catch (IOException | InterruptedException e) {
             logger.error("an error occurred during IO operation -> {}", e.getMessage());
+            throw new HotelDbModuleException("an error occurred during IO operation -> " + e.getMessage());
         }
     }
 }

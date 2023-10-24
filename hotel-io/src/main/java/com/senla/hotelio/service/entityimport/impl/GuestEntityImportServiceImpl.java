@@ -4,6 +4,7 @@ import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class GuestEntityImportServiceImpl extends ImportService implements IImpo
     private final String ENTITY_NAME = "Guest";
 
     @Override
-    public ArrayList<Guest> importEntities() {
+    public ArrayList<Guest> importEntities() throws HotelIoModuleException {
         ArrayList<Guest> guests = new ArrayList<>();
         ArrayList<List<String>> guestsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> guestsWithParameter : guestsWithParameters) {

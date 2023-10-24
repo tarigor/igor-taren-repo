@@ -1,5 +1,6 @@
 package com.senla.hotelio.service.entityexport;
 
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public abstract class ExportService {
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "=([^,}]+)";
 
-    protected <T> void storeEntityToCsv(String entityFileName, List<T> list) {
+    protected <T> void storeEntityToCsv(String entityFileName, List<T> list) throws HotelIoModuleException {
         try {
             Path path = Paths.get(System.getProperty("user.dir") + EXPORT_PATH + "\\" + entityFileName + EXTENSION);
             Files.deleteIfExists(path);
@@ -28,7 +29,7 @@ public abstract class ExportService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during file operation -> {}", e.getMessage());
-            throw new RuntimeException(e);
+            throw new HotelIoModuleException("an error occurred during file operation -> " + e.getMessage());
         }
     }
 

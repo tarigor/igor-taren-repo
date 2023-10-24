@@ -1,4 +1,4 @@
-package com.serialization;
+package com.serialization.service;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -16,13 +16,17 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
     @Override
-    public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        String date = jsonParser.getText();
+    public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
+        String dateString = "";
+        Date date = null;
         try {
-            return dateFormat.parse(date);
+            dateString = jsonParser.getText();
+            date = dateFormat.parse(dateString);
         } catch (ParseException e) {
-            logger.error("an error occurred while parsing date in format:{} -> {}", date, e.getMessage());
-            throw new IOException("Error parsing date: " + date, e);
+            logger.error("an error occurred while parsing date in format:{} -> {}", dateString, e.getMessage());
+        } catch (IOException e) {
+            logger.error("an error occurred during IO operation -> {}", e.getMessage());
         }
+        return date;
     }
 }

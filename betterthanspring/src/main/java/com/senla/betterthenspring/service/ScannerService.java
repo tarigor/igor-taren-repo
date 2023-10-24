@@ -1,5 +1,6 @@
 package com.senla.betterthenspring.service;
 
+import com.senla.betterthenspring.exception.BetterThanSpringModuleException;
 import jakarta.persistence.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,12 @@ public class ScannerService {
     public static final String USER_DIR = "user.dir";
     private static final Logger logger = LoggerFactory.getLogger(ScannerService.class);
 
-    public static HashSet<Class<?>> classesScan() {
+    public static HashSet<Class<?>> classesScan() throws BetterThanSpringModuleException {
         File projectRootDirectory = new File(System.getProperty(USER_DIR));
         return collectClasses(projectRootDirectory, new HashSet<>());
     }
 
-    private static HashSet<Class<?>> collectClasses(File directory, HashSet<Class<?>> classes) {
+    private static HashSet<Class<?>> collectClasses(File directory, HashSet<Class<?>> classes) throws BetterThanSpringModuleException {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
@@ -39,7 +40,7 @@ public class ScannerService {
                         classes.add(Class.forName(classPath));
                     } catch (ClassNotFoundException e) {
                         logger.error("an error occurred while loading class -> {}. Reason -> {}", classPath, e.getMessage());
-                        throw new RuntimeException(e);
+                        throw new BetterThanSpringModuleException("an error occurred while loading class -> " + classPath + ". Reason -> " + e.getMessage());
                     }
                 }
             }

@@ -2,6 +2,7 @@ package com.senla.betterthenspring.service;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
+import com.senla.betterthenspring.exception.BetterThanSpringModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ public class ContainerService {
         return instances;
     }
 
-    public static void storeAnnotatedInstanceInContainer(Set<Class<?>> classes) {
+    public static void storeAnnotatedInstanceInContainer(Set<Class<?>> classes) throws BetterThanSpringModuleException {
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
                 String key = clazz.getSimpleName();
@@ -34,14 +35,14 @@ public class ContainerService {
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
                     logger.error("an error occurred during storing instance of class in container -> {}", e.getMessage());
-                    throw new RuntimeException("an error occurred during storing instance of class in container -> {}" + e.getMessage());
+                    throw new BetterThanSpringModuleException("an error occurred during storing instance of class in container -> {}" + e.getMessage());
                 }
             }
         }
         instances.forEach((k, v) -> logger.info("class name -> {} : {}", k, v));
     }
 
-    public static void injectValue(Set<Class<?>> classes) {
+    public static void injectValue(Set<Class<?>> classes) throws BetterThanSpringModuleException {
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
                 Method[] methods = clazz.getDeclaredMethods();
@@ -54,7 +55,7 @@ public class ContainerService {
                                 method.invoke(o, objectToInject);
                             } catch (IllegalAccessException | InvocationTargetException e) {
                                 logger.error("an error occurred during injecting of value -> {}", e.getMessage());
-                                throw new RuntimeException(e);
+                                throw new BetterThanSpringModuleException("an error occurred during injecting of value -> " + e.getMessage());
                             }
                         }
                     }

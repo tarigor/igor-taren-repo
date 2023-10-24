@@ -7,6 +7,7 @@ import com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.RoomEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.RoomServiceEntityExportServiceImpl;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class MenuAction16 extends MenuAction implements IAction {
 
     //Export the certain entity
     @Override
-    public void execute() {
+    public void execute() throws HotelIoModuleException {
         int selection;
         boolean correct = false;
         while (!correct) {

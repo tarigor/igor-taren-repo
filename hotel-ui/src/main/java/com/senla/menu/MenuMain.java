@@ -2,12 +2,16 @@ package com.senla.menu;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
+import com.senla.betterthenspring.exception.BetterThanSpringModuleException;
 import com.senla.betterthenspring.service.ContainerService;
 import com.senla.betterthenspring.service.PropertiesInjectionService;
 import com.senla.betterthenspring.service.ScannerService;
+import com.senla.hoteldb.exception.HotelDbModuleException;
 import com.senla.hoteldb.service.HibernateService;
-import com.senla.menu.exception.CommonExceptionHotelUIModule;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
+import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.service.MenuService;
+import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,23 +39,25 @@ public class MenuMain {
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
-
-        Set<Class<?>> scannedClasses = ScannerService.classesScan();
-
-        ContainerService.storeAnnotatedInstanceInContainer(scannedClasses);
-        ContainerService.injectValue(scannedClasses);
-        PropertiesInjectionService.injectProperties(scannedClasses);
-
-        hibernateService.databaseInitialize();
-
-        List<Class<?>> classesEntityAnnotated = ScannerService.getClassesEntityAnnotated(scannedClasses);
-        hibernateService.registerSession(classesEntityAnnotated);
-
         try {
+            Set<Class<?>> scannedClasses = ScannerService.classesScan();
+            ContainerService.storeAnnotatedInstanceInContainer(scannedClasses);
+            ContainerService.injectValue(scannedClasses);
+            PropertiesInjectionService.injectProperties(scannedClasses);
+            hibernateService.databaseInitialize();
+            List<Class<?>> classesEntityAnnotated = ScannerService.getClassesEntityAnnotated(scannedClasses);
+            hibernateService.registerSession(classesEntityAnnotated);
             menuService.showMenu();
-        } catch (CommonExceptionHotelUIModule e) {
-            logger.error("An error occurred -> {}", e.getMessage());
-            throw new RuntimeException("An error occurred -> " + e.getMessage());
+        } catch (HotelUiModuleException e) {
+            logger.error("An error occurred in hotel-ui module -> {}", e.getMessage());
+        } catch (BetterThanSpringModuleException e) {
+            logger.error("An error occurred in betterthanspring module -> {}", e.getMessage());
+        } catch (HotelDbModuleException e) {
+            logger.error("An error occurred in hotel-db module -> {}", e.getMessage());
+        } catch (HotelSerializationModuleException e) {
+            logger.error("An error occurred in Hotel-serialization module -> {}", e.getMessage());
+        } catch (HotelIoModuleException e) {
+            logger.error("An error occurred in Hotel-io -> {}", e.getMessage());
         }
     }
 }

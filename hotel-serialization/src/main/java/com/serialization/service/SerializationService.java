@@ -1,4 +1,4 @@
-package com.serialization;
+package com.serialization.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,6 +14,7 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
+import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +59,7 @@ public class SerializationService {
         this.roomServicesService = roomServicesService;
     }
 
-    public void selectToSerialize(String mapName) {
+    public void selectToSerialize(String mapName) throws HotelSerializationModuleException {
         switch (mapName) {
             case "Booking":
                 serializeMap(bookingService.getAll().stream()
@@ -86,13 +87,14 @@ public class SerializationService {
         }
     }
 
-    private void serializeMap(Map<Long, ?> map, String fileName) {
+    private void serializeMap(Map<Long, ?> map, String fileName) throws HotelSerializationModuleException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json")) {
             gson.toJson(map, writer);
             logger.info("Serialization completed successfully");
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
+            throw new HotelSerializationModuleException("an error occurred during an IO operation -> " + e.getMessage());
         }
     }
 }

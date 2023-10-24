@@ -1,10 +1,12 @@
 package com.senla.menu.controller;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.entity.Menu;
-import com.senla.menu.exception.CommonExceptionHotelUIModule;
+import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.navigator.Navigator;
+import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +20,7 @@ public class MenuController {
     private Navigator navigator;
     private String menuDescriptionFileName;
     private Builder builder;
+    private boolean isExit;
 
     public void setBuilder(Builder builder) {
         this.builder = builder;
@@ -35,23 +38,22 @@ public class MenuController {
         this.menuDescriptionFileName = menuDescriptionFileName;
     }
 
-    public MenuController showMenu() {
+    public void setExit(boolean exit) {
+        isExit = exit;
+    }
+
+    public MenuController showMenu() throws HotelUiModuleException {
         navigator.navigate(menu, this.menuDescriptionFileName);
         return this;
     }
 
-    public void menuRolling() throws CommonExceptionHotelUIModule {
+    public void menuRolling() throws HotelUiModuleException, HotelSerializationModuleException, HotelIoModuleException {
         System.out.println("0. Exit");
         System.out.println("select an option");
         int item = scanner.nextInt();
         if (item != 0) {
             System.out.println("----------------------------------");
-            try {
-                builder.getItems().get(item).execute();
-            } catch (Exception e) {
-                logger.error("An error occurred -> {}", e.getMessage());
-                throw new CommonExceptionHotelUIModule(e);
-            }
+            builder.getItems().get(item).execute();
             System.out.println("----------------------------------");
             showMenu();
             menuRolling();

@@ -2,6 +2,7 @@ package com.senla.betterthenspring.service;
 
 import com.senla.betterthenspring.annotation.ConfigProperty;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.betterthenspring.exception.BetterThanSpringModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class PropertiesInjectionService {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesInjectionService.class);
     static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
 
-    public static void injectProperties(Set<Class<?>> classes) {
+    public static void injectProperties(Set<Class<?>> classes) throws BetterThanSpringModuleException {
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(CreateInstanceAndPutInContainer.class)) {
                 Method[] methods = clazz.getDeclaredMethods();
@@ -43,7 +44,7 @@ public class PropertiesInjectionService {
                             method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
                         } catch (IllegalAccessException | InvocationTargetException e) {
                             logger.error("an error occurred during injection value from properties -> {}", e.getMessage());
-                            throw new RuntimeException(e);
+                            throw new BetterThanSpringModuleException("an error occurred during injection value from properties -> " + e.getMessage());
                         }
                     }
                 }
@@ -51,7 +52,7 @@ public class PropertiesInjectionService {
         }
     }
 
-    private static <T> Object getSettingFromPropertiesFile(Properties properties, String settingName, Class<T> parameterType) {
+    private static <T> Object getSettingFromPropertiesFile(Properties properties, String settingName, Class<T> parameterType) throws BetterThanSpringModuleException {
         String settingValue = properties.getProperty(settingName);
         if (settingValue == null) {
             logger.error("an error during the property text read");
@@ -79,12 +80,12 @@ public class PropertiesInjectionService {
                 throw new IllegalArgumentException("Unsupported wrapper class");
             }
         } catch (NumberFormatException e) {
-            logger.error("an error occurred during getting value from properties -> {}", e.getMessage());
-            throw new IllegalArgumentException("Invalid input string format for " + parameterType.getSimpleName(), e);
+            logger.error("provided type of object -> {} can't be handled: {}", parameterType, e.getMessage());
+            throw new BetterThanSpringModuleException("provided type of object -> " + parameterType + " can't be handled: " + e.getMessage());
         }
     }
 
-    private static Properties loadProperties(String moduleName, String propertiesFileName) {
+    private static Properties loadProperties(String moduleName, String propertiesFileName) throws BetterThanSpringModuleException {
         if (propertiesHashMap.get(propertiesFileName) == null) {
             String PATH = BACKSLASH + moduleName + RESOURCES_PATH;
             Properties properties = new Properties();
@@ -93,6 +94,7 @@ public class PropertiesInjectionService {
                 properties.load(input);
             } catch (IOException e) {
                 logger.error("An error occurred while loading properties from file '{}': {}", propertyFilePath, e.getMessage());
+                throw new BetterThanSpringModuleException("An error occurred while loading properties from file '" + propertyFilePath + "': " + e.getMessage());
             }
             propertiesHashMap.put(propertiesFileName, properties);
             return properties;

@@ -9,7 +9,8 @@ import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-import com.serialization.DeserializationService;
+import com.serialization.exception.HotelSerializationModuleException;
+import com.serialization.service.DeserializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ public class MenuAction18 extends MenuAction implements IAction {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws HotelSerializationModuleException {
         int selection;
         boolean correct = false;
         while (!correct) {

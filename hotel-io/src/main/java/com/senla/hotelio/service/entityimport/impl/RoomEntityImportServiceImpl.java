@@ -5,6 +5,7 @@ import com.senla.hotel.constant.RoomStatus;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class RoomEntityImportServiceImpl extends ImportService implements IImpor
     private final String ENTITY_NAME = "Room";
 
     @Override
-    public ArrayList<Room> importEntities() {
+    public ArrayList<Room> importEntities() throws HotelIoModuleException {
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<List<String>> roomsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> roomsWithParameter : roomsWithParameters) {

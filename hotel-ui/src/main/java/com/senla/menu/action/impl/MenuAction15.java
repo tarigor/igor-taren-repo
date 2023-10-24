@@ -12,6 +12,7 @@ import com.senla.hotelio.service.entityimport.impl.GuestEntityImportServiceImpl;
 import com.senla.hotelio.service.entityimport.impl.GuestServicesEntityImportServiceImpl;
 import com.senla.hotelio.service.entityimport.impl.RoomEntityImportServiceImpl;
 import com.senla.hotelio.service.entityimport.impl.RoomServiceEntityImportServiceImpl;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import org.slf4j.Logger;
@@ -83,7 +84,7 @@ public class MenuAction15 extends MenuAction implements IAction {
 
     //Import the certain entity from the CSV file
     @Override
-    public void execute() {
+    public void execute() throws HotelIoModuleException {
         int selection;
         boolean correct = false;
         while (!correct) {

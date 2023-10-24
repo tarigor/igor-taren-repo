@@ -4,7 +4,8 @@ import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-import com.serialization.SerializationService;
+import com.serialization.exception.HotelSerializationModuleException;
+import com.serialization.service.SerializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class MenuAction17 extends MenuAction implements IAction {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws HotelSerializationModuleException {
         int selection;
         boolean correct = false;
         while (!correct) {

@@ -6,6 +6,7 @@ import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
+import com.senla.hotelio.service.exception.HotelIoModuleException;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class RoomServiceEntityExportServiceImpl extends ExportService implements
     }
 
     @Override
-    public void exportEntity() {
+    public void exportEntity() throws HotelIoModuleException {
         List<RoomService> roomServices = roomServicesService.getAll();
         storeEntityToCsv(ENTITY_FILENAME, roomServices);
     }

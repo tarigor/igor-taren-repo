@@ -1,6 +1,7 @@
 package com.senla.menu.service;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.menu.exception.HotelUiModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class PropertiesService {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesService.class);
     private final Map<Integer, String> menuMap = new TreeMap<>();
 
-    public Map<Integer, String> readPropertiesFileAsMap(String filename, String delimiter) {
+    public Map<Integer, String> readPropertiesFileAsMap(String filename, String delimiter) throws HotelUiModuleException {
         try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -25,7 +26,7 @@ public class PropertiesService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            throw new RuntimeException("An error occurred while handling a file with a filename -> " + filename
+            throw new HotelUiModuleException("An error occurred while handling a file with a filename -> " + filename
                     + "\n" + e.getMessage());
         }
         return menuMap;
