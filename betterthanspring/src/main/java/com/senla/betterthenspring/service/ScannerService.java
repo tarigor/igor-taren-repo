@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class ScannerService {
@@ -37,11 +38,14 @@ public class ScannerService {
                     try {
                         classes.add(Class.forName(classPath));
                     } catch (ClassNotFoundException e) {
-                        logger.error("An error occurred while classes scan -> {}", e.getMessage());
+                        logger.error("an error occurred while loading class -> {}. Reason -> {}", classPath, e.getMessage());
                         throw new RuntimeException(e);
                     }
                 }
             }
+        } else {
+            logger.error("No files found");
+            throw new NoSuchElementException("No files found");
         }
         return classes;
     }
