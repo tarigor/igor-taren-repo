@@ -17,6 +17,10 @@ import java.util.Set;
 
 @CreateInstanceAndPutInContainer
 public class PropertiesInjectionService {
+    public static final String BACKSLASH = "\\";
+    public static final String RESOURCES_PATH = "\\src\\main\\resources";
+    public static final String PROPERTIES_EXTENSION = ".properties";
+    public static final String USER_DIR = "user.dir";
     private static final Logger logger = LoggerFactory.getLogger(PropertiesInjectionService.class);
     static HashMap<String, Properties> propertiesHashMap = new HashMap<>();
 
@@ -39,7 +43,7 @@ public class PropertiesInjectionService {
                         try {
                             method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            logger.error("an error occurred during injection value from properties->" + e.getMessage());
+                            logger.error("an error occurred during injection value from properties -> {}", e.getMessage());
                             throw new RuntimeException(e);
                         }
                     }
@@ -51,9 +55,10 @@ public class PropertiesInjectionService {
     private static <T> Object getSettingFromPropertiesFile(Properties properties, String settingName, Class<T> parameterType) {
         String settingValue = properties.getProperty(settingName);
         if (settingValue == null) {
+            logger.error("an error during the property text read");
             throw new IllegalArgumentException("Input string is null");
         }
-        String stringValue = settingValue.trim(); // Remove leading/trailing whitespace
+        String stringValue = settingValue.trim();
         try {
             if (parameterType == Integer.class) {
                 return (T) Integer.valueOf(stringValue);
@@ -71,22 +76,23 @@ public class PropertiesInjectionService {
                 }
                 return (T) Character.valueOf(stringValue.charAt(0));
             } else {
+                logger.error("Unsupported wrapper class");
                 throw new IllegalArgumentException("Unsupported wrapper class");
             }
         } catch (NumberFormatException e) {
-            logger.error("an error occurred during getting value from properties->" + e.getMessage());
+            logger.error("an error occurred during getting value from properties -> {}", e.getMessage());
             throw new IllegalArgumentException("Invalid input string format for " + parameterType.getSimpleName(), e);
         }
     }
 
     private static Properties loadProperties(String moduleName, String propertiesFileName) {
         if (propertiesHashMap.get(propertiesFileName) == null) {
-            String PATH = "\\" + moduleName + "\\src\\main\\resources";
+            String PATH = BACKSLASH + moduleName + RESOURCES_PATH;
             Properties properties = new Properties();
-            try (InputStream input = new FileInputStream(System.getProperty("user.dir") + PATH + "\\" + propertiesFileName + ".properties")) {
+            try (InputStream input = new FileInputStream(System.getProperty(USER_DIR) + PATH + BACKSLASH + propertiesFileName + PROPERTIES_EXTENSION)) {
                 properties.load(input);
             } catch (IOException e) {
-                logger.error("an error occurred during a properties load->" + e.getMessage());
+                logger.error("an error occurred during a properties load -> {}", e.getMessage());
                 e.printStackTrace();
             }
             propertiesHashMap.put(propertiesFileName, properties);

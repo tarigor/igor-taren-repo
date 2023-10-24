@@ -7,6 +7,8 @@ import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
 import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.RoomService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class RoomServicesServiceImpl implements IRoomServicesService {
+    private static final Logger logger = LoggerFactory.getLogger(RoomServicesServiceImpl.class);
     private RoomServiceDao roomServiceDAO;
 
     @InjectValue
@@ -47,6 +50,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
                                 .sorted(Comparator.comparing(RoomService::getPrice).reversed())
                                 .collect(Collectors.toList());
             default:
+                logger.error("An ordering by section -> {} is not possible", roomServiceSection);
                 throw new IndexOutOfBoundsException("An ordering by section ->" + roomServiceSection + "is not possible");
         }
     }

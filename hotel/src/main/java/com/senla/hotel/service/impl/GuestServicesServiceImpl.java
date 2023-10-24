@@ -12,6 +12,8 @@ import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.service.HibernateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
 public class GuestServicesServiceImpl implements IGuestServicesService {
+    private static final Logger logger = LoggerFactory.getLogger(GuestServicesServiceImpl.class);
     private GuestServicesDao guestServicesDAO;
     private RoomServiceDao roomServiceDAO;
     private HibernateService hibernateService;
@@ -64,6 +67,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 comparator = Comparator.comparing(GuestServicesDto::getRoomServiceOrderDate);
                 break;
             default:
+                logger.error("An ordering by section -> {} is not possible", guestServicesSection);
                 throw new IndexOutOfBoundsException("An ordering by section -> " + guestServicesSection + " is not possible");
         }
 
@@ -91,6 +95,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 return i;
             }
         }
+        logger.error("there is no such record in RoomService");
         throw new NoSuchElementException("there is no such record in RoomService");
     }
 

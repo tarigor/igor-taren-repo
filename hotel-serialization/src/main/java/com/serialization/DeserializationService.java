@@ -24,10 +24,10 @@ public class DeserializationService {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                content.append(line).append("\n"); // Add newline character if needed
+                content.append(line).append("\n");
             }
         } catch (IOException e) {
-            logger.error("an error occurred during an IO operation->" + e.getMessage());
+            logger.error("an error occurred during an IO operation -> {}", e.getMessage());
             e.printStackTrace();
         }
         return content.toString();
@@ -39,15 +39,13 @@ public class DeserializationService {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Date.class, new CustomDateDeserializer());
         objectMapper.registerModule(module);
-//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         try {
-            Map<Long, T> deserializedMap = objectMapper.readValue(
+            return objectMapper.readValue(
                     fileContent,
                     objectMapper.getTypeFactory().constructMapType(HashMap.class, Long.class, type)
             );
-            return deserializedMap;
         } catch (JsonProcessingException e) {
-            logger.error("an error occurred during an JSON operation->" + e.getMessage());
+            logger.error("an error occurred during an JSON operation -> {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }

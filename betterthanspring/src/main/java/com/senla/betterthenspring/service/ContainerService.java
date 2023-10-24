@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ContainerService {
+    public static final String DOT = ".";
+    public static final String TARGET = " arg0";
+    public static final String REPLACEMENT = "";
     private static final Logger logger = LoggerFactory.getLogger(ContainerService.class);
     private static HashMap<String, Object> instances = new HashMap<>();
 
@@ -30,12 +33,12 @@ public class ContainerService {
                     instances.put(key, instance);
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
-                    logger.error("an error occurred during storing instance of class in container->" + e.getMessage());
+                    logger.error("an error occurred during storing instance of class in container -> {}", e.getMessage());
                     e.printStackTrace();
                 }
             }
         }
-        instances.forEach((k, v) -> logger.info("class name -> " + k + ":" + v));
+        instances.forEach((k, v) -> logger.info("class name -> {} : {}", k, v));
     }
 
     public static void injectValue(Set<Class<?>> classes) {
@@ -50,7 +53,7 @@ public class ContainerService {
                             try {
                                 method.invoke(o, objectToInject);
                             } catch (IllegalAccessException | InvocationTargetException e) {
-                                logger.error("an error occurred during injecting of value->" + e.getMessage());
+                                logger.error("an error occurred during injecting of value -> {}", e.getMessage());
                                 throw new RuntimeException(e);
                             }
                         }
@@ -61,8 +64,8 @@ public class ContainerService {
     }
 
     private static String getInjectingClassName(Method method) {
-        String value = method.getParameters()[0].toString().replace(" arg0", "");
-        int lastIndex = value.lastIndexOf(".");
+        String value = method.getParameters()[0].toString().replace(TARGET, REPLACEMENT);
+        int lastIndex = value.lastIndexOf(DOT);
         return value.substring(lastIndex + 1);
     }
 }

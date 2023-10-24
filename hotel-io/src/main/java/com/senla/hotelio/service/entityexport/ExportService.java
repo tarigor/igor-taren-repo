@@ -27,7 +27,7 @@ public abstract class ExportService {
                 Files.write(path, getFieldsFromEntityInCsvFormat(o).getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
             }
         } catch (IOException e) {
-            logger.error("an error occurred during file operation->" + e.getMessage());
+            logger.error("an error occurred during file operation -> {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }

@@ -177,6 +177,7 @@ public class RoomServiceImpl implements IRoomService {
                                 .sorted(Comparator.comparing(Room::getStarsRating).reversed())
                                 .collect(Collectors.toList());
             default:
+                logger.error("An ordering by section -> {} is not possible", roomSection);
                 throw new IndexOutOfBoundsException("An ordering by section ->" + roomSection + "is not possible");
         }
     }

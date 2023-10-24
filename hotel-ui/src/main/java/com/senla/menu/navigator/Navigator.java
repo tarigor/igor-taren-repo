@@ -23,7 +23,7 @@ public class Navigator {
             Map<Integer, String> menuDescription = propertiesService.readPropertiesFileAsMap(menuDescriptionFileName, "=");
             menu.getItems().keySet().forEach(k -> System.out.println(k + ". " + menuDescription.get(k)));
         } catch (Exception e) {
-            logger.error("an error occurred during during access to properties file->" + e.getMessage());
+            logger.error("an error occurred during during access to properties file -> {}", e.getMessage());
             throw new RuntimeException("An error occurred during the file reading with a filename -> " + menuDescriptionFileName
                     + "\n" + e.getMessage());
         }

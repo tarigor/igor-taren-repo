@@ -27,7 +27,7 @@ public abstract class ImportService {
                 entities.add(Arrays.asList(line.split(DELIMITER)));
             }
         } catch (IOException e) {
-            logger.error("an error occurred during a file operation->" + e.getMessage());
+            logger.error("an error occurred during a file operation -> {}", e.getMessage());
             throw new RuntimeException("An error occurred while handling a file with a filename -> " + "\n" + e.getMessage());
         }
         return entities;

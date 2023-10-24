@@ -45,7 +45,7 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
                         new SimpleDateFormat("yyyy-MM-dd").parse(guestsServicesWithParameter.get(3))
                 ));
             } catch (ParseException e) {
-                logger.error("an error occurred during a parse operation->" + e.getMessage());
+                logger.error("an error occurred during a parse operation -> {}", e.getMessage());
                 throw new RuntimeException(e);
             }
         }

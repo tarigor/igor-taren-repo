@@ -47,7 +47,7 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
                         new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(4))
                 ));
             } catch (ParseException e) {
-                logger.error("an error occurred during a parse operation->" + e.getMessage());
+                logger.error("an error occurred during a parse operation -> {}", e.getMessage());
                 throw new RuntimeException(e);
             }
         }

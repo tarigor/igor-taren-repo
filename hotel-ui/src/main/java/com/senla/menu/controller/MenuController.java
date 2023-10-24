@@ -49,7 +49,7 @@ public class MenuController {
             try {
                 builder.getItems().get(item).execute();
             } catch (Exception e) {
-                logger.error("An error occurred -> " + e.getMessage());
+                logger.error("An error occurred -> {}", e.getMessage());
                 throw new CommonExceptionHotelUIModule(e);
             }
             System.out.println("----------------------------------");

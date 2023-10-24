@@ -81,6 +81,7 @@ public class SerializationService {
                         .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
                 break;
             default:
+                logger.error("There is no such an entity -> {}", mapName);
                 throw new NoSuchElementException("There is no such an entity");
         }
     }
@@ -88,11 +89,10 @@ public class SerializationService {
     private void serializeMap(Map<Long, ?> map, String fileName) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json")) {
-            // Serialize the Map to JSON and write it to the file
             gson.toJson(map, writer);
             logger.info("Serialization completed successfully");
         } catch (IOException e) {
-            logger.error("an error occurred during an IO operation->" + e.getMessage());
+            logger.error("an error occurred during an IO operation -> {}", e.getMessage());
             e.printStackTrace();
         }
     }

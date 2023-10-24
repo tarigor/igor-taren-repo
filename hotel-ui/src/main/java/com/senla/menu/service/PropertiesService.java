@@ -24,7 +24,7 @@ public class PropertiesService {
                 menuMap.put(Integer.parseInt(line.split(delimiter)[0]), line.split(delimiter)[1]);
             }
         } catch (IOException e) {
-            logger.error("an error occurred during an IO operation->" + e.getMessage());
+            logger.error("an error occurred during an IO operation -> {}", e.getMessage());
             throw new RuntimeException("An error occurred while handling a file with a filename -> " + filename
                     + "\n" + e.getMessage());
         }
