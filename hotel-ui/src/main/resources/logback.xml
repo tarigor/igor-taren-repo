@@ -3,7 +3,9 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level){TRACE=blue,DEBUG=green,WARN=yellow,ERROR=red}
-                    class:%logger - method:%method - %msg%n
+                      class: %logger
+                     method: %method
+                    message: %msg%n
                 </pattern>
             </layout>
         </encoder>
