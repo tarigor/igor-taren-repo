@@ -66,7 +66,7 @@ public class HibernateService implements AutoCloseable {
             sessionFactory = configuration.buildSessionFactory();
         } catch (HibernateException e) {
             logger.error("An error occurred during session register -> {}", e.getMessage());
-            throw new HotelDbModuleException("An error occurred during session register -> " + e.getMessage());
+            throw new HotelDbModuleException(e);
         }
     }
 
@@ -122,8 +122,8 @@ public class HibernateService implements AutoCloseable {
                 logger.error("Batch file execution failed with exit code -> {}", exitCode);
             }
         } catch (IOException | InterruptedException e) {
-            logger.error("an error occurred during IO operation -> {}", e.getMessage());
-            throw new HotelDbModuleException("an error occurred during IO operation -> " + e.getMessage());
+            logger.error("{}:{}: an error occurred during IO operation -> {}", getClass().getName(), getClass().getEnclosingConstructor().getName(), e.getMessage());
+            throw new HotelDbModuleException(e);
         }
     }
 }

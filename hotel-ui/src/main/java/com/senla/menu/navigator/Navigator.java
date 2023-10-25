@@ -25,8 +25,7 @@ public class Navigator {
             menu.getItems().keySet().forEach(k -> System.out.println(k + ". " + menuDescription.get(k)));
         } catch (Exception e) {
             logger.error("an error occurred during during access to properties file -> {}", e.getMessage());
-            throw new HotelUiModuleException("An error occurred during the file reading with a filename -> " + menuDescriptionFileName
-                    + "\n" + e.getMessage());
+            throw new HotelUiModuleException(e);
         }
     }
 }

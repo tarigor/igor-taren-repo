@@ -29,7 +29,7 @@ public class DeserializationService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            throw new HotelSerializationModuleException("an error occurred during an IO operation -> " + e.getMessage());
+            throw new HotelSerializationModuleException(e);
         }
         return content.toString();
     }
@@ -47,7 +47,7 @@ public class DeserializationService {
             );
         } catch (JsonProcessingException e) {
             logger.error("an error occurred during an JSON operation -> {}", e.getMessage());
-            throw new HotelSerializationModuleException("an error occurred during an JSON operation -> " + e.getMessage());
+            throw new HotelSerializationModuleException(e);
         }
     }
 }

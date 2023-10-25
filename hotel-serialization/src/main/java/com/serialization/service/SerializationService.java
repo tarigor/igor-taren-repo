@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -83,7 +82,6 @@ public class SerializationService {
                 break;
             default:
                 logger.error("There is no such an entity -> {}", mapName);
-                throw new NoSuchElementException("There is no such an entity");
         }
     }
 
@@ -94,7 +92,7 @@ public class SerializationService {
             logger.info("Serialization completed successfully");
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            throw new HotelSerializationModuleException("an error occurred during an IO operation -> " + e.getMessage());
+            throw new HotelSerializationModuleException(e);
         }
     }
 }

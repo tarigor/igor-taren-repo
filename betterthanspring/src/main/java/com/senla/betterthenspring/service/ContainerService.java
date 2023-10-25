@@ -35,7 +35,7 @@ public class ContainerService {
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                          InvocationTargetException e) {
                     logger.error("an error occurred during storing instance of class in container -> {}", e.getMessage());
-                    throw new BetterThanSpringModuleException("an error occurred during storing instance of class in container -> {}" + e.getMessage());
+                    throw new BetterThanSpringModuleException(e);
                 }
             }
         }
@@ -55,7 +55,7 @@ public class ContainerService {
                                 method.invoke(o, objectToInject);
                             } catch (IllegalAccessException | InvocationTargetException e) {
                                 logger.error("an error occurred during injecting of value -> {}", e.getMessage());
-                                throw new BetterThanSpringModuleException("an error occurred during injecting of value -> " + e.getMessage());
+                                throw new BetterThanSpringModuleException(e);
                             }
                         }
                     }

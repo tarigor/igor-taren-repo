@@ -44,7 +44,7 @@ public class PropertiesInjectionService {
                             method.invoke(o, getSettingFromPropertiesFile(propertiesFromContainer, parameterName, parameterType));
                         } catch (IllegalAccessException | InvocationTargetException e) {
                             logger.error("an error occurred during injection value from properties -> {}", e.getMessage());
-                            throw new BetterThanSpringModuleException("an error occurred during injection value from properties -> " + e.getMessage());
+                            throw new BetterThanSpringModuleException(e);
                         }
                     }
                 }
@@ -81,7 +81,7 @@ public class PropertiesInjectionService {
             }
         } catch (NumberFormatException e) {
             logger.error("provided type of object -> {} can't be handled: {}", parameterType, e.getMessage());
-            throw new BetterThanSpringModuleException("provided type of object -> " + parameterType + " can't be handled: " + e.getMessage());
+            throw new BetterThanSpringModuleException(e);
         }
     }
 
@@ -94,7 +94,7 @@ public class PropertiesInjectionService {
                 properties.load(input);
             } catch (IOException e) {
                 logger.error("An error occurred while loading properties from file '{}': {}", propertyFilePath, e.getMessage());
-                throw new BetterThanSpringModuleException("An error occurred while loading properties from file '" + propertyFilePath + "': " + e.getMessage());
+                throw new BetterThanSpringModuleException(e);
             }
             propertiesHashMap.put(propertiesFileName, properties);
             return properties;

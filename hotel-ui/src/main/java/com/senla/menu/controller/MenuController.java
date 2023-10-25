@@ -1,6 +1,7 @@
 package com.senla.menu.controller;
 
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.entity.Menu;
@@ -47,7 +48,7 @@ public class MenuController {
         return this;
     }
 
-    public void menuRolling() throws HotelUiModuleException, HotelSerializationModuleException, HotelIoModuleException {
+    public void menuRolling() throws HotelUiModuleException, HotelSerializationModuleException, HotelIoModuleException, HotelModuleException {
         System.out.println("0. Exit");
         System.out.println("select an option");
         int item = scanner.nextInt();

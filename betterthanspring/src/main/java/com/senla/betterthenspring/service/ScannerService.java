@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class ScannerService {
@@ -40,13 +39,13 @@ public class ScannerService {
                         classes.add(Class.forName(classPath));
                     } catch (ClassNotFoundException e) {
                         logger.error("an error occurred while loading class -> {}. Reason -> {}", classPath, e.getMessage());
-                        throw new BetterThanSpringModuleException("an error occurred while loading class -> " + classPath + ". Reason -> " + e.getMessage());
+                        throw new BetterThanSpringModuleException(e);
                     }
                 }
             }
         } else {
-            logger.error("No files found");
-            throw new NoSuchElementException("No files found");
+            logger.error("No files found in provided directory");
+            throw new BetterThanSpringModuleException("No files found in provided directory");
         }
         return classes;
     }

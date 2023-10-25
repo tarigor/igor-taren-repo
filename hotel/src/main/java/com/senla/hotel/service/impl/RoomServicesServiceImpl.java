@@ -32,7 +32,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
 
     @Override
     public List<RoomService> getAllOrdered(RoomServiceSection roomServiceSection, Ordering ordering) {
-        Comparator<RoomService> comparator;
+        Comparator<RoomService> comparator = null;
 
         switch (roomServiceSection) {
             case ROOM_SERVICE:
@@ -43,7 +43,6 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
                 break;
             default:
                 logger.error("An ordering by section -> {} is not possible", roomServiceSection);
-                throw new IllegalArgumentException("An ordering by section -> " + roomServiceSection + " is not possible");
         }
 
         if (ordering == Ordering.DESC) {

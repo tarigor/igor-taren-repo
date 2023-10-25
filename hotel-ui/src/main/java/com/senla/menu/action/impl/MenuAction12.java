@@ -3,6 +3,7 @@ package com.senla.menu.action.impl;
 import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.RoomSection;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
@@ -21,7 +22,7 @@ public class MenuAction12 extends MenuAction implements IAction {
 
     //12=Prices of services and rooms (sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) in ASC(DESC) manner
     @Override
-    public void execute() {
+    public void execute() throws HotelModuleException {
         int selection;
         String selectionText = "";
 

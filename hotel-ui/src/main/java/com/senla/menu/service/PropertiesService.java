@@ -26,8 +26,7 @@ public class PropertiesService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during an IO operation -> {}", e.getMessage());
-            throw new HotelUiModuleException("An error occurred while handling a file with a filename -> " + filename
-                    + "\n" + e.getMessage());
+            throw new HotelUiModuleException(e);
         }
         return menuMap;
     }

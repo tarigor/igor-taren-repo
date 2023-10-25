@@ -6,6 +6,7 @@ import com.senla.betterthenspring.exception.BetterThanSpringModuleException;
 import com.senla.betterthenspring.service.ContainerService;
 import com.senla.betterthenspring.service.PropertiesInjectionService;
 import com.senla.betterthenspring.service.ScannerService;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hoteldb.exception.HotelDbModuleException;
 import com.senla.hoteldb.service.HibernateService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
@@ -55,9 +56,11 @@ public class MenuMain {
         } catch (HotelDbModuleException e) {
             logger.error("An error occurred in hotel-db module -> {}", e.getMessage());
         } catch (HotelSerializationModuleException e) {
-            logger.error("An error occurred in Hotel-serialization module -> {}", e.getMessage());
+            logger.error("An error occurred in hotel-serialization module -> {}", e.getMessage());
         } catch (HotelIoModuleException e) {
-            logger.error("An error occurred in Hotel-io -> {}", e.getMessage());
+            logger.error("An error occurred in hotel-io module -> {}", e.getMessage());
+        } catch (HotelModuleException e) {
+            logger.error("An error occurred in hotel module -> {}", e.getMessage());
         }
     }
 }

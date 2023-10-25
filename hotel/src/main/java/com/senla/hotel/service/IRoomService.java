@@ -2,6 +2,7 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hoteldb.entity.Room;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public interface IRoomService {
 
     double getRoomPrice(long roomId);
 
-    List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering);
+    List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException;
 
     void updateAllAndSaveIfNotExist(ArrayList<Room> rooms);
 

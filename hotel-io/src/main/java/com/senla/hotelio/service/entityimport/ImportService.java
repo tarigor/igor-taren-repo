@@ -29,7 +29,7 @@ public abstract class ImportService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during a file operation -> {}", e.getMessage());
-            throw new HotelIoModuleException("An error occurred while handling a file with a filename -> " + "\n" + e.getMessage());
+            throw new HotelIoModuleException(e);
         }
         return entities;
     }

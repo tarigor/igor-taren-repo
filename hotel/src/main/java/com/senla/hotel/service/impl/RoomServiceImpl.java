@@ -6,6 +6,7 @@ import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.IRoomService;
 import com.senla.hoteldb.dao.impl.RoomDao;
 import com.senla.hoteldb.entity.Room;
@@ -13,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -134,7 +135,7 @@ public class RoomServiceImpl implements IRoomService {
 
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
         Comparator<Room> comparator = getComparatorForSection(roomSection, ordering);
 
         List<Room> rooms = roomDAO.getAll();
@@ -143,13 +144,12 @@ public class RoomServiceImpl implements IRoomService {
             return rooms.stream()
                     .sorted(comparator)
                     .collect(Collectors.toList());
-        } else {
-            logger.error("An ordering by section -> {} is not possible", roomSection);
-            throw new IllegalArgumentException("An ordering by section -> " + roomSection + " is not possible");
         }
+        logger.error("An ordering by section -> {} is not possible", roomSection);
+        return Collections.emptyList();
     }
 
-    private Comparator<Room> getComparatorForSection(RoomSection roomSection, Ordering ordering) {
+    private Comparator<Room> getComparatorForSection(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
         switch (roomSection) {
             case ID:
                 return ordering == Ordering.ASC ? Comparator.comparing(Room::getId) : Comparator.comparing(Room::getId).reversed();
@@ -164,7 +164,7 @@ public class RoomServiceImpl implements IRoomService {
                 return ordering == Ordering.ASC ? Comparator.comparing(Room::getStarsRating) : Comparator.comparing(Room::getStarsRating).reversed();
             default:
                 logger.error("there is no such a section -> {}", roomSection);
-                throw new NoSuchElementException("there is no such a section -> " + roomSection);
+                throw new HotelModuleException("there is no such a section -> " + roomSection);
         }
     }
 

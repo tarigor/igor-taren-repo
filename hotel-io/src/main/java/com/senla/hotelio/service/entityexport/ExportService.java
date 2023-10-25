@@ -29,7 +29,7 @@ public abstract class ExportService {
             }
         } catch (IOException e) {
             logger.error("an error occurred during file operation -> {}", e.getMessage());
-            throw new HotelIoModuleException("an error occurred during file operation -> " + e.getMessage());
+            throw new HotelIoModuleException(e);
         }
     }
 

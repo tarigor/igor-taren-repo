@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CreateInstanceAndPutInContainer
@@ -57,7 +56,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 .filter(guestServices -> guestServices.getGuest().getId() == guestId)
                 .collect(Collectors.toList());
 
-        Comparator<GuestServicesDto> comparator;
+        Comparator<GuestServicesDto> comparator = null;
 
         switch (guestServicesSection) {
             case PRICE:
@@ -68,7 +67,6 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 break;
             default:
                 logger.error("An ordering by section -> {} is not possible", guestServicesSection);
-                throw new IndexOutOfBoundsException("An ordering by section -> " + guestServicesSection + " is not possible");
         }
 
         if (ordering == Ordering.DESC) {
@@ -96,7 +94,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
             }
         }
         logger.error("there is no such record in RoomService");
-        throw new NoSuchElementException("there is no such record in RoomService");
+        return 0;
     }
 
     @Override
