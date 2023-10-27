@@ -1,7 +1,5 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotelio.service.entityexport.impl.BookingEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.GuestEntityExportServiceImpl;
 import com.senla.hotelio.service.entityexport.impl.GuestServicesEntityExportServiceImpl;
@@ -12,10 +10,12 @@ import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction16 extends MenuAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(MenuAction16.class);
     protected BookingEntityExportServiceImpl bookingEntityExportService;
@@ -24,27 +24,27 @@ public class MenuAction16 extends MenuAction implements IAction {
     private RoomEntityExportServiceImpl roomEntityExportService;
     private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
-    @InjectValue
+    @Autowired
     public void setBookingEntityExportService(BookingEntityExportServiceImpl bookingEntityExportService) {
         this.bookingEntityExportService = bookingEntityExportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestEntityExportService(GuestEntityExportServiceImpl guestEntityExportService) {
         this.guestEntityExportService = guestEntityExportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl guestServicesEntityExportService) {
         this.guestServicesEntityExportService = guestServicesEntityExportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomEntityExportService(RoomEntityExportServiceImpl roomEntityExportService) {
         this.roomEntityExportService = roomEntityExportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {
         this.roomServiceEntityExportService = roomServiceEntityExportService;
     }

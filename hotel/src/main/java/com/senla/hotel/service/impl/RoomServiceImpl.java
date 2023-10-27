@@ -1,8 +1,5 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.ConfigProperty;
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
@@ -12,6 +9,9 @@ import com.senla.hoteldb.dao.impl.RoomDao;
 import com.senla.hoteldb.entity.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,18 +19,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class RoomServiceImpl implements IRoomService {
     private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+//    @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
     private RoomDao roomDAO;
 
-    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "ability-to-change-status-of-room", type = Boolean.class)
-    public void setCheckInCheckOutPermission(Boolean checkInCheckOutPermission) {
-        this.checkInCheckOutPermission = checkInCheckOutPermission;
-    }
-
-    @InjectValue
+    @Autowired
     public void setRoomDAO(RoomDao roomDAO) {
         this.roomDAO = roomDAO;
     }

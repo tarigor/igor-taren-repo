@@ -1,22 +1,22 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import com.serialization.exception.HotelSerializationModuleException;
 import com.serialization.service.SerializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction17 extends MenuAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(MenuAction17.class);
     private SerializationService serializationService;
 
-    @InjectValue
+    @Autowired
     public void setSerializationService(SerializationService serializationService) {
         this.serializationService = serializationService;
     }

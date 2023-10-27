@@ -2,8 +2,6 @@ package com.serialization.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
@@ -17,13 +15,15 @@ import com.senla.hoteldb.entity.RoomService;
 import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class SerializationService {
     private static final Logger logger = LoggerFactory.getLogger(SerializationService.class);
     private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources\\serialized";
@@ -33,27 +33,27 @@ public class SerializationService {
     private GuestServicesServiceImpl guestServicesService;
     private RoomServiceImpl roomService;
 
-    @InjectValue
+    @Autowired
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }

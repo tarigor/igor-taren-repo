@@ -1,15 +1,15 @@
 package com.senla.menu.navigator;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.service.PropertiesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class Navigator {
     private static final Logger logger = LoggerFactory.getLogger(Navigator.class);
     private PropertiesService propertiesService;

@@ -1,8 +1,5 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.ConfigProperty;
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.dto.GuestBookingDto;
 import com.senla.hotel.service.IBookingService;
 import com.senla.hoteldb.dao.impl.BookingDao;
@@ -12,6 +9,9 @@ import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.service.HibernateService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -21,35 +21,31 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class BookingServiceImpl implements IBookingService {
+//    @Value("${number-of-guest-records-in-room-history}")
     private Integer roomHistoryLimit;
     private BookingDao bookingDAO;
     private RoomDao roomDAO;
     private GuestDao guestDAO;
     private HibernateService hibernateService;
 
-    @ConfigProperty(moduleName = "hotel", propertiesFileName = "settings", parameterName = "number-of-guest-records-in-room-history", type = Integer.class)
-    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
-        this.roomHistoryLimit = roomHistoryLimit;
-    }
-
-    @InjectValue
+    @Autowired
     public void setBookingDAO(BookingDao bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomDAO(RoomDao roomDAO) {
         this.roomDAO = roomDAO;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestDAO(GuestDao guestDAO) {
         this.guestDAO = guestDAO;
     }
 
-    @InjectValue
+    @Autowired
     public void setHibernateConfig(HibernateService hibernateService) {
         this.hibernateService = hibernateService;
     }

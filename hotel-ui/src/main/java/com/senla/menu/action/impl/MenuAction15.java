@@ -1,7 +1,5 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
@@ -17,8 +15,10 @@ import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction15 extends MenuAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(MenuAction15.class);
     private BookingServiceImpl bookingService;
@@ -32,52 +32,52 @@ public class MenuAction15 extends MenuAction implements IAction {
     private RoomEntityImportServiceImpl roomEntityImportService;
     private RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
 
-    @InjectValue
+    @Autowired
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
 
-    @InjectValue
+    @Autowired
     public void setBookingEntityImportService(BookingEntityImportServiceImpl bookingEntityImportService) {
         this.bookingEntityImportService = bookingEntityImportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestEntityImportService(GuestEntityImportServiceImpl guestEntityImportService) {
         this.guestEntityImportService = guestEntityImportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl guestServicesEntityImportService) {
         this.guestServicesEntityImportService = guestServicesEntityImportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomEntityImportService(RoomEntityImportServiceImpl roomEntityImportService) {
         this.roomEntityImportService = roomEntityImportService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
         this.roomServiceEntityImportService = roomServiceEntityImportService;
     }

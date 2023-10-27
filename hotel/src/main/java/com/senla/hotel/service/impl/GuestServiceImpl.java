@@ -1,19 +1,19 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.IGuestService;
 import com.senla.hoteldb.dao.impl.GuestDao;
 import com.senla.hoteldb.entity.Guest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class GuestServiceImpl implements IGuestService {
     private GuestDao guestDAO;
 
-    @InjectValue
+    @Autowired
     public void setGuestDAO(GuestDao guestDAO) {
         this.guestDAO = guestDAO;
     }

@@ -1,7 +1,5 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
@@ -9,18 +7,20 @@ import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class RoomServicesServiceImpl implements IRoomServicesService {
     private static final Logger logger = LoggerFactory.getLogger(RoomServicesServiceImpl.class);
     private RoomServiceDao roomServiceDAO;
 
-    @InjectValue
+    @Autowired
     public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
         this.roomServiceDAO = roomServiceDAO;
     }

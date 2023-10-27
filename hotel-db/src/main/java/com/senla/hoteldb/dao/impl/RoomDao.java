@@ -1,20 +1,20 @@
 package com.senla.hoteldb.dao.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hoteldb.dao.IEntityDao;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.service.HibernateService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@CreateInstanceAndPutInContainer
+@Repository
 public class RoomDao implements IEntityDao<Room> {
     private HibernateService hibernateService;
 
-    @InjectValue
+    @Autowired
     public void setHibernateConfig(HibernateService hibernateService) {
         this.hibernateService = hibernateService;
     }

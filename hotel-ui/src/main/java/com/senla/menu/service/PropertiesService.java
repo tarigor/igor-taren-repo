@@ -1,9 +1,9 @@
 package com.senla.menu.service;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.exception.HotelUiModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class PropertiesService {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesService.class);
     private final Map<Integer, String> menuMap = new TreeMap<>();

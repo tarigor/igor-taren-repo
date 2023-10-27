@@ -1,6 +1,5 @@
 package com.senla.menu.controller;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.builder.Builder;
@@ -10,10 +9,11 @@ import com.senla.menu.navigator.Navigator;
 import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuController {
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
     private Scanner scanner = new Scanner(System.in);

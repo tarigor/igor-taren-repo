@@ -1,16 +1,16 @@
 package com.senla.hotelio.service.entityimport.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class RoomServiceEntityImportServiceImpl extends ImportService implements IImportService<RoomService> {
     private final String ENTITY_NAME = "RoomServices";
 

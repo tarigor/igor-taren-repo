@@ -3,10 +3,10 @@ package com.serialization.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class DeserializationService {
     private static final Logger logger = LoggerFactory.getLogger(DeserializationService.class);
     private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources";
