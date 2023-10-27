@@ -10,7 +10,6 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.service.HibernateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
-//    @Value("${number-of-guest-records-in-room-history}")
+    //    @Value("${number-of-guest-records-in-room-history}")
     private Integer roomHistoryLimit;
     private BookingDao bookingDAO;
     private RoomDao roomDAO;

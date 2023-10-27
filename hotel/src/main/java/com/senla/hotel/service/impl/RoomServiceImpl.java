@@ -10,7 +10,6 @@ import com.senla.hoteldb.entity.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class RoomServiceImpl implements IRoomService {
     private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
-//    @Value("${ability-to-change-status-of-room}")
+    //    @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
     private RoomDao roomDAO;
 

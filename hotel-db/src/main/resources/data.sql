@@ -1,10 +1,10 @@
-INSERT INTO hotel.guest (first_name, last_name)
+INSERT INTO guest (first_name, last_name)
 VALUES ('Igor', 'Ivanov');
-INSERT INTO hotel.guest (first_name, last_name)
+INSERT INTO guest (first_name, last_name)
 VALUES ('Sergei', 'Petrov');
-INSERT INTO hotel.guest (first_name, last_name)
+INSERT INTO guest (first_name, last_name)
 VALUES ('Ivan', 'Sidorov');
-INSERT INTO hotel.guest (first_name, last_name)
+INSERT INTO guest (first_name, last_name)
 VALUES ('Alex', 'Kirov');
 
 INSERT INTO hotel.room (capacity, price, room_status, stars_rating)

@@ -3,11 +3,14 @@ package com.senla.menu.service;
 import com.senla.menu.exception.HotelUiModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,9 +18,11 @@ import java.util.TreeMap;
 public class PropertiesService {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesService.class);
     private final Map<Integer, String> menuMap = new TreeMap<>();
+    @Value("classpath:menu.properties")
+    private Resource menuProperties;
 
     public Map<Integer, String> readPropertiesFileAsMap(String filename, String delimiter) throws HotelUiModuleException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + filename))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(menuProperties.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().length() == 0) continue;
