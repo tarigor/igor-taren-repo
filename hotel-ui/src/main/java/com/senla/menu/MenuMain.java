@@ -20,7 +20,7 @@ import java.util.Locale;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.senla.hotel", "com.senla.hoteldb", "com.senla.hotelio", "com.serialization", "com.senla.menu"})
 @PropertySources({
-        @PropertySource("classpath:hotel.properties"),
+        @PropertySource("classpath:hotel-application.properties"),
         @PropertySource("classpath:menu.properties"),
 })
 @EntityScan(basePackages = {"com.senla.hoteldb.entity"})
