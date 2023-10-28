@@ -16,6 +16,7 @@ import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
@@ -25,9 +26,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class SerializationService {
+    public static final String EXTENSION_JSON = ".json";
     private static final Logger logger = LoggerFactory.getLogger(SerializationService.class);
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources\\serialized";
     RoomServicesServiceImpl roomServicesService;
+    @Value("${json.export.path}")
+    private String jsonExportPath;
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;
@@ -87,7 +90,7 @@ public class SerializationService {
 
     private void serializeMap(Map<Long, ?> map, String fileName) throws HotelSerializationModuleException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json")) {
+        try (FileWriter writer = new FileWriter(jsonExportPath + fileName + EXTENSION_JSON)) {
             gson.toJson(map, writer);
             logger.info("Serialization completed successfully");
         } catch (IOException e) {

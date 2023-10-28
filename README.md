@@ -19,7 +19,7 @@ Replace your (current) Dependency Injection implementation with DI using the Spr
 
 #### Stack
 
-- java.version 11
+- java.version 17
 - maven.compiler.plugin.version 3.11.0
 - maven.surefire.plugin.version 3.1.2
 - maven.checkstyle.plugin.version 3.3.0

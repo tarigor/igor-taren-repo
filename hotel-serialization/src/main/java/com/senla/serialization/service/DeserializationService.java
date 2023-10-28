@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,7 +19,8 @@ import java.util.Map;
 @Service
 public class DeserializationService {
     private static final Logger logger = LoggerFactory.getLogger(DeserializationService.class);
-    private static final String RESOURCES_PATH = "\\hotel-serialization\\src\\main\\resources";
+    @Value("${json.import.path}")
+    private String jsonImportPath;
 
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();
@@ -35,7 +37,7 @@ public class DeserializationService {
     }
 
     public <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) throws HotelSerializationModuleException {
-        String fileContent = readFileToString(System.getProperty("user.dir") + RESOURCES_PATH + "\\" + fileName + ".json");
+        String fileContent = readFileToString(jsonImportPath + fileName + ".json");
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Date.class, new CustomDateDeserializer());

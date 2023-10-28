@@ -3,8 +3,7 @@ package com.senla.hotelio.service.entityexport;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,12 +20,12 @@ public abstract class ExportService {
     private static final String EXPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\export";
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "=([^,}]+)";
-    @Autowired
-    private ResourceLoader resourceLoader;
+    @Value("${csv.export.path}")
+    private String csvExportPath;
 
     protected <T> void storeEntityToCsv(String entityFileName, List<T> list) throws HotelIoModuleException {
         try {
-            Path path = Paths.get("src/main/resources/csv/export/" + entityFileName + EXTENSION);
+            Path path = Paths.get(csvExportPath + entityFileName + EXTENSION);
             Files.deleteIfExists(path);
             for (T o : list) {
                 Files.write(path, getFieldsFromEntityInCsvFormat(o).getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
