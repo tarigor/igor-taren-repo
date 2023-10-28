@@ -5,75 +5,57 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesDto;
 import com.senla.hotel.service.IGuestServicesService;
-import com.senla.hoteldb.dao.impl.GuestServicesDao;
-import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.hoteldb.service.HibernateService;
+import com.senla.hoteldb.repository.GuestServicesRepository;
+import com.senla.hoteldb.repository.RoomServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class GuestServicesServiceImpl implements IGuestServicesService {
     private static final Logger logger = LoggerFactory.getLogger(GuestServicesServiceImpl.class);
-    private GuestServicesDao guestServicesDAO;
-    private RoomServiceDao roomServiceDAO;
-    private HibernateService hibernateService;
-
     @Autowired
-    public void setHibernateConfig(HibernateService hibernateService) {
-        this.hibernateService = hibernateService;
-    }
-
+    private GuestServicesRepository guestServicesRepository;
     @Autowired
-    public void setGuestServicesDAO(GuestServicesDao guestServicesDAO) {
-        this.guestServicesDAO = guestServicesDAO;
-    }
-
-    @Autowired
-    public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
-        this.roomServiceDAO = roomServiceDAO;
-    }
+    private RoomServiceRepository roomServiceRepository;
 
     @Override
     public void saveAll(List<GuestServices> guestServices) {
-        guestServicesDAO.saveAll(guestServices);
+        guestServicesRepository.saveAll(guestServices);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
+    @Transactional
     @Override
     public List<GuestServicesDto> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering) {
-        hibernateService.beginTransaction();
-        List<RoomService> roomServices = roomServiceDAO.getAll();
-        List<GuestServices> guestServicesByGuestId = guestServicesDAO.getAll().stream()
-                .filter(guestServices -> guestServices.getGuest().getId() == guestId)
-                .collect(Collectors.toList());
+        List<RoomService> roomServices = roomServiceRepository.findAll();
+        List<GuestServices> guestServicesByGuestId = guestServicesRepository.findAll().stream()
+                .filter(guestServices -> guestServices.getGuest().getId() == guestId).toList();
 
         Comparator<GuestServicesDto> comparator = null;
 
         switch (guestServicesSection) {
-            case PRICE:
-                comparator = Comparator.comparing(GuestServicesDto::getRoomServicePrice);
-                break;
-            case DATE:
-                comparator = Comparator.comparing(GuestServicesDto::getRoomServiceOrderDate);
-                break;
-            default:
-                logger.error("An ordering by section -> {} is not possible", guestServicesSection);
+            case PRICE -> comparator = Comparator.comparing(GuestServicesDto::getRoomServicePrice);
+            case DATE -> comparator = Comparator.comparing(GuestServicesDto::getRoomServiceOrderDate);
+            default -> logger.error("An ordering by section -> {} is not possible", guestServicesSection);
         }
 
         if (ordering == Ordering.DESC) {
             comparator = comparator.reversed();
         }
 
-        List<GuestServicesDto> guestServicesDtoList = guestServicesByGuestId.stream()
+        return guestServicesByGuestId.stream()
                 .map(guestServices -> new GuestServicesDto(
                         guestServices.getId(),
                         guestServices.getGuest().getId(),
@@ -83,8 +65,6 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 ))
                 .sorted(comparator)
                 .collect(Collectors.toList());
-        hibernateService.commit();
-        return guestServicesDtoList;
     }
 
     private int getIndexByServiceID(List<RoomService> roomServices, long roomServiceId) {
@@ -100,21 +80,25 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     @Override
     public void updateAllAndSaveIfNotExist(ArrayList<GuestServices> guestServicesList) {
         for (GuestServices guestServices : guestServicesList) {
-            if (guestServicesDAO.getById(guestServices.getId()) != null) {
-                guestServicesDAO.update(guestServices);
+            Optional<GuestServices> guestServicesOptional = guestServicesRepository.findById(guestServices.getId());
+            if (guestServicesOptional.isPresent()) {
+                GuestServices guestServicesUpdate = guestServicesOptional.get();
+                guestServicesUpdate.setGuest(guestServices.getGuest());
+                guestServicesUpdate.setRoomService(guestServices.getRoomService());
+                guestServicesUpdate.setRoomServiceOrderDate(guestServices.getRoomServiceOrderDate());
             } else {
-                guestServicesDAO.save(guestServices);
+                guestServicesRepository.save(guestServices);
             }
         }
     }
 
     @Override
     public List<GuestServices> getAll() {
-        return guestServicesDAO.getAll();
+        return guestServicesRepository.findAll();
     }
 
     @Override
     public GuestServices getById(long id) {
-        return guestServicesDAO.getById(id);
+        return guestServicesRepository.findById(id).orElseThrow(() -> new NoSuchElementException("there is no such a guest service with id->" + id));
     }
 }

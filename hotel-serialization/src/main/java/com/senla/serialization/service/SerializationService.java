@@ -1,4 +1,4 @@
-package com.serialization.service;
+package com.senla.serialization.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +12,7 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
-import com.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

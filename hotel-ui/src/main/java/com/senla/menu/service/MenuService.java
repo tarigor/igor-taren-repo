@@ -27,7 +27,7 @@ import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
 import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.navigator.Navigator;
-import com.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,6 @@ public class MenuService {
     private String MENU_DESCRIPTION_FILENAME = "\\hotel-ui\\src\\main\\resources\\menu.properties";
     private MenuController MENU_CONTROLLER;
     private Builder builder;
-    private PropertiesService PROPERTIES_SERVICE;
     private Navigator navigator;
     private MenuAction1 menuAction1;
     private MenuAction2 menuAction2;
@@ -66,11 +65,6 @@ public class MenuService {
     @Autowired
     public void setBuilder(Builder builder) {
         this.builder = builder;
-    }
-
-    @Autowired
-    public void setPropertiesService(PropertiesService propertiesService) {
-        this.PROPERTIES_SERVICE = propertiesService;
     }
 
     @Autowired
@@ -213,12 +207,8 @@ public class MenuService {
                 .addItem(new MenuItem(19, menuAction19))
                 .build();
 
-
-        navigator.setPropertiesService(PROPERTIES_SERVICE);
-
         MENU_CONTROLLER.setMenu(menu);
         MENU_CONTROLLER.setNavigator(navigator);
-        MENU_CONTROLLER.setMenuDescriptionFileName(MENU_DESCRIPTION_FILENAME);
         MENU_CONTROLLER.setBuilder(builder);
         MENU_CONTROLLER.showMenu()
                 .menuRolling();

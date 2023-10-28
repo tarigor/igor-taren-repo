@@ -38,7 +38,10 @@ Replace your (current) Dependency Injection implementation with DI using the Spr
 - maven.checkstyle.plugin.version 3.3.0
 - maven.site.plugin.version 3.12.0
 - hibernate.core 6.3.1.Final
+- spring-boot-starter 3.1.5
+- spring-boot-starter-data-jpa 3.1.5
+- spring-boot-maven-plugin 3.1.5
 
 #### cmd to application start
 
-_mvn clean install exec:java -pl hotel-ui_ 
+_mvn -pl hotel-ui spring-boot:run_ 

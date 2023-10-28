@@ -2,8 +2,8 @@ package com.senla.menu.action.impl;
 
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-import com.serialization.exception.HotelSerializationModuleException;
-import com.serialization.service.SerializationService;
+import com.senla.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.service.SerializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

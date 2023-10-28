@@ -1,9 +1,9 @@
-package com.serialization.service;
+package com.senla.serialization.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

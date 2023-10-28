@@ -1,4 +1,4 @@
-package com.serialization.exception;
+package com.senla.serialization.exception;
 
 public class HotelSerializationModuleException extends Exception {
     public HotelSerializationModuleException() {
