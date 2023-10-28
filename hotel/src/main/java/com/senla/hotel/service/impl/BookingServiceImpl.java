@@ -130,6 +130,7 @@ public class BookingServiceImpl implements IBookingService {
                 bookingUpdate.setRoom(booking.getRoom());
                 bookingUpdate.setCheckInDate(booking.getCheckInDate());
                 bookingUpdate.setCheckOutDate(booking.getCheckOutDate());
+                bookingRepository.save(bookingUpdate);
             } else {
                 bookingRepository.save(booking);
             }
