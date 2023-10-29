@@ -29,7 +29,7 @@
 </div>
 <div class="message-container">
     <h1>${message}</h1>
-    <a href="/">Back to home</a>
+    <a href="${pageContext.request.contextPath}/">Back to home</a>
 </div>
 </body>
 </html>
