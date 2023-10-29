@@ -14,6 +14,7 @@
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
         <jakarta.servlet.version>4.0.4</jakarta.servlet.version>
+        <tomcat7.maven.plugin.version>2.2</tomcat7.maven.plugin.version>
     </properties>
 
     <build>
@@ -31,6 +32,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${tomcat7.maven.plugin.version}</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>TomcatServer</server>
+                    <username>admin</username>
+                    <password>s3cret</password>
+                    <path>/helloworld</path>
+                </configuration>
             </plugin>
         </plugins>
     </build>

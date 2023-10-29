@@ -21,13 +21,22 @@ Task 15 (difficulty 3)
 (optional, but highly recommended) Add a tomcat plugin to the HelloWorld project, with which to perform deploy/undeploy
 on/from Tomcat.
 
-#### Run Configuration
-
-![](config1.jpg)
-![](config2.jpg)
-
 #### Stack
 
 - java 17
 - apache-tomcat 9.0.82
 - jakarta.servlet-api 4.0.4
+- tomcat7-maven-plugin 2.2
+
+#### Application start procedure 
+
+- via tomcat7-maven-plugin
+
+mvn clean install    
+mvn tomcat7:deploy  
+follow -> http://localhost:8080/helloworld
+
+- via ide run
+
+![](config1.jpg)
+![](config2.jpg)

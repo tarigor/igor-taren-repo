@@ -14,7 +14,7 @@ public class Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String requestURI = req.getRequestURI();
         if (requestURI.endsWith("/")) {
-            handleRequest("Start Page", "click -> <a href=\"/hello\">/hello</a>", req, resp);
+            handleRequest("Start Page", "click -> <a href=\"${pageContext.request.contextPath}/hello\">/hello</a>", req, resp);
         } else if (requestURI.endsWith("/hello")) {
             handleRequest("Hello World Page", "Hello World!", req, resp);
         }
