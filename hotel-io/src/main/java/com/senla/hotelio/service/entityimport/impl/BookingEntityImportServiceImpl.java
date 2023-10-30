@@ -1,7 +1,5 @@
 package com.senla.hotelio.service.entityimport.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hoteldb.entity.Booking;
@@ -10,13 +8,15 @@ import com.senla.hotelio.service.entityimport.ImportService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
     private static final Logger logger = LoggerFactory.getLogger(BookingEntityImportServiceImpl.class);
     private final String ENTITY_NAME = "Booking";
@@ -24,12 +24,12 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
     private GuestServiceImpl guestService;
     private RoomServiceImpl roomService;
 
-    @InjectValue
+    @Autowired
     public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 
-    @InjectValue
+    @Autowired
     public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }

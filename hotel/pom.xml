@@ -18,12 +18,6 @@
     <dependencies>
         <dependency>
             <groupId>com.senla</groupId>
-            <artifactId>annotations</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.senla</groupId>
             <artifactId>hotel-db</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>

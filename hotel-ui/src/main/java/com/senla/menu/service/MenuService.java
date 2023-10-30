@@ -1,7 +1,5 @@
 package com.senla.menu.service;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.action.impl.MenuAction1;
@@ -29,14 +27,15 @@ import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
 import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.navigator.Navigator;
-import com.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.exception.HotelSerializationModuleException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class MenuService {
     private String MENU_DESCRIPTION_FILENAME = "\\hotel-ui\\src\\main\\resources\\menu.properties";
     private MenuController MENU_CONTROLLER;
     private Builder builder;
-    private PropertiesService PROPERTIES_SERVICE;
     private Navigator navigator;
     private MenuAction1 menuAction1;
     private MenuAction2 menuAction2;
@@ -58,117 +57,112 @@ public class MenuService {
     private MenuAction18 menuAction18;
     private MenuAction19 menuAction19;
 
-    @InjectValue
+    @Autowired
     public void setMenuController(MenuController menuController) {
         this.MENU_CONTROLLER = menuController;
     }
 
-    @InjectValue
+    @Autowired
     public void setBuilder(Builder builder) {
         this.builder = builder;
     }
 
-    @InjectValue
-    public void setPropertiesService(PropertiesService propertiesService) {
-        this.PROPERTIES_SERVICE = propertiesService;
-    }
-
-    @InjectValue
+    @Autowired
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction1(MenuAction1 menuAction1) {
         this.menuAction1 = menuAction1;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction2(MenuAction2 menuAction2) {
         this.menuAction2 = menuAction2;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction3(MenuAction3 menuAction3) {
         this.menuAction3 = menuAction3;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction4(MenuAction4 menuAction4) {
         this.menuAction4 = menuAction4;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction5(MenuAction5 menuAction5) {
         this.menuAction5 = menuAction5;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction6(MenuAction6 menuAction6) {
         this.menuAction6 = menuAction6;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction7(MenuAction7 menuAction7) {
         this.menuAction7 = menuAction7;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction8(MenuAction8 menuAction8) {
         this.menuAction8 = menuAction8;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction9(MenuAction9 menuAction9) {
         this.menuAction9 = menuAction9;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction10(MenuAction10 menuAction10) {
         this.menuAction10 = menuAction10;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction11(MenuAction11 menuAction11) {
         this.menuAction11 = menuAction11;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction12(MenuAction12 menuAction12) {
         this.menuAction12 = menuAction12;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction13(MenuAction13 menuAction13) {
         this.menuAction13 = menuAction13;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction14(MenuAction14 menuAction14) {
         this.menuAction14 = menuAction14;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction15(MenuAction15 menuAction15) {
         this.menuAction15 = menuAction15;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction16(MenuAction16 menuAction16) {
         this.menuAction16 = menuAction16;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction17(MenuAction17 menuAction17) {
         this.menuAction17 = menuAction17;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction18(MenuAction18 menuAction18) {
         this.menuAction18 = menuAction18;
     }
 
-    @InjectValue
+    @Autowired
     public void setMenuAction19(MenuAction19 menuAction19) {
         this.menuAction19 = menuAction19;
     }
@@ -213,12 +207,8 @@ public class MenuService {
                 .addItem(new MenuItem(19, menuAction19))
                 .build();
 
-
-        navigator.setPropertiesService(PROPERTIES_SERVICE);
-
         MENU_CONTROLLER.setMenu(menu);
         MENU_CONTROLLER.setNavigator(navigator);
-        MENU_CONTROLLER.setMenuDescriptionFileName(MENU_DESCRIPTION_FILENAME);
         MENU_CONTROLLER.setBuilder(builder);
         MENU_CONTROLLER.showMenu()
                 .menuRolling();

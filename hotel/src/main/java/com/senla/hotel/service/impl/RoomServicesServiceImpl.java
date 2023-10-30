@@ -1,33 +1,31 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
-import com.senla.hoteldb.dao.impl.RoomServiceDao;
 import com.senla.hoteldb.entity.RoomService;
+import com.senla.hoteldb.repository.RoomServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class RoomServicesServiceImpl implements IRoomServicesService {
     private static final Logger logger = LoggerFactory.getLogger(RoomServicesServiceImpl.class);
-    private RoomServiceDao roomServiceDAO;
-
-    @InjectValue
-    public void setRoomServiceDAO(RoomServiceDao roomServiceDAO) {
-        this.roomServiceDAO = roomServiceDAO;
-    }
+    @Autowired
+    private RoomServiceRepository roomServiceRepository;
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
-        roomServiceDAO.saveAll(roomServices);
+        roomServiceRepository.saveAll(roomServices);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
             comparator = comparator.reversed();
         }
 
-        return roomServiceDAO.getAll().stream()
+        return roomServiceRepository.findAll().stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());
     }
@@ -57,21 +55,24 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
     @Override
     public void updateAllAndSaveIfNotExist(ArrayList<RoomService> roomServices) {
         for (RoomService roomService : roomServices) {
-            if (roomServiceDAO.getById(roomService.getId()) != null) {
-                roomServiceDAO.update(roomService);
+            Optional<RoomService> roomServiceOptional = roomServiceRepository.findById(roomService.getId());
+            if (roomServiceOptional.isPresent()) {
+                RoomService roomServiceUpdate = roomServiceOptional.get();
+                roomServiceUpdate.setServiceType(roomService.getServiceType());
+                roomServiceUpdate.setPrice(roomService.getPrice());
             } else {
-                roomServiceDAO.save(roomService);
+                roomServiceRepository.save(roomService);
             }
         }
     }
 
     @Override
     public List<RoomService> getAll() {
-        return roomServiceDAO.getAll();
+        return roomServiceRepository.findAll();
     }
 
     @Override
     public RoomService getById(Long id) {
-        return roomServiceDAO.getById(id);
+        return roomServiceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + id));
     }
 }

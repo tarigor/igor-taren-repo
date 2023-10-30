@@ -1,20 +1,20 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.constant.GuestServicesSection;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction11 extends MenuAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(MenuAction11.class);
     private GuestServicesServiceImpl guestServicesService;
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }

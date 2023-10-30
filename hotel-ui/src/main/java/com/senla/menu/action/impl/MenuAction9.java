@@ -1,16 +1,16 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction9 extends MenuAction implements IAction {
     private BookingServiceImpl bookingService;
 
-    @InjectValue
+    @Autowired
     public void setBookingService(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }

@@ -1,7 +1,5 @@
 package com.senla.menu.action.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
@@ -9,16 +7,18 @@ import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.menu.action.IAction;
 import com.senla.menu.action.MenuAction;
-import com.serialization.exception.HotelSerializationModuleException;
-import com.serialization.service.DeserializationService;
+import com.senla.serialization.exception.HotelSerializationModuleException;
+import com.senla.serialization.service.DeserializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class MenuAction18 extends MenuAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(MenuAction18.class);
     private Map<Long, Booking> bookings;
@@ -28,7 +28,7 @@ public class MenuAction18 extends MenuAction implements IAction {
         this.bookings = bookings;
     }
 
-    @InjectValue
+    @Autowired
     public void setDeserializationService(DeserializationService deserializationService) {
         this.deserializationService = deserializationService;
     }

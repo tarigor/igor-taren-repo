@@ -1,23 +1,23 @@
 package com.senla.hotelio.service.entityexport.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.dto.entityexport.GuestServiceExport;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class GuestServicesEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "GuestServices";
     private GuestServicesServiceImpl guestServicesService;
 
-    @InjectValue
+    @Autowired
     public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }

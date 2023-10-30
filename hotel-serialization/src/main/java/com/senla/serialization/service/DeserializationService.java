@@ -1,0 +1,55 @@
+package com.senla.serialization.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.senla.serialization.exception.HotelSerializationModuleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+public class DeserializationService {
+    private static final Logger logger = LoggerFactory.getLogger(DeserializationService.class);
+    @Value("${json.import.path}")
+    private String jsonImportPath;
+
+    private static String readFileToString(String filePath) throws HotelSerializationModuleException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            logger.error("an error occurred during an IO operation -> {}", e.getMessage());
+            throw new HotelSerializationModuleException(e);
+        }
+        return content.toString();
+    }
+
+    public <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) throws HotelSerializationModuleException {
+        String fileContent = readFileToString(jsonImportPath + fileName + ".json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Date.class, new CustomDateDeserializer());
+        objectMapper.registerModule(module);
+        try {
+            return objectMapper.readValue(
+                    fileContent,
+                    objectMapper.getTypeFactory().constructMapType(HashMap.class, Long.class, type)
+            );
+        } catch (JsonProcessingException e) {
+            logger.error("an error occurred during an JSON operation -> {}", e.getMessage());
+            throw new HotelSerializationModuleException(e);
+        }
+    }
+}

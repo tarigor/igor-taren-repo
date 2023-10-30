@@ -1,46 +1,47 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
-import com.senla.betterthenspring.annotation.InjectValue;
 import com.senla.hotel.service.IGuestService;
-import com.senla.hoteldb.dao.impl.GuestDao;
 import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.repository.GuestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-@CreateInstanceAndPutInContainer
+@Service
 public class GuestServiceImpl implements IGuestService {
-    private GuestDao guestDAO;
-
-    @InjectValue
-    public void setGuestDAO(GuestDao guestDAO) {
-        this.guestDAO = guestDAO;
-    }
+    @Autowired
+    private GuestRepository guestRepository;
 
     @Override
     public void saveAll(List<Guest> guests) {
-        guestDAO.saveAll(guests);
+        guestRepository.saveAll(guests);
     }
 
     @Override
     public void updateAllAndSaveIfNotExist(ArrayList<Guest> guests) {
         for (Guest guest : guests) {
-            if (guestDAO.getById(guest.getId()) != null) {
-                guestDAO.update(guest);
+            Optional<Guest> guestOptional = guestRepository.findById(guest.getId());
+            if (guestOptional.isPresent()) {
+                Guest guestUpdate = guestOptional.get();
+                guestUpdate.setFirstName(guest.getFirstName());
+                guestUpdate.setLastName(guest.getLastName());
             } else {
-                guestDAO.save(guest);
+                guestRepository.save(guest);
             }
         }
     }
 
     @Override
     public List<Guest> getAll() {
-        return guestDAO.getAll();
+        return guestRepository.findAll();
     }
 
     @Override
     public Guest getById(Long id) {
-        return guestDAO.getById(id);
+        return guestRepository.findById(id).orElseThrow(() -> new NoSuchElementException("there is no such a guest with id->" + id));
     }
 }

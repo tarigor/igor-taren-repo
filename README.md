@@ -2,29 +2,24 @@
 
 # HOTEL SERVICE
 
-### TASK#13
+### TASK#14
 
-### _Hibernate_
+### _Spring Framework_
 
 #### Description:
 
-Add the implementation of working with the database using hibernate to the project.
+Task 14.1 (difficulty 4)
 
-Technical requirements:
+Replace your (current) Dependency Injection implementation with DI using the Spring Framework (spring-context module).
 
-- The application comply with the principles of OOP and the patterns of "high cohesion" and "low coupling";
-- apply patterns in development: mvc, dao;
-- the application must have high-quality exception handling;
-- errors should be logged to a file;
-- transactions for working with the database must be processed qualitatively;
-- the application must be embedded in the git in a separate branch with all configuration files,
-  scripts for creating a database and filling it in;
-
-All work with dependencies is done with the help of maven.
+- Use any of the configuration methods;
+- Make sure that repositories and services exist each in a single instance;
+- Configure PropertySourcesPlaceholderConfigurer to embed parameters into beans
+  from configuration files using the @Value annotation.
 
 #### Stack
 
-- java.version 11
+- java.version 17
 - maven.compiler.plugin.version 3.11.0
 - maven.surefire.plugin.version 3.1.2
 - maven.checkstyle.plugin.version 3.3.0
@@ -43,7 +38,10 @@ All work with dependencies is done with the help of maven.
 - maven.checkstyle.plugin.version 3.3.0
 - maven.site.plugin.version 3.12.0
 - hibernate.core 6.3.1.Final
+- spring-boot-starter 3.1.5
+- spring-boot-starter-data-jpa 3.1.5
+- spring-boot-maven-plugin 3.1.5
 
 #### cmd to application start
 
-_mvn clean install exec:java -pl hotel-ui_ 
+_mvn -pl hotel-ui spring-boot:run_ 

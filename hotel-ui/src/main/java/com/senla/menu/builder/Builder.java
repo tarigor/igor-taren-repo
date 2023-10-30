@@ -1,14 +1,14 @@
 package com.senla.menu.builder;
 
-import com.senla.betterthenspring.annotation.CreateInstanceAndPutInContainer;
 import com.senla.menu.action.IAction;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-@CreateInstanceAndPutInContainer
+@Component
 public class Builder {
     private final Map<Integer, IAction> items;
     private String title;
