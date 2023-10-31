@@ -60,6 +60,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
                 RoomService roomServiceUpdate = roomServiceOptional.get();
                 roomServiceUpdate.setServiceType(roomService.getServiceType());
                 roomServiceUpdate.setPrice(roomService.getPrice());
+                roomServiceRepository.save(roomServiceUpdate);
             } else {
                 roomServiceRepository.save(roomService);
             }

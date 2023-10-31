@@ -182,6 +182,7 @@ public class RoomServiceImpl implements IRoomService {
                 roomUpdate.setPrice(room.getPrice());
                 roomUpdate.setCapacity(room.getCapacity());
                 roomUpdate.setStarsRating(room.getStarsRating());
+                roomRepository.save(roomUpdate);
             } else {
                 roomRepository.save(room);
             }

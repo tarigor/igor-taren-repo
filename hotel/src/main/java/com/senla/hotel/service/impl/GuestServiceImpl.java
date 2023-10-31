@@ -29,6 +29,7 @@ public class GuestServiceImpl implements IGuestService {
                 Guest guestUpdate = guestOptional.get();
                 guestUpdate.setFirstName(guest.getFirstName());
                 guestUpdate.setLastName(guest.getLastName());
+                guestRepository.save(guestUpdate);
             } else {
                 guestRepository.save(guest);
             }

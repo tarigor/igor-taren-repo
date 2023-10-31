@@ -86,6 +86,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 guestServicesUpdate.setGuest(guestServices.getGuest());
                 guestServicesUpdate.setRoomService(guestServices.getRoomService());
                 guestServicesUpdate.setRoomServiceOrderDate(guestServices.getRoomServiceOrderDate());
+                guestServicesRepository.save(guestServicesUpdate);
             } else {
                 guestServicesRepository.save(guestServices);
             }
