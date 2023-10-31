@@ -16,10 +16,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Locale;
 
-@SpringBootApplication
-@ComponentScan(basePackages = {"com.senla.hotel", "com.senla.hoteldb", "com.senla.hotelio", "com.senla.serialization", "com.senla.menu"})
-@EnableJpaRepositories("com.senla.hoteldb.repository")
-@EntityScan(basePackages = {"com.senla.hoteldb.entity"})
+//@SpringBootApplication
+//@ComponentScan(basePackages = {"com.senla.hotel", "com.senla.hoteldb", "com.senla.hotelio", "com.senla.serialization", "com.senla.menu"})
+//@EnableJpaRepositories("com.senla.hoteldb.repository")
+//@EntityScan(basePackages = {"com.senla.hoteldb.entity"})
 public class MenuMain {
     private static final Logger logger = LoggerFactory.getLogger(MenuMain.class);
 

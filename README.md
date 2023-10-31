@@ -2,20 +2,29 @@
 
 # HOTEL SERVICE
 
-### TASK#14
+### TASK#16
 
-### _Spring Framework_
+### _Spring MVC_
 
 #### Description:
 
-Task 14.1 (difficulty 4)
+Task 16 (difficulty 10)
 
-Replace your (current) Dependency Injection implementation with DI using the Spring Framework (spring-context module).
+Modify the application from previous tasks to a web application.
 
-- Use any of the configuration methods;
-- Make sure that repositories and services exist each in a single instance;
-- Configure PropertySourcesPlaceholderConfigurer to embed parameters into beans
-  from configuration files using the @Value annotation.
+Task requirements:
+- For implementation use Spring MVC;
+- Add DTO (Data transfer objects) to the project to describe controller responses;
+- Responses to requests must be in JSON and/or XML format;
+- The application must have a REST architecture (use the Postman tool for verification);
+- All the requirements for the functionality of the application must be available in the controllers;
+- Processing and issuing exceptions to the user should be implemented using @ExceptionHandler and @Controlleradvice;
+- Rewrite previously implemented work with transactions via Hibernate to use the @Transactional annotation in the 
+  service layer;
+
+Build the application in WAR and deploy it on Tomcat or Jetty.
+
+
 
 #### Stack
 
