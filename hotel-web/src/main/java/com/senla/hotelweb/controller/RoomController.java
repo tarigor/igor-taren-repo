@@ -1,12 +1,13 @@
 package com.senla.hotelweb.controller;
 
 import com.senla.hotel.dto.RoomDto;
+import com.senla.hotel.dto.RoomSearchCriteria;
 import com.senla.hotel.service.impl.RoomServiceImpl;
-import com.senla.hotelweb.dto.RoomSearchCriteria;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class RoomController {
     //2=List of rooms sorted by capacity
     //3=List of rooms sorted by number of stars
     //  /rooms?getOnlyAvailable=false&sortBy=PRICE&sortOrder=DESC
-    @GetMapping
+    @GetMapping("/sort")
     public List<RoomDto> getSortedRooms(@Valid RoomSearchCriteria roomSearchCriteria) {
         boolean getOnlyAvailable = Boolean.parseBoolean(roomSearchCriteria.getGetOnlyAvailable());
         String sortBy = roomSearchCriteria.getSortBy();
@@ -45,8 +46,9 @@ public class RoomController {
     }
 
     //14=Show the details of a separate room
-    @GetMapping("/{roomId}")
-    public RoomDto getRoomDetails(@PathVariable Long roomId) {
-        return roomService.getRoom(roomId);
+//  all other CRUD operations added by spring-boot-starter-data-rest
+    @PostMapping
+    public RoomDto saveRoom(@Valid @RequestBody RoomDto roomDto) {
+        return roomService.addRoom(roomDto);
     }
 }

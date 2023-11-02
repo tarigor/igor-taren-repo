@@ -4,7 +4,6 @@ import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.dto.RoomDto;
-import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.IRoomService;
 import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Room;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -80,8 +78,8 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public void addRoom(Room room) {
-        roomRepository.save(room);
+    public RoomDto addRoom(RoomDto room) {
+        return entityDtoMapper.convertFromEntityToDto(roomRepository.save(entityDtoMapper.convertFromDtoToEntity(room,Room.class)),RoomDto.class);
     }
 
     @Override
@@ -94,7 +92,7 @@ public class RoomServiceImpl implements IRoomService {
             throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
         }
         return roomRepository.findAll().stream()
-                .sorted(getComparator(roomSection))
+                .sorted(getComparator(roomSection, Ordering.ASC))
                 .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
@@ -110,26 +108,11 @@ public class RoomServiceImpl implements IRoomService {
             logger.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
             throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
         }
-        Comparator<Room> comparator = getComparator(roomSection);
-        if (ordering == Ordering.DESC) {
-            comparator = comparator.reversed();
-        }
         return roomRepository.findAll().stream()
                 .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(comparator)
+                .sorted(getComparator(roomSection, ordering))
                 .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
-    }
-
-    private Comparator<Room> getComparator(RoomSection roomSection) {
-        Comparator<Room> comparator = null;
-        switch (roomSection) {
-            case PRICE -> comparator = Comparator.comparing(Room::getPrice);
-            case CAPACITY -> comparator = Comparator.comparing(Room::getCapacity);
-            case RATING -> comparator = Comparator.comparing(Room::getStarsRating);
-            default -> logger.error("An ordering by section -> {} is not possible", roomSection);
-        }
-        return comparator;
     }
 
     @Override
@@ -149,37 +132,10 @@ public class RoomServiceImpl implements IRoomService {
 
     //    Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
-        Comparator<Room> comparator = getComparatorForSection(roomSection, ordering);
-
-        List<Room> rooms = roomRepository.findAll();
-
-        if (comparator != null) {
-            return rooms.stream()
-                    .sorted(comparator)
-                    .collect(Collectors.toList());
-        }
-        logger.error("An ordering by section -> {} is not possible", roomSection);
-        return Collections.emptyList();
-    }
-
-    private Comparator<Room> getComparatorForSection(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
-        switch (roomSection) {
-            case ID:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getId) : Comparator.comparing(Room::getId).reversed();
-            case CAPACITY:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getCapacity) : Comparator.comparing(Room::getCapacity).reversed();
-            case PRICE:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getPrice) : Comparator.comparing(Room::getPrice).reversed();
-            case AVAILABILITY:
-                return ordering == Ordering.ASC ? Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name())) :
-                        Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()), Comparator.reverseOrder());
-            case RATING:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getStarsRating) : Comparator.comparing(Room::getStarsRating).reversed();
-            default:
-                logger.error("there is no such a section -> {}", roomSection);
-                throw new HotelModuleException("there is no such a section -> " + roomSection);
-        }
+    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+        return roomRepository.findAll().stream()
+                .sorted(getComparator(roomSection, ordering))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -202,5 +158,21 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> getAll() {
         return roomRepository.findAll();
+    }
+
+    private Comparator<Room> getComparator(RoomSection roomSection, Ordering ordering) {
+        Comparator<Room> comparator = null;
+        switch (roomSection) {
+            case ID -> comparator = Comparator.comparing(Room::getId);
+            case AVAILABILITY -> comparator = Comparator.comparing(Room::getRoomStatus);
+            case PRICE -> comparator = Comparator.comparing(Room::getPrice);
+            case CAPACITY -> comparator = Comparator.comparing(Room::getCapacity);
+            case RATING -> comparator = Comparator.comparing(Room::getStarsRating);
+            default -> logger.error("An ordering by section -> {} is not possible", roomSection);
+        }
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
+        return comparator;
     }
 }

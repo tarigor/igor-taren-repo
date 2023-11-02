@@ -1,6 +1,6 @@
-package com.senla.hotelweb.validator.annotation;
+package com.senla.hotel.validator.annotation;
 
-import com.senla.hotelweb.validator.EnumValidatorValidator;
+import com.senla.hotel.validator.EnumValidatorValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

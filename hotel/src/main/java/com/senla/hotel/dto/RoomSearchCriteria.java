@@ -1,8 +1,8 @@
-package com.senla.hotelweb.dto;
+package com.senla.hotel.dto;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
-import com.senla.hotelweb.validator.annotation.EnumValidator;
+import com.senla.hotel.validator.annotation.EnumValidator;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;

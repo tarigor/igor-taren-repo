@@ -20,7 +20,7 @@ public interface IRoomService {
 
     RoomDto getRoom(long roomId);
 
-    void addRoom(Room room);
+    RoomDto addRoom(RoomDto room);
 
     //    List of rooms (sort by price,  by capacity, by number of stars);
     List<RoomDto> getSortedRooms(String sortBy) throws HotelModuleException;
