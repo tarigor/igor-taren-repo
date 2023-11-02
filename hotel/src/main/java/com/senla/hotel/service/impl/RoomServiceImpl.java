@@ -3,8 +3,10 @@ package com.senla.hotel.service.impl;
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
+import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.IRoomService;
+import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.RoomRepository;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public class RoomServiceImpl implements IRoomService {
     private Boolean checkInCheckOutPermission;
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private EntityDtoMapper entityDtoMapper;
 
     @Override
     public void saveAll(List<Room> rooms) {
@@ -67,9 +71,12 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room getRoom(long roomId) {
-        return roomRepository
-                .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+    public RoomDto getRoom(long roomId) {
+        return
+                entityDtoMapper.convertFromEntityToDto(
+                        roomRepository
+                                .findById(roomId)
+                                .orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId)), RoomDto.class);
     }
 
     @Override
@@ -78,52 +85,55 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> findAllOrderedByPrice() {
+    public List<RoomDto> getSortedRooms(String sortBy) {
+        RoomSection roomSection;
+        try {
+            roomSection = RoomSection.valueOf(sortBy);
+        } catch (IllegalArgumentException e) {
+            logger.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
+        }
         return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getPrice))
+                .sorted(getComparator(roomSection))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAllOrderedByCapacity() {
-        return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getCapacity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAllOrderedByStars() {
-        return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getStarsRating))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAvailableOrderedByPrice() {
-        return roomRepository.findAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getPrice))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAvailableOrderedByCapacity() {
-        return roomRepository.findAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getCapacity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAvailableOrderedByStars() {
+    public List<RoomDto> getAvailableSortedRooms(String sortBy, String sortOrder) {
+        RoomSection roomSection;
+        Ordering ordering;
+        try {
+            roomSection = RoomSection.valueOf(sortBy);
+            ordering = Ordering.valueOf(sortOrder);
+        } catch (IllegalArgumentException e) {
+            logger.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
+        }
+        Comparator<Room> comparator = getComparator(roomSection);
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
         return roomRepository.findAll().stream()
                 .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getStarsRating))
+                .sorted(comparator)
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
+    private Comparator<Room> getComparator(RoomSection roomSection) {
+        Comparator<Room> comparator = null;
+        switch (roomSection) {
+            case PRICE -> comparator = Comparator.comparing(Room::getPrice);
+            case CAPACITY -> comparator = Comparator.comparing(Room::getCapacity);
+            case RATING -> comparator = Comparator.comparing(Room::getStarsRating);
+            default -> logger.error("An ordering by section -> {} is not possible", roomSection);
+        }
+        return comparator;
+    }
+
     @Override
-    public int findNumberOfAvailableRooms() {
+    public int getTotalAvailableRooms() {
         return (int) roomRepository.findAll().stream()
                 .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .count();

@@ -35,11 +35,11 @@
         </dependency>
     </dependencies>
 
-<!--    <parent>-->
-<!--        <groupId>groupId</groupId>-->
-<!--        <artifactId>igor-taren-repo</artifactId>-->
-<!--        <version>1.0-SNAPSHOT</version>-->
-<!--    </parent>-->
+    <!--    <parent>-->
+    <!--        <groupId>groupId</groupId>-->
+    <!--        <artifactId>igor-taren-repo</artifactId>-->
+    <!--        <version>1.0-SNAPSHOT</version>-->
+    <!--    </parent>-->
 
     <groupId>com.senla</groupId>
     <artifactId>hotel-ui</artifactId>

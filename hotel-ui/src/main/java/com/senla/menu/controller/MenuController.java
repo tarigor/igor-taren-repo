@@ -1,12 +1,10 @@
 package com.senla.menu.controller;
 
 import com.senla.hotel.exception.HotelModuleException;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.builder.Builder;
 import com.senla.menu.entity.Menu;
 import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.navigator.Navigator;
-import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -35,7 +33,7 @@ public class MenuController {
         return this;
     }
 
-    public void menuRolling() throws HotelUiModuleException, HotelSerializationModuleException, HotelIoModuleException, HotelModuleException {
+    public void menuRolling() throws HotelUiModuleException, HotelModuleException {
         System.out.println("0. Exit");
         System.out.println("select an option");
         int item = scanner.nextInt();

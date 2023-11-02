@@ -2,7 +2,9 @@ package com.senla.hotelio.service.entityimport.impl;
 
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Booking;
+import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
@@ -23,6 +25,8 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
 
     private GuestServiceImpl guestService;
     private RoomServiceImpl roomService;
+    @Autowired
+    private EntityDtoMapper entityDtoMapper;
 
     @Autowired
     public void setGuestService(GuestServiceImpl guestService) {
@@ -43,7 +47,7 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
                 bookings.add(new Booking(
                         Long.parseLong(bookingsWithParameter.get(0)),
                         guestService.getById(Long.parseLong(bookingsWithParameter.get(1))),
-                        roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))),
+                        entityDtoMapper.convertFromDtoToEntity(roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))), Room.class),
                         new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(3)),
                         new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(4))
                 ));

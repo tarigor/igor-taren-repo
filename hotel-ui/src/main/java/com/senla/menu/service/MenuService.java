@@ -1,7 +1,6 @@
 package com.senla.menu.service;
 
 import com.senla.hotel.exception.HotelModuleException;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import com.senla.menu.action.impl.MenuAction1;
 import com.senla.menu.action.impl.MenuAction10;
 import com.senla.menu.action.impl.MenuAction11;
@@ -27,7 +26,6 @@ import com.senla.menu.entity.Menu;
 import com.senla.menu.entity.MenuItem;
 import com.senla.menu.exception.HotelUiModuleException;
 import com.senla.menu.navigator.Navigator;
-import com.senla.serialization.exception.HotelSerializationModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -167,7 +165,7 @@ public class MenuService {
         this.menuAction19 = menuAction19;
     }
 
-    public void showMenu() throws HotelUiModuleException, HotelSerializationModuleException, HotelIoModuleException, HotelModuleException {
+    public void showMenu() throws HotelUiModuleException, HotelModuleException {
         Menu menu = builder
                 .setTitle("HOTEL OPERATION")
                 //        1=List of rooms sorted by price

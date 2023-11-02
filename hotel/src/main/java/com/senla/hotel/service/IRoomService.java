@@ -2,6 +2,7 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;
+import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hoteldb.entity.Room;
 
@@ -17,26 +18,18 @@ public interface IRoomService {
 
     Room changeRoomPrice(long roomId, double price);
 
-    Room getRoom(long roomId);
+    RoomDto getRoom(long roomId);
 
     void addRoom(Room room);
 
     //    List of rooms (sort by price,  by capacity, by number of stars);
-    List<Room> findAllOrderedByPrice();
-
-    List<Room> findAllOrderedByCapacity();
-
-    List<Room> findAllOrderedByStars();
+    List<RoomDto> getSortedRooms(String sortBy) throws HotelModuleException;
 
     //    List of available rooms (sort by price, by capacity, by number of stars);
-    List<Room> findAvailableOrderedByPrice();
-
-    List<Room> findAvailableOrderedByCapacity();
-
-    List<Room> findAvailableOrderedByStars();
+    List<RoomDto> getAvailableSortedRooms(String sortBy, String sortOrder) throws HotelModuleException;
 
     //    Total number of available rooms;
-    int findNumberOfAvailableRooms();
+    int getTotalAvailableRooms();
 
     double getRoomPrice(long roomId);
 
