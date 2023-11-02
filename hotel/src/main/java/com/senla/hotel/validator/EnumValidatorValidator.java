@@ -34,7 +34,7 @@ public class EnumValidatorValidator implements ConstraintValidator<EnumValidator
                 .collect(Collectors.joining(", "));
 
         context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate("Invalid value. Valid options are: " + message)
+        context.buildConstraintViolationWithTemplate("Invalid value for datatype " + enumClass.getSimpleName() + ". Valid options are: " + message)
                 .addConstraintViolation();
         return false;
     }
