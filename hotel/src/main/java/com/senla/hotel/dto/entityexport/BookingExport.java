@@ -2,8 +2,8 @@ package com.senla.hotel.dto.entityexport;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.senla.hotel.deserializationService.DateToStringConverter;
-import com.senla.hotel.deserializationService.StringToDateConverter;
+import com.senla.hotel.deserializationservice.DateToStringConverter;
+import com.senla.hotel.deserializationservice.StringToDateConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

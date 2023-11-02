@@ -185,7 +185,7 @@
     </module>
 
     <module name="SuppressionFilter">
-        <property name="file" value="hotel-ui/src/main/resources/suppressions.xml"/>
+        <property name="file" value="hotel-web/src/main/resources/suppressions.xml"/>
     </module>
 
     <module name="RegexpMultiline">

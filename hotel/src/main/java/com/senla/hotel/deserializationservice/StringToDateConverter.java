@@ -1,4 +1,4 @@
-package com.senla.hotel.deserializationService;
+package com.senla.hotel.deserializationservice;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 import org.slf4j.Logger;
