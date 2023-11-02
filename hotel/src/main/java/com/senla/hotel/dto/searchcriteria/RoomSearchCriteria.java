@@ -1,4 +1,4 @@
-package com.senla.hotel.dto;
+package com.senla.hotel.dto.searchcriteria;
 
 import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.constant.RoomSection;

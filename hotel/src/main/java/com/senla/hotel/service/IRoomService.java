@@ -33,7 +33,7 @@ public interface IRoomService {
 
     double getRoomPrice(long roomId);
 
-    List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException;
+    List<RoomDto> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException;
 
     void updateAllAndSaveIfNotExist(ArrayList<Room> rooms);
 

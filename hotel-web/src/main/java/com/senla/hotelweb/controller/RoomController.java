@@ -1,7 +1,10 @@
 package com.senla.hotelweb.controller;
 
+import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.RoomSection;
+import com.senla.hotel.dto.searchcriteria.RoomDetailsSearchCriteria;
 import com.senla.hotel.dto.RoomDto;
-import com.senla.hotel.dto.RoomSearchCriteria;
+import com.senla.hotel.dto.searchcriteria.RoomSearchCriteria;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,14 @@ public class RoomController {
             return roomService.getAvailableSortedRooms(sortBy, sortOrder);
         }
         return roomService.getSortedRooms(sortBy);
+    }
+
+    //12=Prices of services and rooms (sort by section(category), by price);
+    @GetMapping("/prices")
+    public List<RoomDto> getAllOrdered(@Valid RoomDetailsSearchCriteria roomDetailsSearchCriteria) {
+        RoomSection roomSection = RoomSection.valueOf(roomDetailsSearchCriteria.getSortBy());
+        Ordering ordering = Ordering.valueOf(roomDetailsSearchCriteria.getSortOrder());
+        return roomService.getAllOrdered(roomSection, ordering);
     }
 
     //14=Show the details of a separate room

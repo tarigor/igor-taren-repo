@@ -130,11 +130,12 @@ public class RoomServiceImpl implements IRoomService {
                 .getPrice();
     }
 
-    //    Prices of services and rooms (sort by section(category), by price);
+    // 12=Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+    public List<RoomDto> getAllOrdered(RoomSection roomSection, Ordering ordering) {
         return roomRepository.findAll().stream()
                 .sorted(getComparator(roomSection, ordering))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
