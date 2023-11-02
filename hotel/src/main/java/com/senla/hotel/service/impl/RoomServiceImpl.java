@@ -79,7 +79,7 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public RoomDto addRoom(RoomDto room) {
-        return entityDtoMapper.convertFromEntityToDto(roomRepository.save(entityDtoMapper.convertFromDtoToEntity(room,Room.class)),RoomDto.class);
+        return entityDtoMapper.convertFromEntityToDto(roomRepository.save(entityDtoMapper.convertFromDtoToEntity(room, Room.class)), RoomDto.class);
     }
 
     @Override

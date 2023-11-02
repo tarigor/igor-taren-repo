@@ -1,10 +1,12 @@
 package com.senla.hotel.service.impl;
 
+import com.senla.hotel.dto.BookingDto;
 import com.senla.hotel.dto.GuestBookingDto;
+import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.service.IBookingService;
+import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
-import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.BookingRepository;
 import com.senla.hoteldb.repository.GuestRepository;
 import com.senla.hoteldb.repository.RoomRepository;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,6 +34,8 @@ public class BookingServiceImpl implements IBookingService {
     private BookingRepository bookingRepository;
     private RoomRepository roomRepository;
     private GuestRepository guestRepository;
+    @Autowired
+    private EntityDtoMapper entityDtoMapper;
 
     @Autowired
     public void setBookingRepository(BookingRepository bookingRepository) {
@@ -68,19 +74,21 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @Override
-    public List<Booking> findAllOrderedByCheckOutDate() {
+    public List<BookingDto> findAllOrderedByCheckOutDate() {
         return bookingRepository.findAll().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate))
                 .limit(roomHistoryLimit)
+                .map(booking -> entityDtoMapper.convertFromEntityToDto(booking, BookingDto.class))
                 .collect(Collectors.toList());
     }
 
     //    View the last 3 guests of the room and the dates of their stay;
     @Override
-    public List<Booking> findLastGuestOfRoomAndDates(int countOfGuests, long roomId) {
+    public List<BookingDto> findLastGuestOfRoomAndDates(int countOfGuests, long roomId) {
         return bookingRepository.findAll().stream()
                 .sorted(Comparator.comparing(Booking::getCheckOutDate).reversed())
                 .limit(countOfGuests)
+                .map(booking -> entityDtoMapper.convertFromEntityToDto(booking, BookingDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -95,12 +103,20 @@ public class BookingServiceImpl implements IBookingService {
     //    List of rooms that will be available on a certain date in the future;
     @Transactional
     @Override
-    public List<Room> findAvailableRoomsByDate(Date date) {
+    public List<RoomDto> findAvailableRoomsByDate(String dateString) {
+        System.out.println("DATE->" + dateString);
+        Date date;
+        try {
+            date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Wrong date format. Proper format:dd-MM-yyyy");
+        }
         List<Booking> bookings = bookingRepository.findAll();
         return bookings.stream()
                 .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
                         (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
                 .map(b -> roomRepository.findById(b.getRoom().getId()).orElseThrow(() -> new NoSuchElementException("There is no such a room with id->" + b.getRoom().getId())))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
