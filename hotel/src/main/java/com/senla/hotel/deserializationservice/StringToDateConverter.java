@@ -1,8 +1,7 @@
 package com.senla.hotel.deserializationservice;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@Slf4j
 public class StringToDateConverter extends StdConverter<String, Date> {
-    private static final Logger logger = LoggerFactory.getLogger(StringToDateConverter.class);
 
     @Override
     public Date convert(String value) {
@@ -22,7 +21,7 @@ public class StringToDateConverter extends StdConverter<String, Date> {
             date = dateFormat.parse(value);
             System.out.println("Parsed Date: " + date);
         } catch (ParseException e) {
-            logger.error("an error occurred during a parse operation -> {}", e.getMessage());
+            log.error("an error occurred during a parse operation -> {}", e.getMessage());
         }
         return date;
     }

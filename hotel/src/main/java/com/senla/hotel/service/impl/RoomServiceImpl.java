@@ -10,8 +10,7 @@ import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hotel.validator.annotation.EnumValidator;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.RoomRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class RoomServiceImpl implements IRoomService {
-    private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+
     @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
     @Autowired
@@ -43,7 +43,7 @@ public class RoomServiceImpl implements IRoomService {
         switch (roomOperation) {
             case CHECKIN -> doCheckIn(roomId);
             case CHECKOUT -> doCheckOut(roomId);
-            default -> logger.error("Wrong input! The selection must be in between 0-1. Try again");
+            default -> log.error("Wrong input! The selection must be in between 0-1. Try again");
         }
     }
 
@@ -55,7 +55,7 @@ public class RoomServiceImpl implements IRoomService {
             roomRepository.save(room);
             System.out.println("check-in performed for room -> " + roomId);
         } else {
-            logger.error("It is not allowed to change the status of the room");
+            log.error("It is not allowed to change the status of the room");
         }
     }
 
@@ -67,7 +67,7 @@ public class RoomServiceImpl implements IRoomService {
             roomRepository.save(room);
             System.out.println("check-out performed for room -> " + roomId);
         } else {
-            logger.error("It is not allowed to change the status of the room");
+            log.error("It is not allowed to change the status of the room");
         }
     }
 
@@ -99,7 +99,7 @@ public class RoomServiceImpl implements IRoomService {
         try {
             roomSection = RoomSection.valueOf(sortBy);
         } catch (IllegalArgumentException e) {
-            logger.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            log.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
             throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
         }
         return roomRepository.findAll().stream()
@@ -116,7 +116,7 @@ public class RoomServiceImpl implements IRoomService {
             roomSection = RoomSection.valueOf(sortBy);
             ordering = Ordering.valueOf(sortOrder);
         } catch (IllegalArgumentException e) {
-            logger.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            log.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
             throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
         }
         return roomRepository.findAll().stream()
@@ -180,7 +180,7 @@ public class RoomServiceImpl implements IRoomService {
             case PRICE -> comparator = Comparator.comparing(Room::getPrice);
             case CAPACITY -> comparator = Comparator.comparing(Room::getCapacity);
             case RATING -> comparator = Comparator.comparing(Room::getStarsRating);
-            default -> logger.error("An ordering by section -> {} is not possible", roomSection);
+            default -> log.error("An ordering by section -> {} is not possible", roomSection);
         }
         if (ordering == Ordering.DESC) {
             comparator = comparator.reversed();

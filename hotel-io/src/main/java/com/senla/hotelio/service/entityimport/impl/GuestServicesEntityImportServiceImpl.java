@@ -6,8 +6,7 @@ import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GuestServicesEntityImportServiceImpl extends ImportService implements IImportService<GuestServices> {
-    private static final Logger logger = LoggerFactory.getLogger(GuestServicesEntityImportServiceImpl.class);
     private final String ENTITY_NAME = "GuestServices";
     private GuestServiceImpl guestService;
     private RoomServicesServiceImpl roomServicesService;
@@ -46,7 +45,7 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
                         new SimpleDateFormat("yyyy-MM-dd").parse(guestsServicesWithParameter.get(3))
                 ));
             } catch (ParseException e) {
-                logger.error("an error occurred during a parse operation -> {}", e.getMessage());
+                log.error("an error occurred during a parse operation -> {}", e.getMessage());
             }
         }
         return guestsServices;

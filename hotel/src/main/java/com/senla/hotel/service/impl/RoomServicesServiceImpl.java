@@ -5,8 +5,7 @@ import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.repository.RoomServiceRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class RoomServicesServiceImpl implements IRoomServicesService {
-    private static final Logger logger = LoggerFactory.getLogger(RoomServicesServiceImpl.class);
+
     @Autowired
     private RoomServiceRepository roomServiceRepository;
 
@@ -40,7 +40,7 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
                 comparator = Comparator.comparing(RoomService::getPrice);
                 break;
             default:
-                logger.error("An ordering by section -> {} is not possible", roomServiceSection);
+                log.error("An ordering by section -> {} is not possible", roomServiceSection);
         }
 
         if (ordering == Ordering.DESC) {
