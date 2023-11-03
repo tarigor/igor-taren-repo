@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class CustomDateDeserializer extends JsonDeserializer<Date> {
     private static final Logger logger = LoggerFactory.getLogger(CustomDateDeserializer.class);
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
@@ -23,7 +23,7 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
             dateString = jsonParser.getText();
             date = dateFormat.parse(dateString);
         } catch (ParseException e) {
-            logger.error("an error occurred while parsing date in format:{} -> {}", dateString, e.getMessage());
+            logger.error("an error occurred while parsing date in format:{} -> {} , allowed format: yyyy-MM-dd", dateString, e.getMessage());
         } catch (IOException e) {
             logger.error("an error occurred during IO operation -> {}", e.getMessage());
         }

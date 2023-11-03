@@ -1,11 +1,13 @@
 package com.senla.hotel.service.impl;
 
 import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.RoomOperation;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.service.IRoomService;
 import com.senla.hotel.util.EntityDtoMapper;
+import com.senla.hotel.validator.annotation.EnumValidator;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.RoomRepository;
 import org.slf4j.Logger;
@@ -36,24 +38,33 @@ public class RoomServiceImpl implements IRoomService {
         roomRepository.saveAll(rooms);
     }
 
-    @Override
-    public void doCheckIn(long roomId) {
+    public void roomRegister(@EnumValidator(targetClassType = RoomOperation.class) String roomOperationString, Long roomId) {
+        RoomOperation roomOperation = RoomOperation.valueOf(roomOperationString.toUpperCase());
+        switch (roomOperation) {
+            case CHECKIN -> doCheckIn(roomId);
+            case CHECKOUT -> doCheckOut(roomId);
+            default -> logger.error("Wrong input! The selection must be in between 0-1. Try again");
+        }
+    }
+
+    private void doCheckIn(long roomId) {
         if (checkInCheckOutPermission) {
-            roomRepository
-                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId))
-                    .setRoomStatus(RoomStatus.OCCUPIED.name());
+            Room room = roomRepository
+                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+            room.setRoomStatus(RoomStatus.OCCUPIED.name());
+            roomRepository.save(room);
             System.out.println("check-in performed for room -> " + roomId);
         } else {
             logger.error("It is not allowed to change the status of the room");
         }
     }
 
-    @Override
-    public void doCheckOut(long roomId) {
+    private void doCheckOut(long roomId) {
         if (checkInCheckOutPermission) {
-            roomRepository
-                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId))
-                    .setRoomStatus(RoomStatus.VACANT.name());
+            Room room = roomRepository
+                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+            room.setRoomStatus(RoomStatus.VACANT.name());
+            roomRepository.save(room);
             System.out.println("check-out performed for room -> " + roomId);
         } else {
             logger.error("It is not allowed to change the status of the room");

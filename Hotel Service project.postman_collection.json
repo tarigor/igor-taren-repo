@@ -1,0 +1,412 @@
+{
+  "info": {
+    "_postman_id": "fe54dc6c-4c87-4588-90ae-6a5ce713d4eb",
+    "name": "Hotel Service project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14424012"
+  },
+  "item": [
+    {
+      "name": "1-3=List of rooms sorted by price,capacity,number of stars",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/rooms/sort?getOnlyAvailable=true&sortBy=PRICE&sortOrder=DESC",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "rooms",
+            "sort"
+          ],
+          "query": [
+            {
+              "key": "getOnlyAvailable",
+              "value": "true"
+            },
+            {
+              "key": "sortBy",
+              "value": "PRICE"
+            },
+            {
+              "key": "sortOrder",
+              "value": "DESC"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4=List of guests and their rooms sorted alphabetically",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"capacity\": 1,\r\n    \"price\": 43.0,\r\n    \"roomStatus\": \"VACANTx\",\r\n    \"starsRating\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:9002/bookings/guests/rooms/alphabet",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "guests",
+            "rooms",
+            "alphabet"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5=List of guests and their rooms sorted by check-out date",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/bookings/guests/rooms/checkout",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "guests",
+            "rooms",
+            "checkout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6=Total number of available rooms",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/rooms/available",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "rooms",
+            "available"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7=Total number of guests",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/bookings/guests/total",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "guests",
+            "total"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "8=List of rooms that will be available on a certain date in the future",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/bookings/rooms/12-02-2023",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "rooms",
+            "12-02-2023"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "9=The amount of payment for the room to be paid by the guest",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/bookings/room/payment/byGuestId/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "room",
+            "payment",
+            "byGuestId",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10=View the last 3 guests of the room and the dates of their stay",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/bookings/last/guestAmount/3/room/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "bookings",
+            "last",
+            "guestAmount",
+            "3",
+            "room",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11=View the list of guest services and their price (sorted by PRICE,DATE) in ASC(DESC) manner",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/guestServices?guestId=1&sortBy=PRICE&sortOrder=DESC",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "guestServices"
+          ],
+          "query": [
+            {
+              "key": "guestId",
+              "value": "1"
+            },
+            {
+              "key": "sortBy",
+              "value": "PRICE"
+            },
+            {
+              "key": "sortOrder",
+              "value": "DESC"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12=Prices of services and rooms (sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) in ASC(DESC) manner",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/rooms/prices?sortBy=PRICE&sortOrder=ASC",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "rooms",
+            "prices"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "PRICE"
+            },
+            {
+              "key": "sortOrder",
+              "value": "ASC"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/roomServices?sortBy=PRICE&sortOrder=DESC",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "roomServices"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "PRICE"
+            },
+            {
+              "key": "sortOrder",
+              "value": "DESC"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14=Show the details of a separate room",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/rooms/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "rooms",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "15=Import the certain entity from the CSV file",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/utility/csv/importing/booking",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "utility",
+            "csv",
+            "importing",
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "16=Export the certain entity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/utility/csv/exporting/booking",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "utility",
+            "csv",
+            "exporting",
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "17=Do serialization of entity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/utility/serialization/booking",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "utility",
+            "serialization",
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "18=Do de-serialization of entity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/utility/deserialization/booking",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "utility",
+            "deserialization",
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "19=Do check-in/check-out from the room",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9002/rooms/operation/checkout/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9002",
+          "path": [
+            "rooms",
+            "operation",
+            "checkout",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -141,6 +141,7 @@ public class BookingServiceImpl implements IBookingService {
         for (Booking booking : bookings) {
             Optional<Booking> bookingOptional = bookingRepository.findById(booking.getId());
             if (bookingOptional.isPresent()) {
+                System.out.println("booking detected->" + bookingOptional);
                 Booking bookingUpdate = bookingOptional.get();
                 bookingUpdate.setGuest(booking.getGuest());
                 bookingUpdate.setRoom(booking.getRoom());

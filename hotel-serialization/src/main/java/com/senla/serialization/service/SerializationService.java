@@ -12,9 +12,9 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
+import com.senla.serialization.constant.EntityName;
 import com.senla.serialization.exception.HotelSerializationModuleException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,9 +25,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class SerializationService {
     public static final String EXTENSION_JSON = ".json";
-    private static final Logger logger = LoggerFactory.getLogger(SerializationService.class);
     RoomServicesServiceImpl roomServicesService;
     @Value("${json.export.path}")
     private String jsonExportPath;
@@ -61,40 +61,37 @@ public class SerializationService {
         this.roomServicesService = roomServicesService;
     }
 
-    public void selectToSerialize(String mapName) throws HotelSerializationModuleException {
-        switch (mapName) {
-            case "Booking":
-                serializeMap(bookingService.getAll().stream()
+    public void serialize(String entityNameString) {
+        try {
+            EntityName entityName = EntityName.valueOf(entityNameString.toUpperCase());
+            switch (entityName) {
+                case BOOKING -> serializeMap(bookingService.getAll().stream()
                         .collect(Collectors.toMap(Booking::getId, booking -> booking)), "Booking");
-                break;
-            case "Guest":
-                serializeMap(guestService.getAll().stream()
+                case GUEST -> serializeMap(guestService.getAll().stream()
                         .collect(Collectors.toMap(Guest::getId, guest -> guest)), "Guest");
-                break;
-            case "GuestServices":
-                serializeMap(guestServicesService.getAll().stream()
+                case GUESTSERVICE -> serializeMap(guestServicesService.getAll().stream()
                         .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestServices");
-                break;
-            case "Room":
-                serializeMap(roomService.getAll().stream()
+                case ROOM -> serializeMap(roomService.getAll().stream()
                         .collect(Collectors.toMap(Room::getId, room -> room)), "Room");
-                break;
-            case "RoomServices":
-                serializeMap(roomServicesService.getAll().stream()
+                case ROOMSERVICE -> serializeMap(roomServicesService.getAll().stream()
                         .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
-                break;
-            default:
-                logger.error("There is no such an entity -> {}", mapName);
+                default -> log.error("There is no such an entity -> {}", entityName);
+            }
+        } catch (HotelSerializationModuleException e) {
+            throw new IllegalArgumentException("");
         }
     }
 
     private void serializeMap(Map<Long, ?> map, String fileName) throws HotelSerializationModuleException {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setDateFormat("dd-MM-yyyy")
+                .create();
         try (FileWriter writer = new FileWriter(jsonExportPath + fileName + EXTENSION_JSON)) {
             gson.toJson(map, writer);
-            logger.info("Serialization completed successfully");
+            log.info("Serialization completed successfully");
         } catch (IOException e) {
-            logger.error("an error occurred during an IO operation -> {}", e.getMessage());
+            log.error("an error occurred during an IO operation -> {}", e.getMessage());
             throw new HotelSerializationModuleException(e);
         }
     }

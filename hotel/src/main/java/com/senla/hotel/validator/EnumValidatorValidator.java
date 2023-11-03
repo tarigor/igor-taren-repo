@@ -24,7 +24,7 @@ public class EnumValidatorValidator implements ConstraintValidator<EnumValidator
         Enum<?>[] enumConstants = enumClass.getEnumConstants();
         if (enumConstants != null) {
             for (Enum<?> enumValue : enumConstants) {
-                if (enumValue.name().equals(value)) {
+                if (enumValue.name().equals(value.toUpperCase())) {
                     return true;
                 }
             }

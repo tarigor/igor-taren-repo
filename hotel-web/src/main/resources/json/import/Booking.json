@@ -13,8 +13,8 @@
       "roomStatus": "VACANT",
       "starsRating": 3
     },
-    "checkInDate": "Sep 10, 2023",
-    "checkOutDate": "Sep 12, 2023"
+    "checkInDate": "10-09-2023",
+    "checkOutDate": "12-09-2023"
   },
   "2": {
     "id": 2,
@@ -30,8 +30,8 @@
       "roomStatus": "VACANT",
       "starsRating": 3
     },
-    "checkInDate": "Sep 4, 2023",
-    "checkOutDate": "Sep 6, 2023"
+    "checkInDate": "04-09-2023",
+    "checkOutDate": "06-09-2023"
   },
   "3": {
     "id": 3,
@@ -47,7 +47,7 @@
       "roomStatus": "OCCUPIED",
       "starsRating": 3
     },
-    "checkInDate": "Sep 8, 2023",
-    "checkOutDate": "Sep 9, 2023"
+    "checkInDate": "08-09-2023",
+    "checkOutDate": "01-01-2024"
   }
 }

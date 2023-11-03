@@ -1,23 +1,30 @@
 package com.senla.hotelweb.controller;
 
 import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.constant.RoomOperation;
 import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.dto.searchcriteria.RoomDetailsSearchCriteria;
 import com.senla.hotel.dto.searchcriteria.RoomSearchCriteria;
 import com.senla.hotel.service.impl.RoomServiceImpl;
+import com.senla.hotel.validator.annotation.EnumValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "rooms")
+@Validated
 public class RoomController {
 
     private final RoomServiceImpl roomService;
@@ -57,9 +64,17 @@ public class RoomController {
     }
 
     //14=Show the details of a separate room
-    //  all other CRUD operations added by spring-boot-starter-data-rest
     @PostMapping
     public RoomDto saveRoom(@Valid @RequestBody RoomDto roomDto) {
         return roomService.addRoom(roomDto);
     }
+
+    //19=Do check-in/check-out from the room
+    @GetMapping("/operation/{operation}/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void roomRegister(@PathVariable @EnumValidator(targetClassType = RoomOperation.class) String operation, @PathVariable Long id) {
+        roomService.roomRegister(operation, id);
+    }
+
+    //  all other CRUD operations added by spring-boot-starter-data-rest
 }
