@@ -28,6 +28,7 @@ Build the application in WAR and deploy it on Tomcat or Jetty.
 #### Stack
 
 - java.version 17
+- apache-tomcat 10.1.15
 - maven.compiler.plugin.version 3.11.0
 - maven.surefire.plugin.version 3.1.2
 - maven.checkstyle.plugin.version 3.3.0
@@ -91,6 +92,8 @@ All the entities have the main CRUD endpoints
 | `PUT /entity/{id}`     | Update an entity record.           |
 | `DELETE /entity/{id}`  | Delete an entity record.           |
 
+entity -> `booking/guest/guestservice/room/roomservice`
+
 #### attachments
 
 export of requests from Postman application -> [POSTMAN export](Hotel Service project.postman_collection.json)
@@ -98,6 +101,9 @@ export of requests from Postman application -> [POSTMAN export](Hotel Service pr
 postman screenshot
 ![postman](postman.png)
 
-#### cmd to application start
+#### application start
 
-_mvn -pl hotel-ui spring-boot:run_
+- start tomcat(10.1.15) -> catalina.bat start
+- _mvn clean package_
+- _mvn -pl hotel-web tomcat7:deploy_
+- use API above
