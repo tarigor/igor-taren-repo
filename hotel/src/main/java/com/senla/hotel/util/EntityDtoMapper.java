@@ -1,16 +1,18 @@
 package com.senla.hotel.util;
 
-import lombok.AllArgsConstructor;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 public class EntityDtoMapper {
-    private final ModelMapper modelMapper;
 
-    public EntityDtoMapper() {
-        this.modelMapper = new ModelMapper();
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
     }
 
     public <E, D> D convertFromEntityToDto(E entity, Class<D> dtoClass) {

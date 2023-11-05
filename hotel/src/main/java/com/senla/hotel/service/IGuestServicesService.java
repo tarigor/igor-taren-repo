@@ -1,8 +1,8 @@
 package com.senla.hotel.service;
 
-import com.senla.hotel.constant.GuestServicesSection;
-import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dto.GuestServicesDto;
+import com.senla.hotel.enums.GuestServicesSection;
+import com.senla.hotel.enums.Ordering;
 import com.senla.hoteldb.entity.GuestServices;
 
 import java.util.ArrayList;

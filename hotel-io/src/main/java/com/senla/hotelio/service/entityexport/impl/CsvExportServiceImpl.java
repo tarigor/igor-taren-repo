@@ -1,6 +1,6 @@
 package com.senla.hotelio.service.entityexport.impl;
 
-import com.senla.hotelio.service.constant.EntityName;
+import com.senla.hotelio.service.enums.EntityName;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

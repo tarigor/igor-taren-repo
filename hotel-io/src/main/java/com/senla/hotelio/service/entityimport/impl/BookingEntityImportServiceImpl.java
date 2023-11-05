@@ -23,8 +23,12 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
     private final String ENTITY_NAME = "Booking";
     private GuestServiceImpl guestService;
     private RoomServiceImpl roomService;
-    @Autowired
     private EntityDtoMapper entityDtoMapper;
+
+    @Autowired
+    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
+        this.entityDtoMapper = entityDtoMapper;
+    }
 
     @Autowired
     public void setGuestService(GuestServiceImpl guestService) {

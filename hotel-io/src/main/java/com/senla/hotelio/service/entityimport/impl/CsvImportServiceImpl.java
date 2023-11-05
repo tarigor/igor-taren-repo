@@ -5,7 +5,7 @@ import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
-import com.senla.hotelio.service.constant.EntityName;
+import com.senla.hotelio.service.enums.EntityName;
 import com.senla.hotelio.service.exception.HotelIoModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

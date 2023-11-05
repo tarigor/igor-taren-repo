@@ -13,8 +13,13 @@ import java.util.Optional;
 
 @Service
 public class GuestServiceImpl implements IGuestService {
-    @Autowired
+
     private GuestRepository guestRepository;
+
+    @Autowired
+    public void setGuestRepository(GuestRepository guestRepository) {
+        this.guestRepository = guestRepository;
+    }
 
     @Override
     public void saveAll(List<Guest> guests) {

@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Slf4j
 public class CustomDateDeserializer extends JsonDeserializer<Date> {
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     @Override

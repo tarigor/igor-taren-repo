@@ -1,9 +1,9 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.constant.GuestServicesSection;
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesDto;
+import com.senla.hotel.enums.GuestServicesSection;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.ServiceType;
 import com.senla.hotel.service.IGuestServicesService;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
@@ -25,10 +25,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GuestServicesServiceImpl implements IGuestServicesService {
 
-    @Autowired
+
     private GuestServicesRepository guestServicesRepository;
-    @Autowired
     private RoomServiceRepository roomServiceRepository;
+
+    @Autowired
+    public void setGuestServicesRepository(GuestServicesRepository guestServicesRepository) {
+        this.guestServicesRepository = guestServicesRepository;
+    }
+
+    @Autowired
+    public void setRoomServiceRepository(RoomServiceRepository roomServiceRepository) {
+        this.roomServiceRepository = roomServiceRepository;
+    }
 
     @Override
     public void saveAll(List<GuestServices> guestServices) {

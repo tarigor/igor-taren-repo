@@ -15,8 +15,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
-    @Autowired
+
     private BookingServiceImpl bookingService;
+
+    @Autowired
+    public void setBookingService(BookingServiceImpl bookingService) {
+        this.bookingService = bookingService;
+    }
 
     //4=List of guests and their rooms sorted alphabetically
     @GetMapping("/guests/rooms/alphabet")

@@ -1,6 +1,6 @@
 package com.senla.hotel.validator.annotation;
 
-import com.senla.hotel.validator.EnumValidatorValidator;
+import com.senla.hotel.validator.EnumValidatorService;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -17,7 +17,7 @@ import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = EnumValidatorValidator.class)
+@Constraint(validatedBy = EnumValidatorService.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 public @interface EnumValidator {

@@ -1,8 +1,8 @@
 package com.senla.hotelweb.controller;
 
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.RoomServiceSection;
 import com.senla.hotel.dto.searchcriteria.RoomServiceSearchCriteria;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.RoomServiceSection;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.RoomService;
 import jakarta.validation.Valid;
@@ -16,8 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/roomServices")
 public class RoomServicesController {
-    @Autowired
+
     private RoomServicesServiceImpl roomServicesService;
+
+    @Autowired
+    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+        this.roomServicesService = roomServicesService;
+    }
 
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
     @GetMapping

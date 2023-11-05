@@ -12,7 +12,7 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.serialization.constant.EntityName;
+import com.senla.serialization.enums.EntityName;
 import com.senla.serialization.exception.HotelSerializationModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SerializationService {
     public static final String EXTENSION_JSON = ".json";
-    RoomServicesServiceImpl roomServicesService;
     @Value("${json.export.path}")
     private String jsonExportPath;
+    private RoomServicesServiceImpl roomServicesService;
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;

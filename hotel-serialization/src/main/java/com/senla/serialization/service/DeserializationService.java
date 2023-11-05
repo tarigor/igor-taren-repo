@@ -13,7 +13,7 @@ import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.serialization.constant.EntityName;
+import com.senla.serialization.enums.EntityName;
 import com.senla.serialization.exception.HotelSerializationModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,14 @@ import java.util.Map;
 @Service
 @Slf4j
 public class DeserializationService {
+
+    @Value("${json.import.path}")
+    private String jsonImportPath;
     private BookingServiceImpl bookingService;
     private GuestServiceImpl guestService;
     private GuestServicesServiceImpl guestServicesService;
     private RoomServiceImpl roomService;
     private RoomServicesServiceImpl roomServicesService;
-    @Value("${json.import.path}")
-    private String jsonImportPath;
 
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();
@@ -78,23 +79,6 @@ public class DeserializationService {
         this.roomServicesService = roomServicesService;
     }
 
-    private <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) throws HotelSerializationModuleException {
-        String fileContent = readFileToString(jsonImportPath + fileName.toLowerCase() + ".json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(Date.class, new CustomDateDeserializer());
-        objectMapper.registerModule(module);
-        try {
-            return objectMapper.readValue(
-                    fileContent,
-                    objectMapper.getTypeFactory().constructMapType(HashMap.class, Long.class, type)
-            );
-        } catch (JsonProcessingException e) {
-            log.error("an error occurred during an JSON operation -> {}", e.getMessage());
-            throw new HotelSerializationModuleException(e);
-        }
-    }
-
     public void deserialize(String fileName) {
         try {
             EntityName entityName = EntityName.valueOf(fileName.toUpperCase());
@@ -128,6 +112,23 @@ public class DeserializationService {
             }
         } catch (HotelSerializationModuleException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) throws HotelSerializationModuleException {
+        String fileContent = readFileToString(jsonImportPath + fileName.toLowerCase() + ".json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Date.class, new CustomDateDeserializer());
+        objectMapper.registerModule(module);
+        try {
+            return objectMapper.readValue(
+                    fileContent,
+                    objectMapper.getTypeFactory().constructMapType(HashMap.class, Long.class, type)
+            );
+        } catch (JsonProcessingException e) {
+            log.error("an error occurred during an JSON operation -> {}", e.getMessage());
+            throw new HotelSerializationModuleException(e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.senla.hotel.dto;
 
-import com.senla.hotel.constant.RoomStatus;
+import com.senla.hotel.enums.RoomStatus;
 import com.senla.hotel.validator.annotation.EnumValidator;
 import lombok.Data;
 

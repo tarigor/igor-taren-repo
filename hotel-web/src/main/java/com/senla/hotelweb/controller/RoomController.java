@@ -1,11 +1,11 @@
 package com.senla.hotelweb.controller;
 
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.RoomOperation;
-import com.senla.hotel.constant.RoomSection;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.dto.searchcriteria.RoomDetailsSearchCriteria;
 import com.senla.hotel.dto.searchcriteria.RoomSearchCriteria;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.RoomOperation;
+import com.senla.hotel.enums.RoomSection;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.validator.annotation.EnumValidator;
 import jakarta.validation.Valid;

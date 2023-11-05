@@ -1,4 +1,4 @@
-package com.senla.hotelio.service.constant;
+package com.senla.hotelio.service.enums;
 
 public enum EntityName {
     BOOKING,

@@ -1,9 +1,9 @@
 package com.senla.hotelweb.controller;
 
 import com.senla.hotel.validator.annotation.EnumValidator;
-import com.senla.hotelio.service.constant.EntityName;
 import com.senla.hotelio.service.entityexport.impl.CsvExportServiceImpl;
 import com.senla.hotelio.service.entityimport.impl.CsvImportServiceImpl;
+import com.senla.hotelio.service.enums.EntityName;
 import com.senla.serialization.service.DeserializationService;
 import com.senla.serialization.service.SerializationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/utility")
 @Validated
 public class UtilityController {
-    @Autowired
+
     private CsvImportServiceImpl csvImportService;
-    @Autowired
+
     private CsvExportServiceImpl csvExportService;
-    @Autowired
+
     private DeserializationService deserializationService;
-    @Autowired
+
     private SerializationService serializationService;
+
+    @Autowired
+    public void setCsvImportService(CsvImportServiceImpl csvImportService) {
+        this.csvImportService = csvImportService;
+    }
+
+    @Autowired
+    public void setCsvExportService(CsvExportServiceImpl csvExportService) {
+        this.csvExportService = csvExportService;
+    }
+
+    @Autowired
+    public void setDeserializationService(DeserializationService deserializationService) {
+        this.deserializationService = deserializationService;
+    }
+
+    @Autowired
+    public void setSerializationService(SerializationService serializationService) {
+        this.serializationService = serializationService;
+    }
 
     //15=Import the certain entity from the CSV file
     @GetMapping("/csv/importing/{entity}")

@@ -1,7 +1,7 @@
 package com.senla.hotel.dto.searchcriteria;
 
-import com.senla.hotel.constant.GuestServicesSection;
-import com.senla.hotel.constant.Ordering;
+import com.senla.hotel.enums.GuestServicesSection;
+import com.senla.hotel.enums.Ordering;
 import com.senla.hotel.validator.annotation.EnumValidator;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

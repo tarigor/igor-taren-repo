@@ -1,9 +1,9 @@
 package com.senla.hotelweb.controller;
 
-import com.senla.hotel.constant.GuestServicesSection;
-import com.senla.hotel.constant.Ordering;
 import com.senla.hotel.dto.GuestServicesDto;
 import com.senla.hotel.dto.searchcriteria.GuestServicesSearchCriteria;
+import com.senla.hotel.enums.GuestServicesSection;
+import com.senla.hotel.enums.Ordering;
 import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/guestServices")
 public class GuestServicesController {
-    @Autowired
+
     private GuestServicesServiceImpl guestServicesService;
+
+    @Autowired
+    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
+        this.guestServicesService = guestServicesService;
+    }
 
     //11=View the list of guest services and their price (sorted by PRICE,DATE) in ASC(DESC) manner
     @GetMapping

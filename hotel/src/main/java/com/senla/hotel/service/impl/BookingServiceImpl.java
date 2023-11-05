@@ -34,7 +34,6 @@ public class BookingServiceImpl implements IBookingService {
     private BookingRepository bookingRepository;
     private RoomRepository roomRepository;
     private GuestRepository guestRepository;
-    @Autowired
     private EntityDtoMapper entityDtoMapper;
 
     @Autowired
@@ -50,6 +49,11 @@ public class BookingServiceImpl implements IBookingService {
     @Autowired
     public void setGuestRepository(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
+    }
+
+    @Autowired
+    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
+        this.entityDtoMapper = entityDtoMapper;
     }
 
     @Override

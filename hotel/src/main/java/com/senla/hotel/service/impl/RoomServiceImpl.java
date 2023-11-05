@@ -1,10 +1,10 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.RoomOperation;
-import com.senla.hotel.constant.RoomSection;
-import com.senla.hotel.constant.RoomStatus;
 import com.senla.hotel.dto.RoomDto;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.RoomOperation;
+import com.senla.hotel.enums.RoomSection;
+import com.senla.hotel.enums.RoomStatus;
 import com.senla.hotel.service.IRoomService;
 import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hotel.validator.annotation.EnumValidator;
@@ -28,10 +28,20 @@ public class RoomServiceImpl implements IRoomService {
 
     @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
-    @Autowired
+
     private RoomRepository roomRepository;
-    @Autowired
+
     private EntityDtoMapper entityDtoMapper;
+
+    @Autowired
+    public void setRoomRepository(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
+
+    @Autowired
+    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
+        this.entityDtoMapper = entityDtoMapper;
+    }
 
     @Override
     public void saveAll(List<Room> rooms) {

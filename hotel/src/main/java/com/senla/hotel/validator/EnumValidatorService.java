@@ -7,7 +7,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class EnumValidatorValidator implements ConstraintValidator<EnumValidator, String> {
+public class EnumValidatorService implements ConstraintValidator<EnumValidator, String> {
     private EnumValidator enumValidator;
 
     @Override
