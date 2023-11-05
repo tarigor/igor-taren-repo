@@ -14,8 +14,12 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-    @Autowired
     private Environment environment;
+
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public DataSource dataSource() {

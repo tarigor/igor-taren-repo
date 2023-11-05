@@ -1,6 +1,6 @@
 package com.senla.hotelio.service.entityimport.impl;
 
-import com.senla.hotel.constant.RoomStatus;
+import com.senla.hotel.enums.RoomStatus;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;

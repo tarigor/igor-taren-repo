@@ -1,12 +1,11 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.RoomServiceSection;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.RoomServiceSection;
 import com.senla.hotel.service.IRoomServicesService;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.repository.RoomServiceRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +17,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class RoomServicesServiceImpl implements IRoomServicesService {
-    private static final Logger logger = LoggerFactory.getLogger(RoomServicesServiceImpl.class);
-    @Autowired
+
     private RoomServiceRepository roomServiceRepository;
+
+    @Autowired
+    public void setRoomServiceRepository(RoomServiceRepository roomServiceRepository) {
+        this.roomServiceRepository = roomServiceRepository;
+    }
 
     @Override
     public void saveAll(List<RoomService> roomServices) {
@@ -33,14 +37,9 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
         Comparator<RoomService> comparator = null;
 
         switch (roomServiceSection) {
-            case ROOM_SERVICE:
-                comparator = Comparator.comparing(RoomService::getServiceType);
-                break;
-            case PRICE:
-                comparator = Comparator.comparing(RoomService::getPrice);
-                break;
-            default:
-                logger.error("An ordering by section -> {} is not possible", roomServiceSection);
+            case ROOM_SERVICE -> comparator = Comparator.comparing(RoomService::getServiceType);
+            case PRICE -> comparator = Comparator.comparing(RoomService::getPrice);
+            default -> log.error("An ordering by section -> {} is not possible", roomServiceSection);
         }
 
         if (ordering == Ordering.DESC) {

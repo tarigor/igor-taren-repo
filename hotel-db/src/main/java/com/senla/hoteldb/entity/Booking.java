@@ -36,12 +36,10 @@ public class Booking implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false)
-    @ToString.Exclude
     private Guest guest;
 
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
-    @ToString.Exclude
     private Room room;
 
     @Column(name = "check_in_date", nullable = false)

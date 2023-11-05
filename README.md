@@ -2,24 +2,33 @@
 
 # HOTEL SERVICE
 
-### TASK#14
+### TASK#16
 
-### _Spring Framework_
+### _Spring MVC_
 
 #### Description:
 
-Task 14.1 (difficulty 4)
+Task 16 (difficulty 10)
 
-Replace your (current) Dependency Injection implementation with DI using the Spring Framework (spring-context module).
+Modify the application from previous tasks to a web application.
 
-- Use any of the configuration methods;
-- Make sure that repositories and services exist each in a single instance;
-- Configure PropertySourcesPlaceholderConfigurer to embed parameters into beans
-  from configuration files using the @Value annotation.
+Task requirements:
+
+- For implementation use Spring MVC;
+- Add DTO (Data transfer objects) to the project to describe controller responses;
+- Responses to requests must be in JSON and/or XML format;
+- The application must have a REST architecture (use the Postman tool for verification);
+- All the requirements for the functionality of the application must be available in the controllers;
+- Processing and issuing exceptions to the user should be implemented using @ExceptionHandler and @Controlleradvice;
+- Rewrite previously implemented work with transactions via Hibernate to use the @Transactional annotation in the
+  service layer;
+
+Build the application in WAR and deploy it on Tomcat or Jetty.
 
 #### Stack
 
 - java.version 17
+- apache-tomcat 10.1.15
 - maven.compiler.plugin.version 3.11.0
 - maven.surefire.plugin.version 3.1.2
 - maven.checkstyle.plugin.version 3.3.0
@@ -41,7 +50,62 @@ Replace your (current) Dependency Injection implementation with DI using the Spr
 - spring-boot-starter 3.1.5
 - spring-boot-starter-data-jpa 3.1.5
 - spring-boot-maven-plugin 3.1.5
+- spring-boot-starter-json 3.1.5
+- spring-boot-starter-tomcat 3.1.5
+- spring-boot-starter-test 3.1.5
+- spring-boot-starter-data-rest 3.1.5
+- spring-boot-starter-web 3.1.5
+- spring-boot-starter-validation 3.1.5
+- modelmapper 3.2.0
 
-#### cmd to application start
+#### REST API
 
-_mvn -pl hotel-ui spring-boot:run_ 
+context path -> /hotel
+
+| Menu Item                                                                                                            | Endpoint                                                                          | Description                                                                  |
+|----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| 1=List of rooms sorted by price                                                                                      | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=PRICE&sortOrder={par2}`     | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
+| 2=List of rooms sorted by capacity                                                                                   | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=CAPACITY&sortOrder={par2}`  | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
+| 3=List of rooms sorted by number of <br/>stars                                                                       | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=RATING&sortOrder={par2}`    | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
+| 4=List of guests and their rooms <br/>sorted alphabetically                                                          | `GET /hotel/bookings/guests/rooms/alphabet`                                       |                                                                              |
+| 5=List of guests and their rooms <br/>sorted by check-out date                                                       | `GET /hotel/bookings/guests/rooms/checkout`                                       |                                                                              |
+| 6=Total number of available rooms                                                                                    | `GET /hotel/rooms/available`                                                      |                                                                              |
+| 7=Total number of guests                                                                                             | `GET /hotel/bookings/guests/total`                                                |                                                                              |
+| 8=List of rooms that will be <br/>available on a certain date in the future                                          | `GET /hotel/bookings/rooms/{par1}`                                                | {par1}: date format `dd-MM-yyy`                                              |
+| 9=The amount of payment for the room <br/>to be paid by the guest                                                    | `GET /hotel/bookings/room/payment/byGuestId/{par1}`                               | {par1}: number `long` format                                                 |
+| 10=View the last 3 guests of the room <br/>and the dates of their stay                                               | `GET /hotel/bookings/last/guestAmount/{par1}/room/{par2}`                         | {par1}: number `long` format <br/>{par2}: number `long` format               |
+| 11=View the list of guest services <br/>and their price (sorted by PRICE,DATE) in ASC(DESC) manner                   | `GET /hotel/guestServices?guestId={par1}&sortBy={par2}&sortOrder={par3}`          | {par1}: number `long` format<br/>{par1}: `PRICE/DATE`<br/>{par3}: `ASC/DESC` |
+| 12=Prices of services and rooms <br/>(sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) <br/>in ASC(DESC) manner | `GET /hotel/rooms/prices?sortBy={par1}&sortOrder={par2}`                          | {par1}: `CAPACITY/PRICE/AVAILABILITY/SERVICE/RATING`<br/>{par2}: `ASC/DESC`  |
+| 13=Room services (ordered by ROOM_SERVICES,PRICE) <br/>in ASC(DESC) manner                                           | `GET /hotel/roomServices?sortBy={par1}&sortOrder={par2}`                          | {par1}: `ROOM_SERVICES/PRICE`<br/>{par2}: `ASC/DESC`                         |
+| 14=Show the details of a separate room                                                                               | `GET /hotel/rooms/{par1}`                                                         | {par1}: number `long` format                                                 |
+| 15=Import the certain entity from the CSV file                                                                       | `GET /hotel/utility/csv/importing/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
+| 16=Export the certain entity                                                                                         | `GET /hotel/utility/csv/exporting/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
+| 17=Do serialization of entity                                                                                        | `GET /hotel/utility/serialization/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
+| 18=Do de-serialization of entity                                                                                     | `GET /hotel/utility/deserialization/{par1}`                                       | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
+| 19=Do check-in/check-out from the room                                                                               | `GET /hotel/rooms/operation/{par1}/{par2}`                                        | {par1}: `checkin/checkout`<br/>{par2}: number `long` format                  |
+
+All the entities have the main CRUD endpoints
+
+| Endpoint                    | Description                        |
+|-----------------------------|------------------------------------|
+| `GET /hotel/entity`         | Retrieve a list of entities.       |
+| `GET /hotel/entity/{id}`    | Retrieve a specific entity by ID.  |
+| `POST /hotel/entity`        | Create a new entity record.        |
+| `PUT /hotel/entity/{id}`    | Update an entity record.           |
+| `DELETE /hotel/entity/{id}` | Delete an entity record.           |
+
+entity -> `booking/guest/guestservice/room/roomservice`
+
+#### attachments
+
+export of requests from Postman application -> [POSTMAN export](Hotel Service project.postman_collection.json)
+
+postman screenshot
+![postman](postman.png)
+
+#### application start
+
+- start tomcat(10.1.15) -> catalina.bat start
+- _mvn clean package_
+- _mvn -pl hotel-web tomcat7:deploy_
+- use API above 

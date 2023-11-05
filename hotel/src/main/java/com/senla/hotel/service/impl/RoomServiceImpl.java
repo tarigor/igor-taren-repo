@@ -1,20 +1,21 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.RoomSection;
-import com.senla.hotel.constant.RoomStatus;
-import com.senla.hotel.exception.HotelModuleException;
+import com.senla.hotel.dto.RoomDto;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.RoomOperation;
+import com.senla.hotel.enums.RoomSection;
+import com.senla.hotel.enums.RoomStatus;
 import com.senla.hotel.service.IRoomService;
+import com.senla.hotel.util.EntityDtoMapper;
+import com.senla.hotel.validator.annotation.EnumValidator;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.RoomRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,39 +23,61 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class RoomServiceImpl implements IRoomService {
-    private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+
     @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
-    @Autowired
+
     private RoomRepository roomRepository;
+
+    private EntityDtoMapper entityDtoMapper;
+
+    @Autowired
+    public void setRoomRepository(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
+
+    @Autowired
+    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
+        this.entityDtoMapper = entityDtoMapper;
+    }
 
     @Override
     public void saveAll(List<Room> rooms) {
         roomRepository.saveAll(rooms);
     }
 
-    @Override
-    public void doCheckIn(long roomId) {
-        if (checkInCheckOutPermission) {
-            roomRepository
-                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId))
-                    .setRoomStatus(RoomStatus.OCCUPIED.name());
-            System.out.println("check-in performed for room -> " + roomId);
-        } else {
-            logger.error("It is not allowed to change the status of the room");
+    public void roomRegister(@EnumValidator(targetClassType = RoomOperation.class) String roomOperationString, Long roomId) {
+        RoomOperation roomOperation = RoomOperation.valueOf(roomOperationString.toUpperCase());
+        switch (roomOperation) {
+            case CHECKIN -> doCheckIn(roomId);
+            case CHECKOUT -> doCheckOut(roomId);
+            default -> log.error("Wrong input! The selection must be in between 0-1. Try again");
         }
     }
 
-    @Override
-    public void doCheckOut(long roomId) {
+    private void doCheckIn(long roomId) {
         if (checkInCheckOutPermission) {
-            roomRepository
-                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId))
-                    .setRoomStatus(RoomStatus.VACANT.name());
+            Room room = roomRepository
+                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+            room.setRoomStatus(RoomStatus.OCCUPIED.name());
+            roomRepository.save(room);
+            System.out.println("check-in performed for room -> " + roomId);
+        } else {
+            log.error("It is not allowed to change the status of the room");
+        }
+    }
+
+    private void doCheckOut(long roomId) {
+        if (checkInCheckOutPermission) {
+            Room room = roomRepository
+                    .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+            room.setRoomStatus(RoomStatus.VACANT.name());
+            roomRepository.save(room);
             System.out.println("check-out performed for room -> " + roomId);
         } else {
-            logger.error("It is not allowed to change the status of the room");
+            log.error("It is not allowed to change the status of the room");
         }
     }
 
@@ -67,63 +90,54 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room getRoom(long roomId) {
-        return roomRepository
-                .findById(roomId).orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId));
+    public RoomDto getRoom(long roomId) {
+        return
+                entityDtoMapper.convertFromEntityToDto(
+                        roomRepository
+                                .findById(roomId)
+                                .orElseThrow(() -> new NoSuchElementException("there is no such a room with id->" + roomId)), RoomDto.class);
     }
 
     @Override
-    public void addRoom(Room room) {
-        roomRepository.save(room);
+    public RoomDto addRoom(RoomDto room) {
+        return entityDtoMapper.convertFromEntityToDto(roomRepository.save(entityDtoMapper.convertFromDtoToEntity(room, Room.class)), RoomDto.class);
     }
 
     @Override
-    public List<Room> findAllOrderedByPrice() {
+    public List<RoomDto> getSortedRooms(String sortBy) {
+        RoomSection roomSection;
+        try {
+            roomSection = RoomSection.valueOf(sortBy);
+        } catch (IllegalArgumentException e) {
+            log.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
+        }
         return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getPrice))
+                .sorted(getComparator(roomSection, Ordering.ASC))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAllOrderedByCapacity() {
-        return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getCapacity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAllOrderedByStars() {
-        return roomRepository.findAll().stream()
-                .sorted(Comparator.comparing(Room::getStarsRating))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAvailableOrderedByPrice() {
-        return roomRepository.findAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getPrice))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Room> findAvailableOrderedByCapacity() {
+    public List<RoomDto> getAvailableSortedRooms(String sortBy, String sortOrder) {
+        RoomSection roomSection;
+        Ordering ordering;
+        try {
+            roomSection = RoomSection.valueOf(sortBy);
+            ordering = Ordering.valueOf(sortOrder);
+        } catch (IllegalArgumentException e) {
+            log.error("wrong input parameters -> {} : {}", sortBy, e.getMessage());
+            throw new IllegalArgumentException("wrong input parameters -> " + sortBy);
+        }
         return roomRepository.findAll().stream()
                 .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getCapacity))
+                .sorted(getComparator(roomSection, ordering))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> findAvailableOrderedByStars() {
-        return roomRepository.findAll().stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
-                .sorted(Comparator.comparing(Room::getStarsRating))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public int findNumberOfAvailableRooms() {
+    public int getTotalAvailableRooms() {
         return (int) roomRepository.findAll().stream()
                 .filter(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()))
                 .count();
@@ -137,39 +151,13 @@ public class RoomServiceImpl implements IRoomService {
                 .getPrice();
     }
 
-    //    Prices of services and rooms (sort by section(category), by price);
+    // 12=Prices of services and rooms (sort by section(category), by price);
     @Override
-    public List<Room> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
-        Comparator<Room> comparator = getComparatorForSection(roomSection, ordering);
-
-        List<Room> rooms = roomRepository.findAll();
-
-        if (comparator != null) {
-            return rooms.stream()
-                    .sorted(comparator)
-                    .collect(Collectors.toList());
-        }
-        logger.error("An ordering by section -> {} is not possible", roomSection);
-        return Collections.emptyList();
-    }
-
-    private Comparator<Room> getComparatorForSection(RoomSection roomSection, Ordering ordering) throws HotelModuleException {
-        switch (roomSection) {
-            case ID:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getId) : Comparator.comparing(Room::getId).reversed();
-            case CAPACITY:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getCapacity) : Comparator.comparing(Room::getCapacity).reversed();
-            case PRICE:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getPrice) : Comparator.comparing(Room::getPrice).reversed();
-            case AVAILABILITY:
-                return ordering == Ordering.ASC ? Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name())) :
-                        Comparator.comparing(room -> room.getRoomStatus().equals(RoomStatus.VACANT.name()), Comparator.reverseOrder());
-            case RATING:
-                return ordering == Ordering.ASC ? Comparator.comparing(Room::getStarsRating) : Comparator.comparing(Room::getStarsRating).reversed();
-            default:
-                logger.error("there is no such a section -> {}", roomSection);
-                throw new HotelModuleException("there is no such a section -> " + roomSection);
-        }
+    public List<RoomDto> getAllOrdered(RoomSection roomSection, Ordering ordering) {
+        return roomRepository.findAll().stream()
+                .sorted(getComparator(roomSection, ordering))
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -192,5 +180,21 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> getAll() {
         return roomRepository.findAll();
+    }
+
+    private Comparator<Room> getComparator(RoomSection roomSection, Ordering ordering) {
+        Comparator<Room> comparator = null;
+        switch (roomSection) {
+            case ID -> comparator = Comparator.comparing(Room::getId);
+            case AVAILABILITY -> comparator = Comparator.comparing(Room::getRoomStatus);
+            case PRICE -> comparator = Comparator.comparing(Room::getPrice);
+            case CAPACITY -> comparator = Comparator.comparing(Room::getCapacity);
+            case RATING -> comparator = Comparator.comparing(Room::getStarsRating);
+            default -> log.error("An ordering by section -> {} is not possible", roomSection);
+        }
+        if (ordering == Ordering.DESC) {
+            comparator = comparator.reversed();
+        }
+        return comparator;
     }
 }

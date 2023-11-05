@@ -1,16 +1,15 @@
 package com.senla.hotel.service.impl;
 
-import com.senla.hotel.constant.GuestServicesSection;
-import com.senla.hotel.constant.Ordering;
-import com.senla.hotel.constant.ServiceType;
 import com.senla.hotel.dto.GuestServicesDto;
+import com.senla.hotel.enums.GuestServicesSection;
+import com.senla.hotel.enums.Ordering;
+import com.senla.hotel.enums.ServiceType;
 import com.senla.hotel.service.IGuestServicesService;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.repository.GuestServicesRepository;
 import com.senla.hoteldb.repository.RoomServiceRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +22,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class GuestServicesServiceImpl implements IGuestServicesService {
-    private static final Logger logger = LoggerFactory.getLogger(GuestServicesServiceImpl.class);
-    @Autowired
+
+
     private GuestServicesRepository guestServicesRepository;
-    @Autowired
     private RoomServiceRepository roomServiceRepository;
+
+    @Autowired
+    public void setGuestServicesRepository(GuestServicesRepository guestServicesRepository) {
+        this.guestServicesRepository = guestServicesRepository;
+    }
+
+    @Autowired
+    public void setRoomServiceRepository(RoomServiceRepository roomServiceRepository) {
+        this.roomServiceRepository = roomServiceRepository;
+    }
 
     @Override
     public void saveAll(List<GuestServices> guestServices) {
@@ -48,7 +57,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
         switch (guestServicesSection) {
             case PRICE -> comparator = Comparator.comparing(GuestServicesDto::getRoomServicePrice);
             case DATE -> comparator = Comparator.comparing(GuestServicesDto::getRoomServiceOrderDate);
-            default -> logger.error("An ordering by section -> {} is not possible", guestServicesSection);
+            default -> log.error("An ordering by section -> {} is not possible", guestServicesSection);
         }
 
         if (ordering == Ordering.DESC) {
@@ -73,7 +82,7 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
                 return i;
             }
         }
-        logger.error("there is no such record in RoomService");
+        log.error("there is no such record in RoomService");
         return 0;
     }
 

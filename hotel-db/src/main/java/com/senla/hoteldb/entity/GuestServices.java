@@ -34,12 +34,10 @@ public class GuestServices {
 
     @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false)
-    @ToString.Exclude
     private Guest guest;
 
     @ManyToOne
     @JoinColumn(name = "room_service_id", nullable = false)
-    @ToString.Exclude
     private RoomService roomService;
 
     @Column(name = "room_service_order_date", nullable = false)

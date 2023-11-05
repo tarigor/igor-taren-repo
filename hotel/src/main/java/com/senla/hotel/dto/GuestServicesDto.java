@@ -1,6 +1,6 @@
 package com.senla.hotel.dto;
 
-import com.senla.hotel.constant.ServiceType;
+import com.senla.hotel.enums.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
