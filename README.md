@@ -2,28 +2,38 @@
 
 # HOTEL SERVICE
 
-### TASK#16
+### TASK#17
 
-### _Spring MVC_
+### _Spring Security_
 
 #### Description:
 
-Task 16 (difficulty 10)
+Task 17 (difficulty 10)
 
-Modify the application from previous tasks to a web application.
+- Modify the existing database schema so that it is possible to store the user and his login, password, role and/or list
+of privileges;
+- Think over the division into an administrator and a ”regular user” for existing endpoints;
+- Connect the necessary Spring Security dependencies and create a configuration class. 
+- Don't forget that you need 
+a Filter to work with Security.
 
-Task requirements:
+Configure Security according to points 2 and 5;
+To choose from (priority b):
 
-- For implementation use Spring MVC;
-- Add DTO (Data transfer objects) to the project to describe controller responses;
-- Responses to requests must be in JSON and/or XML format;
-- The application must have a REST architecture (use the Postman tool for verification);
-- All the requirements for the functionality of the application must be available in the controllers;
-- Processing and issuing exceptions to the user should be implemented using @ExceptionHandler and @Controlleradvice;
-- Rewrite previously implemented work with transactions via Hibernate to use the @Transactional annotation in the
-  service layer;
+- a) Implement access rights differentiation based on JSESSIONID (Stateful is a variant of communication with the server), 
+     which works as follows: the user logs in once, setting up a session on the server, and then accesses http endpoints 
+     in accordance with the rights;
+- b) Implement access rights differentiation based on a JWT token (Stateless is a variant of communication with the server). 
+     It should work like this: when logging in, a JWT token is obtained, and then, with each request to the server, 
+     this token is indicated in the headers header:Authorization to determine user rights. With this approach, 
+     no session is created or stored on the server. To generate a JWT token, use any library.
 
-Build the application in WAR and deploy it on Tomcat or Jetty.
+
+To implement point 5, write one or more of your own filters. As a basis (as a parent class), you can take the standard 
+UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily 
+these ones - a more interesting option is also possible at your discretion.
+
+Implement the correct output of messages to the user that he does not have rights or he could not log in to the system.
 
 #### Stack
 
