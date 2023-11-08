@@ -21,7 +21,9 @@ public class GuestEntityImportServiceImpl extends ImportService implements IImpo
             guests.add(new Guest(
                     Long.parseLong(guestsWithParameter.get(0)),
                     guestsWithParameter.get(1),
-                    guestsWithParameter.get(2)
+                    guestsWithParameter.get(2),
+                    guestsWithParameter.get(3),
+                    guestsWithParameter.get(4)
             ));
         }
         return guests;

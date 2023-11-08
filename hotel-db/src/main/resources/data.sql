@@ -1,11 +1,11 @@
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Igor', 'Ivanov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Sergei', 'Petrov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Ivan', 'Sidorov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Alex', 'Kirov');
+INSERT INTO hotel.guest (first_name, last_name, email, password)
+VALUES ('Igor', 'Ivanov', 'ivanov@mail.com', '$2a$10$w.kkLv8ITaOezEA5rf0CkOSUxCukcMjMWjzZQNRuy5UaG0Y0SGfEe');
+INSERT INTO hotel.guest (first_name, last_name, email, password)
+VALUES ('Sergei', 'Petrov', 'petrov@mail.com', '$2a$10$w.kkLv8ITaOezEA5rf0CkOSUxCukcMjMWjzZQNRuy5UaG0Y0SGfEe');
+INSERT INTO hotel.guest (first_name, last_name, email, password)
+VALUES ('Ivan', 'Sidorov', 'sidorov@mail.com', '$2a$10$w.kkLv8ITaOezEA5rf0CkOSUxCukcMjMWjzZQNRuy5UaG0Y0SGfEe');
+INSERT INTO hotel.guest (first_name, last_name, email, password)
+VALUES ('Alex', 'Kirov', 'kirov@mail.com', '$2a$10$w.kkLv8ITaOezEA5rf0CkOSUxCukcMjMWjzZQNRuy5UaG0Y0SGfEe');
 
 INSERT INTO hotel.room (capacity, price, room_status, stars_rating)
 VALUES (1, 45.3, 'VACANT', 3);
