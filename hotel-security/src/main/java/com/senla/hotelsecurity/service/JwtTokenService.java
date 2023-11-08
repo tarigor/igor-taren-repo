@@ -45,7 +45,7 @@ public class JwtTokenService {
         }
     }
 
-    public String getExpirationTime(final String token){
+    public String getExpirationTime(final String token) {
         return verifier.verify(token).getExpiresAt().toString();
     }
 }

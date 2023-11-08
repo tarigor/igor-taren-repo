@@ -37,13 +37,12 @@ public class JwtSecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception {
-        System.out.println("here6");
         return http.cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/api/any").permitAll()
-                        .requestMatchers("/api/guest").hasAuthority(ROLE_GUEST.name())
-                        .requestMatchers("/api/admin").hasAuthority(ROLE_ADMIN.name()))
+                        .requestMatchers("/api/any/**").permitAll()
+                        .requestMatchers("/api/guest/**").hasAuthority(ROLE_GUEST.name())
+                        .requestMatchers("/api/admin/**").hasAuthority(ROLE_ADMIN.name()))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

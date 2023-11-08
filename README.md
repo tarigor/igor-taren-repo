@@ -108,6 +108,13 @@ All the entities have the main CRUD endpoints
 
 entity -> `booking/guest/guestservice/room/roomservice`
 
+#### passwords
+
+| User                                  | Password   |
+|---------------------------------------|------------|
+| `admin@mail.com`                      | `admin`    | 
+| any other guest -> login: guest email | `guest`    | 
+
 #### attachments
 
 export of requests from Postman application -> [POSTMAN export](Hotel Service project.postman_collection.json)
