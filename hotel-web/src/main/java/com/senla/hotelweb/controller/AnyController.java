@@ -96,7 +96,7 @@ public class AnyController {
     //2=List of rooms sorted by capacity
     //3=List of rooms sorted by number of stars
     //API->/rooms?getOnlyAvailable=false&sortBy=PRICE&sortOrder=DESC
-    @GetMapping("/sort")
+    @GetMapping("/rooms/sort")
     public List<RoomDto> getSortedRooms(@Valid RoomSearchCriteria roomSearchCriteria) {
         boolean getOnlyAvailable = Boolean.parseBoolean(roomSearchCriteria.getGetOnlyAvailable());
         String sortBy = roomSearchCriteria.getSortBy();
@@ -114,7 +114,7 @@ public class AnyController {
     }
 
     //12=Prices of services and rooms (sort by section(category), by price);
-    @GetMapping("/prices")
+    @GetMapping("/rooms/prices")
     public List<RoomDto> getAllOrdered(@Valid RoomDetailsSearchCriteria roomDetailsSearchCriteria) {
         RoomSection roomSection = RoomSection.valueOf(roomDetailsSearchCriteria.getSortBy());
         Ordering ordering = Ordering.valueOf(roomDetailsSearchCriteria.getSortOrder());
@@ -122,7 +122,7 @@ public class AnyController {
     }
 
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
-    @GetMapping
+    @GetMapping("/rooms")
     public List<RoomService> getAllOrdered(@Valid RoomServiceSearchCriteria roomServiceSearchCriteria) {
         RoomServiceSection roomServiceSection = RoomServiceSection.valueOf(roomServiceSearchCriteria.getSortBy());
         Ordering ordering = Ordering.valueOf(roomServiceSearchCriteria.getSortOrder());
@@ -130,7 +130,7 @@ public class AnyController {
     }
 
     //14=Show the details of a separate room
-    @PostMapping
+    @PostMapping("/room")
     public RoomDto saveRoom(@Valid @RequestBody RoomDto roomDto) {
         return roomService.addRoom(roomDto);
     }

@@ -126,7 +126,7 @@ public class AdminController {
     }
 
     //19=Do check-in/check-out from the room
-    @GetMapping("/operation/{operation}/{id}")
+    @GetMapping("/room/operation/{operation}/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void roomRegister(@PathVariable @EnumValidator(targetClassType = RoomOperation.class) String operation, @PathVariable Long id) {
         roomService.roomRegister(operation, id);
