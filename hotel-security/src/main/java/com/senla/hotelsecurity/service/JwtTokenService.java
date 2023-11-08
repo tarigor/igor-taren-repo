@@ -1,4 +1,4 @@
-package com.senla.hotelsecurity.configuration;
+package com.senla.hotelsecurity.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -45,7 +45,7 @@ public class JwtTokenService {
         }
     }
 
-    public String getValidTime(final String token){
+    public String getExpirationTime(final String token){
         return verifier.verify(token).getExpiresAt().toString();
     }
 }

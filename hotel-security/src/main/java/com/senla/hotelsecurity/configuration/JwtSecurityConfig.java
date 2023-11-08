@@ -14,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.senla.hotelsecurity.configuration.JwtUserDetailsService.ROLE_USER;
+import static com.senla.hotelsecurity.enums.Role.ROLE_ADMIN;
+import static com.senla.hotelsecurity.enums.Role.ROLE_GUEST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -40,8 +41,9 @@ public class JwtSecurityConfig {
         return http.cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/", "/authenticate").permitAll()
-                        .anyRequest().hasAuthority(ROLE_USER))
+                        .requestMatchers("/api/any").permitAll()
+                        .requestMatchers("/api/guest").hasAuthority(ROLE_GUEST.name())
+                        .requestMatchers("/api/admin").hasAuthority(ROLE_ADMIN.name()))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
