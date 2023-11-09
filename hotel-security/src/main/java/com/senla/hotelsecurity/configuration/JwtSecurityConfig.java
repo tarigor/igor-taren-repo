@@ -2,6 +2,7 @@ package com.senla.hotelsecurity.configuration;
 
 import com.senla.hotelsecurity.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -20,10 +22,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class JwtSecurityConfig {
 
+    private final AuthenticationEntryPoint authEntryPoint;
     private final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    public JwtSecurityConfig(JwtRequestFilter jwtRequestFilter) {
+    public JwtSecurityConfig(@Qualifier("delegatedAuthenticationEntryPoint") AuthenticationEntryPoint authEntryPoint, JwtRequestFilter jwtRequestFilter) {
+        this.authEntryPoint = authEntryPoint;
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
@@ -50,6 +54,9 @@ public class JwtSecurityConfig {
                         ).hasAuthority("ROLE_ADMIN"))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint)
+                .and()
                 .build();
     }
 

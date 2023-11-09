@@ -20,7 +20,7 @@ Configure Security according to points 2 and 5;
 To choose from (priority b):
 
 - a) Implement access rights differentiation based on JSESSIONID (Stateful is a variant of communication with the
-  server), which works as follows: the user logs in once, setting up a session on the server, 
+  server), which works as follows: the user logs in once, setting up a session on the server,
   and then accesses http endpoints in accordance with the rights;
 - b) Implement access rights differentiation based on a JWT token (Stateless is a variant of communication with the
   server).
@@ -29,7 +29,7 @@ To choose from (priority b):
   no session is created or stored on the server. To generate a JWT token, use any library.
 
 To implement point 5, write one or more of your own filters. As a basis (as a parent class), you can take the standard
-UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily these ones - 
+UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily these ones -
 a more interesting option is also possible at your discretion.
 
 Implement the correct output of messages to the user that he does not have rights or he could not log in to the system.

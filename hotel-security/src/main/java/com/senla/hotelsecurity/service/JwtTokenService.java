@@ -40,7 +40,7 @@ public class JwtTokenService {
         try {
             return verifier.verify(token).getSubject();
         } catch (final JWTVerificationException verificationEx) {
-            log.warn("access denied - token is invalid: {}", verificationEx.getMessage());
+            log.warn("access denied for user -> {} - token: {} is invalid", verifier.verify(token).getSubject(), verificationEx.getMessage());
             return null;
         }
     }
