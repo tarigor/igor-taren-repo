@@ -119,12 +119,16 @@ entity -> `booking/guest/guestservice/room/roomservice`
 | `admin@mail.com`                      | `admin`    | 
 | any other guest -> login: guest email | `guest`    | 
 
+#### DB schema
+
+![](HOTEL_DB.png)
+
 #### attachments
 
 export of requests from Postman application -> [POSTMAN export](Hotel Service project.postman_collection.json)
 
 postman screenshot
-![postman](postman.png)
+![](postman.png)
 
 #### application start
 
