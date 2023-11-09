@@ -26,20 +26,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoomServiceImpl implements IRoomService {
 
+    private final RoomRepository roomRepository;
+    private final EntityDtoMapper entityDtoMapper;
     @Value("${ability-to-change-status-of-room}")
     private Boolean checkInCheckOutPermission;
 
-    private RoomRepository roomRepository;
-
-    private EntityDtoMapper entityDtoMapper;
-
     @Autowired
-    public void setRoomRepository(RoomRepository roomRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, EntityDtoMapper entityDtoMapper) {
         this.roomRepository = roomRepository;
-    }
-
-    @Autowired
-    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
         this.entityDtoMapper = entityDtoMapper;
     }
 

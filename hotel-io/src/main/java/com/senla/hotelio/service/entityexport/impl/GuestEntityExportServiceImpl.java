@@ -14,10 +14,10 @@ import java.util.List;
 public class GuestEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "Guest";
 
-    private GuestServiceImpl guestService;
+    private final GuestServiceImpl guestService;
 
     @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
+    public GuestEntityExportServiceImpl(GuestServiceImpl guestService) {
         this.guestService = guestService;
     }
 

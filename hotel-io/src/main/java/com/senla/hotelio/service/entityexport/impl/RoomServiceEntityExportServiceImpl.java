@@ -13,10 +13,10 @@ import java.util.List;
 @Service
 public class RoomServiceEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "RoomServices";
-    private RoomServicesServiceImpl roomServicesService;
+    private final RoomServicesServiceImpl roomServicesService;
 
     @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+    public RoomServiceEntityExportServiceImpl(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
 

@@ -16,10 +16,10 @@ import java.util.List;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private GuestRepository guestRepository;
+    private final GuestRepository guestRepository;
 
     @Autowired
-    public void setGuestRepository(GuestRepository guestRepository) {
+    public JwtUserDetailsService(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
     }
 

@@ -37,42 +37,26 @@ import java.util.List;
 @RequestMapping("/api/any")
 @Slf4j
 public class AnyController {
-    private AuthenticationManager authenticationManager;
-    private JwtUserDetailsService jwtUserDetailsService;
-    private JwtTokenService jwtTokenService;
-    private RoomServiceImpl roomService;
-    private BookingServiceImpl bookingService;
-    private RoomServicesServiceImpl roomServicesService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUserDetailsService jwtUserDetailsService;
+    private final JwtTokenService jwtTokenService;
+    private final RoomServiceImpl roomService;
+    private final BookingServiceImpl bookingService;
+    private final RoomServicesServiceImpl roomServicesService;
 
     @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
-        this.roomServicesService = roomServicesService;
-    }
-
-    @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
-        this.bookingService = bookingService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
-        this.roomService = roomService;
-    }
-
-    @Autowired
-    public void setJwtTokenService(JwtTokenService jwtTokenService) {
-        this.jwtTokenService = jwtTokenService;
-    }
-
-    @Autowired
-    public void setJwtUserDetailsService(JwtUserDetailsService jwtUserDetailsService) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
-    }
-
-    @Autowired
-
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+    public AnyController(AuthenticationManager authenticationManager,
+                         JwtUserDetailsService jwtUserDetailsService,
+                         JwtTokenService jwtTokenService,
+                         RoomServiceImpl roomService,
+                         BookingServiceImpl bookingService,
+                         RoomServicesServiceImpl roomServicesService) {
         this.authenticationManager = authenticationManager;
+        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.jwtTokenService = jwtTokenService;
+        this.roomService = roomService;
+        this.bookingService = bookingService;
+        this.roomServicesService = roomServicesService;
     }
 
     @PostMapping("/login")

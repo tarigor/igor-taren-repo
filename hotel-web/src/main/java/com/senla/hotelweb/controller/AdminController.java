@@ -25,45 +25,30 @@ import java.util.List;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private BookingServiceImpl bookingService;
+    private final BookingServiceImpl bookingService;
 
-    private RoomServiceImpl roomService;
+    private final RoomServiceImpl roomService;
 
-    private CsvImportServiceImpl csvImportService;
+    private final CsvImportServiceImpl csvImportService;
 
-    private CsvExportServiceImpl csvExportService;
+    private final CsvExportServiceImpl csvExportService;
 
-    private DeserializationService deserializationService;
+    private final DeserializationService deserializationService;
 
-    private SerializationService serializationService;
+    private final SerializationService serializationService;
 
     @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
+    public AdminController(BookingServiceImpl bookingService,
+                           RoomServiceImpl roomService,
+                           CsvImportServiceImpl csvImportService,
+                           CsvExportServiceImpl csvExportService,
+                           DeserializationService deserializationService,
+                           SerializationService serializationService) {
         this.bookingService = bookingService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
-    }
-
-    @Autowired
-    public void setCsvImportService(CsvImportServiceImpl csvImportService) {
         this.csvImportService = csvImportService;
-    }
-
-    @Autowired
-    public void setCsvExportService(CsvExportServiceImpl csvExportService) {
         this.csvExportService = csvExportService;
-    }
-
-    @Autowired
-    public void setDeserializationService(DeserializationService deserializationService) {
         this.deserializationService = deserializationService;
-    }
-
-    @Autowired
-    public void setSerializationService(SerializationService serializationService) {
         this.serializationService = serializationService;
     }
 

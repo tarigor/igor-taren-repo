@@ -14,64 +14,37 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class CsvImportServiceImpl {
-    private BookingServiceImpl bookingService;
-    private GuestServiceImpl guestService;
-    private GuestServicesServiceImpl guestServicesService;
-    private RoomServiceImpl roomService;
-    private RoomServicesServiceImpl roomServicesService;
-    private BookingEntityImportServiceImpl bookingEntityImportService;
-    private GuestEntityImportServiceImpl guestEntityImportService;
-    private GuestServicesEntityImportServiceImpl guestServicesEntityImportService;
-    private RoomEntityImportServiceImpl roomEntityImportService;
-    private RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
+    private final BookingServiceImpl bookingService;
+    private final GuestServiceImpl guestService;
+    private final GuestServicesServiceImpl guestServicesService;
+    private final RoomServiceImpl roomService;
+    private final RoomServicesServiceImpl roomServicesService;
+    private final BookingEntityImportServiceImpl bookingEntityImportService;
+    private final GuestEntityImportServiceImpl guestEntityImportService;
+    private final GuestServicesEntityImportServiceImpl guestServicesEntityImportService;
+    private final RoomEntityImportServiceImpl roomEntityImportService;
+    private final RoomServiceEntityImportServiceImpl roomServiceEntityImportService;
 
     @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
+    public CsvImportServiceImpl(BookingServiceImpl bookingService,
+                                GuestServiceImpl guestService,
+                                GuestServicesServiceImpl guestServicesService,
+                                RoomServiceImpl roomService,
+                                RoomServicesServiceImpl roomServicesService,
+                                BookingEntityImportServiceImpl bookingEntityImportService,
+                                GuestEntityImportServiceImpl guestEntityImportService,
+                                GuestServicesEntityImportServiceImpl guestServicesEntityImportService,
+                                RoomEntityImportServiceImpl roomEntityImportService,
+                                RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
         this.bookingService = bookingService;
-    }
-
-    @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
         this.guestService = guestService;
-    }
-
-    @Autowired
-    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
-    }
-
-    @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
-    }
-
-    @Autowired
-    public void setBookingEntityImportService(BookingEntityImportServiceImpl bookingEntityImportService) {
         this.bookingEntityImportService = bookingEntityImportService;
-    }
-
-    @Autowired
-    public void setGuestEntityImportService(GuestEntityImportServiceImpl guestEntityImportService) {
         this.guestEntityImportService = guestEntityImportService;
-    }
-
-    @Autowired
-    public void setGuestServicesEntityImportService(GuestServicesEntityImportServiceImpl guestServicesEntityImportService) {
         this.guestServicesEntityImportService = guestServicesEntityImportService;
-    }
-
-    @Autowired
-    public void setRoomEntityImportService(RoomEntityImportServiceImpl roomEntityImportService) {
         this.roomEntityImportService = roomEntityImportService;
-    }
-
-    @Autowired
-    public void setRoomServiceEntityImportService(RoomServiceEntityImportServiceImpl roomServiceEntityImportService) {
         this.roomServiceEntityImportService = roomServiceEntityImportService;
     }
 

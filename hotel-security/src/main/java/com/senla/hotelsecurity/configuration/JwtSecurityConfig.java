@@ -20,10 +20,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class JwtSecurityConfig {
 
-    private JwtRequestFilter jwtRequestFilter;
+    private final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    public void setJwtRequestFilter(JwtRequestFilter jwtRequestFilter) {
+    public JwtSecurityConfig(JwtRequestFilter jwtRequestFilter) {
         this.jwtRequestFilter = jwtRequestFilter;
     }
 

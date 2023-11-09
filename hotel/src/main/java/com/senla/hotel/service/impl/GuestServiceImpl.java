@@ -14,10 +14,10 @@ import java.util.Optional;
 @Service
 public class GuestServiceImpl implements IGuestService {
 
-    private GuestRepository guestRepository;
+    private final GuestRepository guestRepository;
 
     @Autowired
-    public void setGuestRepository(GuestRepository guestRepository) {
+    public GuestServiceImpl(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
     }
 

@@ -25,17 +25,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GuestServicesServiceImpl implements IGuestServicesService {
 
-
-    private GuestServicesRepository guestServicesRepository;
-    private RoomServiceRepository roomServiceRepository;
+    private final GuestServicesRepository guestServicesRepository;
+    private final RoomServiceRepository roomServiceRepository;
 
     @Autowired
-    public void setGuestServicesRepository(GuestServicesRepository guestServicesRepository) {
+    public GuestServicesServiceImpl(GuestServicesRepository guestServicesRepository, RoomServiceRepository roomServiceRepository) {
         this.guestServicesRepository = guestServicesRepository;
-    }
-
-    @Autowired
-    public void setRoomServiceRepository(RoomServiceRepository roomServiceRepository) {
         this.roomServiceRepository = roomServiceRepository;
     }
 

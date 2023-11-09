@@ -19,16 +19,12 @@ import java.util.List;
 @Slf4j
 public class GuestServicesEntityImportServiceImpl extends ImportService implements IImportService<GuestServices> {
     private final String ENTITY_NAME = "GuestServices";
-    private GuestServiceImpl guestService;
-    private RoomServicesServiceImpl roomServicesService;
+    private final GuestServiceImpl guestService;
+    private final RoomServicesServiceImpl roomServicesService;
 
     @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
+    public GuestServicesEntityImportServiceImpl(GuestServiceImpl guestService, RoomServicesServiceImpl roomServicesService) {
         this.guestService = guestService;
-    }
-
-    @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
     }
 

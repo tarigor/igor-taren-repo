@@ -18,17 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/guest")
 public class GuestController {
-    private BookingServiceImpl bookingService;
-    private GuestServicesServiceImpl guestServicesService;
+    private final BookingServiceImpl bookingService;
+    private final GuestServicesServiceImpl guestServicesService;
 
     @Autowired
-    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
-        this.guestServicesService = guestServicesService;
-    }
-
-    @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
+    public GuestController(BookingServiceImpl bookingService, GuestServicesServiceImpl guestServicesService) {
         this.bookingService = bookingService;
+        this.guestServicesService = guestServicesService;
     }
 
     //9=The amount of payment for the room to be paid by the guest
