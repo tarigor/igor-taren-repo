@@ -14,16 +14,14 @@ Task 17 (difficulty 10)
   of privileges;
 - Think over the division into an administrator and a ”regular user” for existing endpoints;
 - Connect the necessary Spring Security dependencies and create a configuration class.
-- Don't forget that you need
-  a Filter to work with Security.
+- Don't forget that you need a Filter to work with Security.
 
 Configure Security according to points 2 and 5;
 To choose from (priority b):
 
 - a) Implement access rights differentiation based on JSESSIONID (Stateful is a variant of communication with the
-  server),
-  which works as follows: the user logs in once, setting up a session on the server, and then accesses http endpoints
-  in accordance with the rights;
+  server), which works as follows: the user logs in once, setting up a session on the server, 
+  and then accesses http endpoints in accordance with the rights;
 - b) Implement access rights differentiation based on a JWT token (Stateless is a variant of communication with the
   server).
   It should work like this: when logging in, a JWT token is obtained, and then, with each request to the server,
@@ -31,8 +29,8 @@ To choose from (priority b):
   no session is created or stored on the server. To generate a JWT token, use any library.
 
 To implement point 5, write one or more of your own filters. As a basis (as a parent class), you can take the standard
-UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily
-these ones - a more interesting option is also possible at your discretion.
+UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily these ones - 
+a more interesting option is also possible at your discretion.
 
 Implement the correct output of messages to the user that he does not have rights or he could not log in to the system.
 
