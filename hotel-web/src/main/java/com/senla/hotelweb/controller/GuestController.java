@@ -39,7 +39,7 @@ public class GuestController {
 
 
     //11=View the list of guest services and their price (sorted by PRICE,DATE) in ASC(DESC) manner
-    @GetMapping("/guest/services")
+    @GetMapping("/guests/services")
     public List<GuestServicesDto> getByGuestIdSorted(@Valid GuestServicesSearchCriteria guestServicesSearchCriteria) {
         Long guestId = guestServicesSearchCriteria.getGuestId();
         GuestServicesSection guestServicesSection = GuestServicesSection.valueOf(guestServicesSearchCriteria.getSortBy());

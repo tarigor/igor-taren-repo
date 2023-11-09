@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.senla.hotelsecurity.enums.Role.ROLE_ADMIN;
 import static com.senla.hotelsecurity.enums.Role.ROLE_GUEST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -34,7 +33,6 @@ public class JwtSecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception {
         return http.cors(withDefaults())
@@ -42,7 +40,14 @@ public class JwtSecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/any/**").permitAll()
                         .requestMatchers("/api/guest/**").hasAuthority(ROLE_GUEST.name())
-                        .requestMatchers("/api/admin/**").hasAuthority(ROLE_ADMIN.name()))
+                        .requestMatchers(
+                                "/api/admin/**",
+                                "/bookings/**",
+                                "/guests/**",
+                                "/guestservices/**",
+                                "/rooms/**",
+                                "/roomservices/**"
+                        ).hasAuthority("ROLE_ADMIN"))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

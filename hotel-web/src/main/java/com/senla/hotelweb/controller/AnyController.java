@@ -122,16 +122,10 @@ public class AnyController {
     }
 
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
-    @GetMapping("/rooms")
+    @GetMapping("/rooms/services")
     public List<RoomService> getAllOrdered(@Valid RoomServiceSearchCriteria roomServiceSearchCriteria) {
         RoomServiceSection roomServiceSection = RoomServiceSection.valueOf(roomServiceSearchCriteria.getSortBy());
         Ordering ordering = Ordering.valueOf(roomServiceSearchCriteria.getSortOrder());
         return roomServicesService.getAllOrdered(roomServiceSection, ordering);
-    }
-
-    //14=Show the details of a separate room
-    @PostMapping("/room")
-    public RoomDto saveRoom(@Valid @RequestBody RoomDto roomDto) {
-        return roomService.addRoom(roomDto);
     }
 }

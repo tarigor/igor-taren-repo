@@ -80,7 +80,7 @@ public class AdminController {
     }
 
     //6=Total number of available rooms
-    @GetMapping("/available")
+    @GetMapping("/rooms/available")
     public Integer getTotalAvailableRooms() {
         return roomService.getTotalAvailableRooms();
     }
@@ -126,7 +126,7 @@ public class AdminController {
     }
 
     //19=Do check-in/check-out from the room
-    @GetMapping("/room/operation/{operation}/{id}")
+    @GetMapping("/rooms/operation/{operation}/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void roomRegister(@PathVariable @EnumValidator(targetClassType = RoomOperation.class) String operation, @PathVariable Long id) {
         roomService.roomRegister(operation, id);

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
-import static com.senla.hotelsecurity.enums.Role.ROLE_GUEST;
-
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
@@ -30,7 +28,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         System.out.println("in loadUserByUsername");
         final Guest guest = guestRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("User " + username + " not found"));
-        final List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(ROLE_GUEST.name()));
+        final List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(guest.getRole()));
         return new JwtUserDetails(guest.getId(), username, guest.getPassword(), roles);
     }
 }

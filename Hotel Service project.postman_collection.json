@@ -8,32 +8,34 @@
   "item": [
     {
       "name": "1-3=List of rooms sorted by price,capacity,number of stars",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"login\": \"ivanov@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "localhost:9002/rooms/sort?getOnlyAvailable=true&sortBy=PRICE&sortOrder=DESC",
+          "raw": "http://localhost:8080/hotel/api/any/rooms/sort",
+          "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
+            "hotel",
+            "api",
+            "any",
             "rooms",
             "sort"
-          ],
-          "query": [
-            {
-              "key": "getOnlyAvailable",
-              "value": "true"
-            },
-            {
-              "key": "sortBy",
-              "value": "PRICE"
-            },
-            {
-              "key": "sortOrder",
-              "value": "DESC"
-            }
           ]
         }
       },
@@ -45,6 +47,16 @@
         "disableBodyPruning": true
       },
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdmFub3ZAbWFpbC5jb20iLCJpc3MiOiJhcHAiLCJpYXQiOjE2OTk0NjY1NTQsImV4cCI6MTY5OTU4NjU1NH0.ekIufo9_mUbhx-HXXPXwnxxf_DUZ2J1zdmmBlIAfpjLLnhbYA_k0PNKIX8-lOtAyPGeIdpZ3NwOO5CWAbGnDRQ",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
         "body": {
@@ -57,13 +69,15 @@
           }
         },
         "url": {
-          "raw": "localhost:9002/bookings/guests/rooms/alphabet",
+          "raw": "localhost:8080/hotel/api/admin/guests/rooms/alphabet",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "admin",
             "guests",
             "rooms",
             "alphabet"
@@ -75,16 +89,35 @@
     {
       "name": "5=List of guests and their rooms sorted by check-out date",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdmFub3ZAbWFpbC5jb20iLCJpc3MiOiJhcHAiLCJpYXQiOjE2OTk0NjkyMDUsImV4cCI6MTY5OTU4OTIwNX0.EemSn6D1HiAVqUUN0MQGV3KE5kQcjAHEVNqWmpm8l2oFSuZhKLBlWrRavCjht0RqMOtuotoIQ6GZSVmJCrP0rQ",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Authentication",
+            "value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdmFub3ZAbWFpbC5jb20iLCJpc3MiOiJhcHAiLCJpYXQiOjE2OTk0NjUwMDUsImV4cCI6MTY5OTQ2NjIwNX0.vlCqoifH5ZbPoZSjDBf-lk8FKHZ-6CZvM13GBNGtBXh2uJ62Ew8wgtUhKczNKR_VjyIV8vOOE53BuGyf6ncI2Q",
+            "type": "text",
+            "disabled": true
+          }
+        ],
         "url": {
-          "raw": "localhost:9002/bookings/guests/rooms/checkout",
+          "raw": "localhost:8080/hotel/api/admin/guests/rooms/checkout",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "admin",
             "guests",
             "rooms",
             "checkout"
@@ -99,12 +132,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/rooms/available",
+          "raw": "localhost:8080/hotel/api/admin/rooms/available",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
+            "hotel",
+            "api",
+            "admin",
             "rooms",
             "available"
           ]
@@ -118,13 +154,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/bookings/guests/total",
+          "raw": "localhost:8080/hotel/api/admin/guests/total",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "admin",
             "guests",
             "total"
           ]
@@ -138,15 +176,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/bookings/rooms/12-02-2023",
+          "raw": "localhost:8080/hotel/api/any/rooms/22-02-2022",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "any",
             "rooms",
-            "12-02-2023"
+            "22-02-2022"
           ]
         }
       },
@@ -158,13 +198,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/bookings/room/payment/byGuestId/1",
+          "raw": "localhost:8080/hotel/api/guest/room/payment/byGuestId/1",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "guest",
             "room",
             "payment",
             "byGuestId",
@@ -180,13 +222,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/bookings/last/guestAmount/3/room/1",
+          "raw": "localhost:8080/hotel/api/admin/last/guestAmount/3/room/1",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "bookings",
+            "hotel",
+            "api",
+            "admin",
             "last",
             "guestAmount",
             "3",
@@ -203,13 +247,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/guestServices?guestId=1&sortBy=PRICE&sortOrder=DESC",
+          "raw": "localhost:8080/hotel/api/guest/guests/services?guestId=1&sortBy=PRICE&sortOrder=DESC",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "guestServices"
+            "hotel",
+            "api",
+            "guest",
+            "guests",
+            "services"
           ],
           "query": [
             {
@@ -235,12 +283,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/rooms/prices?sortBy=PRICE&sortOrder=ASC",
+          "raw": "localhost:8080/hotel/api/any/rooms/prices?sortBy=PRICE&sortOrder=ASC",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
+            "hotel",
+            "api",
+            "any",
             "rooms",
             "prices"
           ],
@@ -264,13 +315,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/roomServices?sortBy=PRICE&sortOrder=DESC",
+          "raw": "localhost:8080/hotel/api/any/rooms/services?sortBy=PRICE&sortOrder=DESC",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "roomServices"
+            "hotel",
+            "api",
+            "any",
+            "rooms",
+            "services"
           ],
           "query": [
             {
@@ -292,12 +347,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/rooms/1",
+          "raw": "localhost:8080/hotel/rooms/1",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
+            "hotel",
             "rooms",
             "1"
           ]
@@ -311,13 +367,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/utility/csv/importing/booking",
+          "raw": "localhost:8080/hotel/api/admin/csv/importing/booking",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "utility",
+            "hotel",
+            "api",
+            "admin",
             "csv",
             "importing",
             "booking"
@@ -332,13 +390,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/utility/csv/exporting/booking",
+          "raw": "localhost:8080/hotel/api/admin/csv/exporting/booking",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "utility",
+            "hotel",
+            "api",
+            "admin",
             "csv",
             "exporting",
             "booking"
@@ -353,13 +413,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/utility/serialization/booking",
+          "raw": "localhost:8080/hotel/api/admin/serialization/booking",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "utility",
+            "hotel",
+            "api",
+            "admin",
             "serialization",
             "booking"
           ]
@@ -373,13 +435,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/utility/deserialization/booking",
+          "raw": "localhost:8080/hotel/api/admin/deserialization/booking",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
-            "utility",
+            "hotel",
+            "api",
+            "admin",
             "deserialization",
             "booking"
           ]
@@ -393,16 +457,50 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9002/rooms/operation/checkout/1",
+          "raw": "localhost:8080/hotel/api/admin/rooms/operation/checkout/1",
           "host": [
             "localhost"
           ],
-          "port": "9002",
+          "port": "8080",
           "path": [
+            "hotel",
+            "api",
+            "admin",
             "rooms",
             "operation",
             "checkout",
             "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"login\": \"admin@mail.com\",\r\n    \"password\": \"admin\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hotel/api/any/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hotel",
+            "api",
+            "any",
+            "login"
           ]
         }
       },
