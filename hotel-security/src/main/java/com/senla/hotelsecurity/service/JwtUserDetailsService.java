@@ -25,7 +25,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        System.out.println("in loadUserByUsername");
         final Guest guest = guestRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("User " + username + " not found"));
         final List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(guest.getRole()));

@@ -16,7 +16,8 @@ import java.time.Instant;
 @Slf4j
 public class JwtTokenService {
 
-    private static final Duration JWT_TOKEN_VALIDITY = Duration.ofMinutes(2000);
+    @Value("${jwt.token.validate.time.minutes}")
+    private int JWT_TOKEN_VALIDITY;
 
     private final Algorithm hmac512;
     private final JWTVerifier verifier;
@@ -32,7 +33,7 @@ public class JwtTokenService {
                 .withSubject(userDetails.getUsername())
                 .withIssuer("app")
                 .withIssuedAt(now)
-                .withExpiresAt(now.plusMillis(JWT_TOKEN_VALIDITY.toMillis()))
+                .withExpiresAt(now.plusMillis(Duration.ofMinutes(JWT_TOKEN_VALIDITY).toMillis()))
                 .sign(this.hmac512);
     }
 

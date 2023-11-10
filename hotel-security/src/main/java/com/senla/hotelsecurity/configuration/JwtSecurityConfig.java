@@ -16,6 +16,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.senla.hotelsecurity.enums.Role.ROLE_ADMIN;
 import static com.senla.hotelsecurity.enums.Role.ROLE_GUEST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -51,7 +52,7 @@ public class JwtSecurityConfig {
                                 "/guestservices/**",
                                 "/rooms/**",
                                 "/roomservices/**"
-                        ).hasAuthority("ROLE_ADMIN"))
+                        ).hasAuthority(ROLE_ADMIN.name()))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()

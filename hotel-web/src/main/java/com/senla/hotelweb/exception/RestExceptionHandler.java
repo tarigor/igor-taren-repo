@@ -58,6 +58,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(InvalidParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public RestErrorMessage handleInvalidParameterException(InvalidParameterException exception) {
+        log.error("Invalid parameter received:error -> {}", exception.getMessage());
         return new RestErrorMessage(
                 "Invalid parameter received",
                 exception.getMessage());
@@ -66,7 +67,7 @@ public class RestExceptionHandler {
     @ExceptionHandler({AuthenticationException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public RestErrorMessage handleAuthenticationException(Exception exception) {
-        log.warn("access denied - authorization is required -> {}", exception.getMessage());
+        log.error("access denied - authorization is required -> {}", exception.getMessage());
         return new RestErrorMessage(
                 "access denied - authorization is required",
                 exception.getMessage());
