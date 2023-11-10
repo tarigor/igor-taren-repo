@@ -16,11 +16,10 @@ import java.time.Instant;
 @Slf4j
 public class JwtTokenService {
 
-    @Value("${jwt.token.validate.time.minutes}")
-    private int JWT_TOKEN_VALIDITY;
-
     private final Algorithm hmac512;
     private final JWTVerifier verifier;
+    @Value("${jwt.token.validate.time.minutes}")
+    private int JWT_TOKEN_VALIDITY;
 
     public JwtTokenService(@Value("${jwt.secret}") final String secret) {
         this.hmac512 = Algorithm.HMAC512(secret);
