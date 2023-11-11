@@ -96,7 +96,7 @@ context path -> /hotel
 | 17=Do serialization of entity                                                                                        | ROLE_ADMIN             | `GET /hotel/api/admin/serialization/{par1}`                                              | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
 | 18=Do de-serialization of entity                                                                                     | ROLE_ADMIN             | `GET /hotel/api/admin/deserialization/{par1}`                                            | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
 | 19=Do check-in/check-out from the room                                                                               | ROLE_ADMIN             | `GET /hotel/api/admin/rooms/operation/{par1}/{par2}`                                     | {par1}: `checkin/checkout`<br/>{par2}: number `long` format                  |
-| User login                                                                                                           | ANY                    | `POST /hotel/api/any/login`                                                              |                                                                              |
+| User login                                                                                                           | ANY                    | `POST /hotel/api/any/login` Request body: `{"login":{par1},"password":{par2}}`           | {par1}:email, {par2}:password                                                |
 
 All the entities have the main CRUD endpoints
 
