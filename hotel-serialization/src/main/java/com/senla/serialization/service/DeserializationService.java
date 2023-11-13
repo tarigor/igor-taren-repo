@@ -32,13 +32,26 @@ import java.util.Map;
 @Slf4j
 public class DeserializationService {
 
+    private final BookingServiceImpl bookingService;
+    private final GuestServiceImpl guestService;
+    private final GuestServicesServiceImpl guestServicesService;
+    private final RoomServiceImpl roomService;
+    private final RoomServicesServiceImpl roomServicesService;
     @Value("${json.import.path}")
     private String jsonImportPath;
-    private BookingServiceImpl bookingService;
-    private GuestServiceImpl guestService;
-    private GuestServicesServiceImpl guestServicesService;
-    private RoomServiceImpl roomService;
-    private RoomServicesServiceImpl roomServicesService;
+
+    @Autowired
+    public DeserializationService(BookingServiceImpl bookingService,
+                                  GuestServiceImpl guestService,
+                                  GuestServicesServiceImpl guestServicesService,
+                                  RoomServiceImpl roomService,
+                                  RoomServicesServiceImpl roomServicesService) {
+        this.bookingService = bookingService;
+        this.guestService = guestService;
+        this.guestServicesService = guestServicesService;
+        this.roomService = roomService;
+        this.roomServicesService = roomServicesService;
+    }
 
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();
@@ -52,31 +65,6 @@ public class DeserializationService {
             throw new HotelSerializationModuleException(e);
         }
         return content.toString();
-    }
-
-    @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
-        this.bookingService = bookingService;
-    }
-
-    @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
-        this.guestService = guestService;
-    }
-
-    @Autowired
-    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
-        this.guestServicesService = guestServicesService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
-        this.roomService = roomService;
-    }
-
-    @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
-        this.roomServicesService = roomServicesService;
     }
 
     public void deserialize(String fileName) {

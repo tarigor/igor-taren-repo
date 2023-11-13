@@ -2,28 +2,37 @@
 
 # HOTEL SERVICE
 
-### TASK#16
+### TASK#17
 
-### _Spring MVC_
+### _Spring Security_
 
 #### Description:
 
-Task 16 (difficulty 10)
+Task 17 (difficulty 10)
 
-Modify the application from previous tasks to a web application.
+- Modify the existing database schema so that it is possible to store the user and his login, password, role and/or list
+  of privileges;
+- Think over the division into an administrator and a ”regular user” for existing endpoints;
+- Connect the necessary Spring Security dependencies and create a configuration class.
+- Don't forget that you need a Filter to work with Security.
 
-Task requirements:
+Configure Security according to points 2 and 5;
+To choose from (priority b):
 
-- For implementation use Spring MVC;
-- Add DTO (Data transfer objects) to the project to describe controller responses;
-- Responses to requests must be in JSON and/or XML format;
-- The application must have a REST architecture (use the Postman tool for verification);
-- All the requirements for the functionality of the application must be available in the controllers;
-- Processing and issuing exceptions to the user should be implemented using @ExceptionHandler and @Controlleradvice;
-- Rewrite previously implemented work with transactions via Hibernate to use the @Transactional annotation in the
-  service layer;
+- a) Implement access rights differentiation based on JSESSIONID (Stateful is a variant of communication with the
+  server), which works as follows: the user logs in once, setting up a session on the server,
+  and then accesses http endpoints in accordance with the rights;
+- b) Implement access rights differentiation based on a JWT token (Stateless is a variant of communication with the
+  server).
+  It should work like this: when logging in, a JWT token is obtained, and then, with each request to the server,
+  this token is indicated in the headers header:Authorization to determine user rights. With this approach,
+  no session is created or stored on the server. To generate a JWT token, use any library.
 
-Build the application in WAR and deploy it on Tomcat or Jetty.
+To implement point 5, write one or more of your own filters. As a basis (as a parent class), you can take the standard
+UsernamePasswordAuthenticationFilter or BasicAuthenticationFilter from Spring, but not necessarily these ones -
+a more interesting option is also possible at your discretion.
+
+Implement the correct output of messages to the user that he does not have rights or he could not log in to the system.
 
 #### Stack
 
@@ -57,51 +66,68 @@ Build the application in WAR and deploy it on Tomcat or Jetty.
 - spring-boot-starter-web 3.1.5
 - spring-boot-starter-validation 3.1.5
 - modelmapper 3.2.0
+- java-jwt 4.4.0
+- spring-security-core 6.1.5
+- spring-security-config 6.1.5
+- spring-security-web 6.1.5
 
 #### REST API
 
 context path -> /hotel
 
-| Menu Item                                                                                                            | Endpoint                                                                          | Description                                                                  |
-|----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| 1=List of rooms sorted by price                                                                                      | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=PRICE&sortOrder={par2}`     | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
-| 2=List of rooms sorted by capacity                                                                                   | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=CAPACITY&sortOrder={par2}`  | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
-| 3=List of rooms sorted by number of <br/>stars                                                                       | `GET /hotel/rooms/sort?getOnlyAvailable={par1}&sortBy=RATING&sortOrder={par2}`    | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                  |
-| 4=List of guests and their rooms <br/>sorted alphabetically                                                          | `GET /hotel/bookings/guests/rooms/alphabet`                                       |                                                                              |
-| 5=List of guests and their rooms <br/>sorted by check-out date                                                       | `GET /hotel/bookings/guests/rooms/checkout`                                       |                                                                              |
-| 6=Total number of available rooms                                                                                    | `GET /hotel/rooms/available`                                                      |                                                                              |
-| 7=Total number of guests                                                                                             | `GET /hotel/bookings/guests/total`                                                |                                                                              |
-| 8=List of rooms that will be <br/>available on a certain date in the future                                          | `GET /hotel/bookings/rooms/{par1}`                                                | {par1}: date format `dd-MM-yyy`                                              |
-| 9=The amount of payment for the room <br/>to be paid by the guest                                                    | `GET /hotel/bookings/room/payment/byGuestId/{par1}`                               | {par1}: number `long` format                                                 |
-| 10=View the last 3 guests of the room <br/>and the dates of their stay                                               | `GET /hotel/bookings/last/guestAmount/{par1}/room/{par2}`                         | {par1}: number `long` format <br/>{par2}: number `long` format               |
-| 11=View the list of guest services <br/>and their price (sorted by PRICE,DATE) in ASC(DESC) manner                   | `GET /hotel/guestServices?guestId={par1}&sortBy={par2}&sortOrder={par3}`          | {par1}: number `long` format<br/>{par1}: `PRICE/DATE`<br/>{par3}: `ASC/DESC` |
-| 12=Prices of services and rooms <br/>(sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) <br/>in ASC(DESC) manner | `GET /hotel/rooms/prices?sortBy={par1}&sortOrder={par2}`                          | {par1}: `CAPACITY/PRICE/AVAILABILITY/SERVICE/RATING`<br/>{par2}: `ASC/DESC`  |
-| 13=Room services (ordered by ROOM_SERVICES,PRICE) <br/>in ASC(DESC) manner                                           | `GET /hotel/roomServices?sortBy={par1}&sortOrder={par2}`                          | {par1}: `ROOM_SERVICES/PRICE`<br/>{par2}: `ASC/DESC`                         |
-| 14=Show the details of a separate room                                                                               | `GET /hotel/rooms/{par1}`                                                         | {par1}: number `long` format                                                 |
-| 15=Import the certain entity from the CSV file                                                                       | `GET /hotel/utility/csv/importing/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
-| 16=Export the certain entity                                                                                         | `GET /hotel/utility/csv/exporting/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
-| 17=Do serialization of entity                                                                                        | `GET /hotel/utility/serialization/{par1}`                                         | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
-| 18=Do de-serialization of entity                                                                                     | `GET /hotel/utility/deserialization/{par1}`                                       | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                        |
-| 19=Do check-in/check-out from the room                                                                               | `GET /hotel/rooms/operation/{par1}/{par2}`                                        | {par1}: `checkin/checkout`<br/>{par2}: number `long` format                  |
+| Menu Item                                                                                                            | ROLE                   | Endpoint                                                                                                                                 | Description                                                                         |
+|----------------------------------------------------------------------------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| 1=List of rooms sorted by price                                                                                      | ANY                    | `GET /hotel/api/any/rooms/sort?getOnlyAvailable={par1}&sortBy=PRICE&sortOrder={par2}`                                                    | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                         |
+| 2=List of rooms sorted by capacity                                                                                   | ANY                    | `GET /hotel/api/any/rooms/sort?getOnlyAvailable={par1}&sortBy=CAPACITY&sortOrder={par2}`                                                 | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                         |
+| 3=List of rooms sorted by number of <br/>stars                                                                       | ANY                    | `GET /hotel/api/any/rooms/sort?getOnlyAvailable={par1}&sortBy=RATING&sortOrder={par2}`                                                   | {par1}: `true/false`<br/>{par2}: `ASC/DESC`                                         |
+| 4=List of guests and their rooms <br/>sorted alphabetically                                                          | ROLE_ADMIN             | `GET /hotel/api/admin/guests/rooms/alphabet`                                                                                             |                                                                                     |
+| 5=List of guests and their rooms <br/>sorted by check-out date                                                       | ROLE_ADMIN             | `GET /hotel/api/admin/guests/rooms/checkout`                                                                                             |                                                                                     |
+| 6=Total number of available rooms                                                                                    | ROLE_ADMIN             | `GET /hotel/api/admin/rooms/available`                                                                                                   |                                                                                     |
+| 7=Total number of guests                                                                                             | ROLE_ADMIN             | `GET /hotel/api/admin/guests/total`                                                                                                      |                                                                                     |
+| 8=List of rooms that will be <br/>available on a certain date in the future                                          | ANY                    | `GET /hotel/api/any/rooms/{par1}`                                                                                                        | {par1}: date format `dd-MM-yyy`                                                     |
+| 9=The amount of payment for the room <br/>to be paid by the guest                                                    | ROLE_GUEST, ROLE_ADMIN | `GET /hotel/api/guest/room/payment/byGuestId/{par1}`                                                                                     | {par1}: number `long` format                                                        |
+| 10=View the last 3 guests of the room <br/>and the dates of their stay                                               | ROLE_ADMIN             | `GET /hotel/api/admin/last/guestAmount/{par1}/room/{par2}`                                                                               | {par1}: number `long` format <br/>{par2}: number `long` format                      |
+| 11=View the list of guest services <br/>and their price (sorted by PRICE,DATE) in ASC(DESC) manner                   | ROLE_GUEST, ROLE_ADMIN | `GET /hotel/api/guest/guests/services?guestId={par1}&sortBy={par2}&sortOrder={par3}`                                                     | {par1}: number `long` format<br/>{par1}: `PRICE/DATE`<br/>{par3}: `ASC/DESC`        |
+| 12=Prices of services and rooms <br/>(sorted by CAPACITY,PRICE,AVAILABILITY,SERVICE,RATING) <br/>in ASC(DESC) manner | ANY                    | `GET /hotel/api/any/rooms/prices?sortBy={par1}&sortOrder={par2}`                                                                         | {par1}: `CAPACITY/PRICE/AVAILABILITY/SERVICE/RATING`<br/>{par2}: `ASC/DESC`         |
+| 13=Room services (ordered by ROOM_SERVICES,PRICE) <br/>in ASC(DESC) manner                                           | ANY                    | `GET /hotel/api/any/rooms/services?sortBy={par1}&sortOrder={par2}`                                                                       | {par1}: `ROOM_SERVICES/PRICE`<br/>{par2}: `ASC/DESC`                                |
+| 14=Show the details of a separate room                                                                               | ROLE_ADMIN             | `GET /hotel/rooms/{par1}`                                                                                                                | {par1}: number `long` format                                                        |
+| 15=Import the certain entity from the CSV file                                                                       | ROLE_ADMIN             | `GET /hotel/api/admin/csv/importing/{par1}`                                                                                              | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                               |
+| 16=Export the certain entity                                                                                         | ROLE_ADMIN             | `GET /hotel/api/admin/csv/exporting/{par1}`                                                                                              | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                               |
+| 17=Do serialization of entity                                                                                        | ROLE_ADMIN             | `GET /hotel/api/admin/serialization/{par1}`                                                                                              | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                               |
+| 18=Do de-serialization of entity                                                                                     | ROLE_ADMIN             | `GET /hotel/api/admin/deserialization/{par1}`                                                                                            | {par1}: `BOOKING/GUEST/GUESTSERVICE/ROOM/ROOMSERVICE`                               |
+| 19=Do check-in/check-out from the room                                                                               | ROLE_ADMIN             | `GET /hotel/api/admin/rooms/operation/{par1}/{par2}`                                                                                     | {par1}: `checkin/checkout`<br/>{par2}: number `long` format                         |
+| User login                                                                                                           | ANY                    | `POST /hotel/api/any/login` Request body: `{"login":{par1},"password":{par2}}`                                                           | {par1}:email, {par2}:password                                                       |
+| User registration                                                                                                    | ANY                    | `POST /hotel/api/any/registration` Request body: `{"firstName":{par1},"lastName":{par2},"email":{par3},"password":{par4},"role":{par5}}` | {par1}:"firstName",{par2}:"lastName",{par3}:"email",{par4}:"password",{par5}:"role" |
 
 All the entities have the main CRUD endpoints
 
-| Endpoint                    | Description                        |
-|-----------------------------|------------------------------------|
-| `GET /hotel/entity`         | Retrieve a list of entities.       |
-| `GET /hotel/entity/{id}`    | Retrieve a specific entity by ID.  |
-| `POST /hotel/entity`        | Create a new entity record.        |
-| `PUT /hotel/entity/{id}`    | Update an entity record.           |
-| `DELETE /hotel/entity/{id}` | Delete an entity record.           |
+| Endpoint                    | ROLE        | Description                       |
+|-----------------------------|-------------|-----------------------------------|
+| `GET /hotel/entity`         | ROLE_ADMIN  | Retrieve a list of entities.      |
+| `GET /hotel/entity/{id}`    | ROLE_ADMIN  | Retrieve a specific entity by ID. |
+| `POST /hotel/entity`        | ROLE_ADMIN  | Create a new entity record.       |
+| `PUT /hotel/entity/{id}`    | ROLE_ADMIN  | Update an entity record.          |
+| `DELETE /hotel/entity/{id}` | ROLE_ADMIN  | Delete an entity record.          |
 
 entity -> `booking/guest/guestservice/room/roomservice`
+
+#### passwords
+
+| User                                  | Password   |
+|---------------------------------------|------------|
+| `admin@mail.com`                      | `admin`    | 
+| any other guest -> login: guest email | `guest`    | 
+
+#### DB schema
+
+![](HOTEL_DB.png)
 
 #### attachments
 
 export of requests from Postman application -> [POSTMAN export](Hotel Service project.postman_collection.json)
 
 postman screenshot
-![postman](postman.png)
+![](postman.png)
 
 #### application start
 

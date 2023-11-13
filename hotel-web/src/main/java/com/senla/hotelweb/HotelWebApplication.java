@@ -9,7 +9,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.senla.hotel", "com.senla.hoteldb", "com.senla.hotelio", "com.senla.serialization", "com.senla.hotelweb"})
+@ComponentScan(basePackages = {
+        "com.senla.hotel",
+        "com.senla.hoteldb",
+        "com.senla.hotelio",
+        "com.senla.serialization",
+        "com.senla.hotelweb",
+        "com.senla.hotelsecurity"})
 @EnableJpaRepositories("com.senla.hoteldb.repository")
 @EntityScan(basePackages = {"com.senla.hoteldb.entity"})
 public class HotelWebApplication {

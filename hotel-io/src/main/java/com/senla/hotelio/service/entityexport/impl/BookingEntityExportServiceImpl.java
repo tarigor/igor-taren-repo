@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 public class BookingEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "Booking";
 
-    private BookingServiceImpl bookingService;
+    private final BookingServiceImpl bookingService;
 
     @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
+    public BookingEntityExportServiceImpl(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
     }
 

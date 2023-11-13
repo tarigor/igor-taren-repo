@@ -28,6 +28,8 @@
         <hibernate.core.version>6.3.1.Final</hibernate.core.version>
         <spring.boot.version>3.1.5</spring.boot.version>
         <tomcat7.maven.plugin.version>2.2</tomcat7.maven.plugin.version>
+        <java.jwt.version>4.4.0</java.jwt.version>
+        <spring.security.version>6.1.5</spring.security.version>
     </properties>
 
     <build>
@@ -137,6 +139,7 @@
         <module>hotel-io</module>
         <module>hotel-serialization</module>
         <module>hotel-web</module>
+        <module>hotel-security</module>
     </modules>
 
     <dependencies>
@@ -221,6 +224,26 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java.jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
     </dependencies>
 </project>

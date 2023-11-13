@@ -9,34 +9,22 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class CsvExportServiceImpl {
-    private BookingEntityExportServiceImpl bookingEntityExportService;
-    private GuestEntityExportServiceImpl guestEntityExportService;
-    private GuestServicesEntityExportServiceImpl guestServicesEntityExportService;
-    private RoomEntityExportServiceImpl roomEntityExportService;
-    private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
+    private final BookingEntityExportServiceImpl bookingEntityExportService;
+    private final GuestEntityExportServiceImpl guestEntityExportService;
+    private final GuestServicesEntityExportServiceImpl guestServicesEntityExportService;
+    private final RoomEntityExportServiceImpl roomEntityExportService;
+    private final RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
 
     @Autowired
-    public void setBookingEntityExportService(BookingEntityExportServiceImpl bookingEntityExportService) {
+    public CsvExportServiceImpl(BookingEntityExportServiceImpl bookingEntityExportService,
+                                GuestEntityExportServiceImpl guestEntityExportService,
+                                GuestServicesEntityExportServiceImpl guestServicesEntityExportService,
+                                RoomEntityExportServiceImpl roomEntityExportService,
+                                RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {
         this.bookingEntityExportService = bookingEntityExportService;
-    }
-
-    @Autowired
-    public void setGuestEntityExportService(GuestEntityExportServiceImpl guestEntityExportService) {
         this.guestEntityExportService = guestEntityExportService;
-    }
-
-    @Autowired
-    public void setGuestServicesEntityExportService(GuestServicesEntityExportServiceImpl guestServicesEntityExportService) {
         this.guestServicesEntityExportService = guestServicesEntityExportService;
-    }
-
-    @Autowired
-    public void setRoomEntityExportService(RoomEntityExportServiceImpl roomEntityExportService) {
         this.roomEntityExportService = roomEntityExportService;
-    }
-
-    @Autowired
-    public void setRoomServiceEntityExportService(RoomServiceEntityExportServiceImpl roomServiceEntityExportService) {
         this.roomServiceEntityExportService = roomServiceEntityExportService;
     }
 

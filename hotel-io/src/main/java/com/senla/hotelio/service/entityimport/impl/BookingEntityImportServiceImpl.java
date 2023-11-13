@@ -21,23 +21,15 @@ import java.util.List;
 @Slf4j
 public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
     private final String ENTITY_NAME = "Booking";
-    private GuestServiceImpl guestService;
-    private RoomServiceImpl roomService;
-    private EntityDtoMapper entityDtoMapper;
+    private final GuestServiceImpl guestService;
+    private final RoomServiceImpl roomService;
+    private final EntityDtoMapper entityDtoMapper;
 
     @Autowired
-    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
-        this.entityDtoMapper = entityDtoMapper;
-    }
-
-    @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
+    public BookingEntityImportServiceImpl(GuestServiceImpl guestService, RoomServiceImpl roomService, EntityDtoMapper entityDtoMapper) {
         this.guestService = guestService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
         this.roomService = roomService;
+        this.entityDtoMapper = entityDtoMapper;
     }
 
     @Override

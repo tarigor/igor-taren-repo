@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoomServicesServiceImpl implements IRoomServicesService {
 
-    private RoomServiceRepository roomServiceRepository;
+    private final RoomServiceRepository roomServiceRepository;
 
     @Autowired
-    public void setRoomServiceRepository(RoomServiceRepository roomServiceRepository) {
+    public RoomServicesServiceImpl(RoomServiceRepository roomServiceRepository) {
         this.roomServiceRepository = roomServiceRepository;
     }
 

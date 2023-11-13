@@ -28,37 +28,25 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SerializationService {
     public static final String EXTENSION_JSON = ".json";
+    private final RoomServicesServiceImpl roomServicesService;
+    private final BookingServiceImpl bookingService;
+    private final GuestServiceImpl guestService;
+    private final GuestServicesServiceImpl guestServicesService;
+    private final RoomServiceImpl roomService;
     @Value("${json.export.path}")
     private String jsonExportPath;
-    private RoomServicesServiceImpl roomServicesService;
-    private BookingServiceImpl bookingService;
-    private GuestServiceImpl guestService;
-    private GuestServicesServiceImpl guestServicesService;
-    private RoomServiceImpl roomService;
 
     @Autowired
-    public void setBookingService(BookingServiceImpl bookingService) {
-        this.bookingService = bookingService;
-    }
-
-    @Autowired
-    public void setGuestService(GuestServiceImpl guestService) {
-        this.guestService = guestService;
-    }
-
-    @Autowired
-    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
-        this.guestServicesService = guestServicesService;
-    }
-
-    @Autowired
-    public void setRoomService(RoomServiceImpl roomService) {
-        this.roomService = roomService;
-    }
-
-    @Autowired
-    public void setRoomServicesService(RoomServicesServiceImpl roomServicesService) {
+    public SerializationService(RoomServicesServiceImpl roomServicesService,
+                                BookingServiceImpl bookingService,
+                                GuestServiceImpl guestService,
+                                GuestServicesServiceImpl guestServicesService,
+                                RoomServiceImpl roomService) {
         this.roomServicesService = roomServicesService;
+        this.bookingService = bookingService;
+        this.guestService = guestService;
+        this.guestServicesService = guestServicesService;
+        this.roomService = roomService;
     }
 
     public void serialize(String entityNameString) {

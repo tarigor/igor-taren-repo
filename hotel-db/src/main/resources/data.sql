@@ -1,11 +1,18 @@
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Igor', 'Ivanov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Sergei', 'Petrov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Ivan', 'Sidorov');
-INSERT INTO hotel.guest (first_name, last_name)
-VALUES ('Alex', 'Kirov');
+INSERT INTO hotel.guest (first_name, last_name, email, password, role)
+VALUES ('Admin', 'Admin', 'admin@mail.com', '$2a$12$l10zaZsfMHAW5StiZGDTSeApmG1mvNqnOMTCLvhfq.pw/hfe3OBfi',
+        'ROLE_ADMIN');
+INSERT INTO hotel.guest (first_name, last_name, email, password, role)
+VALUES ('Igor', 'Ivanov', 'ivanov@mail.com', '$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK',
+        'ROLE_GUEST');
+INSERT INTO hotel.guest (first_name, last_name, email, password, role)
+VALUES ('Sergei', 'Petrov', 'petrov@mail.com', '$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK',
+        'ROLE_GUEST');
+INSERT INTO hotel.guest (first_name, last_name, email, password, role)
+VALUES ('Ivan', 'Sidorov', 'sidorov@mail.com', '$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK',
+        'ROLE_GUEST');
+INSERT INTO hotel.guest (first_name, last_name, email, password, role)
+VALUES ('Alex', 'Kirov', 'kirov@mail.com', '$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK',
+        'ROLE_GUEST');
 
 INSERT INTO hotel.room (capacity, price, room_status, stars_rating)
 VALUES (1, 45.3, 'VACANT', 3);

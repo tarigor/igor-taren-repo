@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EntityDtoMapper {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public void setModelMapper(ModelMapper modelMapper) {
+    public EntityDtoMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

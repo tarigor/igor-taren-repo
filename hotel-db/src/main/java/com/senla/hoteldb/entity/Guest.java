@@ -33,6 +33,15 @@ public class Guest {
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
+    @Column(name = "email", nullable = false, length = 50)
+    private String email;
+
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
+
+    @Column(name = "role", nullable = false, length = 20)
+    private String role;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

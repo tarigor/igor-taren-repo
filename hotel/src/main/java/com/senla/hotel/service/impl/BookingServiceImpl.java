@@ -29,30 +29,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
+    private final BookingRepository bookingRepository;
+    private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
+    private final EntityDtoMapper entityDtoMapper;
     @Value("${number-of-guest-records-in-room-history}")
     private Integer roomHistoryLimit;
-    private BookingRepository bookingRepository;
-    private RoomRepository roomRepository;
-    private GuestRepository guestRepository;
-    private EntityDtoMapper entityDtoMapper;
 
     @Autowired
-    public void setBookingRepository(BookingRepository bookingRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository, RoomRepository roomRepository, GuestRepository guestRepository, EntityDtoMapper entityDtoMapper) {
         this.bookingRepository = bookingRepository;
-    }
-
-    @Autowired
-    public void setRoomRepository(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
-    }
-
-    @Autowired
-    public void setGuestRepository(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
-    }
-
-    @Autowired
-    public void setEntityDtoMapper(EntityDtoMapper entityDtoMapper) {
         this.entityDtoMapper = entityDtoMapper;
     }
 

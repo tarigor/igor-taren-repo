@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Service
 public class GuestServicesEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "GuestServices";
-    private GuestServicesServiceImpl guestServicesService;
+    private final GuestServicesServiceImpl guestServicesService;
 
     @Autowired
-    public void setGuestServicesService(GuestServicesServiceImpl guestServicesService) {
+    public GuestServicesEntityExportServiceImpl(GuestServicesServiceImpl guestServicesService) {
         this.guestServicesService = guestServicesService;
     }
 
