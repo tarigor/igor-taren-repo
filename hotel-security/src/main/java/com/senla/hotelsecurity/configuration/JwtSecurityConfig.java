@@ -16,8 +16,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.senla.hotelsecurity.enums.Role.ROLE_ADMIN;
-import static com.senla.hotelsecurity.enums.Role.ROLE_GUEST;
+import static com.senla.hotel.enums.Role.ROLE_ADMIN;
+import static com.senla.hotel.enums.Role.ROLE_GUEST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration

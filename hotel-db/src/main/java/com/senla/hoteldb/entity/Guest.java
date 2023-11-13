@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,6 @@ public class Guest {
     private String lastName;
 
     @Column(name = "email", nullable = false, length = 50)
-    @Email
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)

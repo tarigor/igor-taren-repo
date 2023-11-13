@@ -1,5 +1,6 @@
 package com.senla.hotelweb.controller;
 
+import com.senla.hotel.dto.GuestDto;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.dto.searchcriteria.RoomDetailsSearchCriteria;
 import com.senla.hotel.dto.searchcriteria.RoomSearchCriteria;
@@ -7,7 +8,9 @@ import com.senla.hotel.dto.searchcriteria.RoomServiceSearchCriteria;
 import com.senla.hotel.enums.Ordering;
 import com.senla.hotel.enums.RoomSection;
 import com.senla.hotel.enums.RoomServiceSection;
+import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.impl.BookingServiceImpl;
+import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.RoomService;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
@@ -43,6 +47,7 @@ public class AnyController {
     private final RoomServiceImpl roomService;
     private final BookingServiceImpl bookingService;
     private final RoomServicesServiceImpl roomServicesService;
+    private final GuestServiceImpl guestService;
 
     @Autowired
     public AnyController(AuthenticationManager authenticationManager,
@@ -50,13 +55,15 @@ public class AnyController {
                          JwtTokenService jwtTokenService,
                          RoomServiceImpl roomService,
                          BookingServiceImpl bookingService,
-                         RoomServicesServiceImpl roomServicesService) {
+                         RoomServicesServiceImpl roomServicesService,
+                         GuestServiceImpl guestService) {
         this.authenticationManager = authenticationManager;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.jwtTokenService = jwtTokenService;
         this.roomService = roomService;
         this.bookingService = bookingService;
         this.roomServicesService = roomServicesService;
+        this.guestService = guestService;
     }
 
     @PostMapping("/login")
@@ -74,6 +81,17 @@ public class AnyController {
         authenticationResponse.setExpirationTime(jwtTokenService.getExpirationTime(token));
         log.info("user token -> {} valid -> {}", authenticationResponse.getAccessToken(), authenticationResponse.getExpirationTime());
         return authenticationResponse;
+    }
+
+    @PostMapping("/registration")
+    public GuestDto register(@RequestBody @Valid GuestDto guestDto) {
+        GuestDto guest;
+        try {
+            guest = guestService.registerGuest(guestDto);
+        } catch (HotelModuleException e) {
+            throw new InvalidParameterException("There is an account with that email address: " + guestDto.getEmail());
+        }
+        return guest;
     }
 
     //1=List of rooms sorted by price

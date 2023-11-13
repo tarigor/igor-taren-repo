@@ -505,6 +505,37 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "registration",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstName\": \"admin\",\r\n    \"lastName\": \"admin\",\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin\",\r\n    \"role\": \"ROLE_ADMIN\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hotel/api/any/registration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hotel",
+            "api",
+            "any",
+            "registration"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }

@@ -1,7 +1,7 @@
 package com.senla.hotelsecurity.dto;
 
+import com.senla.hotel.enums.Role;
 import com.senla.hotel.validator.annotation.EnumValidator;
-import com.senla.hotelsecurity.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
