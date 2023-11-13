@@ -64,7 +64,7 @@ public class GuestServiceImpl implements IGuestService {
         Guest guest = new Guest();
         guest.setFirstName(guestDto.getFirstName());
         guest.setLastName(guestDto.getLastName());
-        guest.setPassword(passwordEncoder.encode(guestDto.getEmail()));
+        guest.setPassword(passwordEncoder.encode(guestDto.getPassword()));
         guest.setEmail(guestDto.getEmail());
         guest.setRole(guestDto.getRole());
         Guest savedGuest = guestRepository.save(guest);
