@@ -34,7 +34,6 @@ class GuestServiceImplTest {
     private Guest guest1, guest2, guest3;
     private List<Guest> guests;
 
-    private
     @BeforeEach
     void setUp() {
         guest1 = new Guest(1L, "Ivan", "Ivanov", "ivnov@mail.com", "", "");

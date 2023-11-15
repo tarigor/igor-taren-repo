@@ -157,6 +157,7 @@ class BookingServiceImplTest {
                 });
 
         List<RoomDto> availableRooms = bookingService.findAvailableRoomsByDate(dateString);
+
         assertEquals(expectedAvailableRoomList, availableRooms);
     }
 

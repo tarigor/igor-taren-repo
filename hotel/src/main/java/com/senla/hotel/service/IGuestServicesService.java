@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface IGuestServicesService {
-    void saveAll(List<GuestServices> guestServices);
+    List<GuestServices> saveAll(List<GuestServices> guestServices);
 
     //    View the list of guest services and their price (sort by price, by date);
     List<GuestServicesDto> getByGuestIdSorted(long guestId, GuestServicesSection guestServicesSection, Ordering ordering);
@@ -18,5 +18,5 @@ public interface IGuestServicesService {
 
     List<GuestServices> getAll();
 
-    GuestServices getById(long id);
+    GuestServicesDto getById(long id);
 }
