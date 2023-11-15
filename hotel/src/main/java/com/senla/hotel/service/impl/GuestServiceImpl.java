@@ -27,8 +27,8 @@ public class GuestServiceImpl implements IGuestService {
     }
 
     @Override
-    public void saveAll(List<Guest> guests) {
-        guestRepository.saveAll(guests);
+    public List<Guest> saveAll(List<Guest> guests) {
+        return guestRepository.saveAll(guests);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface IGuestService {
-    void saveAll(List<Guest> guests);
+    List<Guest> saveAll(List<Guest> guests);
 
     void updateAllAndSaveIfNotExist(ArrayList<Guest> guests);
 
