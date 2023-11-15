@@ -7,6 +7,7 @@ import com.senla.hotel.service.IBookingService;
 import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
+import com.senla.hoteldb.entity.Room;
 import com.senla.hoteldb.repository.BookingRepository;
 import com.senla.hoteldb.repository.GuestRepository;
 import com.senla.hoteldb.repository.RoomRepository;
@@ -87,36 +88,62 @@ public class BookingServiceImpl implements IBookingService {
     //    The amount of payment for the room to be paid by the guest;
     @Override
     public double getTotalPaymentByGuest(long guestId) {
-        Booking booking = getByGuestId(guestId);
-        Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
-        return roomRepository.findById(booking.getRoom().getId()).orElseThrow(() -> new NoSuchElementException("There is no such a booking with id->" + booking.getRoom().getId())).getPrice() * duration.toDays();
+        List<Room> rooms = roomRepository.findAll();
+        List<Booking> bookings = bookingRepository.findAll();
+        double totalPayment = 0;
+        for (Booking booking : bookings) {
+            double payment = 0;
+            if (booking.getGuest().getId() == guestId) {
+                Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
+                payment = duration.toDays() * rooms.stream().filter(r -> r.getId().equals(booking.getRoom().getId())).findAny().orElseThrow(() -> new NoSuchElementException("There is no such a booking with id->")).getPrice();
+            }
+            totalPayment = totalPayment + payment;
+        }
+        return totalPayment;
     }
 
     //    List of rooms that will be available on a certain date in the future;
     @Transactional
     @Override
     public List<RoomDto> findAvailableRoomsByDate(String dateString) {
-        System.out.println("DATE->" + dateString);
         Date date;
         try {
             date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
         } catch (ParseException e) {
             throw new IllegalArgumentException("Wrong date format. Proper format:dd-MM-yyyy");
         }
+        List<RoomDto> availableRooms = new ArrayList<>();
+        List<Room> rooms = roomRepository.findAll();
         List<Booking> bookings = bookingRepository.findAll();
-        return bookings.stream()
-                .filter(b -> ((b.getCheckInDate().after(date) && b.getCheckOutDate().after(date)) ||
-                        (b.getCheckInDate().before(date) && b.getCheckOutDate().before(date))))
-                .map(b -> roomRepository.findById(b.getRoom().getId()).orElseThrow(() -> new NoSuchElementException("There is no such a room with id->" + b.getRoom().getId())))
-                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class))
-                .collect(Collectors.toList());
+        List<RoomDto> roomDtoList = rooms.stream()
+                .map(room -> entityDtoMapper.convertFromEntityToDto(room, RoomDto.class)).toList();
+        for (RoomDto roomDto : roomDtoList) {
+            if (isRoomAvailableOnDate(roomDto, date, bookings)) {
+                availableRooms.add(roomDto);
+            }
+        }
+        return availableRooms;
+    }
+
+    private boolean isRoomAvailableOnDate(RoomDto roomDto, Date dateToCheck, List<Booking> bookings) {
+        for (Booking booking : bookings) {
+            if (booking.getRoom().getId().equals(roomDto.getId())) {
+                return dateToCheck.before(booking.getCheckInDate()) || dateToCheck.after(booking.getCheckOutDate());
+            }
+        }
+        return true;
     }
 
     @Override
-    public long findCountOfAllGuests() {
-        Date currentDate = new Date();
+    public long findCountOfAllGuests(String dateString) {
+        Date date;
+        try {
+            date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Wrong date format. Proper format:dd-MM-yyyy");
+        }
         return bookingRepository.findAll().stream()
-                .filter(b -> b.getCheckInDate().before(currentDate) && b.getCheckOutDate().after(currentDate))
+                .filter(b -> (b.getCheckInDate().before(date) || b.getCheckInDate().equals(date)) && (b.getCheckOutDate().after(date) || b.getCheckOutDate().equals(date)))
                 .count();
     }
 

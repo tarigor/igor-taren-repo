@@ -71,9 +71,9 @@ public class AdminController {
     }
 
     //7=Total number of guests
-    @GetMapping("/guests/total")
-    public long findCountOfAllGuests() {
-        return bookingService.findCountOfAllGuests();
+    @GetMapping("/guests/total/{date}")
+    public long findCountOfAllGuests(@PathVariable String date) {
+        return bookingService.findCountOfAllGuests(date);
     }
 
     //10=View the last 3 guests of the room and the dates of their stay

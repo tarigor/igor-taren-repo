@@ -2,11 +2,13 @@ package com.senla.hotel.dto;
 
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 public class BookingDto {
     private Long id;
     private Guest guest;
