@@ -118,9 +118,7 @@ public class AnyController {
     //12=Prices of services and rooms (sort by section(category), by price);
     @GetMapping("/rooms/prices")
     public List<RoomDto> getAllOrdered(@Valid RoomDetailsSearchCriteria roomDetailsSearchCriteria) {
-        RoomSection roomSection = RoomSection.valueOf(roomDetailsSearchCriteria.getSortBy());
-        Ordering ordering = Ordering.valueOf(roomDetailsSearchCriteria.getSortOrder());
-        return roomService.getAllOrdered(roomSection, ordering);
+        return roomService.getAllOrdered(roomDetailsSearchCriteria.getSortBy(), roomDetailsSearchCriteria.getSortOrder());
     }
 
     //13=Room services (ordered by ROME_SERVICES,PRICE) in ASC(DESC) manner
