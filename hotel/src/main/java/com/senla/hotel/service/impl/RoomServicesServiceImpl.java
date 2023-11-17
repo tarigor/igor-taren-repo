@@ -28,8 +28,8 @@ public class RoomServicesServiceImpl implements IRoomServicesService {
     }
 
     @Override
-    public void saveAll(List<RoomService> roomServices) {
-        roomServiceRepository.saveAll(roomServices);
+    public List<RoomService> saveAll(List<RoomService> roomServices) {
+        return roomServiceRepository.saveAll(roomServices);
     }
 
     @Override
