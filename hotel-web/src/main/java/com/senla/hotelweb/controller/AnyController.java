@@ -6,7 +6,6 @@ import com.senla.hotel.dto.searchcriteria.RoomDetailsSearchCriteria;
 import com.senla.hotel.dto.searchcriteria.RoomSearchCriteria;
 import com.senla.hotel.dto.searchcriteria.RoomServiceSearchCriteria;
 import com.senla.hotel.enums.Ordering;
-import com.senla.hotel.enums.RoomSection;
 import com.senla.hotel.enums.RoomServiceSection;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hotel.service.impl.BookingServiceImpl;

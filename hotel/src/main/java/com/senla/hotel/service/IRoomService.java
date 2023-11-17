@@ -1,8 +1,6 @@
 package com.senla.hotel.service;
 
 import com.senla.hotel.dto.RoomDto;
-import com.senla.hotel.enums.Ordering;
-import com.senla.hotel.enums.RoomSection;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hoteldb.entity.Room;
 
