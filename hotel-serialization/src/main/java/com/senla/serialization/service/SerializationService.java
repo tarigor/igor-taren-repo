@@ -58,11 +58,11 @@ public class SerializationService {
                 case GUEST -> serializeMap(guestService.getAll().stream()
                         .collect(Collectors.toMap(Guest::getId, guest -> guest)), "Guest");
                 case GUESTSERVICE -> serializeMap(guestServicesService.getAll().stream()
-                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestServices");
+                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestService");
                 case ROOM -> serializeMap(roomService.getAll().stream()
                         .collect(Collectors.toMap(Room::getId, room -> room)), "Room");
                 case ROOMSERVICE -> serializeMap(roomServicesService.getAll().stream()
-                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
+                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomService");
                 default -> log.error("There is no such an entity -> {}", entityName);
             }
         } catch (HotelSerializationModuleException e) {
