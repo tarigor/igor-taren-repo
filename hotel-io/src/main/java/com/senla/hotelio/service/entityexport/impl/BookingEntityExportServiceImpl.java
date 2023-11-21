@@ -13,22 +13,20 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class BookingEntityExportServiceImpl implements IExportService {
+public class BookingEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "Booking";
 
     private final BookingServiceImpl bookingService;
-    private final ExportService exportService;
 
     @Autowired
-    public BookingEntityExportServiceImpl(BookingServiceImpl bookingService, ExportService exportService) {
+    public BookingEntityExportServiceImpl(BookingServiceImpl bookingService) {
         this.bookingService = bookingService;
-        this.exportService = exportService;
     }
 
     @Override
     public void exportEntity() {
         List<Booking> bookings = bookingService.getAll();
-        exportService.storeEntityToCsv(
+        storeEntityToCsv(
                 ENTITY_FILENAME,
                 bookings.stream()
                         .map(b -> new BookingExport(b.getId(), b.getGuest().getId(), b.getRoom().getId(), b.getCheckInDate(), b.getCheckOutDate()))

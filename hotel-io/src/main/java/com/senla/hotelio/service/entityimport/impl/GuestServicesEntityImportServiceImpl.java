@@ -29,7 +29,7 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
     }
 
     @Override
-    public ArrayList<GuestServices> importEntities() throws HotelIoModuleException {
+    public ArrayList<GuestServices> importEntities() {
         ArrayList<GuestServices> guestsServices = new ArrayList<>();
         ArrayList<List<String>> guestsServicesWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> guestsServicesWithParameter : guestsServicesWithParameters) {

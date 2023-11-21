@@ -11,20 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoomServiceEntityExportServiceImpl implements IExportService {
+public class RoomServiceEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "RoomServices";
     private final RoomServicesServiceImpl roomServicesService;
-    private final ExportService exportService;
-
     @Autowired
-    public RoomServiceEntityExportServiceImpl(RoomServicesServiceImpl roomServicesService, ExportService exportService) {
+    public RoomServiceEntityExportServiceImpl(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;
-        this.exportService = exportService;
     }
 
     @Override
     public void exportEntity() {
         List<RoomService> roomServices = roomServicesService.getAll();
-        exportService.storeEntityToCsv(ENTITY_FILENAME, roomServices);
+        storeEntityToCsv(ENTITY_FILENAME, roomServices);
     }
 }

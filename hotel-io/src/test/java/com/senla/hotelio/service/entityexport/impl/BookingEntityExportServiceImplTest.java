@@ -4,7 +4,6 @@ import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
-import com.senla.hotelio.service.entityexport.ExportService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +27,6 @@ import static org.mockito.Mockito.when;
 class BookingEntityExportServiceImplTest {
     private static final String ENTITY_FILENAME = "booking";
     private static final String FILE_PATH = "src/test/resources/csv/export/";
-    @Mock
-    private ExportService exportService;
     @Mock
     private BookingServiceImpl bookingService;
     @InjectMocks
@@ -56,7 +53,7 @@ class BookingEntityExportServiceImplTest {
 
     @Test
     void exportEntityFileExistTest() {
-        exportService.setCsvExportPath(FILE_PATH);
+        bookingEntityExportService.setCsvExportPath(FILE_PATH);
 
         when(bookingService.getAll()).thenReturn(bookings);
 

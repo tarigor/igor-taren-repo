@@ -2,7 +2,6 @@ package com.senla.hotelio.service.entityexport;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,9 +12,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
 @Slf4j
-public class ExportService {
+public abstract class ExportService {
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "=([^,}]+)";
     @Value("${csv.export.path}")

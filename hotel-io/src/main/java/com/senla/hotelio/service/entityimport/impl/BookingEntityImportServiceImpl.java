@@ -7,7 +7,6 @@ import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,23 +18,30 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
+public class BookingEntityImportServiceImpl implements IImportService<Booking> {
     private final String ENTITY_NAME = "Booking";
     private final GuestServiceImpl guestService;
     private final RoomServiceImpl roomService;
     private final EntityDtoMapper entityDtoMapper;
 
+    private final ImportService importService;
     @Autowired
-    public BookingEntityImportServiceImpl(GuestServiceImpl guestService, RoomServiceImpl roomService, EntityDtoMapper entityDtoMapper) {
+    public BookingEntityImportServiceImpl(GuestServiceImpl guestService,
+                                          RoomServiceImpl roomService,
+                                          EntityDtoMapper entityDtoMapper,
+                                          ImportService importService) {
         this.guestService = guestService;
         this.roomService = roomService;
         this.entityDtoMapper = entityDtoMapper;
+        this.importService = importService;
     }
 
     @Override
-    public ArrayList<Booking> importEntities() throws HotelIoModuleException {
+    public ArrayList<Booking> importEntities() {
         ArrayList<Booking> bookings = new ArrayList<>();
-        ArrayList<List<String>> bookingsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
+        ArrayList<List<String>> bookingsWithParameters = importService.getEntitiesFromCsv(ENTITY_NAME);
+        System.out.println("res");
+        bookingsWithParameters.forEach(System.out::println);
         for (List<String> bookingsWithParameter : bookingsWithParameters) {
             try {
                 bookings.add(new Booking(

@@ -15,7 +15,7 @@ public class RoomEntityImportServiceImpl extends ImportService implements IImpor
     private final String ENTITY_NAME = "Room";
 
     @Override
-    public ArrayList<Room> importEntities() throws HotelIoModuleException {
+    public ArrayList<Room> importEntities() {
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<List<String>> roomsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> roomsWithParameter : roomsWithParameters) {

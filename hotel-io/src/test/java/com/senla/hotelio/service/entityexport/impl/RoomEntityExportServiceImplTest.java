@@ -25,8 +25,6 @@ class RoomEntityExportServiceImplTest {
     private final String ENTITY_FILENAME = "Room";
     private final String FILE_PATH = "src/test/resources/csv/export/";
     @Mock
-    private ExportService exportService;
-    @Mock
     private RoomServiceImpl roomService;
     @InjectMocks
     private RoomEntityExportServiceImpl roomEntityExportService;
@@ -43,7 +41,7 @@ class RoomEntityExportServiceImplTest {
 
     @Test
     void exportEntityFileExistTest() {
-        exportService.setCsvExportPath(FILE_PATH);
+        roomEntityExportService.setCsvExportPath(FILE_PATH);
 
         when(roomService.getAll()).thenReturn(rooms);
 
