@@ -2,7 +2,6 @@ package com.senla.hotelio.service.entityexport.impl;
 
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hoteldb.entity.Guest;
-import com.senla.hotelio.service.entityexport.ExportService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

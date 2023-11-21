@@ -5,32 +5,24 @@ import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.senla.hotel.enums.ServiceType.CLEANING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GuestServicesEntityImportServiceImplTest {
-
+    public static final String CSV_IMPORT_PATH = "src/test/resources/csv/import/";
     @Mock
     private GuestServiceImpl guestService;
     @Mock
@@ -49,18 +41,10 @@ class GuestServicesEntityImportServiceImplTest {
     }
 
     @Test
-    void importEntities() throws IOException, HotelIoModuleException {
-        String fileName = "GuestServices";
-        String inputCsv = "1,1,1,2023-09-22,0.0";
+    void importEntities() {
         GuestServices guestServiceToBeChecked = guestServices;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".csv"))) {
-            writer.write(inputCsv);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        ReflectionTestUtils.setField(guestServicesEntityImportService, "ENTITY_NAME", fileName);
-        ReflectionTestUtils.setField(guestServicesEntityImportService, "csvImportPath", "");
+        guestServicesEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);
 
         when(guestService.getById(guest.getId())).thenReturn(guest);
         when(roomServicesService.getById(roomService.getId())).thenReturn(roomService);
@@ -68,6 +52,5 @@ class GuestServicesEntityImportServiceImplTest {
         List<GuestServices> result = guestServicesEntityImportService.importEntities();
 
         assertEquals(List.of(guestServiceToBeChecked), result);
-        assertTrue(Files.deleteIfExists(Path.of(fileName + ".csv")));
     }
 }

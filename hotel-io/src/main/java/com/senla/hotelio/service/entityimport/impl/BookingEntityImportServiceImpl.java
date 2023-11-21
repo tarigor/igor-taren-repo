@@ -18,30 +18,24 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class BookingEntityImportServiceImpl implements IImportService<Booking> {
+public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
     private final String ENTITY_NAME = "Booking";
     private final GuestServiceImpl guestService;
     private final RoomServiceImpl roomService;
     private final EntityDtoMapper entityDtoMapper;
-
-    private final ImportService importService;
     @Autowired
     public BookingEntityImportServiceImpl(GuestServiceImpl guestService,
                                           RoomServiceImpl roomService,
-                                          EntityDtoMapper entityDtoMapper,
-                                          ImportService importService) {
+                                          EntityDtoMapper entityDtoMapper) {
         this.guestService = guestService;
         this.roomService = roomService;
         this.entityDtoMapper = entityDtoMapper;
-        this.importService = importService;
     }
 
     @Override
     public ArrayList<Booking> importEntities() {
         ArrayList<Booking> bookings = new ArrayList<>();
-        ArrayList<List<String>> bookingsWithParameters = importService.getEntitiesFromCsv(ENTITY_NAME);
-        System.out.println("res");
-        bookingsWithParameters.forEach(System.out::println);
+        ArrayList<List<String>> bookingsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> bookingsWithParameter : bookingsWithParameters) {
             try {
                 bookings.add(new Booking(

@@ -13,20 +13,16 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ImportService {
+public abstract class ImportService {
     private static final String DELIMITER = ",";
     private static final String EXTENSION = ".csv";
-//    @Value("${csv.import.path}")
-//    private String csvImportPath= "src/test/resources/csv/import";
-//
-//    public void setCsvImportPath(String csvImportPath) {
-//        this.csvImportPath = csvImportPath;
-//    }
+    @Value("${csv.import.path}")
+    private String csvImportPath= "src/test/resources/csv/import";
+    public void setCsvImportPath(String csvImportPath) {
+        this.csvImportPath = csvImportPath;
+    }
 
     public ArrayList<List<String>> getEntitiesFromCsv(String fileName) {
-        System.out.println("test");
-        String  csvImportPath = "";
-//        System.out.println("PATH IMPORT->" + csvImportPath);
         ArrayList<List<String>> entities = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(csvImportPath + fileName + EXTENSION))) {
             String line;

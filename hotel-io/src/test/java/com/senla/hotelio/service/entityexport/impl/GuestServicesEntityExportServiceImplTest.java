@@ -4,7 +4,6 @@ import com.senla.hotel.service.impl.GuestServicesServiceImpl;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.hotelio.service.entityexport.ExportService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

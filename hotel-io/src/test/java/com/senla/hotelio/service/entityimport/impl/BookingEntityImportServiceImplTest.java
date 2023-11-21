@@ -6,7 +6,7 @@ import com.senla.hotel.service.impl.RoomServiceImpl;
 import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
-import com.senla.hotelio.service.entityimport.ImportService;
+import com.senla.hoteldb.entity.Room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,13 +14,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingEntityImportServiceImplTest {
-    @Mock
-    private ImportService importService;
+    public static final String CSV_IMPORT_PATH = "src/test/resources/csv/import/";
     @Mock
     private RoomServiceImpl roomService;
     @Mock
@@ -29,48 +32,33 @@ class BookingEntityImportServiceImplTest {
     private EntityDtoMapper entityDtoMapper;
     @InjectMocks
     private BookingEntityImportServiceImpl bookingEntityImportService;
-    private Guest guest1, guest2;
-    private RoomDto room1, room2;
+    private Guest guest;
+    private RoomDto room;
 
     @BeforeEach
     void setUp() {
-        guest1 = new Guest(1L, "Ivan", "Ivanov", "ivanov@mail.com", "pass", "role");
-        guest2 = new Guest(2L, "Petr", "Petrov", "petrov@mail.com", "pass", "role");
-
-        room1 = new RoomDto(1L, 1, 11.1, "OCCUPIED", 1);
-        room2 = new RoomDto(2L, 1, 34.2, "OCCUPIED", 1);
+        guest = new Guest(1L, "Ivan", "Ivanov", "ivanov@mail.com", "pass", "role");
+        room = new RoomDto(1L, 1, 11.1, "OCCUPIED", 1);
     }
 
     @Test
-    void importEntitiesTest() throws IOException {
-        String fileName = "Booking";
-        String inputCsv = "1,1,1,2023-09-10,2023-09-13";
-//        Booking bookingToBeChecked = new Booking(
-//                1L,
-//                guest1,
-//                new Room(1L, 1, 11.1, "OCCUPIED", 1),
-//                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-10"),
-//                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-13"));
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".csv"))) {
-//            writer.write(inputCsv);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    void importEntitiesTest() throws ParseException {
+        Booking bookingToBeChecked = new Booking(
+                1L,
+                guest,
+                new Room(1L, 1, 11.1, "OCCUPIED", 1),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-10"),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-13"));
 
-//        ReflectionTestUtils.setField(bookingEntityImportService, "ENTITY_NAME", fileName);
-//        ReflectionTestUtils.setField(bookingEntityImportService, "csvImportPath", "");
+        bookingEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);
 
-//        importService.setCsvImportPath("src/test/resources/csv/import");
-
-//        when(guestService.getById(guest1.getId())).thenReturn(guest1);
-//        when(roomService.getRoom(room1.getId())).thenReturn(room1);
-//        when(entityDtoMapper.convertFromDtoToEntity(room1, Room.class)).thenReturn(
-//                new Room(room1.getId(), room1.getCapacity(), room1.getPrice(), room1.getRoomStatus(), room1.getStarsRating()));
+        when(guestService.getById(guest.getId())).thenReturn(guest);
+        when(roomService.getRoom(room.getId())).thenReturn(room);
+        when(entityDtoMapper.convertFromDtoToEntity(room, Room.class)).thenReturn(
+                new Room(room.getId(), room.getCapacity(), room.getPrice(), room.getRoomStatus(), room.getStarsRating()));
 
         List<Booking> bookingsResult = bookingEntityImportService.importEntities();
 
-        bookingsResult.forEach(System.out::println);
-//        assertEquals(List.of(bookingToBeChecked), bookingsResult);
-//        assertTrue(Files.deleteIfExists(Path.of(fileName + ".csv")));
+        assertEquals(List.of(bookingToBeChecked), bookingsResult);
     }
 }
