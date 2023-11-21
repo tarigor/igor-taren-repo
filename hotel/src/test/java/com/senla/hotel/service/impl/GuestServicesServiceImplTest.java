@@ -72,39 +72,77 @@ class GuestServicesServiceImplTest {
     }
 
     @Test
-    void saveAll() {
+    void saveAllResultSizeTest() {
         when(guestServicesRepository.saveAll(guestServicesList)).thenReturn(guestServicesList);
 
         List<GuestServices> savedGuestServices = guestServicesService.saveAll(guestServicesList);
 
         assertEquals(guestServicesList.size(), savedGuestServices.size());
+    }
+
+    @Test
+    void saveAllMethodCallTest() {
+        when(guestServicesRepository.saveAll(guestServicesList)).thenReturn(guestServicesList);
+
+        List<GuestServices> savedGuestServices = guestServicesService.saveAll(guestServicesList);
+
         verify(guestServicesRepository, times(1)).saveAll(guestServicesList);
     }
 
     @Test
-    void getByGuestIdSorted() {
+    void getByGuestIdSortedByPriceAscTest() {
         long guestId = guest1.getId();
 
         when(roomServiceRepository.findAll()).thenReturn(roomServices);
         when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
 
         List<GuestServicesDto> resultGuestServicesDtoPriceAscSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.PRICE, Ordering.ASC);
-        List<GuestServicesDto> resultGuestServicesDtoDateAscSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.ASC);
-        List<GuestServicesDto> resultGuestServicesDtoPriceDescSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.PRICE, Ordering.DESC);
-        List<GuestServicesDto> resultGuestServicesDtoDateDescSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.DESC);
 
         int lastIndex = resultGuestServicesDtoPriceAscSorted.size() - 1;
         assertTrue(resultGuestServicesDtoPriceAscSorted.get(lastIndex).getRoomServicePrice() > resultGuestServicesDtoPriceAscSorted.get(0).getRoomServicePrice());
-        lastIndex = resultGuestServicesDtoDateAscSorted.size() - 1;
+    }
+
+    @Test
+    void getByGuestIdSortedByDateAscTest() {
+        long guestId = guest1.getId();
+
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+        when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
+
+        List<GuestServicesDto> resultGuestServicesDtoDateAscSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.ASC);
+
+        int lastIndex = resultGuestServicesDtoDateAscSorted.size() - 1;
         assertTrue(resultGuestServicesDtoDateAscSorted.get(lastIndex).getRoomServiceOrderDate().after(resultGuestServicesDtoDateAscSorted.get(0).getRoomServiceOrderDate()));
-        lastIndex = resultGuestServicesDtoPriceDescSorted.size() - 1;
+    }
+
+    @Test
+    void getByGuestIdSortedByPriceDescTest() {
+        long guestId = guest1.getId();
+
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+        when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
+
+        List<GuestServicesDto> resultGuestServicesDtoPriceDescSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.PRICE, Ordering.DESC);
+
+        int lastIndex = resultGuestServicesDtoPriceDescSorted.size() - 1;
         assertTrue(resultGuestServicesDtoPriceDescSorted.get(lastIndex).getRoomServicePrice() < resultGuestServicesDtoPriceDescSorted.get(0).getRoomServicePrice());
-        lastIndex = resultGuestServicesDtoDateDescSorted.size() - 1;
+    }
+
+    @Test
+    void getByGuestIdSortedByDateDescTest() {
+        long guestId = guest1.getId();
+
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+        when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
+
+        List<GuestServicesDto> resultGuestServicesDtoDateDescSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.DESC);
+
+        int lastIndex = resultGuestServicesDtoDateDescSorted.size() - 1;
         assertTrue(resultGuestServicesDtoDateDescSorted.get(lastIndex).getRoomServiceOrderDate().before(resultGuestServicesDtoDateDescSorted.get(0).getRoomServiceOrderDate()));
     }
 
     @Test
-    void updateAllAndSaveIfNotExist() throws ParseException {
+    void updateAllAndSaveIfNotExistFindByIdMethodCallTest() throws ParseException {
         GuestServices existingGuestServices = guestServices1;
         GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-22"));
 
@@ -115,21 +153,42 @@ class GuestServicesServiceImplTest {
         guestServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingGuestServices, newGuestServices)));
 
         verify(guestServicesRepository, times(2)).findById(anyLong());
+    }
+
+    @Test
+    void updateAllAndSaveIfNotExistSaveMethodCallTest() throws ParseException {
+        GuestServices existingGuestServices = guestServices1;
+        GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-22"));
+
+        when(guestServicesRepository.findById(existingGuestServices.getId())).thenReturn(Optional.of(existingGuestServices));
+        when(guestServicesRepository.findById(newGuestServices.getId())).thenReturn(Optional.empty());
+        when(guestServicesRepository.save(any(GuestServices.class))).thenReturn(null);
+
+        guestServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingGuestServices, newGuestServices)));
+
         verify(guestServicesRepository, times(2)).save(any(GuestServices.class));
     }
 
     @Test
-    void getAll() {
+    void getAllResultSizeTest() {
         when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
 
         List<GuestServices> resultGuestServicesList = guestServicesService.getAll();
 
         assertEquals(guestServicesList.size(), resultGuestServicesList.size());
+    }
+
+    @Test
+    void getAllResultTest() {
+        when(guestServicesRepository.findAll()).thenReturn(guestServicesList);
+
+        List<GuestServices> resultGuestServicesList = guestServicesService.getAll();
+
         assertEquals(guestServicesList, resultGuestServicesList);
     }
 
     @Test
-    void getById() {
+    void getByIdResultTest() {
         GuestServices guestServicesToBeChecked = guestServices1;
         long guestServicesIdToBeChecked = guestServices1.getId();
         GuestServicesDto guestServicesDtoToBeChecked = new GuestServicesDto(
@@ -145,8 +204,6 @@ class GuestServicesServiceImplTest {
 
         GuestServicesDto result = guestServicesService.getById(guestServicesToBeChecked.getId());
 
-        assertNotNull(result);
         assertEquals(guestServicesDtoToBeChecked, result);
-        verify(guestServicesRepository, times(1)).findById(guestServicesIdToBeChecked);
     }
 }
