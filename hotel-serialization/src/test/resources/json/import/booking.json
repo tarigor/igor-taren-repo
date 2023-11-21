@@ -1,0 +1,42 @@
+{
+  "1": {
+    "id": 1,
+    "guest": {
+      "id": 1,
+      "firstName": "Igor",
+      "lastName": "Ivanov",
+      "email": "ivanov@mail.com",
+      "password": "pass",
+      "role": "role"
+    },
+    "room": {
+      "id": 1,
+      "capacity": 1,
+      "price": 11.1,
+      "roomStatus": "OCCUPIED",
+      "starsRating": 1
+    },
+    "checkInDate": "11-11-2023",
+    "checkOutDate": "12-11-2023"
+  },
+  "2": {
+    "id": 2,
+    "guest": {
+      "id": 2,
+      "firstName": "Sergei",
+      "lastName": "Petrov",
+      "email": "spetrov@mail.com",
+      "password": "pass",
+      "role": "role"
+    },
+    "room": {
+      "id": 2,
+      "capacity": 1,
+      "price": 21.1,
+      "roomStatus": "OCCUPIED",
+      "starsRating": 1
+    },
+    "checkInDate": "15-11-2023",
+    "checkOutDate": "16-11-2023"
+  }
+}

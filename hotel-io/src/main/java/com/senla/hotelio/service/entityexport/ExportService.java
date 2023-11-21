@@ -1,8 +1,8 @@
 package com.senla.hotelio.service.entityexport;
 
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,15 +13,19 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 @Slf4j
-public abstract class ExportService {
-    private static final String EXPORT_PATH = "\\hotel-io\\src\\main\\resources\\csv\\export";
+public class ExportService {
     private static final String EXTENSION = ".csv";
     private static final String REGEX = "=([^,}]+)";
     @Value("${csv.export.path}")
     private String csvExportPath;
 
-    protected <T> void storeEntityToCsv(String entityFileName, List<T> list) throws HotelIoModuleException {
+    public void setCsvExportPath(String csvExportPath) {
+        this.csvExportPath = csvExportPath;
+    }
+
+    public <T> void storeEntityToCsv(String entityFileName, List<T> list) {
         try {
             Path path = Paths.get(csvExportPath + entityFileName + EXTENSION);
             Files.deleteIfExists(path);
@@ -30,8 +34,6 @@ public abstract class ExportService {
             }
         } catch (IOException e) {
             log.error("an error occurred during file operation -> {}", e.getMessage());
-            System.out.println(e.getMessage());
-            throw new HotelIoModuleException(e);
         }
     }
 

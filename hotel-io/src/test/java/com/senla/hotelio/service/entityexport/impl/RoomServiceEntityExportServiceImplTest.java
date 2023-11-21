@@ -2,14 +2,14 @@ package com.senla.hotelio.service.entityexport.impl;
 
 import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.RoomService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
+import com.senla.hotelio.service.entityexport.ExportService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.context.event.annotation.AfterTestExecution;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +26,8 @@ import static org.mockito.Mockito.when;
 class RoomServiceEntityExportServiceImplTest {
     private final String ENTITY_FILENAME = "RoomServices";
     @Mock
+    private ExportService exportService;
+    @Mock
     private RoomServicesServiceImpl roomServicesService;
     @InjectMocks
     private RoomServiceEntityExportServiceImpl roomServiceEntityExportService;
@@ -41,16 +43,20 @@ class RoomServiceEntityExportServiceImplTest {
     }
 
     @Test
-    void exportEntity() throws HotelIoModuleException, IOException {
+    void exportEntityFileExistTest() {
         String filePath = "";
-        ReflectionTestUtils.setField(roomServiceEntityExportService, "ENTITY_FILENAME", ENTITY_FILENAME);
-        ReflectionTestUtils.setField(roomServiceEntityExportService, "csvExportPath", filePath);
+        exportService.setCsvExportPath(filePath);
 
         when(roomServicesService.getAll()).thenReturn(roomServices);
 
         roomServiceEntityExportService.exportEntity();
 
         assertTrue(Files.exists(Path.of(filePath)));
-        assertTrue(Files.deleteIfExists(Path.of(filePath + ENTITY_FILENAME + ".csv")));
+    }
+
+    @AfterTestExecution
+    public void deleteFile() throws IOException {
+        String filePath = "";
+        Files.deleteIfExists(Path.of(filePath + ENTITY_FILENAME + ".csv"));
     }
 }

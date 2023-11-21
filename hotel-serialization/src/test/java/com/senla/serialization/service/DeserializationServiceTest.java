@@ -6,23 +6,23 @@ import com.senla.hoteldb.entity.Room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class DeserializationServiceTest {
+
     private final HashMap<Long, Booking> bookingMap = new HashMap<>();
     @InjectMocks
     private DeserializationService deserializationService;
@@ -42,64 +42,10 @@ class DeserializationServiceTest {
     }
 
     @Test
-    void deserialize() throws IOException {
-        String jsonContent = "{\n" +
-                "  \"1\": {\n" +
-                "    \"id\": 1,\n" +
-                "    \"guest\": {\n" +
-                "      \"id\": 1,\n" +
-                "      \"firstName\": \"Igor\",\n" +
-                "      \"lastName\": \"Ivanov\",\n" +
-                "      \"email\": \"ivanov@mail.com\",\n" +
-                "      \"password\": \"pass\",\n" +
-                "      \"role\": \"role\"\n" +
-                "    },\n" +
-                "    \"room\": {\n" +
-                "      \"id\": 1,\n" +
-                "      \"capacity\": 1,\n" +
-                "      \"price\": 11.1,\n" +
-                "      \"roomStatus\": \"OCCUPIED\",\n" +
-                "      \"starsRating\": 1\n" +
-                "    },\n" +
-                "    \"checkInDate\": \"11-11-2023\",\n" +
-                "    \"checkOutDate\": \"12-11-2023\"\n" +
-                "  },\n" +
-                "  \"2\": {\n" +
-                "    \"id\": 2,\n" +
-                "    \"guest\": {\n" +
-                "      \"id\": 2,\n" +
-                "      \"firstName\": \"Sergei\",\n" +
-                "      \"lastName\": \"Petrov\",\n" +
-                "      \"email\": \"spetrov@mail.com\",\n" +
-                "      \"password\": \"pass\",\n" +
-                "      \"role\": \"role\"\n" +
-                "    },\n" +
-                "    \"room\": {\n" +
-                "      \"id\": 2,\n" +
-                "      \"capacity\": 1,\n" +
-                "      \"price\": 21.1,\n" +
-                "      \"roomStatus\": \"OCCUPIED\",\n" +
-                "      \"starsRating\": 1\n" +
-                "    },\n" +
-                "    \"checkInDate\": \"15-11-2023\",\n" +
-                "    \"checkOutDate\": \"16-11-2023\"\n" +
-                "  }\n" +
-                "}";
-
-        String filePath = "booking.json";
-
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-            fileWriter.write(jsonContent);
-            System.out.println("JSON written to file successfully!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ReflectionTestUtils.setField(deserializationService, "jsonImportPath", "");
+    void deserializeTest() {
+        deserializationService.setJsonImportPath("src/test/resources/json/import/");
 
         HashMap<Long, Booking> result = (HashMap<Long, Booking>) deserializationService.deserialize("booking");
-
         assertEquals(bookingMap, result);
-        assertTrue(Files.exists(Path.of(filePath)));
-        assertTrue(Files.deleteIfExists(Path.of(filePath)));
     }
 }

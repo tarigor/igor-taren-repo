@@ -2,14 +2,14 @@ package com.senla.hotelio.service.entityexport.impl;
 
 import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hoteldb.entity.Guest;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
+import com.senla.hotelio.service.entityexport.ExportService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.context.event.annotation.AfterTestExecution;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +22,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GuestEntityExportServiceImplTest {
     private static final String ENTITY_FILENAME = "guest";
+    @Mock
+    private ExportService exportService;
     @Mock
     private GuestServiceImpl guestService;
     @InjectMocks
@@ -37,16 +39,20 @@ class GuestEntityExportServiceImplTest {
     }
 
     @Test
-    void exportEntity() throws IOException, HotelIoModuleException {
+    void exportEntityFileExistTest() {
         String filePath = "";
-        ReflectionTestUtils.setField(guestEntityExportService, "ENTITY_FILENAME", "Guest");
-        ReflectionTestUtils.setField(guestEntityExportService, "csvExportPath", filePath);
+        exportService.setCsvExportPath(filePath);
 
         when(guestService.getAll()).thenReturn(guests);
 
         guestEntityExportService.exportEntity();
 
         assertTrue(Files.exists(Path.of(filePath)));
-        assertTrue(Files.deleteIfExists(Path.of(filePath + ENTITY_FILENAME + ".csv")));
+    }
+
+    @AfterTestExecution
+    public void deleteFile() throws IOException {
+        String filePath = "";
+        Files.deleteIfExists(Path.of(filePath + ENTITY_FILENAME + ".csv"));
     }
 }

@@ -25,9 +25,12 @@ import java.util.NoSuchElementException;
 @Service
 @Slf4j
 public class DeserializationService {
-
     @Value("${json.import.path}")
     private String jsonImportPath;
+
+    public void setJsonImportPath(String jsonImportPath) {
+        this.jsonImportPath = jsonImportPath;
+    }
 
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();

@@ -5,7 +5,6 @@ import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +13,22 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class BookingEntityExportServiceImpl extends ExportService implements IExportService {
+public class BookingEntityExportServiceImpl implements IExportService {
     private final String ENTITY_FILENAME = "Booking";
 
     private final BookingServiceImpl bookingService;
+    private final ExportService exportService;
 
     @Autowired
-    public BookingEntityExportServiceImpl(BookingServiceImpl bookingService) {
+    public BookingEntityExportServiceImpl(BookingServiceImpl bookingService, ExportService exportService) {
         this.bookingService = bookingService;
+        this.exportService = exportService;
     }
 
     @Override
-    public void exportEntity() throws HotelIoModuleException {
+    public void exportEntity() {
         List<Booking> bookings = bookingService.getAll();
-        storeEntityToCsv(
+        exportService.storeEntityToCsv(
                 ENTITY_FILENAME,
                 bookings.stream()
                         .map(b -> new BookingExport(b.getId(), b.getGuest().getId(), b.getRoom().getId(), b.getCheckInDate(), b.getCheckOutDate()))
