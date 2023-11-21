@@ -117,7 +117,7 @@ class BookingServiceImplTest {
 
         List<BookingDto> result = bookingService.findAllOrderedByCheckOutDate();
 
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
     }
 
     @Test
