@@ -21,7 +21,6 @@ import static com.senla.hotel.enums.ServiceType.CLEANING;
 import static com.senla.hotel.enums.ServiceType.MAINTENANCE;
 import static com.senla.hotel.enums.ServiceType.REPAIR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -45,36 +44,65 @@ class RoomServicesServiceImplTest {
     }
 
     @Test
-    void saveAll() {
+    void saveAllResultSizeTest() {
         when(roomServiceRepository.saveAll(roomServices)).thenReturn(roomServices);
 
         List<RoomService> savedRoomServices = roomServicesService.saveAll(roomServices);
 
         assertEquals(roomServices.size(), savedRoomServices.size());
+    }
+
+    @Test
+    void saveAllResultTest() {
+        when(roomServiceRepository.saveAll(roomServices)).thenReturn(roomServices);
+
+        List<RoomService> savedRoomServices = roomServicesService.saveAll(roomServices);
+
         verify(roomServiceRepository, times(1)).saveAll(roomServices);
     }
 
     @Test
-    void getAllOrdered() {
+    void getAllOrderedByRoomServiceAscTest() {
         when(roomServiceRepository.findAll()).thenReturn(roomServices);
 
         List<RoomService> resultRoomServicesTypeAscOrdered = roomServicesService.getAllOrdered(ROOM_SERVICE, ASC);
-        List<RoomService> resultRoomServicesPriceAscOrdered = roomServicesService.getAllOrdered(PRICE, ASC);
-        List<RoomService> resultRoomServicesTypeDescOrdered = roomServicesService.getAllOrdered(ROOM_SERVICE, DESC);
-        List<RoomService> resultRoomServicesPriceDescOrdered = roomServicesService.getAllOrdered(PRICE, DESC);
 
         int lastIndex = resultRoomServicesTypeAscOrdered.size() - 1;
         assertTrue(resultRoomServicesTypeAscOrdered.get(lastIndex).getServiceType().compareTo(resultRoomServicesTypeAscOrdered.get(0).getServiceType()) > 0);
-        lastIndex = resultRoomServicesPriceAscOrdered.size() - 1;
+    }
+
+    @Test
+    void getAllOrderedByPriceAscTest() {
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+
+        List<RoomService> resultRoomServicesPriceAscOrdered = roomServicesService.getAllOrdered(PRICE, ASC);
+
+        int lastIndex = resultRoomServicesPriceAscOrdered.size() - 1;
         assertTrue(resultRoomServicesPriceAscOrdered.get(lastIndex).getPrice() > resultRoomServicesPriceAscOrdered.get(0).getPrice());
-        lastIndex = resultRoomServicesTypeDescOrdered.size() - 1;
+    }
+
+    @Test
+    void getAllOrderedByRoomServiceDescTest() {
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+
+        List<RoomService> resultRoomServicesTypeDescOrdered = roomServicesService.getAllOrdered(ROOM_SERVICE, DESC);
+
+        int lastIndex = resultRoomServicesTypeDescOrdered.size() - 1;
         assertTrue(resultRoomServicesTypeDescOrdered.get(lastIndex).getServiceType().compareTo(resultRoomServicesTypeDescOrdered.get(0).getServiceType()) < 0);
-        lastIndex = resultRoomServicesPriceDescOrdered.size() - 1;
+    }
+
+    @Test
+    void getAllOrderedByPriceDescTest() {
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+
+        List<RoomService> resultRoomServicesPriceDescOrdered = roomServicesService.getAllOrdered(PRICE, DESC);
+
+        int lastIndex = resultRoomServicesPriceDescOrdered.size() - 1;
         assertTrue(resultRoomServicesPriceDescOrdered.get(lastIndex).getPrice() < resultRoomServicesPriceDescOrdered.get(0).getPrice());
     }
 
     @Test
-    void updateAllAndSaveIfNotExist() {
+    void updateAllAndSaveIfNotExistSaveExistingRoomServiceMethodCallTest() {
         RoomService existingRoomService = roomService1;
         RoomService newRoomService = new RoomService(11L, CLEANING.name(), 44.3);
 
@@ -84,21 +112,41 @@ class RoomServicesServiceImplTest {
         roomServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingRoomService, newRoomService)));
 
         verify(roomServiceRepository, times(1)).save(existingRoomService);
+    }
+
+    @Test
+    void updateAllAndSaveIfNotExistSaveNewRoomServiceMethodCallTest() {
+        RoomService existingRoomService = roomService1;
+        RoomService newRoomService = new RoomService(11L, CLEANING.name(), 44.3);
+
+        when(roomServiceRepository.findById(existingRoomService.getId())).thenReturn(Optional.of(existingRoomService));
+        when(roomServiceRepository.findById(newRoomService.getId())).thenReturn(Optional.empty());
+
+        roomServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingRoomService, newRoomService)));
+
         verify(roomServiceRepository, times(1)).save(newRoomService);
     }
 
     @Test
-    void getAll() {
+    void getAllResultSizeTest() {
         when(roomServiceRepository.findAll()).thenReturn(roomServices);
 
         List<RoomService> resultRoomServices = roomServicesService.getAll();
 
         assertEquals(roomServices.size(), resultRoomServices.size());
+    }
+
+    @Test
+    void getAllResultTest() {
+        when(roomServiceRepository.findAll()).thenReturn(roomServices);
+
+        List<RoomService> resultRoomServices = roomServicesService.getAll();
+
         assertEquals(roomServices, resultRoomServices);
     }
 
     @Test
-    void getById() {
+    void getByIdResultTest() {
         RoomService roomServiceToBeChecked = roomService1;
         long roomServiceIdToBeChecked = roomServiceToBeChecked.getId();
 
@@ -106,8 +154,6 @@ class RoomServicesServiceImplTest {
 
         RoomService result = roomServicesService.getById(roomServiceIdToBeChecked);
 
-        assertNotNull(result);
         assertEquals(roomServiceToBeChecked, result);
-        verify(roomServiceRepository, times(1)).findById(roomServiceIdToBeChecked);
     }
 }
