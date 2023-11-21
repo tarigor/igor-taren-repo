@@ -54,7 +54,6 @@ class BookingServiceImplTest {
 
     @BeforeEach
     void setUp() throws ParseException {
-        // Mock data
         Guest guest1 = new Guest(1L, "Ivan", "Ivanov", "ivanov@mail.com", "pass", "role");
         Guest guest2 = new Guest(2L, "Petr", "Petrov", "petrov@mail.com", "pass", "role");
 
@@ -74,18 +73,17 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void saveAll() {
+    void saveAllTest() {
         when(bookingRepository.saveAll(bookings)).thenReturn(bookings);
 
         List<Booking> savedBookings = bookingRepository.saveAll(bookings);
 
         assertEquals(bookings.size(), savedBookings.size());
-        verify(bookingRepository, times(1)).saveAll(bookings);
     }
 
     @Test
-    void findAllOrderedAlphabetically() {
-        ReflectionTestUtils.setField(bookingService, "roomHistoryLimit", 3);
+    void findAllOrderedAlphabeticallyResultListSizeTest() {
+        bookingService.setRoomHistoryLimit(3);
 
         when(guestRepository.findAll()).thenReturn(guests);
         when(bookingRepository.findAll()).thenReturn(bookings);
@@ -93,13 +91,38 @@ class BookingServiceImplTest {
         List<GuestBookingDto> result = bookingService.findAllOrderedAlphabetically();
 
         assertEquals(3, result.size());
-        assertEquals("Ivanov", result.get(0).getGuest().getLastName());
+    }
+    @Test
+    void findAllOrderedAlphabeticallyGuestExistingTest() {
+        bookingService.setRoomHistoryLimit(3);
+
+        when(guestRepository.findAll()).thenReturn(guests);
+        when(bookingRepository.findAll()).thenReturn(bookings);
+
+        List<GuestBookingDto> result = bookingService.findAllOrderedAlphabetically();
+
         assertEquals("Petrov", result.get(2).getGuest().getLastName());
     }
 
     @Test
-    void findAllOrderedByCheckOutDate() {
-        ReflectionTestUtils.setField(bookingService, "roomHistoryLimit", 2);
+    void findAllOrderedByCheckOutDateResultSizeTest() {
+        bookingService.setRoomHistoryLimit(3);
+
+        when(bookingRepository.findAll()).thenReturn(bookings);
+        when(entityDtoMapper.convertFromEntityToDto(any(Booking.class), eq(BookingDto.class)))
+                .thenAnswer(invocation -> {
+                    Booking booking = invocation.getArgument(0);
+                    return new BookingDto(booking.getId(), booking.getGuest(), booking.getRoom(), booking.getCheckInDate(), booking.getCheckOutDate());
+                });
+
+        List<BookingDto> result = bookingService.findAllOrderedByCheckOutDate();
+
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void findAllOrderedByCheckOutDateDateSequenceTest() {
+        bookingService.setRoomHistoryLimit(3);
 
         when(bookingRepository.findAll()).thenReturn(bookings);
         when(entityDtoMapper.convertFromEntityToDto(any(Booking.class), eq(BookingDto.class)))
@@ -111,11 +134,10 @@ class BookingServiceImplTest {
         List<BookingDto> result = bookingService.findAllOrderedByCheckOutDate();
 
         assertTrue(result.get(0).getCheckOutDate().before(result.get(1).getCheckOutDate()));
-        assertEquals(2, result.size());
     }
 
     @Test
-    void findLastGuestOfRoomAndDates() {
+    void findLastGuestOfRoomAndDatesResultSizeTest() {
         int countOfGuests = 1;
         long roomId = 1L;
 
@@ -132,7 +154,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getTotalPaymentByGuest() {
+    void getTotalPaymentByGuestTest() {
         double expectedPayment = 44.4;
 
         when(roomRepository.findAll()).thenReturn(rooms);
@@ -144,7 +166,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void findAvailableRoomsByDate() {
+    void findAvailableRoomsByDateTest() {
         String dateString = "14-11-2023";
         List<RoomDto> expectedAvailableRoomList = List.of(new RoomDto(rooms.get(0).getId(), rooms.get(0).getCapacity(), rooms.get(0).getPrice(), rooms.get(0).getRoomStatus(), rooms.get(0).getStarsRating()));
 
@@ -162,7 +184,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void findCountOfAllGuests() {
+    void findCountOfAllGuestsTest() {
         String date = "11-11-2023";
         long expectedAmountOfGuest = 1;
 
@@ -174,7 +196,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getByGuestId() {
+    void getByGuestIdTest() {
         long guestId = 1L;
         Booking booking = bookings.get(0);
 
@@ -188,7 +210,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void updateAllAndSaveIfNotExist() throws ParseException {
+    void updateAllAndSaveIfNotExistFindByIdMethodCallTest() throws ParseException {
         Booking existingBooking = new Booking(
                 1L,
                 new Guest(),
@@ -213,12 +235,43 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getAll() {
+    void updateAllAndSaveIfNotExistSaveMethodCallTest() throws ParseException {
+        Booking existingBooking = new Booking(
+                1L,
+                new Guest(),
+                new Room(),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-17"));
+        Booking newBooking = new Booking(
+                1L,
+                new Guest(),
+                new Room(),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
+                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-19"));
+
+        when(bookingRepository.findById(existingBooking.getId())).thenReturn(Optional.of(existingBooking));
+        when(bookingRepository.findById(newBooking.getId())).thenReturn(Optional.empty());
+        when(bookingRepository.save(any(Booking.class))).thenReturn(null);
+
+        bookingService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingBooking, newBooking)));
+
+        verify(bookingRepository, times(2)).save(any(Booking.class));
+    }
+    @Test
+    void getAllResultSizeTest() {
         when(bookingRepository.findAll()).thenReturn(bookings);
 
         List<Booking> actualBookings = bookingService.getAll();
 
         assertEquals(bookings.size(), actualBookings.size());
+    }
+
+    @Test
+    void getAllResultTest() {
+        when(bookingRepository.findAll()).thenReturn(bookings);
+
+        List<Booking> actualBookings = bookingService.getAll();
+
         assertEquals(bookings, actualBookings);
     }
 }

@@ -37,6 +37,10 @@ public class BookingServiceImpl implements IBookingService {
     @Value("${number-of-guest-records-in-room-history}")
     private Integer roomHistoryLimit;
 
+    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
+        this.roomHistoryLimit = roomHistoryLimit;
+    }
+
     @Autowired
     public BookingServiceImpl(BookingRepository bookingRepository, RoomRepository roomRepository, GuestRepository guestRepository, EntityDtoMapper entityDtoMapper) {
         this.bookingRepository = bookingRepository;
