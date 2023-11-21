@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.senla.hotel.enums.ServiceType.CLEANING;
@@ -41,7 +42,7 @@ class GuestServicesEntityExportServiceImplTest {
         RoomService roomService1 = new RoomService(1L, CLEANING.name(), 12.3);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         GuestServices guestServices1 = new GuestServices(1L, guest1, roomService1, LocalDate.parse("22-09-2023", dateTimeFormatter));
-        guestServicesList = List.of(guestServices1);
+        guestServicesList = Arrays.asList(guestServices1);
     }
 
     @Test

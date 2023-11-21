@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ class GuestServicesServiceImplTest {
         roomService1 = new RoomService(1L, CLEANING.name(), 12.3);
         roomService2 = new RoomService(2L, REPAIR.name(), 16.2);
         roomService3 = new RoomService(3L, MAINTENANCE.name(), 14.6);
-        roomServices = List.of(roomService1, roomService2, roomService3);
+        roomServices = Arrays.asList(roomService1, roomService2, roomService3);
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         guestServices1 = new GuestServices(1L, guest1, roomService1, LocalDate.parse("22-09-2023", dateTimeFormatter));
@@ -70,7 +71,7 @@ class GuestServicesServiceImplTest {
         guestServices4 = new GuestServices(4L, guest2, roomService3, LocalDate.parse("12-07-2023", dateTimeFormatter));
         guestServices5 = new GuestServices(5L, guest3, roomService1, LocalDate.parse("20-03-2023", dateTimeFormatter));
         guestServices6 = new GuestServices(6L, guest3, roomService3, LocalDate.parse("21-03-2023", dateTimeFormatter));
-        guestServicesList = List.of(guestServices1, guestServices2, guestServices3, guestServices4, guestServices5, guestServices6);
+        guestServicesList = Arrays.asList(guestServices1, guestServices2, guestServices3, guestServices4, guestServices5, guestServices6);
     }
 
     @Test

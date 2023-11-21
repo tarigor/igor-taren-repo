@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.senla.hotel.enums.ServiceType.CLEANING;
@@ -37,7 +38,7 @@ class RoomServiceEntityExportServiceImplTest {
         RoomService roomService1 = new RoomService(1L, CLEANING.name(), 12.3);
         RoomService roomService2 = new RoomService(2L, REPAIR.name(), 16.2);
         RoomService roomService3 = new RoomService(3L, MAINTENANCE.name(), 14.6);
-        roomServices = List.of(roomService1, roomService2, roomService3);
+        roomServices = Arrays.asList(roomService1, roomService2, roomService3);
     }
 
     @Test

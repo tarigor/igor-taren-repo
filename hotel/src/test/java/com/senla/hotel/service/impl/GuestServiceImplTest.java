@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ class GuestServiceImplTest {
         guest1 = new Guest(1L, "Ivan", "Ivanov", "ivnov@mail.com", "", "");
         guest2 = new Guest(2L, "Petr", "Petrov", "petrov@mail.com", "", "");
         guest3 = new Guest(2L, "Sidr", "Sidorov", "sidorov@mail.com", "", "");
-        guests = List.of(guest1, guest2, guest3);
+        guests = Arrays.asList(guest1, guest2, guest3);
     }
 
     @Test

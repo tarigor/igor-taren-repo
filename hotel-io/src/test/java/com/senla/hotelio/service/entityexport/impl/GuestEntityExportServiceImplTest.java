@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,7 +34,7 @@ class GuestEntityExportServiceImplTest {
         Guest guest1 = new Guest(1L, "Ivan", "Ivanov", "ivnov@mail.com", "", "");
         Guest guest2 = new Guest(2L, "Petr", "Petrov", "petrov@mail.com", "", "");
         Guest guest3 = new Guest(2L, "Sidr", "Sidorov", "sidorov@mail.com", "", "");
-        guests = List.of(guest1, guest2, guest3);
+        guests = Arrays.asList(guest1, guest2, guest3);
     }
 
     @Test
