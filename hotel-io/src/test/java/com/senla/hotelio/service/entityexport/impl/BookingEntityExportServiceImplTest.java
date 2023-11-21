@@ -5,13 +5,13 @@ import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.Room;
 import com.senla.hotelio.service.entityexport.ExportService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.event.annotation.AfterTestExecution;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,8 +26,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingEntityExportServiceImplTest {
-
     private static final String ENTITY_FILENAME = "booking";
+    private static final String FILE_PATH = "src/test/resources/csv/export/";
     @Mock
     private ExportService exportService;
     @Mock
@@ -56,19 +56,17 @@ class BookingEntityExportServiceImplTest {
 
     @Test
     void exportEntityFileExistTest() {
-        String filePath = "";
-        exportService.setCsvExportPath(filePath);
+        exportService.setCsvExportPath(FILE_PATH);
 
         when(bookingService.getAll()).thenReturn(bookings);
 
         bookingEntityExportService.exportEntity();
 
-        assertTrue(Files.exists(Path.of(filePath)));
+        assertTrue(Files.exists(Path.of(FILE_PATH)));
     }
 
-    @AfterTestExecution
-    public void deleteFile() throws IOException {
-        String filePath = "";
-        Files.deleteIfExists(Path.of(filePath + ENTITY_FILENAME + ".csv"));
+    @AfterEach
+    void tearDown() throws IOException {
+        Files.deleteIfExists(Path.of(FILE_PATH + ENTITY_FILENAME + ".csv"));
     }
 }
