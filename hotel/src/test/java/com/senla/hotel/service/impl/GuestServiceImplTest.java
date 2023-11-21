@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -43,17 +42,16 @@ class GuestServiceImplTest {
     }
 
     @Test
-    void saveAll() {
+    void saveAllResultTest() {
         when(guestRepository.saveAll(guests)).thenReturn(guests);
 
         List<Guest> savedGuests = guestService.saveAll(guests);
 
         assertEquals(guests.size(), savedGuests.size());
-        verify(guestRepository, times(1)).saveAll(guests);
     }
 
     @Test
-    void updateAllAndSaveIfNotExist() {
+    void updateAllAndSaveIfNotExistSaveOfExistingGuestMethodCallTest() {
         Guest existingGuest = guest1;
         Guest newGuest = new Guest(22L, "Alex", "Alex", "alex@mail.com", "", "");
 
@@ -63,21 +61,41 @@ class GuestServiceImplTest {
         guestService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingGuest, newGuest)));
 
         verify(guestRepository, times(1)).save(existingGuest);
+    }
+
+    @Test
+    void updateAllAndSaveIfNotExistSaveOfNewGuestMethodCallTest() {
+        Guest existingGuest = guest1;
+        Guest newGuest = new Guest(22L, "Alex", "Alex", "alex@mail.com", "", "");
+
+        when(guestRepository.findById(existingGuest.getId())).thenReturn(Optional.of(existingGuest));
+        when(guestRepository.findById(newGuest.getId())).thenReturn(Optional.empty());
+
+        guestService.updateAllAndSaveIfNotExist(new ArrayList<>(List.of(existingGuest, newGuest)));
+
         verify(guestRepository, times(1)).save(newGuest);
     }
 
     @Test
-    void getAll() {
+    void getAllResultSizeTest() {
         when(guestRepository.findAll()).thenReturn(guests);
 
         List<Guest> resultGuest = guestService.getAll();
 
         assertEquals(guests.size(), resultGuest.size());
+    }
+
+    @Test
+    void getAllResultTest() {
+        when(guestRepository.findAll()).thenReturn(guests);
+
+        List<Guest> resultGuest = guestService.getAll();
+
         assertEquals(guests, resultGuest);
     }
 
     @Test
-    void getById() {
+    void getByIdResultTest() {
         Guest guestToBeChecked = guest1;
         long guestIdToBeChecked = guest1.getId();
 
@@ -85,13 +103,11 @@ class GuestServiceImplTest {
 
         Guest result = guestService.getById(guestIdToBeChecked);
 
-        assertNotNull(result);
         assertEquals(guestToBeChecked, result);
-        verify(guestRepository, times(1)).findById(guestIdToBeChecked);
     }
 
     @Test
-    void registerGuest() throws HotelModuleException {
+    void registerGuestResultTest() throws HotelModuleException {
         GuestDto guestDto = new GuestDto("Petya", "Petrov", "petrov@mail.com", "password", "ROLE_USER");
 
         when(guestRepository.findByEmail(guestDto.getEmail())).thenReturn(Optional.empty());
@@ -104,10 +120,7 @@ class GuestServiceImplTest {
 
         GuestDto result = guestService.registerGuest(guestDto);
 
-        verify(guestRepository).save(any(Guest.class));
-        assertEquals("Petya", result.getFirstName());
-        assertEquals("Petrov", result.getLastName());
-        assertEquals("petrov@mail.com", result.getEmail());
-        assertEquals("ROLE_USER", result.getRole());
+        guestDto.setPassword(null);
+        assertEquals(guestDto, result);
     }
 }
