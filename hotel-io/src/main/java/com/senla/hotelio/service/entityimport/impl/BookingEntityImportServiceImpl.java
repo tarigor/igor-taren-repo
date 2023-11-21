@@ -11,14 +11,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class BookingEntityImportServiceImpl extends ImportService implements IImportService<Booking> {
+    public static final String PATTERN = "dd-MM-yyyy";
     private final String ENTITY_NAME = "Booking";
     private final GuestServiceImpl guestService;
     private final RoomServiceImpl roomService;
@@ -37,18 +38,15 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
     public ArrayList<Booking> importEntities() {
         ArrayList<Booking> bookings = new ArrayList<>();
         ArrayList<List<String>> bookingsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         for (List<String> bookingsWithParameter : bookingsWithParameters) {
-            try {
-                bookings.add(new Booking(
-                        Long.parseLong(bookingsWithParameter.get(0)),
-                        guestService.getById(Long.parseLong(bookingsWithParameter.get(1))),
-                        entityDtoMapper.convertFromDtoToEntity(roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))), Room.class),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(3)),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(bookingsWithParameter.get(4))
-                ));
-            } catch (ParseException e) {
-                log.error("an error occurred during a parse operation -> {}", e.getMessage());
-            }
+            bookings.add(new Booking(
+                    Long.parseLong(bookingsWithParameter.get(0)),
+                    guestService.getById(Long.parseLong(bookingsWithParameter.get(1))),
+                    entityDtoMapper.convertFromDtoToEntity(roomService.getRoom(Long.parseLong(bookingsWithParameter.get(2))), Room.class),
+                    LocalDate.parse(bookingsWithParameter.get(3), dateTimeFormatter),
+                    LocalDate.parse(bookingsWithParameter.get(4), dateTimeFormatter))
+            );
         }
         return bookings;
     }

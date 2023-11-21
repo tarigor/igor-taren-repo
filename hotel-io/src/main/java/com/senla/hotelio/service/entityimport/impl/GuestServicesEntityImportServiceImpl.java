@@ -9,14 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class GuestServicesEntityImportServiceImpl extends ImportService implements IImportService<GuestServices> {
+    public static final String PATTERN = "dd-MM-yyyy";
     private final String ENTITY_NAME = "GuestServices";
     private final GuestServiceImpl guestService;
     private final RoomServicesServiceImpl roomServicesService;
@@ -31,17 +32,14 @@ public class GuestServicesEntityImportServiceImpl extends ImportService implemen
     public ArrayList<GuestServices> importEntities() {
         ArrayList<GuestServices> guestsServices = new ArrayList<>();
         ArrayList<List<String>> guestsServicesWithParameters = getEntitiesFromCsv(ENTITY_NAME);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         for (List<String> guestsServicesWithParameter : guestsServicesWithParameters) {
-            try {
-                guestsServices.add(new GuestServices(
-                        Long.parseLong(guestsServicesWithParameter.get(0)),
-                        guestService.getById(Long.parseLong(guestsServicesWithParameter.get(1))),
-                        roomServicesService.getById(Long.parseLong(guestsServicesWithParameter.get(2))),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(guestsServicesWithParameter.get(3))
-                ));
-            } catch (ParseException e) {
-                log.error("an error occurred during a parse operation -> {}", e.getMessage());
-            }
+            guestsServices.add(new GuestServices(
+                    Long.parseLong(guestsServicesWithParameter.get(0)),
+                    guestService.getById(Long.parseLong(guestsServicesWithParameter.get(1))),
+                    roomServicesService.getById(Long.parseLong(guestsServicesWithParameter.get(2))),
+                    LocalDate.parse(guestsServicesWithParameter.get(3), dateTimeFormatter))
+            );
         }
         return guestsServices;
     }

@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -21,10 +21,10 @@ public class BookingExport implements Serializable {
     private long bookedRoomId;
     @JsonSerialize(converter = DateToStringConverter.class)
     @JsonDeserialize(converter = StringToDateConverter.class)
-    private Date checkInDate;
+    private LocalDate checkInDate;
     @JsonSerialize(converter = DateToStringConverter.class)
     @JsonDeserialize(converter = StringToDateConverter.class)
-    private Date checkOutDate;
+    private LocalDate checkOutDate;
 
     @Override
     public String toString() {

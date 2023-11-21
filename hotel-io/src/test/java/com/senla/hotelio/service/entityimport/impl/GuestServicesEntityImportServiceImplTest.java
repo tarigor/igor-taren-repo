@@ -13,7 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.senla.hotel.enums.ServiceType.CLEANING;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GuestServicesEntityImportServiceImplTest {
+    public static final String PATTERN = "dd-MM-yyyy";
     public static final String CSV_IMPORT_PATH = "src/test/resources/csv/import/";
     @Mock
     private GuestServiceImpl guestService;
@@ -37,11 +39,12 @@ class GuestServicesEntityImportServiceImplTest {
     void setUp() throws ParseException {
         guest = new Guest(1L, "Ivan", "Ivanov", "ivnov@mail.com", "", "");
         roomService = new RoomService(1L, CLEANING.name(), 12.3);
-        guestServices = new GuestServices(1L, guest, roomService, new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-22"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        guestServices = new GuestServices(1L, guest, roomService, LocalDate.parse("22-09-2023", dateTimeFormatter));
     }
 
     @Test
-    void importEntities() {
+    void importEntitiesTest() {
         GuestServices guestServiceToBeChecked = guestServices;
 
         guestServicesEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);

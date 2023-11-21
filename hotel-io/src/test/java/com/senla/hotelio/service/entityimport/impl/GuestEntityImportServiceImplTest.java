@@ -24,7 +24,7 @@ class GuestEntityImportServiceImplTest {
     }
 
     @Test
-    void importEntities() {
+    void importEntitiesTest() {
         Guest guestToBeChecked = guest;
 
         guestEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);

@@ -15,7 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingEntityImportServiceImplTest {
+    public static final String PATTERN = "dd-MM-yyyy";
     public static final String CSV_IMPORT_PATH = "src/test/resources/csv/import/";
     @Mock
     private RoomServiceImpl roomService;
@@ -43,12 +45,13 @@ class BookingEntityImportServiceImplTest {
 
     @Test
     void importEntitiesTest() throws ParseException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         Booking bookingToBeChecked = new Booking(
                 1L,
                 guest,
                 new Room(1L, 1, 11.1, "OCCUPIED", 1),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-10"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-13"));
+                LocalDate.parse("10-09-2023", dateTimeFormatter),
+                LocalDate.parse("13-09-2023", dateTimeFormatter));
 
         bookingEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);
 

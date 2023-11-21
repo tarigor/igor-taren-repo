@@ -25,7 +25,7 @@ class RoomEntityImportServiceImplTest {
     }
 
     @Test
-    void importEntities() {
+    void importEntitiesTest() {
         Room roomToBeChecked = room;
 
         roomEntityImportService.setCsvImportPath(CSV_IMPORT_PATH);

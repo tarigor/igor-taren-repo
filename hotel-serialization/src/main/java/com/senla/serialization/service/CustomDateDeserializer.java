@@ -6,24 +6,20 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
-public class CustomDateDeserializer extends JsonDeserializer<Date> {
+public class CustomDateDeserializer extends JsonDeserializer<LocalDate> {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    public static final String PATTERN = "dd-MM-yyyy";
 
     @Override
-    public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        String dateString = "";
-        Date date = null;
+    public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
+        LocalDate date = null;
         try {
-            dateString = jsonParser.getText();
-            date = dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            log.error("an error occurred while parsing date in format:{} -> {} , allowed format: yyyy-MM-dd", dateString, e.getMessage());
+            String dateString = jsonParser.getText();
+            date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(PATTERN));
         } catch (IOException e) {
             log.error("an error occurred during IO operation -> {}", e.getMessage());
         }

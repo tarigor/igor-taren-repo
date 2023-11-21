@@ -16,10 +16,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +36,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
-
+    public static final String PATTERN = "dd-MM-yyyy";
     @Mock
     private GuestRepository guestRepository;
     @Mock
@@ -53,19 +52,21 @@ class BookingServiceImplTest {
     private List<Room> rooms;
 
     @BeforeEach
-    void setUp() throws ParseException {
+    void setUp() {
         Guest guest1 = new Guest(1L, "Ivan", "Ivanov", "ivanov@mail.com", "pass", "role");
         Guest guest2 = new Guest(2L, "Petr", "Petrov", "petrov@mail.com", "pass", "role");
 
         Room room1 = new Room(1L, 1, 11.1, "OCCUPIED", 1);
         Room room2 = new Room(2L, 1, 34.2, "OCCUPIED", 1);
 
-        Booking booking1 = new Booking(1L, guest1, room1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-11"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-12"));
-        Booking booking2 = new Booking(2L, guest2, room2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-13"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-15"));
-        Booking booking3 = new Booking(3L, guest1, room1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-19"));
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        Booking booking1 = new Booking(1L, guest1, room1, LocalDate.parse("11-11-2023", dateTimeFormatter),
+                LocalDate.parse("12-11-2023", dateTimeFormatter));
+        Booking booking2 = new Booking(2L, guest2, room2, LocalDate.parse("13-11-2023", dateTimeFormatter),
+                LocalDate.parse("15-11-2023", dateTimeFormatter));
+        Booking booking3 = new Booking(3L, guest1, room1, LocalDate.parse("16-11-2023", dateTimeFormatter),
+                LocalDate.parse("19-11-2023", dateTimeFormatter));
 
         rooms = Arrays.asList(room1, room2);
         guests = Arrays.asList(guest1, guest2);
@@ -92,6 +93,7 @@ class BookingServiceImplTest {
 
         assertEquals(3, result.size());
     }
+
     @Test
     void findAllOrderedAlphabeticallyGuestExistingTest() {
         bookingService.setRoomHistoryLimit(3);
@@ -133,7 +135,7 @@ class BookingServiceImplTest {
 
         List<BookingDto> result = bookingService.findAllOrderedByCheckOutDate();
 
-        assertTrue(result.get(0).getCheckOutDate().before(result.get(1).getCheckOutDate()));
+        assertTrue(result.get(0).getCheckOutDate().isBefore(result.get(1).getCheckOutDate()));
     }
 
     @Test
@@ -210,19 +212,21 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void updateAllAndSaveIfNotExistFindByIdMethodCallTest() throws ParseException {
+    void updateAllAndSaveIfNotExistFindByIdMethodCallTest() {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         Booking existingBooking = new Booking(
                 1L,
                 new Guest(),
                 new Room(),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-17"));
+                LocalDate.parse("16-09-2023", dateTimeFormatter),
+                LocalDate.parse("17-09-2023", dateTimeFormatter));
         Booking newBooking = new Booking(
                 1L,
                 new Guest(),
                 new Room(),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-19"));
+                LocalDate.parse("16-09-2023", dateTimeFormatter),
+                LocalDate.parse("19-09-2023", dateTimeFormatter));
 
         when(bookingRepository.findById(existingBooking.getId())).thenReturn(Optional.of(existingBooking));
         when(bookingRepository.findById(newBooking.getId())).thenReturn(Optional.empty());
@@ -235,19 +239,20 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void updateAllAndSaveIfNotExistSaveMethodCallTest() throws ParseException {
+    void updateAllAndSaveIfNotExistSaveMethodCallTest() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
         Booking existingBooking = new Booking(
                 1L,
                 new Guest(),
                 new Room(),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-17"));
+                LocalDate.parse("16-09-2023", dateTimeFormatter),
+                LocalDate.parse("17-09-2023", dateTimeFormatter));
         Booking newBooking = new Booking(
                 1L,
                 new Guest(),
                 new Room(),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-19"));
+                LocalDate.parse("16-09-2023", dateTimeFormatter),
+                LocalDate.parse("19-09-2023", dateTimeFormatter));
 
         when(bookingRepository.findById(existingBooking.getId())).thenReturn(Optional.of(existingBooking));
         when(bookingRepository.findById(newBooking.getId())).thenReturn(Optional.empty());
@@ -257,6 +262,7 @@ class BookingServiceImplTest {
 
         verify(bookingRepository, times(2)).save(any(Booking.class));
     }
+
     @Test
     void getAllResultSizeTest() {
         when(bookingRepository.findAll()).thenReturn(bookings);

@@ -18,7 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,6 @@ import static com.senla.hotel.enums.ServiceType.CLEANING;
 import static com.senla.hotel.enums.ServiceType.MAINTENANCE;
 import static com.senla.hotel.enums.ServiceType.REPAIR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -37,6 +37,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GuestServicesServiceImplTest {
+    public static final String PATTERN = "dd-MM-yyyy";
     @Mock
     private GuestServicesRepository guestServicesRepository;
     @Mock
@@ -62,12 +63,13 @@ class GuestServicesServiceImplTest {
         roomService3 = new RoomService(3L, MAINTENANCE.name(), 14.6);
         roomServices = List.of(roomService1, roomService2, roomService3);
 
-        guestServices1 = new GuestServices(1L, guest1, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-22"));
-        guestServices2 = new GuestServices(2L, guest1, roomService2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-24"));
-        guestServices3 = new GuestServices(3L, guest2, roomService2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-08"));
-        guestServices4 = new GuestServices(4L, guest2, roomService3, new SimpleDateFormat("yyyy-MM-dd").parse("2023-07-12"));
-        guestServices5 = new GuestServices(5L, guest3, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-03-20"));
-        guestServices6 = new GuestServices(6L, guest3, roomService3, new SimpleDateFormat("yyyy-MM-dd").parse("2023-03-21"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        guestServices1 = new GuestServices(1L, guest1, roomService1, LocalDate.parse("22-09-2023", dateTimeFormatter));
+        guestServices2 = new GuestServices(2L, guest1, roomService2, LocalDate.parse("24-09-2023", dateTimeFormatter));
+        guestServices3 = new GuestServices(3L, guest2, roomService2, LocalDate.parse("08-05-2023", dateTimeFormatter));
+        guestServices4 = new GuestServices(4L, guest2, roomService3, LocalDate.parse("12-07-2023", dateTimeFormatter));
+        guestServices5 = new GuestServices(5L, guest3, roomService1, LocalDate.parse("20-03-2023", dateTimeFormatter));
+        guestServices6 = new GuestServices(6L, guest3, roomService3, LocalDate.parse("21-03-2023", dateTimeFormatter));
         guestServicesList = List.of(guestServices1, guestServices2, guestServices3, guestServices4, guestServices5, guestServices6);
     }
 
@@ -112,7 +114,7 @@ class GuestServicesServiceImplTest {
         List<GuestServicesDto> resultGuestServicesDtoDateAscSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.ASC);
 
         int lastIndex = resultGuestServicesDtoDateAscSorted.size() - 1;
-        assertTrue(resultGuestServicesDtoDateAscSorted.get(lastIndex).getRoomServiceOrderDate().after(resultGuestServicesDtoDateAscSorted.get(0).getRoomServiceOrderDate()));
+        assertTrue(resultGuestServicesDtoDateAscSorted.get(lastIndex).getRoomServiceOrderDate().isAfter(resultGuestServicesDtoDateAscSorted.get(0).getRoomServiceOrderDate()));
     }
 
     @Test
@@ -138,13 +140,14 @@ class GuestServicesServiceImplTest {
         List<GuestServicesDto> resultGuestServicesDtoDateDescSorted = guestServicesService.getByGuestIdSorted(guestId, GuestServicesSection.DATE, Ordering.DESC);
 
         int lastIndex = resultGuestServicesDtoDateDescSorted.size() - 1;
-        assertTrue(resultGuestServicesDtoDateDescSorted.get(lastIndex).getRoomServiceOrderDate().before(resultGuestServicesDtoDateDescSorted.get(0).getRoomServiceOrderDate()));
+        assertTrue(resultGuestServicesDtoDateDescSorted.get(lastIndex).getRoomServiceOrderDate().isBefore(resultGuestServicesDtoDateDescSorted.get(0).getRoomServiceOrderDate()));
     }
 
     @Test
     void updateAllAndSaveIfNotExistFindByIdMethodCallTest() throws ParseException {
         GuestServices existingGuestServices = guestServices1;
-        GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-22"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, LocalDate.parse("22-11-2023", dateTimeFormatter));
 
         when(guestServicesRepository.findById(existingGuestServices.getId())).thenReturn(Optional.of(existingGuestServices));
         when(guestServicesRepository.findById(newGuestServices.getId())).thenReturn(Optional.empty());
@@ -156,9 +159,10 @@ class GuestServicesServiceImplTest {
     }
 
     @Test
-    void updateAllAndSaveIfNotExistSaveMethodCallTest() throws ParseException {
+    void updateAllAndSaveIfNotExistSaveMethodCallTest() {
         GuestServices existingGuestServices = guestServices1;
-        GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-22"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        GuestServices newGuestServices = new GuestServices(22L, guest1, roomService1, LocalDate.parse("22-11-2023", dateTimeFormatter));
 
         when(guestServicesRepository.findById(existingGuestServices.getId())).thenReturn(Optional.of(existingGuestServices));
         when(guestServicesRepository.findById(newGuestServices.getId())).thenReturn(Optional.empty());

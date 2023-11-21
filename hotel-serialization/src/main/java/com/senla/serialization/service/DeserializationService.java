@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -82,7 +82,7 @@ public class DeserializationService {
         String fileContent = readFileToString(jsonImportPath + fileName.toLowerCase() + ".json");
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Date.class, new CustomDateDeserializer());
+        module.addDeserializer(LocalDate.class, new CustomDateDeserializer());
         objectMapper.registerModule(module);
         try {
             return objectMapper.readValue(

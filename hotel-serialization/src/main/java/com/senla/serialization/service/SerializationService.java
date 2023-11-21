@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,8 @@ public class SerializationService {
     private void serializeMap(Map<Long, ?> map, String fileName) throws HotelSerializationModuleException {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
-                .setDateFormat("dd-MM-yyyy")
+//                .setDateFormat("dd-MM-yyyy")
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
         try (FileWriter writer = new FileWriter(jsonExportPath + fileName + EXTENSION_JSON)) {
             gson.toJson(map, writer);

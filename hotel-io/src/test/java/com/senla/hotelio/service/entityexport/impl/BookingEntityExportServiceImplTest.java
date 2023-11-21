@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingEntityExportServiceImplTest {
+    public static final String PATTERN = "dd-MM-yyyy";
     private static final String ENTITY_FILENAME = "booking";
     private static final String FILE_PATH = "src/test/resources/csv/export/";
     @Mock
@@ -40,13 +42,13 @@ class BookingEntityExportServiceImplTest {
 
         Room room1 = new Room(1L, 1, 11.1, "OCCUPIED", 1);
         Room room2 = new Room(2L, 1, 34.2, "OCCUPIED", 1);
-
-        Booking booking1 = new Booking(1L, guest1, room1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-11"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-12"));
-        Booking booking2 = new Booking(2L, guest2, room2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-13"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-11-15"));
-        Booking booking3 = new Booking(3L, guest1, room1, new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-16"),
-                new SimpleDateFormat("yyyy-MM-dd").parse("2023-09-19"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
+        Booking booking1 = new Booking(1L, guest1, room1, LocalDate.parse("11-11-2023", dateTimeFormatter),
+                LocalDate.parse("12-11-2023", dateTimeFormatter));
+        Booking booking2 = new Booking(2L, guest2, room2, LocalDate.parse("13-11-2023", dateTimeFormatter),
+                LocalDate.parse("15-11-2023", dateTimeFormatter));
+        Booking booking3 = new Booking(3L, guest1, room1, LocalDate.parse("16-09-2023", dateTimeFormatter),
+                LocalDate.parse("19-09-2023", dateTimeFormatter));
 
         bookings = Arrays.asList(booking1, booking2, booking3);
     }

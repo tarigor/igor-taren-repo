@@ -16,12 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -30,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
+    public static final String PATTERN = "dd-MM-yyyy";
     private final BookingRepository bookingRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
@@ -37,16 +37,16 @@ public class BookingServiceImpl implements IBookingService {
     @Value("${number-of-guest-records-in-room-history}")
     private Integer roomHistoryLimit;
 
-    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
-        this.roomHistoryLimit = roomHistoryLimit;
-    }
-
     @Autowired
     public BookingServiceImpl(BookingRepository bookingRepository, RoomRepository roomRepository, GuestRepository guestRepository, EntityDtoMapper entityDtoMapper) {
         this.bookingRepository = bookingRepository;
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.entityDtoMapper = entityDtoMapper;
+    }
+
+    public void setRoomHistoryLimit(Integer roomHistoryLimit) {
+        this.roomHistoryLimit = roomHistoryLimit;
     }
 
     @Override
@@ -98,8 +98,8 @@ public class BookingServiceImpl implements IBookingService {
         for (Booking booking : bookings) {
             double payment = 0;
             if (booking.getGuest().getId() == guestId) {
-                Duration duration = Duration.between(new Date(booking.getCheckInDate().getTime()).toInstant(), new Date(booking.getCheckOutDate().getTime()).toInstant());
-                payment = duration.toDays() * rooms.stream().filter(r -> r.getId().equals(booking.getRoom().getId())).findAny().orElseThrow(() -> new NoSuchElementException("There is no such a booking with id->")).getPrice();
+                int period = Period.between(booking.getCheckInDate(), booking.getCheckOutDate()).getDays();
+                payment = period * rooms.stream().filter(r -> r.getId().equals(booking.getRoom().getId())).findAny().orElseThrow(() -> new NoSuchElementException("There is no such a booking with id->")).getPrice();
             }
             totalPayment = totalPayment + payment;
         }
@@ -110,12 +110,7 @@ public class BookingServiceImpl implements IBookingService {
     @Transactional
     @Override
     public List<RoomDto> findAvailableRoomsByDate(String dateString) {
-        Date date;
-        try {
-            date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Wrong date format. Proper format:dd-MM-yyyy");
-        }
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(PATTERN));
         List<RoomDto> availableRooms = new ArrayList<>();
         List<Room> rooms = roomRepository.findAll();
         List<Booking> bookings = bookingRepository.findAll();
@@ -129,10 +124,10 @@ public class BookingServiceImpl implements IBookingService {
         return availableRooms;
     }
 
-    private boolean isRoomAvailableOnDate(RoomDto roomDto, Date dateToCheck, List<Booking> bookings) {
+    private boolean isRoomAvailableOnDate(RoomDto roomDto, LocalDate dateToCheck, List<Booking> bookings) {
         for (Booking booking : bookings) {
             if (booking.getRoom().getId().equals(roomDto.getId())) {
-                return dateToCheck.before(booking.getCheckInDate()) || dateToCheck.after(booking.getCheckOutDate());
+                return dateToCheck.isBefore(booking.getCheckInDate()) || dateToCheck.isAfter(booking.getCheckOutDate());
             }
         }
         return true;
@@ -140,14 +135,10 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public long findCountOfAllGuests(String dateString) {
-        Date date;
-        try {
-            date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Wrong date format. Proper format:dd-MM-yyyy");
-        }
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(PATTERN));
+
         return bookingRepository.findAll().stream()
-                .filter(b -> (b.getCheckInDate().before(date) || b.getCheckInDate().equals(date)) && (b.getCheckOutDate().after(date) || b.getCheckOutDate().equals(date)))
+                .filter(b -> (b.getCheckInDate().isBefore(date) || b.getCheckInDate().isEqual(date)) && (b.getCheckOutDate().isAfter(date) || b.getCheckOutDate().isEqual(date)))
                 .count();
     }
 

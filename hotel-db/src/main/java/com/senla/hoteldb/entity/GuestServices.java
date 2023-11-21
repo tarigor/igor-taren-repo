@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -42,7 +42,7 @@ public class GuestServices {
 
     @Column(name = "room_service_order_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date roomServiceOrderDate;
+    private LocalDate roomServiceOrderDate;
 
     @Override
     public boolean equals(Object o) {

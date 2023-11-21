@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -44,14 +44,14 @@ public class Booking implements Serializable {
 
     @Column(name = "check_in_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date checkInDate;
+    private LocalDate checkInDate;
 
     @Column(name = "check_out_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date checkOutDate;
+    private LocalDate checkOutDate;
 
 
-    public Booking(Guest guest, Room room, Date checkInDate, Date checkOutDate) {
+    public Booking(Guest guest, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
         this.guest = guest;
         this.room = room;
         this.checkInDate = checkInDate;
