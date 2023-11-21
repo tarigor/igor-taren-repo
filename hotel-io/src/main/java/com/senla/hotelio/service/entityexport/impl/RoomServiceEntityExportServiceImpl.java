@@ -4,7 +4,6 @@ import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ import java.util.List;
 public class RoomServiceEntityExportServiceImpl extends ExportService implements IExportService {
     private final String ENTITY_FILENAME = "RoomServices";
     private final RoomServicesServiceImpl roomServicesService;
+
     @Autowired
     public RoomServiceEntityExportServiceImpl(RoomServicesServiceImpl roomServicesService) {
         this.roomServicesService = roomServicesService;

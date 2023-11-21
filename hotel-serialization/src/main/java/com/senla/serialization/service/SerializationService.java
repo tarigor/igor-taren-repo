@@ -49,6 +49,10 @@ public class SerializationService {
         this.roomService = roomService;
     }
 
+    public void setJsonExportPath(String jsonExportPath) {
+        this.jsonExportPath = jsonExportPath;
+    }
+
     public void serialize(String entityNameString) {
         try {
             EntityName entityName = EntityName.valueOf(entityNameString.toUpperCase());

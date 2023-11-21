@@ -23,6 +23,7 @@ public class BookingEntityImportServiceImpl extends ImportService implements IIm
     private final GuestServiceImpl guestService;
     private final RoomServiceImpl roomService;
     private final EntityDtoMapper entityDtoMapper;
+
     @Autowired
     public BookingEntityImportServiceImpl(GuestServiceImpl guestService,
                                           RoomServiceImpl roomService,

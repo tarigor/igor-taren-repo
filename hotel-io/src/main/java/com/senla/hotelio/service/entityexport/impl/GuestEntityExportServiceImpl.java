@@ -4,7 +4,6 @@ import com.senla.hotel.service.impl.GuestServiceImpl;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,7 @@ public class GuestEntityExportServiceImpl extends ExportService implements IExpo
     private final String ENTITY_FILENAME = "Guest";
 
     private final GuestServiceImpl guestService;
+
     @Autowired
     public GuestEntityExportServiceImpl(GuestServiceImpl guestService) {
         this.guestService = guestService;

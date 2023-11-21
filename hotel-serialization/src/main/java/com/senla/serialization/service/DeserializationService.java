@@ -28,10 +28,6 @@ public class DeserializationService {
     @Value("${json.import.path}")
     private String jsonImportPath;
 
-    public void setJsonImportPath(String jsonImportPath) {
-        this.jsonImportPath = jsonImportPath;
-    }
-
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -44,6 +40,10 @@ public class DeserializationService {
             throw new HotelSerializationModuleException(e);
         }
         return content.toString();
+    }
+
+    public void setJsonImportPath(String jsonImportPath) {
+        this.jsonImportPath = jsonImportPath;
     }
 
     public HashMap<Long, ?> deserialize(String fileName) {

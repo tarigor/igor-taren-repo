@@ -17,7 +17,8 @@ public abstract class ImportService {
     private static final String DELIMITER = ",";
     private static final String EXTENSION = ".csv";
     @Value("${csv.import.path}")
-    private String csvImportPath= "src/test/resources/csv/import";
+    private String csvImportPath = "src/test/resources/csv/import";
+
     public void setCsvImportPath(String csvImportPath) {
         this.csvImportPath = csvImportPath;
     }

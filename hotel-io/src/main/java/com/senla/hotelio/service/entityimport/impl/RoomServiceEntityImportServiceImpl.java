@@ -4,7 +4,6 @@ import com.senla.hotel.enums.ServiceType;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
