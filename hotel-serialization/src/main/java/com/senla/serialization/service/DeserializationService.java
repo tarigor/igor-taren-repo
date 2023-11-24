@@ -3,11 +3,6 @@ package com.senla.serialization.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.senla.hotel.service.impl.BookingServiceImpl;
-import com.senla.hotel.service.impl.GuestServiceImpl;
-import com.senla.hotel.service.impl.GuestServicesServiceImpl;
-import com.senla.hotel.service.impl.RoomServiceImpl;
-import com.senla.hotel.service.impl.RoomServicesServiceImpl;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hoteldb.entity.GuestServices;
@@ -16,42 +11,22 @@ import com.senla.hoteldb.entity.RoomService;
 import com.senla.serialization.enums.EntityName;
 import com.senla.serialization.exception.HotelSerializationModuleException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Service
 @Slf4j
 public class DeserializationService {
-
-    private final BookingServiceImpl bookingService;
-    private final GuestServiceImpl guestService;
-    private final GuestServicesServiceImpl guestServicesService;
-    private final RoomServiceImpl roomService;
-    private final RoomServicesServiceImpl roomServicesService;
     @Value("${json.import.path}")
     private String jsonImportPath;
-
-    @Autowired
-    public DeserializationService(BookingServiceImpl bookingService,
-                                  GuestServiceImpl guestService,
-                                  GuestServicesServiceImpl guestServicesService,
-                                  RoomServiceImpl roomService,
-                                  RoomServicesServiceImpl roomServicesService) {
-        this.bookingService = bookingService;
-        this.guestService = guestService;
-        this.guestServicesService = guestServicesService;
-        this.roomService = roomService;
-        this.roomServicesService = roomServicesService;
-    }
 
     private static String readFileToString(String filePath) throws HotelSerializationModuleException {
         StringBuilder content = new StringBuilder();
@@ -67,47 +42,47 @@ public class DeserializationService {
         return content.toString();
     }
 
-    public void deserialize(String fileName) {
+    public void setJsonImportPath(String jsonImportPath) {
+        this.jsonImportPath = jsonImportPath;
+    }
+
+    public HashMap<Long, ?> deserialize(String fileName) {
         try {
             EntityName entityName = EntityName.valueOf(fileName.toUpperCase());
             switch (entityName) {
                 case BOOKING -> {
                     //Booking
-                    HashMap<Long, Booking> bookings = (HashMap<Long, Booking>) deserializeToMap(Booking.class, "Booking");
-                    bookingService.updateAllAndSaveIfNotExist(new ArrayList<>(bookings.values()));
+                    return (HashMap<Long, Booking>) deserializeToMap(Booking.class, "Booking");
                 }
                 case GUEST -> {
                     //Guest
-                    HashMap<Long, Guest> guests = (HashMap<Long, Guest>) deserializeToMap(Guest.class, "Guest");
-                    guestService.updateAllAndSaveIfNotExist(new ArrayList<>(guests.values()));
+                    return (HashMap<Long, Guest>) deserializeToMap(Guest.class, "Guest");
                 }
                 case GUESTSERVICE -> {
                     //GuestService
-                    HashMap<Long, GuestServices> guestServices = (HashMap<Long, GuestServices>) deserializeToMap(GuestServices.class, "GuestServices");
-                    guestServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(guestServices.values()));
+                    return (HashMap<Long, GuestServices>) deserializeToMap(GuestServices.class, "GuestServices");
                 }
                 case ROOM -> {
                     //Room
-                    HashMap<Long, Room> rooms = (HashMap<Long, Room>) deserializeToMap(Room.class, "Room");
-                    roomService.updateAllAndSaveIfNotExist(new ArrayList<>(rooms.values()));
+                    return (HashMap<Long, Room>) deserializeToMap(Room.class, "Room");
                 }
                 case ROOMSERVICE -> {
                     //RoomService
-                    HashMap<Long, RoomService> roomServices = (HashMap<Long, RoomService>) deserializeToMap(RoomService.class, "RoomServices");
-                    roomServicesService.updateAllAndSaveIfNotExist(new ArrayList<>(roomServices.values()));
+                    return (HashMap<Long, RoomService>) deserializeToMap(RoomService.class, "RoomServices");
                 }
                 default -> log.error("Wrong input! The selection must be in between 0-4. Try again");
             }
         } catch (HotelSerializationModuleException e) {
             throw new RuntimeException(e);
         }
+        throw new NoSuchElementException("No such entity defined");
     }
 
     private <T> Map<Long, T> deserializeToMap(Class<T> type, String fileName) throws HotelSerializationModuleException {
         String fileContent = readFileToString(jsonImportPath + fileName.toLowerCase() + ".json");
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Date.class, new CustomDateDeserializer());
+        module.addDeserializer(LocalDate.class, new CustomDateDeserializer());
         objectMapper.registerModule(module);
         try {
             return objectMapper.readValue(

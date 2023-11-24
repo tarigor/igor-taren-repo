@@ -3,8 +3,11 @@
     "id": 1,
     "guest": {
       "id": 1,
-      "firstName": "Igor",
-      "lastName": "Ivanov"
+      "firstName": "Admin",
+      "lastName": "Admin",
+      "email": "admin@mail.com",
+      "password": "$2a$12$l10zaZsfMHAW5StiZGDTSeApmG1mvNqnOMTCLvhfq.pw/hfe3OBfi",
+      "role": "ROLE_ADMIN"
     },
     "room": {
       "id": 1,
@@ -20,8 +23,11 @@
     "id": 2,
     "guest": {
       "id": 2,
-      "firstName": "Sergei",
-      "lastName": "Petrov"
+      "firstName": "Igor",
+      "lastName": "Ivanov",
+      "email": "ivanov@mail.com",
+      "password": "$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK",
+      "role": "ROLE_GUEST"
     },
     "room": {
       "id": 2,
@@ -37,8 +43,11 @@
     "id": 3,
     "guest": {
       "id": 3,
-      "firstName": "Ivan",
-      "lastName": "Sidorov"
+      "firstName": "Sergei",
+      "lastName": "Petrov",
+      "email": "petrov@mail.com",
+      "password": "$2a$12$BfnStYr2IiA8xBC2Wb5UhuApfbC1BsPPbjmcQph6RIChR4AAc4mZK",
+      "role": "ROLE_GUEST"
     },
     "room": {
       "id": 3,

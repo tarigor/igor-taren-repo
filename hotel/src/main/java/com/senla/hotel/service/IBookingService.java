@@ -27,7 +27,7 @@ public interface IBookingService {
     List<RoomDto> findAvailableRoomsByDate(String date);
 
     //    Total number of guests;
-    long findCountOfAllGuests();
+    long findCountOfAllGuests(String dateString);
 
     Booking getByGuestId(long guestId);
 

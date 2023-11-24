@@ -11,7 +11,7 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 10, 2023"
+    "roomServiceOrderDate": "10-09-2023"
   },
   "2": {
     "id": 2,
@@ -25,7 +25,7 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 11, 2023"
+    "roomServiceOrderDate": "11-09-2023"
   },
   "3": {
     "id": 3,
@@ -39,7 +39,7 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 12, 2023"
+    "roomServiceOrderDate": "12-09-2023"
   },
   "4": {
     "id": 4,
@@ -53,7 +53,7 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 4, 2023"
+    "roomServiceOrderDate": "04-09-2023"
   },
   "5": {
     "id": 5,
@@ -67,7 +67,7 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 5, 2023"
+    "roomServiceOrderDate": "-05-09-2023"
   },
   "6": {
     "id": 6,
@@ -81,7 +81,7 @@
       "serviceType": "REPAIR",
       "price": 45.3
     },
-    "roomServiceOrderDate": "Sep 6, 2023"
+    "roomServiceOrderDate": "06-09-2023"
   },
   "7": {
     "id": 7,
@@ -95,6 +95,6 @@
       "serviceType": "CLEANING",
       "price": 23.6
     },
-    "roomServiceOrderDate": "Sep 8, 2023"
+    "roomServiceOrderDate": "08-09-2023"
   }
 }

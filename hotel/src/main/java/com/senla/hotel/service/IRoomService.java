@@ -1,8 +1,6 @@
 package com.senla.hotel.service;
 
 import com.senla.hotel.dto.RoomDto;
-import com.senla.hotel.enums.Ordering;
-import com.senla.hotel.enums.RoomSection;
 import com.senla.hotel.exception.HotelModuleException;
 import com.senla.hoteldb.entity.Room;
 
@@ -29,7 +27,7 @@ public interface IRoomService {
 
     double getRoomPrice(long roomId);
 
-    List<RoomDto> getAllOrdered(RoomSection roomSection, Ordering ordering) throws HotelModuleException;
+    List<RoomDto> getAllOrdered(String roomSectionString, String orderingString) throws HotelModuleException;
 
     void updateAllAndSaveIfNotExist(ArrayList<Room> rooms);
 

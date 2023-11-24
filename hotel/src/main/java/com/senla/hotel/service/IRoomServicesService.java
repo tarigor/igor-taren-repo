@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface IRoomServicesService {
-    void saveAll(List<RoomService> roomServices);
+    List<RoomService> saveAll(List<RoomService> roomServices);
 
     List<RoomService> getAllOrdered(RoomServiceSection roomServiceSection, Ordering ordering);
 

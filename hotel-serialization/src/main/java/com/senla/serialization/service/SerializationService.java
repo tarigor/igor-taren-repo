@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,10 @@ public class SerializationService {
         this.roomService = roomService;
     }
 
+    public void setJsonExportPath(String jsonExportPath) {
+        this.jsonExportPath = jsonExportPath;
+    }
+
     public void serialize(String entityNameString) {
         try {
             EntityName entityName = EntityName.valueOf(entityNameString.toUpperCase());
@@ -58,11 +63,11 @@ public class SerializationService {
                 case GUEST -> serializeMap(guestService.getAll().stream()
                         .collect(Collectors.toMap(Guest::getId, guest -> guest)), "Guest");
                 case GUESTSERVICE -> serializeMap(guestServicesService.getAll().stream()
-                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestServices");
+                        .collect(Collectors.toMap(GuestServices::getId, guestServices -> guestServices)), "GuestService");
                 case ROOM -> serializeMap(roomService.getAll().stream()
                         .collect(Collectors.toMap(Room::getId, room -> room)), "Room");
                 case ROOMSERVICE -> serializeMap(roomServicesService.getAll().stream()
-                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomServices");
+                        .collect(Collectors.toMap(RoomService::getId, roomService -> roomService)), "RoomService");
                 default -> log.error("There is no such an entity -> {}", entityName);
             }
         } catch (HotelSerializationModuleException e) {
@@ -73,7 +78,8 @@ public class SerializationService {
     private void serializeMap(Map<Long, ?> map, String fileName) throws HotelSerializationModuleException {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
-                .setDateFormat("dd-MM-yyyy")
+//                .setDateFormat("dd-MM-yyyy")
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
         try (FileWriter writer = new FileWriter(jsonExportPath + fileName + EXTENSION_JSON)) {
             gson.toJson(map, writer);

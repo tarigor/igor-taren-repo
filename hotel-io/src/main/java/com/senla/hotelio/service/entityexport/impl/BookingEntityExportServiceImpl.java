@@ -5,7 +5,6 @@ import com.senla.hotel.service.impl.BookingServiceImpl;
 import com.senla.hoteldb.entity.Booking;
 import com.senla.hotelio.service.entityexport.ExportService;
 import com.senla.hotelio.service.entityexport.IExportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class BookingEntityExportServiceImpl extends ExportService implements IEx
     }
 
     @Override
-    public void exportEntity() throws HotelIoModuleException {
+    public void exportEntity() {
         List<Booking> bookings = bookingService.getAll();
         storeEntityToCsv(
                 ENTITY_FILENAME,

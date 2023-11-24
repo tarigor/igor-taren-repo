@@ -3,7 +3,6 @@ package com.senla.hotelio.service.entityimport.impl;
 import com.senla.hoteldb.entity.Guest;
 import com.senla.hotelio.service.entityimport.IImportService;
 import com.senla.hotelio.service.entityimport.ImportService;
-import com.senla.hotelio.service.exception.HotelIoModuleException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class GuestEntityImportServiceImpl extends ImportService implements IImpo
     private final String ENTITY_NAME = "Guest";
 
     @Override
-    public ArrayList<Guest> importEntities() throws HotelIoModuleException {
+    public ArrayList<Guest> importEntities() {
         ArrayList<Guest> guests = new ArrayList<>();
         ArrayList<List<String>> guestsWithParameters = getEntitiesFromCsv(ENTITY_NAME);
         for (List<String> guestsWithParameter : guestsWithParameters) {

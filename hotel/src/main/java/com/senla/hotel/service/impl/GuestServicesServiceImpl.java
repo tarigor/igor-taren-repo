@@ -5,6 +5,7 @@ import com.senla.hotel.enums.GuestServicesSection;
 import com.senla.hotel.enums.Ordering;
 import com.senla.hotel.enums.ServiceType;
 import com.senla.hotel.service.IGuestServicesService;
+import com.senla.hotel.util.EntityDtoMapper;
 import com.senla.hoteldb.entity.GuestServices;
 import com.senla.hoteldb.entity.RoomService;
 import com.senla.hoteldb.repository.GuestServicesRepository;
@@ -27,16 +28,18 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
 
     private final GuestServicesRepository guestServicesRepository;
     private final RoomServiceRepository roomServiceRepository;
+    private final EntityDtoMapper entityDtoMapper;
 
     @Autowired
-    public GuestServicesServiceImpl(GuestServicesRepository guestServicesRepository, RoomServiceRepository roomServiceRepository) {
+    public GuestServicesServiceImpl(GuestServicesRepository guestServicesRepository, RoomServiceRepository roomServiceRepository, EntityDtoMapper entityDtoMapper) {
         this.guestServicesRepository = guestServicesRepository;
         this.roomServiceRepository = roomServiceRepository;
+        this.entityDtoMapper = entityDtoMapper;
     }
 
     @Override
-    public void saveAll(List<GuestServices> guestServices) {
-        guestServicesRepository.saveAll(guestServices);
+    public List<GuestServices> saveAll(List<GuestServices> guestServices) {
+        return guestServicesRepository.saveAll(guestServices);
     }
 
     //    View the list of guest services and their price (sort by price, by date);
@@ -103,7 +106,8 @@ public class GuestServicesServiceImpl implements IGuestServicesService {
     }
 
     @Override
-    public GuestServices getById(long id) {
-        return guestServicesRepository.findById(id).orElseThrow(() -> new NoSuchElementException("there is no such a guest service with id->" + id));
+    public GuestServicesDto getById(long id) {
+        GuestServices guestServices = guestServicesRepository.findById(id).orElseThrow(() -> new NoSuchElementException("there is no such a guest service with id->" + id));
+        return entityDtoMapper.convertFromEntityToDto(guestServices, GuestServicesDto.class);
     }
 }
