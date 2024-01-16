@@ -98,3 +98,6 @@ A web interface is not required; it is sufficient to implement an API for access
 - Excellent theoretical exams.
 - Very good code and database design.
 - Confident understanding of the code and project structure
+
+## DB scheme
+![](ads@localhost.png)
