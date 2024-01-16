@@ -1,4 +1,5 @@
 # igor-taren-repo
+
 Igor Taren's repository
 
 # FINAL TASK - Private Ads Placement System
@@ -11,7 +12,7 @@ Igor Taren's repository
 
 ## Task:
 
-Develop a Restful WEB project that fully implements one of the sets of requirements described below. 
+Develop a Restful WEB project that fully implements one of the sets of requirements described below.
 A web interface is not required; it is sufficient to implement an API for access through Postman/Insomnia.
 
 ## Description
@@ -23,12 +24,14 @@ A web interface is not required; it is sufficient to implement an API for access
 - Ability to leave comments under ads.
 - Organization of private correspondence between buyer and seller.
 - Ability to pay for placing an ad at the top of the search results.
-- Seller rating system influencing the position of seller ads in search results. The lower the rating, the lower the ad in the results.
+- Seller rating system influencing the position of seller ads in search results. The lower the rating, the lower the ad
+  in the results.
 - User sales history.
 
 ## General Requirements for the Assignment:
 
 #### Mandatory:
+
 - The assignment must adhere to all canonical principles of writing Java programs and Java naming conventions.
 - Adherence to MVC principles.
 - Adherence to the principles of "High Cohesion" and "Loose Coupling."
@@ -100,4 +103,5 @@ A web interface is not required; it is sufficient to implement an API for access
 - Confident understanding of the code and project structure
 
 ## DB scheme
+
 ![](ads@localhost.png)
