@@ -8,6 +8,62 @@
     <artifactId>igor-taren-repo</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lombok.version>1.18.22</lombok.version>
+        <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
+        <maven.site.plugin.version>3.12.0</maven.site.plugin.version>
+        <spring.boot.version>3.1.5</spring.boot.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <goal>clean</goal>
+                    <goal>install</goal>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven.compiler.plugin.version}</version>
+        </dependency>
+    </dependencies>
     <modules>
         <module>email-service</module>
         <module>web</module>
