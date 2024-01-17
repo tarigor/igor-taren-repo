@@ -102,6 +102,29 @@ A web interface is not required; it is sufficient to implement an API for access
 - Very good code and database design.
 - Confident understanding of the code and project structure
 
+## API
+
+| Menu Item                                                  | ROLE   | Endpoint                                     | Description                                     |
+|------------------------------------------------------------|--------|----------------------------------------------|-------------------------------------------------|
+| user registration                                          | ANY    | `POST /api/any/users`                        | Request body: UserDto                           |
+| get all ads filtered by (SELLER_NAME, RATING, DATE_POSTED) | ANY    | `GET /api/any/ads/{SORT_PARAM}`              | {SORT_PARAM} - SELLER_NAME, RATING, DATE_POSTED |
+| leave comment to certain Ads                               | ANY    | `POST /api/any/ads/comment`                  | Request body: CommentDto                        |
+| get all sellers and their ads sorted by seller rating      | ANY    | `GET /api/any/sellers/ads`                   |                                                 |
+| user modification                                          | ADMIN  | `PUT /api/admin/users`                       | Request body: UserDto                           |
+| get user by ID                                             | ADMIN  | `GET /api/admin/users/{id}`                  | {id} - user ID                                  |
+| get all sellers                                            | ADMIN  | `GET /api/admin/sellers`                     |                                                 |
+| get all buyers                                             | ADMIN  | `GET /api/admin/buyers`                      |                                                 |
+| get sales history of all sellers within the date range     | ADMIN  | `GET /api/admin/sales/{DATE_FROM}/{DATE_TO}` | {DATE_FROM} - date from, {DATE_TO} - date to    |
+| add new Ads                                                | SELLER | `POST /api/seller/ads`                       | Request body: AdsDto                            |
+| edite Ads                                                  | SELLER | `PUT /api/seller/ads`                        | Request body: AdsDto                            |
+| delete Ads                                                 | SELLER | `DELETE /api/seller/ads/{id}`                | {id} - ads ID                                   |
+| pay for placing ads to top                                 | SELLER | `POST /api/seller/ads/top/{id}`              | {id} - ads ID                                   |
+| get all seller sales                                       | SELLER | `GET /api/seller/sales`                      |                                                 |
+| send private message to buyer                              | SELLER | `POST /api/seller/buyer/message`             | Request body: MessageToBuyerDto                 |
+| order ads                                                  | BUYER  | `POST /api/buyer/orders`                     | Request body: OrderDto                          |
+| get all buyer orders                                       | BUYER  | `GET /api/buyer/orders`                      |                                                 |
+| send private message to seller                             | BUYER  | `POST /api/buyer/seller/message`             | Request body: MessageToSellerDto                |
+
 ## DB scheme
 
 ![](ads@localhost.png)
