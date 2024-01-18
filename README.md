@@ -128,4 +128,4 @@ A web interface is not required; it is sufficient to implement an API for access
 
 ## DB scheme
 
-![](advertisement@localhost.png)
+![](ads@localhost.png)
