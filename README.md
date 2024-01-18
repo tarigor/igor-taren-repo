@@ -20,11 +20,12 @@ A web interface is not required; it is sufficient to implement an API for access
 - User registration in the system (user and administrator).
 - Profile editing.
 - View a list of advertisements. Search and filtering.
-- Ability to add/edit/delete ads.
-- Ability to leave comments under ads.
+- Ability to add/edit/delete advertisement.
+- Ability to leave comments under advertisement.
 - Organization of private correspondence between buyer and seller.
 - Ability to pay for placing an ad at the top of the search results.
-- Seller rating system influencing the position of seller ads in search results. The lower the rating, the lower the ad
+- Seller rating system influencing the position of seller advertisement in search results. The lower the rating, the
+  lower the ad
   in the results.
 - User sales history.
 
@@ -107,24 +108,24 @@ A web interface is not required; it is sufficient to implement an API for access
 | Menu Item                                                  | ROLE   | Endpoint                                     | Description                                     |
 |------------------------------------------------------------|--------|----------------------------------------------|-------------------------------------------------|
 | user registration                                          | ANY    | `POST /api/any/users`                        | Request body: UserDto                           |
-| get all ads filtered by (SELLER_NAME, RATING, DATE_POSTED) | ANY    | `GET /api/any/ads/{SORT_PARAM}`              | {SORT_PARAM} - SELLER_NAME, RATING, DATE_POSTED |
-| leave comment to certain Ads                               | ANY    | `POST /api/any/ads/comment`                  | Request body: CommentDto                        |
-| get all sellers and their ads sorted by seller rating      | ANY    | `GET /api/any/sellers/ads`                   |                                                 |
+| get all advertisement filtered by (SELLER_NAME, RATING, DATE_POSTED) | ANY    | `GET /api/any/advertisement/{SORT_PARAM}`              | {SORT_PARAM} - SELLER_NAME, RATING, DATE_POSTED |
+| leave comment to certain Ads                               | ANY    | `POST /api/any/advertisement/comment`                  | Request body: CommentDto                        |
+| get all sellers and their advertisement sorted by seller rating      | ANY    | `GET /api/any/sellers/advertisement`                   |                                                 |
 | user modification                                          | ADMIN  | `PUT /api/admin/users`                       | Request body: UserDto                           |
 | get user by ID                                             | ADMIN  | `GET /api/admin/users/{id}`                  | {id} - user ID                                  |
 | get all sellers                                            | ADMIN  | `GET /api/admin/sellers`                     |                                                 |
 | get all buyers                                             | ADMIN  | `GET /api/admin/buyers`                      |                                                 |
 | get sales history of all sellers within the date range     | ADMIN  | `GET /api/admin/sales/{DATE_FROM}/{DATE_TO}` | {DATE_FROM} - date from, {DATE_TO} - date to    |
-| add new Ads                                                | SELLER | `POST /api/seller/ads`                       | Request body: AdsDto                            |
-| edite Ads                                                  | SELLER | `PUT /api/seller/ads`                        | Request body: AdsDto                            |
-| delete Ads                                                 | SELLER | `DELETE /api/seller/ads/{id}`                | {id} - ads ID                                   |
-| pay for placing ads to top                                 | SELLER | `POST /api/seller/ads/top/{id}`              | {id} - ads ID                                   |
+| add new Ads                                                | SELLER | `POST /api/seller/advertisement`                       | Request body: AdsDto                            |
+| edite Ads                                                  | SELLER | `PUT /api/seller/advertisement`                        | Request body: AdsDto                            |
+| delete Ads                                                 | SELLER | `DELETE /api/seller/advertisement/{id}`                | {id} - advertisement ID                                   |
+| pay for placing advertisement to top                                 | SELLER | `POST /api/seller/advertisement/top/{id}`              | {id} - advertisement ID                                   |
 | get all seller sales                                       | SELLER | `GET /api/seller/sales`                      |                                                 |
 | send private message to buyer                              | SELLER | `POST /api/seller/buyer/message`             | Request body: MessageToBuyerDto                 |
-| order ads                                                  | BUYER  | `POST /api/buyer/orders`                     | Request body: OrderDto                          |
+| order advertisement                                                  | BUYER  | `POST /api/buyer/orders`                     | Request body: OrderDto                          |
 | get all buyer orders                                       | BUYER  | `GET /api/buyer/orders`                      |                                                 |
 | send private message to seller                             | BUYER  | `POST /api/buyer/seller/message`             | Request body: MessageToSellerDto                |
 
 ## DB scheme
 
-![](ads@localhost.png)
+![](advertisement@localhost.png)

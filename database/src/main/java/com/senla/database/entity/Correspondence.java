@@ -14,43 +14,42 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sales")
+@Table(name = "correspondence")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-public class Sale {
+public class Correspondence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private User seller;
+
+    @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
     private User buyer;
 
-    @ManyToOne
-    @JoinColumn(name = "adv_id", nullable = false)
-    private Advertisement advertisement;
-
-    @Column(name = "date", nullable = false)
-    private Date date;
+    @Column(name = "message", columnDefinition = "TEXT")
+    private String message;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Sale sale = (Sale) o;
-        return id.equals(sale.id) && buyer.equals(sale.buyer) && advertisement.equals(sale.advertisement) && date.equals(sale.date);
+        Correspondence that = (Correspondence) o;
+        return id.equals(that.id) && seller.equals(that.seller) && buyer.equals(that.buyer) && message.equals(that.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, buyer, advertisement, date);
+        return Objects.hash(id, seller, buyer, message);
     }
 }

@@ -14,43 +14,38 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sales")
+@Table(name = "seller_rating")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-public class Sale {
+public class SellerRating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "buyer_id", nullable = false)
-    private User buyer;
+    @JoinColumn(name = "seller_id", nullable = false)
+    private User seller;
 
-    @ManyToOne
-    @JoinColumn(name = "adv_id", nullable = false)
-    private Advertisement advertisement;
-
-    @Column(name = "date", nullable = false)
-    private Date date;
+    @Column(name = "rating", nullable = false)
+    private int rating;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Sale sale = (Sale) o;
-        return id.equals(sale.id) && buyer.equals(sale.buyer) && advertisement.equals(sale.advertisement) && date.equals(sale.date);
+        SellerRating that = (SellerRating) o;
+        return rating == that.rating && id.equals(that.id) && seller.equals(that.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, buyer, advertisement, date);
+        return Objects.hash(id, seller, rating);
     }
 }

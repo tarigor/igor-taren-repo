@@ -33,5 +33,4 @@ public class AnyRightsController {
     public List<AdsDto> getAllSellersAds() {
         return null;
     }
-
 }
