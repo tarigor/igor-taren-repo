@@ -29,12 +29,12 @@ public class SellerController {
     }
 
     @DeleteMapping("/ads/{id}")
-    public void deleteAds(@PathVariable int id) {
+    public void deleteAds(@PathVariable long id) {
 
     }
 
     @PostMapping("/ads/top/{id}")
-    public void payForAdsToTop(@PathVariable int id) {
+    public void payForAdsToTop(@PathVariable long id) {
 
     }
 

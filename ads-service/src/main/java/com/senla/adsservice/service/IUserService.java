@@ -1,17 +1,15 @@
 package com.senla.adsservice.service;
 
-import com.senla.database.entity.User;
+import com.senla.adsservice.dto.UserDto;
 
 import java.util.List;
 
 public interface IUserService {
-    User userRegister(User user);
+    UserDto userModify(UserDto userDto);
 
-    User userModify(User user);
+    UserDto getUser(long id);
 
-    User getUser(int id);
+    List<UserDto> findSellers();
 
-    List<User> getSellers();
-
-    List<User> getBuyers();
+    List<UserDto> findBuyers();
 }

@@ -1,6 +1,6 @@
 create table user
 (
-    id         int auto_increment
+    id         bigint auto_increment
         primary key,
     first_name char(50)  not null,
     last_name  char(50)  not null,
@@ -15,11 +15,11 @@ create table user
 
 create table advertisement
 (
-    id          int auto_increment
+    id          bigint auto_increment
         primary key,
-    seller_id   int  not null,
-    adv_message text not null,
-    priority    int  not null,
+    seller_id   bigint not null,
+    adv_message text   not null,
+    priority    int    not null,
     constraint advertisement_id_uindex
         unique (id),
     constraint advertisement_user_id_fk
@@ -28,11 +28,11 @@ create table advertisement
 
 create table sales
 (
-    id       int auto_increment
+    id       bigint auto_increment
         primary key,
-    buyer_id int  not null,
-    adv_id   int  not null,
-    date     date not null,
+    buyer_id bigint not null,
+    adv_id   bigint not null,
+    date     date   not null,
     constraint sales_id_uindex
         unique (id),
     constraint sales_advertisement_id_fk
@@ -43,10 +43,10 @@ create table sales
 
 create table seller_rating
 (
-    id        int auto_increment
+    id        bigint auto_increment
         primary key,
-    seller_id int not null,
-    rating    int not null,
+    seller_id bigint not null,
+    rating    int    not null,
     constraint seller_rating_id_uindex
         unique (id),
     constraint seller_rating_user_id_fk
@@ -55,11 +55,11 @@ create table seller_rating
 
 create table correspondence
 (
-    id        int auto_increment
+    id        bigint auto_increment
         primary key,
-    seller_id int  not null,
-    buyer_id  int  not null,
-    message   text null,
+    seller_id bigint not null,
+    buyer_id  bigint not null,
+    message   text   null,
     constraint correspondence_id_uindex
         unique (id),
     constraint correspondence_user_fk
@@ -70,11 +70,11 @@ create table correspondence
 
 create table adv_comment
 (
-    id                 int auto_increment
+    id                 bigint auto_increment
         primary key,
-    adv_id             int  not null,
-    comment_maker_name text null,
-    comment_text       text null,
+    adv_id             bigint not null,
+    comment_maker_name text   null,
+    comment_text       text   null,
     constraint adv_comment_id_uindex
         unique (id),
     constraint adv_comment_advertisement_id_fk
