@@ -1,10 +1,11 @@
 package com.senla.adsservice.service.impl;
 
+import com.senla.adsdatabase.entity.User;
+import com.senla.adsdatabase.repository.UserRepository;
 import com.senla.adsservice.dto.UserDto;
 import com.senla.adsservice.service.IUserService;
 import com.senla.adsservice.util.EntityDtoMapper;
-import com.senla.database.entity.User;
-import com.senla.database.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static com.senla.adsservice.enums.UserRole.BUYER;
 import static com.senla.adsservice.enums.UserRole.SELLER;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final EntityDtoMapper entityDtoMapper;
@@ -58,5 +60,14 @@ public class UserServiceImpl implements IUserService {
                 .filter(u -> u.getUserType().equals(BUYER.name()))
                 .map(user -> entityDtoMapper.convertFromEntityToDto(user, UserDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto userRegister(UserDto userDto) {
+        List<User> users = userRepository.findAll();
+        if (users.stream().anyMatch(u -> u.getEmail().equals(userDto.getEmail()))) {
+            log.error("An user with such email is already exist");
+        }
+        return entityDtoMapper.convertFromEntityToDto(userRepository.save(entityDtoMapper.convertFromDtoToEntity(userDto, User.class)), UserDto.class);
     }
 }

@@ -12,4 +12,6 @@ public interface IUserService {
     List<UserDto> findSellers();
 
     List<UserDto> findBuyers();
+
+    UserDto userRegister(UserDto userDto);
 }

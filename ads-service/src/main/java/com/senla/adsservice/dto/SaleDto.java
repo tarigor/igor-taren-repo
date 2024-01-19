@@ -1,7 +1,7 @@
 package com.senla.adsservice.dto;
 
-import com.senla.database.entity.Advertisement;
-import com.senla.database.entity.User;
+import com.senla.adsdatabase.entity.Advertisement;
+import com.senla.adsdatabase.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

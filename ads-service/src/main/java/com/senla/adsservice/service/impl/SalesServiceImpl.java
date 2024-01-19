@@ -1,9 +1,9 @@
 package com.senla.adsservice.service.impl;
 
+import com.senla.adsdatabase.repository.SaleRepository;
 import com.senla.adsservice.dto.SaleDto;
 import com.senla.adsservice.service.ISalesService;
 import com.senla.adsservice.util.EntityDtoMapper;
-import com.senla.database.repository.SaleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
