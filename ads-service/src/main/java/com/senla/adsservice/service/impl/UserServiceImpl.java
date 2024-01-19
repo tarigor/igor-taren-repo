@@ -6,8 +6,10 @@ import com.senla.adsservice.dto.UserDto;
 import com.senla.adsservice.service.IUserService;
 import com.senla.adsservice.util.EntityDtoMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -20,10 +22,12 @@ import static com.senla.adsservice.enums.UserRole.SELLER;
 public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final EntityDtoMapper entityDtoMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, EntityDtoMapper entityDtoMapper) {
+    public UserServiceImpl(UserRepository userRepository, EntityDtoMapper entityDtoMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.entityDtoMapper = entityDtoMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -66,8 +70,15 @@ public class UserServiceImpl implements IUserService {
     public UserDto userRegister(UserDto userDto) {
         List<User> users = userRepository.findAll();
         if (users.stream().anyMatch(u -> u.getEmail().equals(userDto.getEmail()))) {
-            log.error("An user with such email is already exist");
+            throw new InvalidParameterException("There is an account with that email address: "
+                    + userDto.getEmail());
         }
-        return entityDtoMapper.convertFromEntityToDto(userRepository.save(entityDtoMapper.convertFromDtoToEntity(userDto, User.class)), UserDto.class);
+        User newUser = new User();
+        newUser.setFirstName(userDto.getFirstName());
+        newUser.setLastName(userDto.getLastName());
+        newUser.setEmail(userDto.getEmail());
+        newUser.setUserRole(userDto.getUserRole());
+        newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        return entityDtoMapper.convertFromEntityToDto(userRepository.save(newUser), UserDto.class);
     }
 }
