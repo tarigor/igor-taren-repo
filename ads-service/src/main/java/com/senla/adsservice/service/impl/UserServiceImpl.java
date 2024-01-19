@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
         userFromDB.setFirstName(userDto.getFirstName());
         userFromDB.setLastName(userDto.getLastName());
         userFromDB.setEmail(userFromDB.getEmail());
-        userFromDB.setUserType(userDto.getUserType());
+        userFromDB.setUserRole(userDto.getUserRole());
         userFromDB.setPassword(userFromDB.getPassword());
         User userSaveToDb = entityDtoMapper.convertFromDtoToEntity(userFromDB, User.class);
         return entityDtoMapper.convertFromEntityToDto(userSaveToDb, UserDto.class);
@@ -48,7 +48,7 @@ public class UserServiceImpl implements IUserService {
     public List<UserDto> findSellers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .filter(u -> u.getUserType().equals(SELLER.name()))
+                .filter(u -> u.getUserRole().equals(SELLER.name()))
                 .map(user -> entityDtoMapper.convertFromEntityToDto(user, UserDto.class))
                 .collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
     public List<UserDto> findBuyers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .filter(u -> u.getUserType().equals(BUYER.name()))
+                .filter(u -> u.getUserRole().equals(BUYER.name()))
                 .map(user -> entityDtoMapper.convertFromEntityToDto(user, UserDto.class))
                 .collect(Collectors.toList());
     }

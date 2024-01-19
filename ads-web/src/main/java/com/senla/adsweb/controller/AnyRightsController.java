@@ -7,6 +7,7 @@ import com.senla.adsservice.enums.AdsSortParameters;
 import com.senla.adsservice.service.IAdvService;
 import com.senla.adsservice.service.IUserService;
 import com.senla.adsservice.validator.annotation.EnumValidator;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class AnyRightsController {
     }
 
     @PostMapping("/users")
-    public UserDto userRegister(@RequestBody UserDto userDto) {
+    public UserDto userRegister(@RequestBody @Valid UserDto userDto) {
         return userService.userRegister(userDto);
     }
 

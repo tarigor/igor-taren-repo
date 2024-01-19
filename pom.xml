@@ -19,6 +19,8 @@
         <spring.boot.version>3.1.5</spring.boot.version>
         <mysql.connector.version>8.1.0</mysql.connector.version>
         <model.mapper.version>3.2.0</model.mapper.version>
+        <spring.security.version>6.1.5</spring.security.version>
+        <java.jwt.version>4.4.0</java.jwt.version>
     </properties>
 
     <build>
@@ -94,6 +96,26 @@
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>${model.mapper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java.jwt.version}</version>
         </dependency>
     </dependencies>
     <modules>

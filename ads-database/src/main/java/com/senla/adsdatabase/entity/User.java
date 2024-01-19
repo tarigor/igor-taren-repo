@@ -38,7 +38,7 @@ public class User {
     private String email;
 
     @Column(name = "user_type", nullable = false, length = 20)
-    private String userType;
+    private String userRole;
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
@@ -48,11 +48,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && userType.equals(user.userType) && password.equals(user.password);
+        return id.equals(user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && userRole.equals(user.userRole) && password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, userType, password);
+        return Objects.hash(id, firstName, lastName, email, userRole, password);
     }
 }
