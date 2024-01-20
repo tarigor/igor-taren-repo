@@ -15,14 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
     private Long id;
-    @NotNull
-    @NotEmpty(message = "The field `First Name` must be not empty")
     @Size(min = 3, max = 30, message = "`First Name` must be between {min} and {max} characters long")
     private String firstName;
-    @NotNull
-    @NotEmpty(message = "The field `Last Name` must be not empty")
     @Size(min = 3, max = 30, message = "`Last Name` must be between {min} and {max} characters long")
     private String lastName;
+    @Size(min = 3, max = 50, message = "`Company Name` must be between {min} and {max} characters long")
+    private String companyName;
     @NotNull
     @NotEmpty(message = "The field `email` must be not empty")
     @Email

@@ -1,14 +1,12 @@
 package com.senla.adsweb.controller;
 
 import com.senla.adsservice.dto.AdsDto;
+import com.senla.adsservice.dto.AdvCommentDto;
 import com.senla.adsservice.dto.AuthenticationRequestDto;
 import com.senla.adsservice.dto.AuthenticationResponseDto;
-import com.senla.adsservice.dto.CommentDto;
 import com.senla.adsservice.dto.UserDto;
-import com.senla.adsservice.enums.AdsSortParameters;
 import com.senla.adsservice.service.IAdvService;
 import com.senla.adsservice.service.IUserService;
-import com.senla.adsservice.validator.annotation.EnumValidator;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,17 +39,18 @@ public class AnyRightsController {
         return userService.userLogin(authenticationRequestDto);
     }
 
-    @GetMapping("/ads/{sortParameter}")
-    public List<AdsDto> getAllAdsSorted(@PathVariable @EnumValidator(targetClassType = AdsSortParameters.class) String sortParameter) {
-        return advService.getAllSortedByParameter(sortParameter);
+    @GetMapping("/ads/{sortParameter}/{sortOrder}")
+    public List<AdsDto> getAllAdsSorted(@PathVariable String sortParameter, @PathVariable String sortOrder) {
+        return advService.getAllSortedByParameter(sortParameter, sortOrder);
     }
 
     @PostMapping("/ads/comment")
-    public void leaveCommentToAds(@RequestBody CommentDto commentDto) {
+    public void leaveCommentToAds(@RequestBody AdvCommentDto advCommentDto) {
+        advService.leaveComment(advCommentDto);
     }
 
     @GetMapping("/sellers/ads")
     public List<AdsDto> getAllSellersAds() {
-        return null;
+        return advService.getAllSellersAds();
     }
 }

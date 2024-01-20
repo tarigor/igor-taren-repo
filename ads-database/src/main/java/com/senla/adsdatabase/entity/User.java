@@ -22,24 +22,20 @@ import java.util.Objects;
 @Getter
 @ToString
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(name = "first_name", length = 50)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", length = 50)
     private String lastName;
-
+    @Column(name = "company_name", length = 50)
+    private String companyName;
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
-
     @Column(name = "user_type", nullable = false, length = 20)
     private String userRole;
-
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
@@ -48,11 +44,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && userRole.equals(user.userRole) && password.equals(user.password);
+        return id.equals(user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && companyName.equals(user.companyName) && email.equals(user.email) && userRole.equals(user.userRole) && password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, userRole, password);
+        return Objects.hash(id, firstName, lastName, companyName, email, userRole, password);
     }
 }
