@@ -1,4 +1,4 @@
-package com.senla.adssecurity.dto;
+package com.senla.adsservice.dto;
 
 import lombok.Getter;
 import lombok.Setter;

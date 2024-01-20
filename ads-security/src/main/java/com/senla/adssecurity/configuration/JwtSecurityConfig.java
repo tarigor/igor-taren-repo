@@ -16,9 +16,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.senla.adsservice.enums.UserRole.ADMIN;
-import static com.senla.adsservice.enums.UserRole.BUYER;
-import static com.senla.adsservice.enums.UserRole.SELLER;
+import static com.senla.adssecurity.enums.UserRole.ADMIN;
+import static com.senla.adssecurity.enums.UserRole.BUYER;
+import static com.senla.adssecurity.enums.UserRole.SELLER;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -47,14 +47,7 @@ public class JwtSecurityConfig {
                         .requestMatchers("/api/any/**").permitAll()
                         .requestMatchers("/api/seller/**").hasAuthority(SELLER.name())
                         .requestMatchers("/api/buyer/**").hasAuthority(BUYER.name())
-                        .requestMatchers(
-                                "/api/admin/**",
-                                "/bookings/**",
-                                "/guests/**",
-                                "/guestservices/**",
-                                "/rooms/**",
-                                "/roomservices/**"
-                        ).hasAuthority(ADMIN.name()))
+                        .requestMatchers("/api/admin/**").hasAuthority(ADMIN.name()))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()

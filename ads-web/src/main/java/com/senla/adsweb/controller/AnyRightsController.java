@@ -1,6 +1,8 @@
 package com.senla.adsweb.controller;
 
 import com.senla.adsservice.dto.AdsDto;
+import com.senla.adsservice.dto.AuthenticationRequestDto;
+import com.senla.adsservice.dto.AuthenticationResponseDto;
 import com.senla.adsservice.dto.CommentDto;
 import com.senla.adsservice.dto.UserDto;
 import com.senla.adsservice.enums.AdsSortParameters;
@@ -32,6 +34,11 @@ public class AnyRightsController {
     @PostMapping("/users")
     public UserDto userRegister(@RequestBody @Valid UserDto userDto) {
         return userService.userRegister(userDto);
+    }
+
+    @GetMapping("/users")
+    public AuthenticationResponseDto userLogin(@RequestBody @Valid AuthenticationRequestDto authenticationRequestDto) {
+        return userService.userLogin(authenticationRequestDto);
     }
 
     @GetMapping("/ads/{sortParameter}")

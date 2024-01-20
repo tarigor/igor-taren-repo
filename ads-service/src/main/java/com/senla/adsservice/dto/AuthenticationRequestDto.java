@@ -1,7 +1,5 @@
-package com.senla.adssecurity.dto;
+package com.senla.adsservice.dto;
 
-import com.senla.adsservice.enums.UserRole;
-import com.senla.adsservice.validator.annotation.EnumValidator;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -15,7 +13,4 @@ public class AuthenticationRequestDto {
     @NotNull
     @Size(max = 255)
     private String password;
-
-    @EnumValidator(targetClassType = UserRole.class)
-    private String role;
 }

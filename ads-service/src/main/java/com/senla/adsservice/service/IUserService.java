@@ -1,5 +1,7 @@
 package com.senla.adsservice.service;
 
+import com.senla.adsservice.dto.AuthenticationRequestDto;
+import com.senla.adsservice.dto.AuthenticationResponseDto;
 import com.senla.adsservice.dto.UserDto;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface IUserService {
     List<UserDto> findBuyers();
 
     UserDto userRegister(UserDto userDto);
+
+    AuthenticationResponseDto userLogin(AuthenticationRequestDto authenticationRequestDto);
 }

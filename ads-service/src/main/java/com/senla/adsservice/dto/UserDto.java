@@ -34,4 +34,9 @@ public class UserDto {
     @NotNull(message = "The field `password` must be not empty")
     @NotEmpty
     private String password;
+
+    public UserDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
