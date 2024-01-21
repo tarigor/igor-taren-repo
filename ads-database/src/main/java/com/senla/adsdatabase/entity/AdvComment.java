@@ -31,7 +31,7 @@ public class AdvComment {
 
     @ManyToOne
     @JoinColumn(name = "adv_id", nullable = false)
-    private Advertisement advertisement;
+    private Adv adv;
 
     @Column(name = "comment_maker_name")
     private String commentMakerName;
@@ -44,11 +44,11 @@ public class AdvComment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AdvComment that = (AdvComment) o;
-        return id.equals(that.id) && advertisement.equals(that.advertisement) && commentMakerName.equals(that.commentMakerName) && commentText.equals(that.commentText);
+        return id.equals(that.id) && adv.equals(that.adv) && commentMakerName.equals(that.commentMakerName) && commentText.equals(that.commentText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, advertisement, commentMakerName, commentText);
+        return Objects.hash(id, adv, commentMakerName, commentText);
     }
 }

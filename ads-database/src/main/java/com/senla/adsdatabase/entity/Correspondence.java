@@ -40,6 +40,12 @@ public class Correspondence {
     @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 
+    public Correspondence(User seller, User buyer, String message) {
+        this.seller = seller;
+        this.buyer = buyer;
+        this.message = message;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,10 +1,10 @@
 package com.senla.adsservice.service.impl;
 
+import com.senla.adsdatabase.entity.Adv;
 import com.senla.adsdatabase.entity.AdvComment;
-import com.senla.adsdatabase.entity.Advertisement;
 import com.senla.adsdatabase.repository.AdvCommentRepository;
-import com.senla.adsdatabase.repository.AdvertisementRepository;
-import com.senla.adsdatabase.repository.SaleRepository;
+import com.senla.adsdatabase.repository.AdvRepository;
+import com.senla.adsdatabase.repository.OrderRepository;
 import com.senla.adsdatabase.repository.SellerRatingRepository;
 import com.senla.adsservice.dto.AdsDto;
 import com.senla.adsservice.dto.AdvCommentDto;
@@ -25,28 +25,28 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AdsServiceImpl implements IAdvService {
 
-    private final AdvertisementRepository advertisementRepository;
+    private final AdvRepository advRepository;
     private final SellerRatingRepository sellerRatingRepository;
     private final EntityDtoMapper entityDtoMapper;
     private final AdvCommentRepository advCommentRepository;
-    private final SaleRepository saleRepository;
+    private final OrderRepository orderRepository;
 
-    public AdsServiceImpl(AdvertisementRepository advertisementRepository,
+    public AdsServiceImpl(AdvRepository advRepository,
                           SellerRatingRepository sellerRatingRepository,
                           EntityDtoMapper entityDtoMapper,
                           AdvCommentRepository advCommentRepository,
-                          SaleRepository saleRepository) {
-        this.advertisementRepository = advertisementRepository;
+                          OrderRepository orderRepository) {
+        this.advRepository = advRepository;
         this.sellerRatingRepository = sellerRatingRepository;
         this.entityDtoMapper = entityDtoMapper;
         this.advCommentRepository = advCommentRepository;
-        this.saleRepository = saleRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public List<AdsDto> getAllSortedByParameter(@EnumValidator(targetClassType = AdsSortParameters.class) String adsSortParameter,
                                                 @EnumValidator(targetClassType = Ordering.class) String sortOrder) {
-        return advertisementRepository.findAll().stream()
+        return advRepository.findAll().stream()
                 .sorted(getComparator(AdsSortParameters.valueOf(adsSortParameter), Ordering.valueOf(sortOrder)))
                 .map(ads -> entityDtoMapper.convertFromEntityToDto(ads, AdsDto.class))
                 .collect(Collectors.toList());
@@ -59,16 +59,24 @@ public class AdsServiceImpl implements IAdvService {
 
     @Override
     public List<AdsDto> getAllSellersAds() {
-        return advertisementRepository.findAll().stream()
+        return advRepository.findAll().stream()
                 .map(a -> entityDtoMapper.convertFromEntityToDto(a, AdsDto.class))
                 .collect(Collectors.toList());
     }
 
-    private Comparator<? super Advertisement> getComparator(AdsSortParameters adsSortParameter, Ordering sortOrder) {
-        Comparator<Advertisement> comparator = null;
+    @Override
+    public AdsDto getAdsById(long id) {
+        return entityDtoMapper.convertFromEntityToDto(
+                advRepository
+                        .findById(id)
+                        .orElseThrow(() -> new NoSuchElementException("there is no such a ads with id -> " + id)), AdsDto.class);
+    }
+
+    private Comparator<? super Adv> getComparator(AdsSortParameters adsSortParameter, Ordering sortOrder) {
+        Comparator<Adv> comparator = null;
         switch (adsSortParameter) {
             case SELLER_NAME -> comparator = Comparator.comparing(a -> a.getSeller().getCompanyName());
-            case PRIORITY -> comparator = Comparator.comparing(Advertisement::getPriority);
+            case PRIORITY -> comparator = Comparator.comparing(Adv::getPriority);
             case SELLER_RATING -> comparator = Comparator.comparing(
                     a -> sellerRatingRepository.findById(a.getSeller().getId())
                             .orElseThrow(() -> new NoSuchElementException("there is no such a user with id->" + a.getSeller().getId()))

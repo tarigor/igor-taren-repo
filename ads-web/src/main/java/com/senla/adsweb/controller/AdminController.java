@@ -1,8 +1,8 @@
 package com.senla.adsweb.controller;
 
-import com.senla.adsservice.dto.SaleDto;
+import com.senla.adsservice.dto.OrderDto;
 import com.senla.adsservice.dto.UserDto;
-import com.senla.adsservice.service.ISalesService;
+import com.senla.adsservice.service.IOrderService;
 import com.senla.adsservice.service.IUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +18,11 @@ import java.util.List;
 public class AdminController {
 
     private final IUserService userService;
-    private final ISalesService salesService;
+    private final IOrderService orderService;
 
-    public AdminController(IUserService userService, ISalesService salesService) {
+    public AdminController(IUserService userService, IOrderService orderService) {
         this.userService = userService;
-        this.salesService = salesService;
+        this.orderService = orderService;
     }
 
     @PutMapping("/users")
@@ -46,7 +46,7 @@ public class AdminController {
     }
 
     @GetMapping("/sales/{dateFrom}/{dateTo}")
-    public List<SaleDto> getSalesHistory(@PathVariable String dateFrom, @PathVariable String dateTo) {
-        return salesService.getSaleHistoryByDate(dateFrom, dateTo);
+    public List<OrderDto> getSalesHistory(@PathVariable String dateFrom, @PathVariable String dateTo) {
+        return orderService.getSaleHistoryByDate(dateFrom, dateTo);
     }
 }

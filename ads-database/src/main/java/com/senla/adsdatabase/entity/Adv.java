@@ -17,13 +17,13 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Entity
-@Table(name = "advertisement")
+@Table(name = "adv")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-public class Advertisement {
+public class Adv {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class Advertisement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Advertisement that = (Advertisement) o;
+        Adv that = (Adv) o;
         return priority == that.priority && id.equals(that.id) && seller.equals(that.seller) && advMessage.equals(that.advMessage);
     }
 

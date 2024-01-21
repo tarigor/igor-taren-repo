@@ -12,4 +12,6 @@ public interface IAdvService {
     void leaveComment(AdvCommentDto advCommentDto);
 
     List<AdsDto> getAllSellersAds();
+
+    AdsDto getAdsById(long id);
 }

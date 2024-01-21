@@ -1,5 +1,6 @@
 package com.senla.adsservice.service;
 
+import com.senla.adsdatabase.entity.User;
 import com.senla.adsservice.dto.AuthenticationRequestDto;
 import com.senla.adsservice.dto.AuthenticationResponseDto;
 import com.senla.adsservice.dto.UserDto;
@@ -18,4 +19,6 @@ public interface IUserService {
     UserDto userRegister(UserDto userDto);
 
     AuthenticationResponseDto userLogin(AuthenticationRequestDto authenticationRequestDto);
+
+    User findUserByEmail(String email);
 }

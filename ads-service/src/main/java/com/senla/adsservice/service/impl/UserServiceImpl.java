@@ -119,4 +119,9 @@ public class UserServiceImpl implements IUserService {
         log.info("user token -> {} valid -> {}", authenticationResponse.getAccessToken(), authenticationResponse.getExpirationTime());
         return authenticationResponse;
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email).orElseThrow(() -> new NoSuchElementException("there is no such a user with email->" + email));
+    }
 }

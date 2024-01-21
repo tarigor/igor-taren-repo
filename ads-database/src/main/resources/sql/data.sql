@@ -13,7 +13,7 @@ create table user
         unique (id)
 );
 
-create table advertisement
+create table adv
 (
     id          bigint auto_increment
         primary key,
@@ -36,7 +36,7 @@ create table sales
     constraint sales_id_uindex
         unique (id),
     constraint sales_advertisement_id_fk
-        foreign key (adv_id) references advertisement (id),
+        foreign key (adv_id) references adv (id),
     constraint sales_user_id_fk
         foreign key (buyer_id) references user (id)
 );
@@ -78,5 +78,5 @@ create table adv_comment
     constraint adv_comment_id_uindex
         unique (id),
     constraint adv_comment_advertisement_id_fk
-        foreign key (adv_id) references advertisement (id)
+        foreign key (adv_id) references adv (id)
 );
