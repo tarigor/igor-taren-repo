@@ -1,7 +1,7 @@
 package com.senla.adsweb.controller;
 
-import com.senla.adsservice.dto.AdsDto;
 import com.senla.adsservice.dto.AdvCommentDto;
+import com.senla.adsservice.dto.AdvDto;
 import com.senla.adsservice.dto.AuthenticationRequestDto;
 import com.senla.adsservice.dto.AuthenticationResponseDto;
 import com.senla.adsservice.dto.UserDto;
@@ -40,17 +40,17 @@ public class AnyRightsController {
     }
 
     @GetMapping("/ads/{sortParameter}/{sortOrder}")
-    public List<AdsDto> getAllAdsSorted(@PathVariable String sortParameter, @PathVariable String sortOrder) {
+    public List<AdvDto> getAllAdsSorted(@PathVariable String sortParameter, @PathVariable String sortOrder) {
         return advService.getAllSortedByParameter(sortParameter, sortOrder);
     }
 
     @PostMapping("/ads/comment")
-    public void leaveCommentToAds(@RequestBody AdvCommentDto advCommentDto) {
+    public void leaveCommentToAds(@RequestBody @Valid AdvCommentDto advCommentDto) {
         advService.leaveComment(advCommentDto);
     }
 
     @GetMapping("/sellers/ads")
-    public List<AdsDto> getAllSellersAds() {
+    public List<AdvDto> getAllSellersAds() {
         return advService.getAllSellersAds();
     }
 }

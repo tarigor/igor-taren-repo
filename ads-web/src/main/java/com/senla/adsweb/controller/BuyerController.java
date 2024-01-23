@@ -5,6 +5,7 @@ import com.senla.adsservice.dto.OrderDto;
 import com.senla.adsservice.service.ICorrespondenceService;
 import com.senla.adsservice.service.IOrderService;
 import com.senla.adsservice.service.impl.OrderServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class BuyerController {
     }
 
     @PostMapping("/orders")
-    public OrderDto orderAds(@RequestBody OrderDto orderDto) {
+    public OrderDto orderAds(@RequestBody @Valid OrderDto orderDto) {
         return orderService.orderAds(orderDto);
     }
 
@@ -36,7 +37,7 @@ public class BuyerController {
     }
 
     @PostMapping("/seller/message")
-    public MessageToSellerDto sendMessageToSeller(@RequestBody MessageToSellerDto messageToSellerDto) {
+    public MessageToSellerDto sendMessageToSeller(@RequestBody @Valid MessageToSellerDto messageToSellerDto) {
         return correspondenceService.sendMessageToSeller(messageToSellerDto);
     }
 }

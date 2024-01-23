@@ -4,6 +4,7 @@ import com.senla.adsservice.dto.OrderDto;
 import com.senla.adsservice.dto.UserDto;
 import com.senla.adsservice.service.IOrderService;
 import com.senla.adsservice.service.IUserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +27,7 @@ public class AdminController {
     }
 
     @PutMapping("/users")
-    public UserDto userModify(@RequestBody UserDto userDto) {
+    public UserDto userModify(@RequestBody @Valid UserDto userDto) {
         return userService.userModify(userDto);
     }
 
@@ -45,7 +46,7 @@ public class AdminController {
         return userService.findBuyers();
     }
 
-    @GetMapping("/sales/{dateFrom}/{dateTo}")
+    @GetMapping("/orders/{dateFrom}/{dateTo}")
     public List<OrderDto> getSalesHistory(@PathVariable String dateFrom, @PathVariable String dateTo) {
         return orderService.getSaleHistoryByDate(dateFrom, dateTo);
     }

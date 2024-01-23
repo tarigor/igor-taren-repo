@@ -60,7 +60,7 @@ public class UserServiceImpl implements IUserService {
         userFromDB.setUserRole(userDto.getUserRole());
         userFromDB.setPassword(userFromDB.getPassword());
         User userSaveToDb = entityDtoMapper.convertFromDtoToEntity(userFromDB, User.class);
-        return entityDtoMapper.convertFromEntityToDto(userSaveToDb, UserDto.class);
+        return entityDtoMapper.convertFromEntityToDto(userRepository.save(userSaveToDb), UserDto.class);
     }
 
     @Override

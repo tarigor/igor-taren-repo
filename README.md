@@ -105,27 +105,27 @@ A web interface is not required; it is sufficient to implement an API for access
 
 ## API
 
-| Menu Item                                                            | ROLE   | Endpoint                                     | Description                                     |
-|----------------------------------------------------------------------|--------|----------------------------------------------|-------------------------------------------------|
-| user registration                                                    | ANY    | `POST /api/any/users`                        | Request body: UserDto                           |
-| user login                                                           | ANY    | `GET /api/any/users`                         | Request body: AuthenticationRequestDto          |
-| get all adv filtered by (SELLER_NAME, RATING, DATE_POSTED) | ANY    | `GET /api/any/adv/{SORT_PARAM}`    | {SORT_PARAM} - SELLER_NAME, RATING, DATE_POSTED |
-| leave comment to certain Ads                                         | ANY    | `POST /api/any/adv/comment`        | Request body: CommentDto                        |
-| get all sellers and their adv sorted by seller rating      | ANY    | `GET /api/any/sellers/adv`         |                                                 |
-| user modification                                                    | ADMIN  | `PUT /api/admin/users`                       | Request body: UserDto                           |
-| get user by ID                                                       | ADMIN  | `GET /api/admin/users/{id}`                  | {id} - user ID                                  |
-| get all sellers                                                      | ADMIN  | `GET /api/admin/sellers`                     |                                                 |
-| get all buyers                                                       | ADMIN  | `GET /api/admin/buyers`                      |                                                 |
-| get sales history of all sellers within the date range               | ADMIN  | `GET /api/admin/sales/{DATE_FROM}/{DATE_TO}` | {DATE_FROM} - date from, {DATE_TO} - date to    |
-| add new Ads                                                          | SELLER | `POST /api/seller/adv`             | Request body: AdsDto                            |
-| edite Ads                                                            | SELLER | `PUT /api/seller/adv`              | Request body: AdsDto                            |
-| delete Ads                                                           | SELLER | `DELETE /api/seller/adv/{id}`      | {id} - adv ID                         |
-| pay for placing adv to top                                 | SELLER | `POST /api/seller/adv/top/{id}`    | {id} - adv ID                         |
-| get all seller sales                                                 | SELLER | `GET /api/seller/sales`                      |                                                 |
-| send private message to buyer                                        | SELLER | `POST /api/seller/buyer/message`             | Request body: MessageToBuyerDto                 |
-| order adv                                                  | BUYER  | `POST /api/buyer/orders`                     | Request body: OrderDto                          |
-| get all buyer orders                                                 | BUYER  | `GET /api/buyer/orders`                      |                                                 |
-| send private message to seller                                       | BUYER  | `POST /api/buyer/seller/message`             | Request body: MessageToSellerDto                |
+| Menu Item                                                  | ROLE   | Endpoint                                      | Description                                     |
+|------------------------------------------------------------|--------|-----------------------------------------------|-------------------------------------------------|
+| user registration                                          | ANY    | `POST /api/any/users`                         | Request body: UserDto                           |
+| user login                                                 | ANY    | `GET /api/any/users`                          | Request body: AuthenticationRequestDto          |
+| get all adv filtered by (SELLER_NAME, RATING, DATE_POSTED) | ANY    | `GET /api/any/adv/{SORT_PARAM}`               | {SORT_PARAM} - SELLER_NAME, RATING, DATE_POSTED |
+| leave comment to certain Adv                               | ANY    | `POST /api/any/adv/comment`                   | Request body: CommentDto                        |
+| get all sellers and their adv sorted by seller rating      | ANY    | `GET /api/any/sellers/adv`                    |                                                 |
+| user modification                                          | ADMIN  | `PUT /api/admin/users`                        | Request body: UserDto                           |
+| get user by ID                                             | ADMIN  | `GET /api/admin/users/{id}`                   | {id} - user ID                                  |
+| get all sellers                                            | ADMIN  | `GET /api/admin/sellers`                      |                                                 |
+| get all buyers                                             | ADMIN  | `GET /api/admin/buyers`                       |                                                 |
+| get sales history of all sellers within the date range     | ADMIN  | `GET /api/admin/orders/{DATE_FROM}/{DATE_TO}` | {DATE_FROM} - date from, {DATE_TO} - date to    |
+| add new Adv                                                | SELLER | `POST /api/seller/adv`                        | Request body: AdvDto                            |
+| edite Adv                                                  | SELLER | `PUT /api/seller/adv`                         | Request body: AdvDto                            |
+| delete Adv                                                 | SELLER | `DELETE /api/seller/adv/{id}`                 | {id} - adv ID                                   |
+| pay for placing adv to top                                 | SELLER | `POST /api/seller/adv/top/{id}`               | {id} - adv ID                                   |
+| get all seller sales                                       | SELLER | `GET /api/seller/sales`                       |                                                 |
+| send private message to buyer                              | SELLER | `POST /api/seller/buyer/message`              | Request body: MessageToBuyerDto                 |
+| order adv                                                  | BUYER  | `POST /api/buyer/orders`                      | Request body: OrderDto                          |
+| get all buyer orders                                       | BUYER  | `GET /api/buyer/orders`                       |                                                 |
+| send private message to seller                             | BUYER  | `POST /api/buyer/seller/message`              | Request body: MessageToSellerDto                |
 
 ## DB scheme
 

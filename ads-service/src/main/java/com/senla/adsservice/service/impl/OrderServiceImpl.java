@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class OrderServiceImpl implements IOrderService {
-    public static final String PATTERN = "MMM d, yyyy, hh:mm:ss a";
+    public static final String PATTERN = "dd.MM.yyyy HH:mm";
     private final OrderRepository orderRepository;
     private final EntityDtoMapper entityDtoMapper;
     private final IAdvService advService;
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements IOrderService {
 
     public OrderServiceImpl(OrderRepository orderRepository,
                             EntityDtoMapper entityDtoMapper,
-                            AdsServiceImpl advService,
+                            AdvServiceImpl advService,
                             UserServiceImpl userService) {
         this.orderRepository = orderRepository;
         this.entityDtoMapper = entityDtoMapper;
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements IOrderService {
         User buyer = entityDtoMapper.convertFromDtoToEntity(userService.findUserByEmail(userName), User.class);
         Adv adv = entityDtoMapper.convertFromDtoToEntity(advService.getAdsById(orderDto.getAdvId()), Adv.class);
         Order orderSaved = orderRepository.save(new Order(buyer, adv, LocalDate.now()));
-        return new OrderDto(orderSaved.getAdv().getId(), orderSaved.getDate());
+        return new OrderDto(orderSaved.getAdv().getId(), orderSaved.getAdv().getSeller().getId(), orderSaved.getDate());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements IOrderService {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         return orderRepository.findAll().stream()
                 .filter(o -> o.getBuyer().getEmail().equals(userName))
-                .map(o -> new OrderDto(o.getAdv().getId(), o.getDate()))
+                .map(o -> new OrderDto(o.getAdv().getId(), o.getAdv().getSeller().getId(), o.getDate()))
                 .collect(Collectors.toList());
     }
 
@@ -76,5 +76,15 @@ public class OrderServiceImpl implements IOrderService {
             log.error("an error occurred during a parse operation -> {}", e.getMessage());
         }
         return date;
+    }
+
+    @Override
+    public List<OrderDto> getSales() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User seller = entityDtoMapper.convertFromDtoToEntity(userService.findUserByEmail(userName), User.class);
+        return orderRepository.findAll().stream()
+                .filter(o -> o.getAdv().getSeller().getEmail().equals(seller.getEmail()))
+                .map(o -> new OrderDto(o.getAdv().getId(), o.getBuyer().getId(), o.getDate()))
+                .collect(Collectors.toList());
     }
 }

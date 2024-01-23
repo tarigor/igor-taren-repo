@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "adv")
 @AllArgsConstructor
@@ -37,18 +35,33 @@ public class Adv {
     private String advMessage;
 
     @Column(name = "priority", nullable = false)
-    private int priority;
+    private boolean priority;
+
+    public Adv(User seller, String advMessage, boolean priority) {
+        this.seller = seller;
+        this.advMessage = advMessage;
+        this.priority = priority;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Adv that = (Adv) o;
-        return priority == that.priority && id.equals(that.id) && seller.equals(that.seller) && advMessage.equals(that.advMessage);
+
+        Adv adv = (Adv) o;
+
+        if (priority != adv.priority) return false;
+        if (!id.equals(adv.id)) return false;
+        if (!seller.equals(adv.seller)) return false;
+        return advMessage.equals(adv.advMessage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, seller, advMessage, priority);
+        int result = id.hashCode();
+        result = 31 * result + seller.hashCode();
+        result = 31 * result + advMessage.hashCode();
+        result = 31 * result + (priority ? 1 : 0);
+        return result;
     }
 }

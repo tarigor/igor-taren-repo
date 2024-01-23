@@ -10,4 +10,6 @@ public interface IOrderService {
     OrderDto orderAds(OrderDto orderDto);
 
     List<OrderDto> getOrders();
+
+    List<OrderDto> getSales();
 }

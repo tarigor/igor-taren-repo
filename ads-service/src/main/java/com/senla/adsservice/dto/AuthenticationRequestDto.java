@@ -1,16 +1,16 @@
 package com.senla.adsservice.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
 public class AuthenticationRequestDto {
-    @NotNull
-    @Size(max = 255)
+    @NotEmpty
+    @Size(min = 3, max = 255, message = "`login` must be between {min} and {max} characters long")
     private String login;
 
-    @NotNull
-    @Size(max = 255)
+    @NotEmpty
+    @Size(min = 5, max = 20, message = "`password` must be between {min} and {max} characters long")
     private String password;
 }
