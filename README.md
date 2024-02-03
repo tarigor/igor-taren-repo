@@ -130,3 +130,10 @@ A web interface is not required; it is sufficient to implement an API for access
 ## DB scheme
 
 ![](ads@localhost.png)
+
+#### application start
+
+- start tomcat(10.1.15) -> catalina.bat start
+- _mvn clean install_
+- _mvn -pl ads-web tomcat7:deploy_
+- use API above 
